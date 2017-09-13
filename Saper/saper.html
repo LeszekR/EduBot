@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="saper.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="saper.css">
+
+    </head>
+    <body onload="init()">
+        <div>
+            <div id="menu">
+                <div id="opisy">
+                    <div><label class="opisPola" for="txRyzyko">Poziom ryzyka</label></div>
+                    <div><label class="opisPola" for="boardSize">Rozmiar planszy</label></div>
+                </div>
+                <div id="polaText">
+                    <div><input type="text" id="txRyzyko" autofocus></div>
+                    <div><input type="text" id="boardSize" onchange="generateNewBoard()"></div>
+                </div>
+            </div>
+
+            <div id="gra">
+                <div><input type="button" value="Generuj planszę" accesskey="g" onclick="generateNewBoard()"></div>
+                <div id="lewy" style="float:left"></div>
+                <div id="board"  style="float:left"></div>
+                <div id="prawy"  style="float:left"></div>
+            </div>
+
+        </div>
+
+
+    </body>
+</html>

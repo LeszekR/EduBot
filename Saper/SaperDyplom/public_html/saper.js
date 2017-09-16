@@ -1,5 +1,3 @@
-/* 
- */
 
 var board;
 var size = 5;

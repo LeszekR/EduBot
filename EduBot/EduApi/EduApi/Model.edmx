@@ -1,0 +1,512 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="edumaticModel.Store" Provider="Npgsql" ProviderManifestToken="9.6.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="distractor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="type" Type="varchar" MaxLength="8000" Nullable="false" />
+          <Property Name="distr_content" Type="varchar" MaxLength="8000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="edumodule">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_group" Type="int2" />
+          <Property Name="difficulty" Type="varchar" MaxLength="8000" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="8000" Nullable="false" />
+          <Property Name="content" Type="varchar" MaxLength="8000" Nullable="false" />
+          <Property Name="example" Type="varchar" MaxLength="8000" />
+          <Property Name="test_type" Type="varchar" MaxLength="8000" />
+          <Property Name="test_task" Type="varchar" MaxLength="8000" />
+          <Property Name="test_answer" Type="varchar" MaxLength="8000" />
+        </EntityType>
+        <EntityType Name="edumodule_gamecontext">
+          <Key>
+            <PropertyRef Name="edumodule_id" />
+          </Key>
+          <Property Name="edumodule_id" Type="int4" Nullable="false" />
+          <Property Name="game_score" Type="int4" Nullable="false" />
+          <Property Name="game_content" Type="varchar" MaxLength="8000" />
+        </EntityType>
+        <EntityType Name="enum_diff_levels">
+          <Key>
+            <PropertyRef Name="difficulty" />
+          </Key>
+          <Property Name="difficulty" Type="varchar" MaxLength="8000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="enum_test_types">
+          <Key>
+            <PropertyRef Name="type" />
+          </Key>
+          <Property Name="type" Type="varchar" MaxLength="8000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="login" Type="varchar" MaxLength="8000" />
+          <Property Name="score" Type="int4" />
+          <Property Name="is_teacher" Type="bool" />
+        </EntityType>
+        <EntityType Name="user_distractor">
+          <Key>
+            <PropertyRef Name="user_id" />
+            <PropertyRef Name="distractor_id" />
+          </Key>
+          <Property Name="user_id" Type="int4" Nullable="false" />
+          <Property Name="distractor_id" Type="int4" Nullable="false" />
+          <Property Name="time_last_used" Type="timestamp" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user_edumodule">
+          <Key>
+            <PropertyRef Name="user_id" />
+            <PropertyRef Name="edumodule_id" />
+          </Key>
+          <Property Name="user_id" Type="int4" Nullable="false" />
+          <Property Name="edumodule_id" Type="int4" Nullable="false" />
+          <Property Name="result" Type="bool" Nullable="false" />
+        </EntityType>
+        <Association Name="edumodule_difficulty_fkey">
+          <End Role="enum_diff_levels" Type="Self.enum_diff_levels" Multiplicity="1" />
+          <End Role="edumodule" Type="Self.edumodule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="enum_diff_levels">
+              <PropertyRef Name="difficulty" />
+            </Principal>
+            <Dependent Role="edumodule">
+              <PropertyRef Name="difficulty" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="edumodule_gamecontext_edumodule_id_fkey">
+          <End Role="edumodule" Type="Self.edumodule" Multiplicity="1" />
+          <End Role="edumodule_gamecontext" Type="Self.edumodule_gamecontext" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="edumodule">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="edumodule_gamecontext">
+              <PropertyRef Name="edumodule_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="edumodule_test_type_fkey">
+          <End Role="enum_test_types" Type="Self.enum_test_types" Multiplicity="0..1" />
+          <End Role="edumodule" Type="Self.edumodule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="enum_test_types">
+              <PropertyRef Name="type" />
+            </Principal>
+            <Dependent Role="edumodule">
+              <PropertyRef Name="test_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="user_distractor_distractor_id_fkey">
+          <End Role="distractor" Type="Self.distractor" Multiplicity="1" />
+          <End Role="user_distractor" Type="Self.user_distractor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="distractor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="user_distractor">
+              <PropertyRef Name="distractor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="user_distractor_user_id_fkey">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="user_distractor" Type="Self.user_distractor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="user_distractor">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="user_edumodule_edumodule_id_fkey">
+          <End Role="edumodule" Type="Self.edumodule" Multiplicity="1" />
+          <End Role="user_edumodule" Type="Self.user_edumodule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="edumodule">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="user_edumodule">
+              <PropertyRef Name="edumodule_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="user_edumodule_user_id_fkey">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="user_edumodule" Type="Self.user_edumodule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="user_edumodule">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="edumaticModelStoreContainer">
+          <EntitySet Name="distractor" EntityType="Self.distractor" Schema="public" store:Type="Tables" />
+          <EntitySet Name="edumodule" EntityType="Self.edumodule" Schema="public" store:Type="Tables" />
+          <EntitySet Name="edumodule_gamecontext" EntityType="Self.edumodule_gamecontext" Schema="public" store:Type="Tables" />
+          <EntitySet Name="enum_diff_levels" EntityType="Self.enum_diff_levels" Schema="public" store:Type="Tables" />
+          <EntitySet Name="enum_test_types" EntityType="Self.enum_test_types" Schema="public" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="public" store:Type="Tables" />
+          <EntitySet Name="user_distractor" EntityType="Self.user_distractor" Schema="public" store:Type="Tables" />
+          <EntitySet Name="user_edumodule" EntityType="Self.user_edumodule" Schema="public" store:Type="Tables" />
+          <AssociationSet Name="edumodule_difficulty_fkey" Association="Self.edumodule_difficulty_fkey">
+            <End Role="enum_diff_levels" EntitySet="enum_diff_levels" />
+            <End Role="edumodule" EntitySet="edumodule" />
+          </AssociationSet>
+          <AssociationSet Name="edumodule_gamecontext_edumodule_id_fkey" Association="Self.edumodule_gamecontext_edumodule_id_fkey">
+            <End Role="edumodule" EntitySet="edumodule" />
+            <End Role="edumodule_gamecontext" EntitySet="edumodule_gamecontext" />
+          </AssociationSet>
+          <AssociationSet Name="edumodule_test_type_fkey" Association="Self.edumodule_test_type_fkey">
+            <End Role="enum_test_types" EntitySet="enum_test_types" />
+            <End Role="edumodule" EntitySet="edumodule" />
+          </AssociationSet>
+          <AssociationSet Name="user_distractor_distractor_id_fkey" Association="Self.user_distractor_distractor_id_fkey">
+            <End Role="distractor" EntitySet="distractor" />
+            <End Role="user_distractor" EntitySet="user_distractor" />
+          </AssociationSet>
+          <AssociationSet Name="user_distractor_user_id_fkey" Association="Self.user_distractor_user_id_fkey">
+            <End Role="user" EntitySet="user" />
+            <End Role="user_distractor" EntitySet="user_distractor" />
+          </AssociationSet>
+          <AssociationSet Name="user_edumodule_edumodule_id_fkey" Association="Self.user_edumodule_edumodule_id_fkey">
+            <End Role="edumodule" EntitySet="edumodule" />
+            <End Role="user_edumodule" EntitySet="user_edumodule" />
+          </AssociationSet>
+          <AssociationSet Name="user_edumodule_user_id_fkey" Association="Self.user_edumodule_user_id_fkey">
+            <End Role="user" EntitySet="user" />
+            <End Role="user_edumodule" EntitySet="user_edumodule" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="edumaticModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="distractor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="distr_content" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="user_distractor" Relationship="Self.user_distractor_distractor_id_fkey" FromRole="distractor" ToRole="user_distractor" />
+        </EntityType>
+        <EntityType Name="edumodule">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_group" Type="Int16" />
+          <Property Name="difficulty" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="content" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="example" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" />
+          <Property Name="test_type" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" />
+          <Property Name="test_task" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" />
+          <Property Name="test_answer" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="enum_diff_levels" Relationship="Self.edumodule_difficulty_fkey" FromRole="edumodule" ToRole="enum_diff_levels" />
+          <NavigationProperty Name="edumodule_gamecontext" Relationship="Self.edumodule_gamecontext_edumodule_id_fkey" FromRole="edumodule" ToRole="edumodule_gamecontext" />
+          <NavigationProperty Name="enum_test_types" Relationship="Self.edumodule_test_type_fkey" FromRole="edumodule" ToRole="enum_test_types" />
+          <NavigationProperty Name="user_edumodule" Relationship="Self.user_edumodule_edumodule_id_fkey" FromRole="edumodule" ToRole="user_edumodule" />
+        </EntityType>
+        <EntityType Name="edumodule_gamecontext">
+          <Key>
+            <PropertyRef Name="edumodule_id" />
+          </Key>
+          <Property Name="edumodule_id" Type="Int32" Nullable="false" />
+          <Property Name="game_score" Type="Int32" Nullable="false" />
+          <Property Name="game_content" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="edumodule" Relationship="Self.edumodule_gamecontext_edumodule_id_fkey" FromRole="edumodule_gamecontext" ToRole="edumodule" />
+        </EntityType>
+        <EntityType Name="enum_diff_levels">
+          <Key>
+            <PropertyRef Name="difficulty" />
+          </Key>
+          <Property Name="difficulty" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="edumodule" Relationship="Self.edumodule_difficulty_fkey" FromRole="enum_diff_levels" ToRole="edumodule" />
+        </EntityType>
+        <EntityType Name="enum_test_types">
+          <Key>
+            <PropertyRef Name="type" />
+          </Key>
+          <Property Name="type" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="edumodule" Relationship="Self.edumodule_test_type_fkey" FromRole="enum_test_types" ToRole="edumodule" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="login" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" />
+          <Property Name="score" Type="Int32" />
+          <Property Name="is_teacher" Type="Boolean" />
+          <NavigationProperty Name="user_distractor" Relationship="Self.user_distractor_user_id_fkey" FromRole="user" ToRole="user_distractor" />
+          <NavigationProperty Name="user_edumodule" Relationship="Self.user_edumodule_user_id_fkey" FromRole="user" ToRole="user_edumodule" />
+        </EntityType>
+        <EntityType Name="user_distractor">
+          <Key>
+            <PropertyRef Name="user_id" />
+            <PropertyRef Name="distractor_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="distractor_id" Type="Int32" Nullable="false" />
+          <Property Name="time_last_used" Type="DateTime" Precision="6" Nullable="false" />
+          <NavigationProperty Name="distractor" Relationship="Self.user_distractor_distractor_id_fkey" FromRole="user_distractor" ToRole="distractor" />
+          <NavigationProperty Name="user" Relationship="Self.user_distractor_user_id_fkey" FromRole="user_distractor" ToRole="user" />
+        </EntityType>
+        <EntityType Name="user_edumodule">
+          <Key>
+            <PropertyRef Name="user_id" />
+            <PropertyRef Name="edumodule_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="edumodule_id" Type="Int32" Nullable="false" />
+          <Property Name="result" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="edumodule" Relationship="Self.user_edumodule_edumodule_id_fkey" FromRole="user_edumodule" ToRole="edumodule" />
+          <NavigationProperty Name="user" Relationship="Self.user_edumodule_user_id_fkey" FromRole="user_edumodule" ToRole="user" />
+        </EntityType>
+        <Association Name="user_distractor_distractor_id_fkey">
+          <End Role="distractor" Type="Self.distractor" Multiplicity="1" />
+          <End Role="user_distractor" Type="Self.user_distractor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="distractor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="user_distractor">
+              <PropertyRef Name="distractor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="edumodule_difficulty_fkey">
+          <End Role="enum_diff_levels" Type="Self.enum_diff_levels" Multiplicity="1" />
+          <End Role="edumodule" Type="Self.edumodule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="enum_diff_levels">
+              <PropertyRef Name="difficulty" />
+            </Principal>
+            <Dependent Role="edumodule">
+              <PropertyRef Name="difficulty" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="edumodule_gamecontext_edumodule_id_fkey">
+          <End Role="edumodule" Type="Self.edumodule" Multiplicity="1" />
+          <End Role="edumodule_gamecontext" Type="Self.edumodule_gamecontext" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="edumodule">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="edumodule_gamecontext">
+              <PropertyRef Name="edumodule_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="edumodule_test_type_fkey">
+          <End Role="enum_test_types" Type="Self.enum_test_types" Multiplicity="0..1" />
+          <End Role="edumodule" Type="Self.edumodule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="enum_test_types">
+              <PropertyRef Name="type" />
+            </Principal>
+            <Dependent Role="edumodule">
+              <PropertyRef Name="test_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="user_edumodule_edumodule_id_fkey">
+          <End Role="edumodule" Type="Self.edumodule" Multiplicity="1" />
+          <End Role="user_edumodule" Type="Self.user_edumodule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="edumodule">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="user_edumodule">
+              <PropertyRef Name="edumodule_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="user_distractor_user_id_fkey">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="user_distractor" Type="Self.user_distractor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="user_distractor">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="user_edumodule_user_id_fkey">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="user_edumodule" Type="Self.user_edumodule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="user_edumodule">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="edumaticEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="distractor" EntityType="Self.distractor" />
+          <EntitySet Name="edumodule" EntityType="Self.edumodule" />
+          <EntitySet Name="edumodule_gamecontext" EntityType="Self.edumodule_gamecontext" />
+          <EntitySet Name="enum_diff_levels" EntityType="Self.enum_diff_levels" />
+          <EntitySet Name="enum_test_types" EntityType="Self.enum_test_types" />
+          <EntitySet Name="user" EntityType="Self.user" />
+          <EntitySet Name="user_distractor" EntityType="Self.user_distractor" />
+          <EntitySet Name="user_edumodule" EntityType="Self.user_edumodule" />
+          <AssociationSet Name="user_distractor_distractor_id_fkey" Association="Self.user_distractor_distractor_id_fkey">
+            <End Role="distractor" EntitySet="distractor" />
+            <End Role="user_distractor" EntitySet="user_distractor" />
+          </AssociationSet>
+          <AssociationSet Name="edumodule_difficulty_fkey" Association="Self.edumodule_difficulty_fkey">
+            <End Role="enum_diff_levels" EntitySet="enum_diff_levels" />
+            <End Role="edumodule" EntitySet="edumodule" />
+          </AssociationSet>
+          <AssociationSet Name="edumodule_gamecontext_edumodule_id_fkey" Association="Self.edumodule_gamecontext_edumodule_id_fkey">
+            <End Role="edumodule" EntitySet="edumodule" />
+            <End Role="edumodule_gamecontext" EntitySet="edumodule_gamecontext" />
+          </AssociationSet>
+          <AssociationSet Name="edumodule_test_type_fkey" Association="Self.edumodule_test_type_fkey">
+            <End Role="enum_test_types" EntitySet="enum_test_types" />
+            <End Role="edumodule" EntitySet="edumodule" />
+          </AssociationSet>
+          <AssociationSet Name="user_edumodule_edumodule_id_fkey" Association="Self.user_edumodule_edumodule_id_fkey">
+            <End Role="edumodule" EntitySet="edumodule" />
+            <End Role="user_edumodule" EntitySet="user_edumodule" />
+          </AssociationSet>
+          <AssociationSet Name="user_distractor_user_id_fkey" Association="Self.user_distractor_user_id_fkey">
+            <End Role="user" EntitySet="user" />
+            <End Role="user_distractor" EntitySet="user_distractor" />
+          </AssociationSet>
+          <AssociationSet Name="user_edumodule_user_id_fkey" Association="Self.user_edumodule_user_id_fkey">
+            <End Role="user" EntitySet="user" />
+            <End Role="user_edumodule" EntitySet="user_edumodule" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="edumaticModelStoreContainer" CdmEntityContainer="edumaticEntities">
+          <EntitySetMapping Name="distractor">
+            <EntityTypeMapping TypeName="edumaticModel.distractor">
+              <MappingFragment StoreEntitySet="distractor">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="distr_content" ColumnName="distr_content" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="edumodule">
+            <EntityTypeMapping TypeName="edumaticModel.edumodule">
+              <MappingFragment StoreEntitySet="edumodule">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_group" ColumnName="id_group" />
+                <ScalarProperty Name="difficulty" ColumnName="difficulty" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="content" ColumnName="content" />
+                <ScalarProperty Name="example" ColumnName="example" />
+                <ScalarProperty Name="test_type" ColumnName="test_type" />
+                <ScalarProperty Name="test_task" ColumnName="test_task" />
+                <ScalarProperty Name="test_answer" ColumnName="test_answer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="edumodule_gamecontext">
+            <EntityTypeMapping TypeName="edumaticModel.edumodule_gamecontext">
+              <MappingFragment StoreEntitySet="edumodule_gamecontext">
+                <ScalarProperty Name="edumodule_id" ColumnName="edumodule_id" />
+                <ScalarProperty Name="game_score" ColumnName="game_score" />
+                <ScalarProperty Name="game_content" ColumnName="game_content" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="enum_diff_levels">
+            <EntityTypeMapping TypeName="edumaticModel.enum_diff_levels">
+              <MappingFragment StoreEntitySet="enum_diff_levels">
+                <ScalarProperty Name="difficulty" ColumnName="difficulty" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="enum_test_types">
+            <EntityTypeMapping TypeName="edumaticModel.enum_test_types">
+              <MappingFragment StoreEntitySet="enum_test_types">
+                <ScalarProperty Name="type" ColumnName="type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user">
+            <EntityTypeMapping TypeName="edumaticModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="score" ColumnName="score" />
+                <ScalarProperty Name="is_teacher" ColumnName="is_teacher" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_distractor">
+            <EntityTypeMapping TypeName="edumaticModel.user_distractor">
+              <MappingFragment StoreEntitySet="user_distractor">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="distractor_id" ColumnName="distractor_id" />
+                <ScalarProperty Name="time_last_used" ColumnName="time_last_used" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_edumodule">
+            <EntityTypeMapping TypeName="edumaticModel.user_edumodule">
+              <MappingFragment StoreEntitySet="user_edumodule">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="edumodule_id" ColumnName="edumodule_id" />
+                <ScalarProperty Name="result" ColumnName="result" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

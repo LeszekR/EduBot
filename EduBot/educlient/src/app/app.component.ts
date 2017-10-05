@@ -1,13 +1,18 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { TestData } from './models/test-data';
-
 import { TestService } from './services/test.service';
+
+// Log in 
+// -------------------------------------------------------------------------------------
+import { LoginComponent } from './log-in/login.component' 
+// -------------------------------------------------------------------------------------
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [LoginComponent]
 })
 export class AppComponent implements OnInit {
 

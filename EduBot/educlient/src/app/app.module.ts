@@ -11,6 +11,11 @@ import { TestService } from './services/test.service';
 import { HttpService } from './services/http.service';
 import { AppRoutingModule } from './app-routing.module';
 
+// Log in -------------------------------------------------------------------------------------
+import { FormFieldComponent } from './elements/form-field.component'
+import { LoginComponent } from './log-in/login.component'
+// --------------------------------------------------------------------------------------------
+
 export function httpServiceFactory(backend: XHRBackend, options: RequestOptions, router: Router) {
   return new HttpService(backend, options, router);
 }
@@ -19,6 +24,12 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
 @NgModule({
   declarations: [
     AppComponent,
+
+    // log in -----------------------------------------------------------------------------------
+    FormFieldComponent,
+    LoginComponent,
+    // log in -----------------------------------------------------------------------------------
+
   ],
   imports: [
     BrowserModule,

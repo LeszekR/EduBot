@@ -1,0 +1,11 @@
+.formfield label {
+    width: 31rem;
+    height: 3rem;
+    margin-bottom: 1rem;
+    float: left;
+}
+.formfield input {
+    width: 20rem;
+    float: right;
+    padding-left: 0.7rem;
+}

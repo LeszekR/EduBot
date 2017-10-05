@@ -15,7 +15,7 @@ namespace EduApi.Controllers
         [HttpGet]
         public IHttpActionResult GetData()
         {
-            return Ok("Udało się!");
+            return Ok("Udało się!");    
         }
 
         [Route("")]

@@ -7,18 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EduApi
+namespace EduApi.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class user_distractor
+    public partial class enum_user_type
     {
-        public int user_id { get; set; }
-        public int distractor_id { get; set; }
-        public System.DateTime time_last_used { get; set; }
-    
-        public virtual distractor distractor { get; set; }
-        public virtual user user { get; set; }
+        public string role { get; set; }
     }
 }

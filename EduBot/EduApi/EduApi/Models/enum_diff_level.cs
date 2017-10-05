@@ -7,20 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EduApi
+namespace EduApi.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class enum_test_types
+    public partial class enum_diff_level
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public enum_test_types()
+        public enum_diff_level()
         {
             this.edumodule = new HashSet<edumodule>();
         }
     
-        public string type { get; set; }
+        public string difficulty { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<edumodule> edumodule { get; set; }

@@ -7,28 +7,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EduApi
+namespace EduApi.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class user
+    public partial class distractor
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public user()
+        public distractor()
         {
             this.user_distractor = new HashSet<user_distractor>();
-            this.user_edumodule = new HashSet<user_edumodule>();
         }
     
         public int id { get; set; }
-        public string login { get; set; }
-        public Nullable<int> score { get; set; }
-        public Nullable<bool> is_teacher { get; set; }
+        public string type { get; set; }
+        public string distr_content { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<user_distractor> user_distractor { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<user_edumodule> user_edumodule { get; set; }
     }
 }

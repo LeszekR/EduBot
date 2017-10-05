@@ -35,26 +35,39 @@
           <Property Name="game_score" Type="int4" Nullable="false" />
           <Property Name="game_content" Type="varchar" MaxLength="8000" />
         </EntityType>
-        <EntityType Name="enum_diff_levels">
+        <EntityType Name="enum_diff_level">
           <Key>
             <PropertyRef Name="difficulty" />
           </Key>
           <Property Name="difficulty" Type="varchar" MaxLength="8000" Nullable="false" />
         </EntityType>
-        <EntityType Name="enum_test_types">
+        <EntityType Name="enum_test_type">
           <Key>
             <PropertyRef Name="type" />
           </Key>
           <Property Name="type" Type="varchar" MaxLength="8000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="enum_user_role">
+          <Key>
+            <PropertyRef Name="role" />
+          </Key>
+          <Property Name="role" Type="varchar" MaxLength="8000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="enum_user_type">
+          <Key>
+            <PropertyRef Name="role" />
+          </Key>
+          <Property Name="role" Type="varchar" MaxLength="8000" Nullable="false" />
         </EntityType>
         <EntityType Name="user">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="login" Type="varchar" MaxLength="8000" />
+          <Property Name="login" Type="varchar" MaxLength="8000" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="8000" Nullable="false" />
+          <Property Name="role" Type="varchar" MaxLength="8000" Nullable="false" />
           <Property Name="score" Type="int4" />
-          <Property Name="is_teacher" Type="bool" />
         </EntityType>
         <EntityType Name="user_distractor">
           <Key>
@@ -75,10 +88,10 @@
           <Property Name="result" Type="bool" Nullable="false" />
         </EntityType>
         <Association Name="edumodule_difficulty_fkey">
-          <End Role="enum_diff_levels" Type="Self.enum_diff_levels" Multiplicity="1" />
+          <End Role="enum_diff_level" Type="Self.enum_diff_level" Multiplicity="1" />
           <End Role="edumodule" Type="Self.edumodule" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="enum_diff_levels">
+            <Principal Role="enum_diff_level">
               <PropertyRef Name="difficulty" />
             </Principal>
             <Dependent Role="edumodule">
@@ -99,10 +112,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="edumodule_test_type_fkey">
-          <End Role="enum_test_types" Type="Self.enum_test_types" Multiplicity="0..1" />
+          <End Role="enum_test_type" Type="Self.enum_test_type" Multiplicity="0..1" />
           <End Role="edumodule" Type="Self.edumodule" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="enum_test_types">
+            <Principal Role="enum_test_type">
               <PropertyRef Name="type" />
             </Principal>
             <Dependent Role="edumodule">
@@ -158,17 +171,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="user_role_fkey">
+          <End Role="enum_user_role" Type="Self.enum_user_role" Multiplicity="1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="enum_user_role">
+              <PropertyRef Name="role" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="edumaticModelStoreContainer">
           <EntitySet Name="distractor" EntityType="Self.distractor" Schema="public" store:Type="Tables" />
           <EntitySet Name="edumodule" EntityType="Self.edumodule" Schema="public" store:Type="Tables" />
           <EntitySet Name="edumodule_gamecontext" EntityType="Self.edumodule_gamecontext" Schema="public" store:Type="Tables" />
-          <EntitySet Name="enum_diff_levels" EntityType="Self.enum_diff_levels" Schema="public" store:Type="Tables" />
-          <EntitySet Name="enum_test_types" EntityType="Self.enum_test_types" Schema="public" store:Type="Tables" />
+          <EntitySet Name="enum_diff_level" EntityType="Self.enum_diff_level" Schema="public" store:Type="Tables" />
+          <EntitySet Name="enum_test_type" EntityType="Self.enum_test_type" Schema="public" store:Type="Tables" />
+          <EntitySet Name="enum_user_role" EntityType="Self.enum_user_role" Schema="public" store:Type="Tables" />
+          <EntitySet Name="enum_user_type" EntityType="Self.enum_user_type" Schema="public" store:Type="Tables" />
           <EntitySet Name="user" EntityType="Self.user" Schema="public" store:Type="Tables" />
           <EntitySet Name="user_distractor" EntityType="Self.user_distractor" Schema="public" store:Type="Tables" />
           <EntitySet Name="user_edumodule" EntityType="Self.user_edumodule" Schema="public" store:Type="Tables" />
           <AssociationSet Name="edumodule_difficulty_fkey" Association="Self.edumodule_difficulty_fkey">
-            <End Role="enum_diff_levels" EntitySet="enum_diff_levels" />
+            <End Role="enum_diff_level" EntitySet="enum_diff_level" />
             <End Role="edumodule" EntitySet="edumodule" />
           </AssociationSet>
           <AssociationSet Name="edumodule_gamecontext_edumodule_id_fkey" Association="Self.edumodule_gamecontext_edumodule_id_fkey">
@@ -176,7 +203,7 @@
             <End Role="edumodule_gamecontext" EntitySet="edumodule_gamecontext" />
           </AssociationSet>
           <AssociationSet Name="edumodule_test_type_fkey" Association="Self.edumodule_test_type_fkey">
-            <End Role="enum_test_types" EntitySet="enum_test_types" />
+            <End Role="enum_test_type" EntitySet="enum_test_type" />
             <End Role="edumodule" EntitySet="edumodule" />
           </AssociationSet>
           <AssociationSet Name="user_distractor_distractor_id_fkey" Association="Self.user_distractor_distractor_id_fkey">
@@ -194,6 +221,10 @@
           <AssociationSet Name="user_edumodule_user_id_fkey" Association="Self.user_edumodule_user_id_fkey">
             <End Role="user" EntitySet="user" />
             <End Role="user_edumodule" EntitySet="user_edumodule" />
+          </AssociationSet>
+          <AssociationSet Name="user_role_fkey" Association="Self.user_role_fkey">
+            <End Role="enum_user_role" EntitySet="enum_user_role" />
+            <End Role="user" EntitySet="user" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -223,9 +254,9 @@
           <Property Name="test_type" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" />
           <Property Name="test_task" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" />
           <Property Name="test_answer" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="enum_diff_levels" Relationship="Self.edumodule_difficulty_fkey" FromRole="edumodule" ToRole="enum_diff_levels" />
+          <NavigationProperty Name="enum_diff_level" Relationship="Self.edumodule_difficulty_fkey" FromRole="edumodule" ToRole="enum_diff_level" />
           <NavigationProperty Name="edumodule_gamecontext" Relationship="Self.edumodule_gamecontext_edumodule_id_fkey" FromRole="edumodule" ToRole="edumodule_gamecontext" />
-          <NavigationProperty Name="enum_test_types" Relationship="Self.edumodule_test_type_fkey" FromRole="edumodule" ToRole="enum_test_types" />
+          <NavigationProperty Name="enum_test_type" Relationship="Self.edumodule_test_type_fkey" FromRole="edumodule" ToRole="enum_test_type" />
           <NavigationProperty Name="user_edumodule" Relationship="Self.user_edumodule_edumodule_id_fkey" FromRole="edumodule" ToRole="user_edumodule" />
         </EntityType>
         <EntityType Name="edumodule_gamecontext">
@@ -237,28 +268,43 @@
           <Property Name="game_content" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="edumodule" Relationship="Self.edumodule_gamecontext_edumodule_id_fkey" FromRole="edumodule_gamecontext" ToRole="edumodule" />
         </EntityType>
-        <EntityType Name="enum_diff_levels">
+        <EntityType Name="enum_diff_level">
           <Key>
             <PropertyRef Name="difficulty" />
           </Key>
           <Property Name="difficulty" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="edumodule" Relationship="Self.edumodule_difficulty_fkey" FromRole="enum_diff_levels" ToRole="edumodule" />
+          <NavigationProperty Name="edumodule" Relationship="Self.edumodule_difficulty_fkey" FromRole="enum_diff_level" ToRole="edumodule" />
         </EntityType>
-        <EntityType Name="enum_test_types">
+        <EntityType Name="enum_test_type">
           <Key>
             <PropertyRef Name="type" />
           </Key>
           <Property Name="type" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="edumodule" Relationship="Self.edumodule_test_type_fkey" FromRole="enum_test_types" ToRole="edumodule" />
+          <NavigationProperty Name="edumodule" Relationship="Self.edumodule_test_type_fkey" FromRole="enum_test_type" ToRole="edumodule" />
+        </EntityType>
+        <EntityType Name="enum_user_role">
+          <Key>
+            <PropertyRef Name="role" />
+          </Key>
+          <Property Name="role" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="user" Relationship="Self.user_role_fkey" FromRole="enum_user_role" ToRole="user" />
+        </EntityType>
+        <EntityType Name="enum_user_type">
+          <Key>
+            <PropertyRef Name="role" />
+          </Key>
+          <Property Name="role" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="user">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="login" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" />
+          <Property Name="login" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="role" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="score" Type="Int32" />
-          <Property Name="is_teacher" Type="Boolean" />
+          <NavigationProperty Name="enum_user_role" Relationship="Self.user_role_fkey" FromRole="user" ToRole="enum_user_role" />
           <NavigationProperty Name="user_distractor" Relationship="Self.user_distractor_user_id_fkey" FromRole="user" ToRole="user_distractor" />
           <NavigationProperty Name="user_edumodule" Relationship="Self.user_edumodule_user_id_fkey" FromRole="user" ToRole="user_edumodule" />
         </EntityType>
@@ -297,10 +343,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="edumodule_difficulty_fkey">
-          <End Role="enum_diff_levels" Type="Self.enum_diff_levels" Multiplicity="1" />
+          <End Role="enum_diff_level" Type="Self.enum_diff_level" Multiplicity="1" />
           <End Role="edumodule" Type="Self.edumodule" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="enum_diff_levels">
+            <Principal Role="enum_diff_level">
               <PropertyRef Name="difficulty" />
             </Principal>
             <Dependent Role="edumodule">
@@ -321,10 +367,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="edumodule_test_type_fkey">
-          <End Role="enum_test_types" Type="Self.enum_test_types" Multiplicity="0..1" />
+          <End Role="enum_test_type" Type="Self.enum_test_type" Multiplicity="0..1" />
           <End Role="edumodule" Type="Self.edumodule" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="enum_test_types">
+            <Principal Role="enum_test_type">
               <PropertyRef Name="type" />
             </Principal>
             <Dependent Role="edumodule">
@@ -341,6 +387,18 @@
             </Principal>
             <Dependent Role="user_edumodule">
               <PropertyRef Name="edumodule_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="user_role_fkey">
+          <End Role="enum_user_role" Type="Self.enum_user_role" Multiplicity="1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="enum_user_role">
+              <PropertyRef Name="role" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="role" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -368,12 +426,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="edumaticEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="edumaticEntities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="distractor" EntityType="Self.distractor" />
           <EntitySet Name="edumodule" EntityType="Self.edumodule" />
           <EntitySet Name="edumodule_gamecontext" EntityType="Self.edumodule_gamecontext" />
-          <EntitySet Name="enum_diff_levels" EntityType="Self.enum_diff_levels" />
-          <EntitySet Name="enum_test_types" EntityType="Self.enum_test_types" />
+          <EntitySet Name="enum_diff_level" EntityType="Self.enum_diff_level" />
+          <EntitySet Name="enum_test_type" EntityType="Self.enum_test_type" />
+          <EntitySet Name="enum_user_role" EntityType="Self.enum_user_role" />
+          <EntitySet Name="enum_user_type" EntityType="Self.enum_user_type" />
           <EntitySet Name="user" EntityType="Self.user" />
           <EntitySet Name="user_distractor" EntityType="Self.user_distractor" />
           <EntitySet Name="user_edumodule" EntityType="Self.user_edumodule" />
@@ -382,7 +442,7 @@
             <End Role="user_distractor" EntitySet="user_distractor" />
           </AssociationSet>
           <AssociationSet Name="edumodule_difficulty_fkey" Association="Self.edumodule_difficulty_fkey">
-            <End Role="enum_diff_levels" EntitySet="enum_diff_levels" />
+            <End Role="enum_diff_level" EntitySet="enum_diff_level" />
             <End Role="edumodule" EntitySet="edumodule" />
           </AssociationSet>
           <AssociationSet Name="edumodule_gamecontext_edumodule_id_fkey" Association="Self.edumodule_gamecontext_edumodule_id_fkey">
@@ -390,12 +450,16 @@
             <End Role="edumodule_gamecontext" EntitySet="edumodule_gamecontext" />
           </AssociationSet>
           <AssociationSet Name="edumodule_test_type_fkey" Association="Self.edumodule_test_type_fkey">
-            <End Role="enum_test_types" EntitySet="enum_test_types" />
+            <End Role="enum_test_type" EntitySet="enum_test_type" />
             <End Role="edumodule" EntitySet="edumodule" />
           </AssociationSet>
           <AssociationSet Name="user_edumodule_edumodule_id_fkey" Association="Self.user_edumodule_edumodule_id_fkey">
             <End Role="edumodule" EntitySet="edumodule" />
             <End Role="user_edumodule" EntitySet="user_edumodule" />
+          </AssociationSet>
+          <AssociationSet Name="user_role_fkey" Association="Self.user_role_fkey">
+            <End Role="enum_user_role" EntitySet="enum_user_role" />
+            <End Role="user" EntitySet="user" />
           </AssociationSet>
           <AssociationSet Name="user_distractor_user_id_fkey" Association="Self.user_distractor_user_id_fkey">
             <End Role="user" EntitySet="user" />
@@ -411,7 +475,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="edumaticModelStoreContainer" CdmEntityContainer="edumaticEntities">
+        <EntityContainerMapping StorageEntityContainer="edumaticModelStoreContainer" CdmEntityContainer="edumaticEntities2">
           <EntitySetMapping Name="distractor">
             <EntityTypeMapping TypeName="edumaticModel.distractor">
               <MappingFragment StoreEntitySet="distractor">
@@ -445,17 +509,31 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="enum_diff_levels">
-            <EntityTypeMapping TypeName="edumaticModel.enum_diff_levels">
-              <MappingFragment StoreEntitySet="enum_diff_levels">
+          <EntitySetMapping Name="enum_diff_level">
+            <EntityTypeMapping TypeName="edumaticModel.enum_diff_level">
+              <MappingFragment StoreEntitySet="enum_diff_level">
                 <ScalarProperty Name="difficulty" ColumnName="difficulty" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="enum_test_types">
-            <EntityTypeMapping TypeName="edumaticModel.enum_test_types">
-              <MappingFragment StoreEntitySet="enum_test_types">
+          <EntitySetMapping Name="enum_test_type">
+            <EntityTypeMapping TypeName="edumaticModel.enum_test_type">
+              <MappingFragment StoreEntitySet="enum_test_type">
                 <ScalarProperty Name="type" ColumnName="type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="enum_user_role">
+            <EntityTypeMapping TypeName="edumaticModel.enum_user_role">
+              <MappingFragment StoreEntitySet="enum_user_role">
+                <ScalarProperty Name="role" ColumnName="role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="enum_user_type">
+            <EntityTypeMapping TypeName="edumaticModel.enum_user_type">
+              <MappingFragment StoreEntitySet="enum_user_type">
+                <ScalarProperty Name="role" ColumnName="role" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -464,8 +542,9 @@
               <MappingFragment StoreEntitySet="user">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="role" ColumnName="role" />
                 <ScalarProperty Name="score" ColumnName="score" />
-                <ScalarProperty Name="is_teacher" ColumnName="is_teacher" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

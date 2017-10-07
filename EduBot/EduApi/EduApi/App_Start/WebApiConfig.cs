@@ -13,13 +13,13 @@ namespace EduApi
     {
         public static void Register(HttpConfiguration config)
         {
-            var json = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
-            json.UseDataContractJsonSerializer = true;
+            GlobalConfiguration.Configuration.Formatters.JsonFormatter.UseDataContractJsonSerializer = true;
             
             config.MapHttpAttributeRoutes();
 
             var corsAttr = new EnableCorsAttribute("*", "Accept,Origin,content-type,authtoken,Authorization,cache-control,x-requested-with,pragma", "*");
             config.EnableCors(corsAttr);
+
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             config.Formatters.JsonFormatter.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
             config.Formatters.JsonFormatter.UseDataContractJsonSerializer = false;

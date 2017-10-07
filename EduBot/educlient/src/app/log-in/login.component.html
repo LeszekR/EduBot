@@ -1,4 +1,4 @@
-<div id='loginWindow' class='login_window'>
+<div id='loginWindow' class='login_window' *ngIf="!loggedIn">
     <formfield [field]='fieldLogin' class='formfield'></formfield>
     <formfield [field]='fieldPassw' class='formfield'></formfield>
     <input type='button' (click)='submitLogin()' value='{{butOkCaption}}'/>

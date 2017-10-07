@@ -49,4 +49,15 @@ export class HttpService extends Http {
             return Observable.throw(res);
         };
     }
+
+    // Log in ------------------------------------------------------------------------------------------
+    postHttp(url: string, data: any): Observable<Response> {
+        let body = JSON.stringify(data);
+        return this.post(url, body)
+            .map((res: Response) => res.json())
+            .catch(error => {
+                console.log(error);
+                return Observable.throw(error);
+            });
+    }
 }

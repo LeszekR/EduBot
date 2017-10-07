@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
+
 import { Observable } from 'rxjs/Observable';
-
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/toPromise';
-
+// import 'rxjs/add/operator/toPromise';
 
 import { HttpService } from './http.service';
 import { TestData } from '../models/test-data'

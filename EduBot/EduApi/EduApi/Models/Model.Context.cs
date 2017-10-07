@@ -7,24 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EduApi.Models
-{
+namespace EduApi.Models {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
-    public partial class edumaticEntities2 : DbContext
-    {
-        public edumaticEntities2()
-            : base("name=edumaticEntities2")
-        {
+
+    public partial class edumaticEntities : DbContext {
+
+        public edumaticEntities()
+            : base("name=edumaticEntities2") {
         }
-    
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder) {
             throw new UnintentionalCodeFirstException();
         }
-    
+
         public virtual DbSet<distractor> distractor { get; set; }
         public virtual DbSet<edumodule> edumodule { get; set; }
         public virtual DbSet<edumodule_gamecontext> edumodule_gamecontext { get; set; }

@@ -7,13 +7,16 @@ import { AlertModule } from 'ngx-bootstrap';
 
 //Components
 import { AppComponent } from './app.component';
-import { TestService } from './services/test.service';
-import { HttpService } from './services/http.service';
 import { AppRoutingModule } from './app-routing.module';
+
+// Services
+import { HttpService } from './services/http.service';
+import { TestService } from './services/test.service';
 
 // Log in -------------------------------------------------------------------------------------
 import { FormFieldComponent } from './elements/form-field.component'
 import { LoginComponent } from './log-in/login.component'
+import { LoginService } from './log-in/login.service'
 // --------------------------------------------------------------------------------------------
 
 export function httpServiceFactory(backend: XHRBackend, options: RequestOptions, router: Router) {
@@ -24,12 +27,8 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
 @NgModule({
   declarations: [
     AppComponent,
-
-    // log in -----------------------------------------------------------------------------------
     FormFieldComponent,
     LoginComponent,
-    // log in -----------------------------------------------------------------------------------
-
   ],
   imports: [
     BrowserModule,
@@ -39,6 +38,7 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     AlertModule.forRoot()
   ],
   providers: [
+    LoginService,
     TestService, 
     {
       provide: HttpService,

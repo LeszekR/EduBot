@@ -20,7 +20,10 @@ export class LoginComponent {
     
     butOkCaption: string;
 
-    constructor (private loginService: LoginService /*, private localStor: LocalStorage ...*/ ) {
+    // constructor () { // , private localStor: LocalStorage ... ) {
+    //     this.butOkCaption = LangDictionaryService.text('but_ok');
+    // }
+    constructor (private loginService: LoginService) { // , private localStor: LocalStorage ... ) {
         this.butOkCaption = LangDictionaryService.text('but_ok');
     }
 

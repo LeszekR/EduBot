@@ -426,7 +426,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="edumaticEntities2" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="edumaticEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="distractor" EntityType="Self.distractor" />
           <EntitySet Name="edumodule" EntityType="Self.edumodule" />
           <EntitySet Name="edumodule_gamecontext" EntityType="Self.edumodule_gamecontext" />
@@ -475,7 +475,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="edumaticModelStoreContainer" CdmEntityContainer="edumaticEntities2">
+        <EntityContainerMapping StorageEntityContainer="edumaticModelStoreContainer" CdmEntityContainer="edumaticEntities">
           <EntitySetMapping Name="distractor">
             <EntityTypeMapping TypeName="edumaticModel.distractor">
               <MappingFragment StoreEntitySet="distractor">

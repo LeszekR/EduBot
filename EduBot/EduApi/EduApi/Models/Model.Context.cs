@@ -15,7 +15,7 @@ namespace EduApi.Models {
     public partial class edumaticEntities : DbContext {
 
         public edumaticEntities()
-            : base("name=edumaticEntities2") {
+            : base("name=edumaticEntities") {
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder) {

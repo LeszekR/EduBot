@@ -11,7 +11,9 @@ using System.Web.Http.Cors;
 
 namespace EduApi.Controllers {
 
-    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
+
+    // -------------------------------------------------------------------------------------------------
+    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*", SupportsCredentials = true)]
     public class LoginController : ApiController {
 
 
@@ -33,7 +35,22 @@ namespace EduApi.Controllers {
             if (userLog == null)
                 HttpContext.Current.Response.StatusCode = 401;
 
-            return Ok(userLog);
+            return Ok(new UserModel(userLog));
+        }
+    }
+
+
+    // -------------------------------------------------------------------------------------------------
+    public class UserModel {
+
+        string Login { get; set; }
+        string Role { get; set; }
+        public Nullable<int> Score { get; set; }
+
+        public UserModel (user userFromDatabase) {
+            Login = userFromDatabase.login;
+            Role = userFromDatabase.role;
+            Score = userFromDatabase.score;
         }
     }
 }

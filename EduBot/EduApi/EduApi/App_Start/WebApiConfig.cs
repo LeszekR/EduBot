@@ -17,13 +17,39 @@ namespace EduApi
             
             config.MapHttpAttributeRoutes();
 
-            var corsAttr = new EnableCorsAttribute("*", "Accept,Origin,content-type,authtoken,Authorization,cache-control,x-requested-with,pragma", "*");
-            config.EnableCors(corsAttr);
+            //var corsAttr = new EnableCorsAttribute("*", "accept,origin,content-type,authtoken,authorization,cache-control,x-requested-with,pragma", "*");
+            //config.EnableCors(corsAttr);
 
-            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-            config.Formatters.JsonFormatter.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-            config.Formatters.JsonFormatter.UseDataContractJsonSerializer = false;
-            config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
+            var corsOrigins = "http://localhost:4200";
+            var corsMethods = "*";
+            var corsHeaders = 
+                "Accept" +
+                ",Accept-Encoding" +
+                ",Accept-Language" +
+                ",Authtoken" +
+                ",Authorisation" +
+                ",Cache-Control," +
+                ",Content-Type" +
+                ",Connection" +
+                ",Content-Length" +
+                ",Host" +
+                ",Origin" +
+                ",Pragma" +
+                ",Referer" +
+                ",User-Agent" +
+                ",X-requested-with";
+            corsHeaders = "*";
+
+            config.EnableCors(new EnableCorsAttribute(corsOrigins, corsHeaders, corsMethods));
+
+            var formatters = config.Formatters;
+            formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            formatters.JsonFormatter.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+            formatters.JsonFormatter.UseDataContractJsonSerializer = false;
+            formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
+
+            formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

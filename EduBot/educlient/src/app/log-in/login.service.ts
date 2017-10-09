@@ -13,10 +13,12 @@ export class LoginService {
         console.log('Rejestruję - login: ' + login + ', password: ' + password);
 
         var user = this.http.postHttp(this.url, { login: login, password: password })
-            .subscribe();
+            .subscribe(
+                data => console.log(data),
+                err => console.log('Błąd odbioru danych z serwera.')
+            );
 
         console.log('Czekam na serwer.');
-        console.log(user);
 
         //  ['data']...;  // status, uprwnienia, login, czy logowanie prawidłowe
 

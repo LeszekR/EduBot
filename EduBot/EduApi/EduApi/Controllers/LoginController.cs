@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
-using System.Web;
 using EduApi.DTO;
 using EduApi.Models;
 using System.Web.Http.Cors;
+
+
 
 namespace EduApi.Controllers {
 
@@ -31,26 +29,10 @@ namespace EduApi.Controllers {
                            select obiekt).FirstOrDefault();
             }
 
-            // jeżeli niepowodzenie logowania - utawić ręcznie status 400... bad credentials
             if (userLog == null)
-                HttpContext.Current.Response.StatusCode = 401;
-
-            return Ok(new UserModel(userLog));
-        }
-    }
-
-
-    // -------------------------------------------------------------------------------------------------
-    public class UserModel {
-
-        string Login { get; set; }
-        string Role { get; set; }
-        public Nullable<int> Score { get; set; }
-
-        public UserModel (user userFromDatabase) {
-            Login = userFromDatabase.login;
-            Role = userFromDatabase.role;
-            Score = userFromDatabase.score;
+                return StatusCode(HttpStatusCode.Unauthorized);
+            else
+                return Ok(new UserDTO(userLog));
         }
     }
 }

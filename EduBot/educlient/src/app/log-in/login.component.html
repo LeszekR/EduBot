@@ -1,5 +1,30 @@
-<div id='loginWindow' class='login_window' *ngIf="!loggedIn">
-    <formfield [field]='fieldLogin' class='formfield'></formfield>
-    <formfield [field]='fieldPassw' class='formfield'></formfield>
-    <input type='button' (click)='submitLogin()' value='{{butOkCaption}}'/>
+<div class='login_window' *ngIf="!loggedIn">
+    <h2>{{title}}</h2>
+
+    <div *ngIf="action=='logging-in' || action=='passw-change'">
+        <formfield [field]='fieldLogin' class='formfield'></formfield>
+        <formfield [field]='fieldPassw' class='formfield'></formfield>
+        <div class='err_msg'>
+            <p>{{errCredentials}}</p>
+        </div>
+    </div>
+    <div *ngIf="action=='register' || action=='passw-change'">
+        <formfield [field]='fieldNewLogin' class='formfield'></formfield>
+        <formfield [field]='fieldNewPassw' class='formfield'></formfield>
+        <formfield [field]='fieldRepPassw' class='formfield'></formfield>
+        <div class='err_msg'>
+            <p>{{errPasswChange}}</p>
+        </div>
+    </div>
+    <div class='login_menu'>
+        <div>
+            <button *ngIf="action!='logging-in'" (click)="setAction('logging-in')">{{butLoginCaption}}</button>
+            <button *ngIf="action!='register'" (click)="setAction('register')">{{butRegUserCaption}}</button>
+            <button *ngIf="action!='passw-change'" (click)="setAction('passw-change')">{{butPasswChangeCaption}}</button>
+        </div>
+    </div>
+    <button (click)='submitLogin()'>{{butOkCaption}}</button>
+</div>
+<div *ngIf="loggedIn">
+    Jestem zalogowany
 </div>

@@ -8,11 +8,4 @@ import { FormField }               from './form-field'
 })
 export class FormFieldComponent {
     @Input() field: FormField;
-    
-    // constructor(
-    //     // private widthLabel: number = 150,
-    //     // private widthInput: number = 200,
-    //     // private heightInput: number = 30
-    // ) { 
-    // }
 }

@@ -1,17 +1,26 @@
 import { Injectable } from '@angular/core';
-import { Http, XHRBackend, RequestOptions, Request, RequestOptionsArgs, Response, Headers } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
 import { Router} from '@angular/router';
+import { Http, XHRBackend, RequestOptions, Request, RequestOptionsArgs, Response, Headers } from '@angular/http';
 
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 
-//serwis pozwalający na globalną konfigurację nagłówków w requestach
+
+// ==================================================================================================================
+/**
+ * Serwis obsługjący zapytania http. 
+ * Pozwala na globalną konfigurację nagłówków w requestach.
+ */
 @Injectable()
 export class HttpService extends Http {
 
     private router: Router;
 
+
+    // CONSTRUCTOR
+    // ==============================================================================================================
     constructor(backend: XHRBackend, options: RequestOptions, router:Router) {
         //let token = JSON.parse(sessionStorage.getItem('currentUser'));
         options.headers = new Headers();
@@ -23,6 +32,8 @@ export class HttpService extends Http {
         this.router = router;
     }
 
+    // PUBLIC
+    // ==============================================================================================================
     request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
        //let token = JSON.parse(sessionStorage.getItem('currentUser'));
         if (typeof url === 'string') {
@@ -43,14 +54,7 @@ export class HttpService extends Http {
         return super.request(url, options).catch(this.catchError(this));
     }
 
-    private catchError(self: HttpService) {
-        return (res: Response) => {
-            
-            return Observable.throw(res);
-        };
-    }
-
-    // Log in ------------------------------------------------------------------------------------------
+    // --------------------------------------------------------------------------------------------------------------
     postHttp(url: string, data: any): Observable<Response> {
         let body = JSON.stringify(data);
         return this.post(url, body)
@@ -59,5 +63,14 @@ export class HttpService extends Http {
                 console.log(error);
                 return Observable.throw(error);
             });
+    }
+
+    // PRIVATE
+    // ==============================================================================================================
+    private catchError(self: HttpService) {
+        return (res: Response) => {
+            
+            return Observable.throw(res);
+        };
     }
 }

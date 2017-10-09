@@ -1,18 +1,55 @@
+/* general settings */ 
+/* ----------------------------------------------------------------------------------------*/
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Log-in window */ 
+/* ----------------------------------------------------------------------------------------*/
+.login_window h2 {
+    margin: 0;
+    margin-bottom: 4rem;
+    text-align: center;
+}
 .login_window {
-    width: 33rem;
-    height: 15rem;
-    padding: 2rem;
+    padding: 3rem;
     position: fixed;
     border: 2px solid green;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
-.login_window label {
-    width: 25rem;
-}
-.login_window [type='button'] {
+.login_window button {
     width: 8rem;
+    height: 2.5rem;
     margin-top: 1rem;
     float: right;
+}
+
+/* Div with buttons: 'log in', 'register', 'change password' */ 
+/* ----------------------------------------------------------------------------------------*/
+.login_menu {
+    width: 27rem;
+    height: 7rem;
+}
+.login_menu div {
+    width: 18rem;
+    height: inherit;
+    float: left;
+}
+.login_menu button {
+    width: inherit;    
+    height: 2.5rem;
+    margin-top: 1rem;
+} 
+
+/* Error message divs */ 
+/* ----------------------------------------------------------------------------------------*/
+.err_msg {
+    height: 5rem;
+    margin-bottom: 3rem; 
+}
+.err_msg > p {
+    color: red;
 }

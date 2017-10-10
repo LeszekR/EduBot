@@ -1,19 +1,44 @@
-<nav id="header" class="app-component navbar navbar-inner navbar-fixed-top">
-    <div class="collapse navbar-collapse">
-        <login></login>
-    </div>  
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container d-flex">
+        <a class="navbar-brand primary-color" routerLink="/">
+            <img src="/assets/img/logo-pg.png" class="nav-img" >
+            <span style="margin-left: 50px">Edugame</span>
+        </a>
+        <button class="btn ml-auto" (click)="openLoginWindow()">
+            Zaloguj
+        </button>
+        <div class="ml-auto">
+            <progress-comp></progress-comp>
+        </div>
+    </div>
 </nav>
 
-<!-- <div class="col-md-6 text-white text-center justify-content-middle align-items-center">
-        <h2>Edugame</h2>
+<div class="container-fluid main-container d-flex p-0 m-0">
+    <div class=" col-2 h-100 pt-3">
+        <module-list></module-list>
+    </div> 
+
+    <div class="col-10">
+        <router-outlet></router-outlet>
     </div>
-    <div>
-        <button (click)="testGet()">
-             Get
-        </button>
-    </div>
-    <div>
-        <button (click)="testPost()">
-            Post
-        </button>
-    </div> -->
+    
+</div>
+
+<footer class="footer container-fluid d-flex"></footer>
+
+
+<div class="modal fade" bsModal #loginModal="bs-modal"  tabindex="-1">
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h4 class="modal-title pull-left"><i class="fa fa-user-circle-o"></i> Logowanie </h4>
+              <button type="button" class="close pull-right" title="Close" (click)="loginModal.hide()">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <login></login>
+          </div>
+      </div>
+  </div>
+</div>

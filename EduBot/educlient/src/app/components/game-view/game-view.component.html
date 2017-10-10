@@ -1,0 +1,24 @@
+<div class="container-fluid h-100">
+    <div class="row h-100" >
+        <div class="col-6 h-100">
+            <material-view [material]="module.material" ></material-view>
+        </div>
+        <div class="col-6 h-100">
+            <examples-view [example]="module.examples" ></examples-view>
+        </div>
+    </div>
+
+    <div class="row h-100" hidden >
+        <div class="col-6 h-100">
+            <result-view></result-view>
+        </div>
+        <div class="col-6 h-100">
+            <quiz-view></quiz-view>
+        </div>
+    </div>
+
+    <div class="row">
+        <button (click)="save()" class="btn btn-primary ml-auto" >Zapisz</button>
+    </div>
+</div>
+

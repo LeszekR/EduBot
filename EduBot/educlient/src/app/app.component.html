@@ -4,9 +4,20 @@
             <img src="/assets/img/logo-pg.png" class="nav-img" >
             <span style="margin-left: 50px">Edugame</span>
         </a>
-        <button class="btn ml-auto" (click)="openLoginWindow()">
-            Zaloguj
-        </button>
+        <div class="ml-auto admin-panel ">
+            <a *ngIf="true" (click)="openLoginWindow()" class="navbar-link pr-2" title="Zaloguj">
+                <i class="fa fa-sign-in fa-2x" ></i>
+            </a>
+            <a *ngIf="true" class="navbar-link pr-2" title="Tryb edycji">
+                <i class="fa fa-edit fa-2x"></i>
+            </a>
+            <a *ngIf="true" routerLink="/" class="navbar-link pr-2" routerLinkActive="active" title="Zarządzaj użytkownikami">
+                <i class="fa fa-user-circle-o fa-2x"></i>
+            </a>
+            <a *ngIf="true" routerLink="/" class="navbar-link pr-2" routerLinkActive="active" title="Wyświetl raport">
+                <i class="fa fa-address-book-o fa-2x"></i>
+            </a>
+        </div>
         <div class="ml-auto">
             <progress-comp></progress-comp>
         </div>

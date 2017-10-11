@@ -5,6 +5,7 @@ import { Module } from '../../models/module';
 
 //Services
 import { ModuleService } from '../../services/module.service';
+import { ContextService } from '../../services/context.service';
 
 @Component({
   selector: 'module-list',
@@ -14,7 +15,7 @@ export class ModuleListComponent implements OnInit {
 
   modules: Module[];
 
-  constructor(private moduleService: ModuleService){}
+  constructor(private moduleService: ModuleService, private context: ContextService){}
 
   ngOnInit(){
     this.getModules();
@@ -22,6 +23,12 @@ export class ModuleListComponent implements OnInit {
 
   private getModules(){
     this.modules = this.moduleService.getSimpleModulesMock();
+  }
+
+  private addModule(){
+    let module = new Module();
+    module.isNew = true;
+    this.moduleService.saveModule(module).subscribe(res => this.modules.push(res));
   }
 
 }

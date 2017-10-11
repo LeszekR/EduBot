@@ -25,7 +25,7 @@ import { TestService } from './services/test.service';
 import { HttpService } from './services/http.service';
 import { LoginService } from './log-in/login.service'
 import { ModuleService } from './services/module.service';
-
+import { ContextService } from './services/context.service';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -57,8 +57,9 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
   ],
   providers: [
     TestService,
-	LoginService,
+	  LoginService,
     ModuleService,
+    ContextService,
     {
       provide: HttpService,
       useFactory: httpServiceFactory,

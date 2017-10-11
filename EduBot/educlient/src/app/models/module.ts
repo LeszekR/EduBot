@@ -6,4 +6,5 @@ export class Module {
     questions: Question[];
     material: string;
     examples: string;
+    isNew: boolean;
 }

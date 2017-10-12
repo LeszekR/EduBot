@@ -21,8 +21,15 @@
     
 </div>
 
-<footer class="footer container-fluid d-flex">
-    <admin-panel></admin-panel>
+<footer class="footer" >
+    <div class="container-fluid d-flex">
+        <div>
+            <admin-panel (onOpenLoginWindow)="openLoginWindow()" ></admin-panel>
+        </div>
+        <div class="ml-auto">
+            <select-language></select-language>
+        </div>
+    </div>
 </footer>
 
 

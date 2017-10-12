@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { FormsModule } from "@angular/forms";
 import { HttpModule, RequestOptions, RequestMethod, XHRBackend } from '@angular/http';
 import { Router } from '@angular/router';
@@ -8,8 +8,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 
 //Components
 import { FormFieldComponent } from './elements/form-field.component'
-import { LoginComponent } from './log-in/login.component'
-
+import { LoginComponent } from './components/log-in/login.component'
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './components/welcome-comp/welcome.component';
 import { GameViewComponent } from './components/game-view/game-view.component';
@@ -20,13 +19,16 @@ import { MaterialViewComponent } from './components/game-view/material-view/mate
 import { ModuleListComponent } from './components/module-list/module-list.component';
 import { GameProgressComponent } from './components/game-progress/game-progress.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
+import { SelectLanguageComponent } from './components/select-language/select-language.component';
 
 //Services
 import { TestService } from './services/test.service';
 import { HttpService } from './services/http.service';
-import { LoginService } from './log-in/login.service'
+import { LoginService } from './services/login.service'
 import { ModuleService } from './services/module.service';
 import { ContextService } from './services/context.service';
+import { TranslateService, TRANSLATION_PROVIDERS } from './languages';
+import { TranslatePipe } from './languages/translate.pipe';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -36,8 +38,9 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
 
 @NgModule({
   declarations: [
+    TranslatePipe,
     AppComponent,
-	FormFieldComponent,
+	  FormFieldComponent,
     LoginComponent,
     WelcomeComponent,
     GameViewComponent,
@@ -47,7 +50,8 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     ExamplesViewComponent,
     ModuleListComponent,
     AdminPanelComponent,
-    GameProgressComponent
+    GameProgressComponent,
+    SelectLanguageComponent
   ],
   imports: [
     BrowserModule,
@@ -62,12 +66,14 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
 	  LoginService,
     ModuleService,
     ContextService,
+    TranslateService,
+    TRANSLATION_PROVIDERS,
     {
       provide: HttpService,
       useFactory: httpServiceFactory,
       deps: [XHRBackend, RequestOptions, Router]
-    }
-
+    },
+    { provide: LOCALE_ID, useValue: navigator.language }
   ],
   bootstrap: [AppComponent]
 })

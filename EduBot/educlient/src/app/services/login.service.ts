@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core'
-import { HttpService } from '../services/http.service'
-import { LoginComponent } from './login.component'
+import { Injectable } from '@angular/core';
+import { HttpService } from '../services/http.service';
+import { LoginComponent } from '../components/log-in/login.component';
 
 
 // ==================================================================================================================

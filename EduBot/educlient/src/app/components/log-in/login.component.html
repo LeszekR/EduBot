@@ -1,6 +1,4 @@
 <div class='login_window' *ngIf="!loggedIn">
-    <h2>{{title}}</h2>
-
     <div *ngIf="action=='logging-in' || action=='passw-change'">
         <formfield [field]='fieldLogin' class='formfield'></formfield>
         <formfield [field]='fieldPassw' class='formfield'></formfield>

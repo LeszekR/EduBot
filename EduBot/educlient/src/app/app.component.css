@@ -13,8 +13,6 @@
     cursor: pointer; 
 }
 
-
-footer,
 header,
 nav,
 section {
@@ -27,10 +25,20 @@ html {
     height: calc(100vh - 100px);
 }
 
-nav {
+nav, footer {
     background-color: #B5CCF6 !important;
     font-family: Chalkduster, fantasy;
 }
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    z-index: 100; 
+}
+
 
 .nav-img{
     position: absolute;

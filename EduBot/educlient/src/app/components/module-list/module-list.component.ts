@@ -31,4 +31,8 @@ export class ModuleListComponent implements OnInit {
     this.moduleService.saveModule(module).subscribe(res => this.modules.push(res));
   }
 
+  private deleteModule(id: number){
+    
+  }
+
 }

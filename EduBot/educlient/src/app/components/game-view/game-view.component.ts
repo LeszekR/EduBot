@@ -6,6 +6,7 @@ import { Module } from '../../models/module';
 
 //Services
 import { ModuleService } from '../../services/module.service';
+import { ContextService } from '../../services/context.service';
 
 //Components
 import { MaterialViewComponent } from './material-view/material-view.component';
@@ -25,7 +26,7 @@ export class GameViewComponent implements OnInit {
   
   module: Module;
 
-  constructor(private route: ActivatedRoute, private moduleService: ModuleService){}
+  constructor(private route: ActivatedRoute, private moduleService: ModuleService, private context: ContextService){}
 
   ngOnInit(){
       this.route.data

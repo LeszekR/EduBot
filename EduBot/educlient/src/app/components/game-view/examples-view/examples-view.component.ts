@@ -6,4 +6,5 @@ import { Component, Input } from '@angular/core';
 })
 export class ExamplesViewComponent {
   @Input() example: string;
+  @Input() readonly: boolean;
 }

@@ -19,6 +19,7 @@ import { ExamplesViewComponent } from './components/game-view/examples-view/exam
 import { MaterialViewComponent } from './components/game-view/material-view/material-view.component';
 import { ModuleListComponent } from './components/module-list/module-list.component';
 import { GameProgressComponent } from './components/game-progress/game-progress.component';
+import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 
 //Services
 import { TestService } from './services/test.service';
@@ -45,6 +46,7 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     MaterialViewComponent,
     ExamplesViewComponent,
     ModuleListComponent,
+    AdminPanelComponent,
     GameProgressComponent
   ],
   imports: [

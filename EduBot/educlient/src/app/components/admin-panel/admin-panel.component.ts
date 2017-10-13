@@ -14,7 +14,7 @@ import { ContextService } from '../../services/context.service';
                 <a *ngIf="true" (click)="switchEditMode()" class="navbar-link pr-2" title="Tryb edycji">
                     <i class="fa fa-edit fa-2x"></i>
                 </a>
-                <a *ngIf="true" routerLink="/" class="navbar-link pr-2" routerLinkActive="active" title="Zarządzaj użytkownikami">
+                <a *ngIf="true" routerLink="/user-management" class="navbar-link pr-2" routerLinkActive="active" title="Zarządzaj użytkownikami">
                     <i class="fa fa-user-circle-o fa-2x"></i>
                 </a>
                 <a *ngIf="true" routerLink="/" class="navbar-link pr-2" routerLinkActive="active" title="Wyświetl raport">

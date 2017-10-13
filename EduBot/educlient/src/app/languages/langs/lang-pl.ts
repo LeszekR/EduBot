@@ -15,5 +15,11 @@ export const LANG_PL_TRANS = {
     'login.password_change': 'Zmiana loginu lub hasła',
     'login.register': 'Zarejestruj się',
     'login.register_new_user': 'Rejestracja nowego użytkownika',
-    'login.repeat_password': 'Powtórz hasło'
+    'login.repeat_password': 'Powtórz hasło',
+    'toolbar.edit_mode': 'Tryb edycji',
+    'toolbar.log_in': 'Zaloguj się',
+    'toolbar.manage_users': 'Zarządzaj użytkownikami',
+    'toolbar.view_report': 'Wyświetl raport'
+    
+    
 };

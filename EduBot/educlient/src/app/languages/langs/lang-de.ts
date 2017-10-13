@@ -15,5 +15,9 @@ export const LANG_DE_TRANS = {
     'login.password_change': 'Login oder Passwort ändern',
     'login.register': 'Neu registrieren',
     'login.register_new_user': 'Neuen Benutzer registrieren',
-    'login.repeat_password': 'Passwort wiederholen'
+    'login.repeat_password': 'Passwort wiederholen',
+    'toolbar.edit_mode': 'Ausgabemodus',
+    'toolbar.log_in': 'Einloggen',
+    'toolbar.manage_users': 'Nutzer verwalten',
+    'toolbar.view_report': 'Zeige Bericht'
 };

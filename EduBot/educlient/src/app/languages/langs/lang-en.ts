@@ -15,5 +15,9 @@ export const LANG_EN_TRANS = {
     'login.password_change': 'Change login or password',
     'login.register': 'Register',
     'login.register_new_user': 'Register new user',
-    'login.repeat_password': 'Repeat password'
+    'login.repeat_password': 'Repeat password',
+    'toolbar.edit_mode': 'Edition mode',
+    'toolbar.log_in': 'Log in',
+    'toolbar.manage_users': 'Manage user',
+    'toolbar.view_report': 'View report'
 };

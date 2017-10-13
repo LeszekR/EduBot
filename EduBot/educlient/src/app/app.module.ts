@@ -18,7 +18,7 @@ import { ExamplesViewComponent } from './components/game-view/examples-view/exam
 import { MaterialViewComponent } from './components/game-view/material-view/material-view.component';
 import { ModuleListComponent } from './components/module-list/module-list.component';
 import { GameProgressComponent } from './components/game-progress/game-progress.component';
-import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { SelectLanguageComponent } from './components/select-language/select-language.component';
 
 //Services
@@ -43,13 +43,13 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
 	  FormFieldComponent,
     LoginComponent,
     WelcomeComponent,
+    ToolbarComponent,
     GameViewComponent,
     QuizViewComponent,
     ResultViewComponent,
     MaterialViewComponent,
     ExamplesViewComponent,
     ModuleListComponent,
-    AdminPanelComponent,
     GameProgressComponent,
     SelectLanguageComponent
   ],

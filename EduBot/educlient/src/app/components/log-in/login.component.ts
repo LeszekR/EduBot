@@ -2,7 +2,6 @@ import { Component, Output } from '@angular/core'
 
 import { LoginService } from '../../services/login.service'
 import { FormField } from '../../elements/form-field'
-import { TextService } from '../../languages/text.service'
 
 // import { St}  import żeby mieć dostęp do local storage
 // jesli caisteczka - też tu trzeba import
@@ -19,7 +18,7 @@ import { TextService } from '../../languages/text.service'
     selector: 'login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css'],
-    providers: [LoginService, TextService]
+    providers: [LoginService]
 })
 
 export class LoginComponent {
@@ -28,20 +27,15 @@ export class LoginComponent {
 
     private title: string;
 
-    private fieldLogin = new FormField(TextService.text('input_login'), '', true)
-    private fieldPassw = new FormField(TextService.text('input_password'), '', true)
+    private fieldLogin = new FormField('login.login', '', true)
+    private fieldPassw = new FormField('login.password', '', true)
 
-    private fieldNewLogin = new FormField(TextService.text('input_login_new'), '', false)
-    private fieldNewPassw = new FormField(TextService.text('input_password_new'), '', false)
-    private fieldRepPassw = new FormField(TextService.text('input_password_rep'), '', false)
+    private fieldNewLogin = new FormField('login.new_login', '', false)
+    private fieldNewPassw = new FormField('login.new_password', '', false)
+    private fieldRepPassw = new FormField('login.repeat_password', '', false)
 
     private errCredentials: string;
     private errPasswChange: string;
-
-    private butLoginCaption: string;
-    private butRegUserCaption: string;
-    private butPasswChangeCaption: string;
-    private butOkCaption: string;
 
     private action: string;
 
@@ -51,13 +45,7 @@ export class LoginComponent {
     constructor(private loginService: LoginService) { // , private localStor: LocalStorage ... ) {
         loginService.setLoginComp(this);
 
-        this.title = TextService.text('title_login');
         this.action = 'logging-in';
-        
-        this.butLoginCaption = TextService.text('but_log_in');
-        this.butRegUserCaption = TextService.text('but_reg_user');
-        this.butPasswChangeCaption = TextService.text('but_passw_change');
-        this.butOkCaption = TextService.text('but_ok');
     }
 
 
@@ -109,12 +97,12 @@ export class LoginComponent {
 
     // --------------------------------------------------------------------------------------------------------------
     setLoginError(errId: string) {
-        this.errCredentials = TextService.text(errId);
+        this.errCredentials = 'error.login.credentials';
     }
 
     // --------------------------------------------------------------------------------------------------------------
     setPasswChangeError(errId: string) {
-        this.errPasswChange = TextService.text(errId);
+        this.errPasswChange = 'error.login.repeat';
     }
 
 
@@ -129,14 +117,11 @@ export class LoginComponent {
     private setAction(newAction: string): void {
         this.action = newAction;
 
-        let titleId: string;
         if (this.action == 'logging-in')
-            titleId = 'title_login';
+            this.title = 'login';
         else if (this.action == 'register')
-            titleId = 'title_reg_user';
+            this.title = 'login.register_new_user';
         else if (this.action == 'passw-change')
-            titleId = 'title_passw_change';
-
-        this.title = TextService.text(titleId);
+            this.title = 'login.password_change';
     }
 }

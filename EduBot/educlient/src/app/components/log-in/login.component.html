@@ -3,7 +3,7 @@
         <formfield [field]='fieldLogin' class='formfield'></formfield>
         <formfield [field]='fieldPassw' class='formfield'></formfield>
         <div class='err_msg'>
-            <p>{{errCredentials}}</p>
+            <p>{{ errCredentials | translate }}</p>
         </div>
     </div>
     <div *ngIf="action=='register' || action=='passw-change'">
@@ -11,17 +11,17 @@
         <formfield [field]='fieldNewPassw' class='formfield'></formfield>
         <formfield [field]='fieldRepPassw' class='formfield'></formfield>
         <div class='err_msg'>
-            <p>{{errPasswChange}}</p>
+            <p>{{ errPasswChange | translate }}</p>
         </div>
     </div>
     <div class='login_menu'>
         <div>
-            <button *ngIf="action!='logging-in'" (click)="setAction('logging-in')">{{butLoginCaption}}</button>
-            <button *ngIf="action!='register'" (click)="setAction('register')">{{butRegUserCaption}}</button>
-            <button *ngIf="action!='passw-change'" (click)="setAction('passw-change')">{{butPasswChangeCaption}}</button>
+            <button *ngIf="action!='logging-in'" (click)="setAction('logging-in')">{{ 'login.log_in' | translate }}</button>
+            <button *ngIf="action!='register'" (click)="setAction('register')">{{ 'login.register' | translate }}</button>
+            <button *ngIf="action!='passw-change'" (click)="setAction('passw-change')">{{ 'login.password_change' | translate }}</button>
         </div>
     </div>
-    <button (click)='submitLogin()'>{{butOkCaption}}</button>
+    <button (click)='submitLogin()'>{{ 'common.ok' | translate }}</button>
 </div>
 <div *ngIf="loggedIn">
     Jestem zalogowany

@@ -7,16 +7,16 @@ import { AlertModule } from 'ngx-bootstrap';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
 //Components
-import { FormFieldComponent } from './elements/form-field.component'
+import { FormFieldComponent } from './components/form-field/form-field.component'
 import { LoginComponent } from './components/log-in/login.component'
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './components/welcome-comp/welcome.component';
-import { GameViewComponent } from './components/game-view/game-view.component';
-import { QuizViewComponent } from './components/game-view/quiz-view/quiz-view.component';
-import { ResultViewComponent } from './components/game-view/result-view/result-view.component';
-import { ExamplesViewComponent } from './components/game-view/examples-view/examples-view.component';
-import { MaterialViewComponent } from './components/game-view/material-view/material-view.component';
-import { ModuleListComponent } from './components/module-list/module-list.component';
+import { GameViewComponent } from './features/game-view/game-view.component';
+import { QuizViewComponent } from './features/game-view/quiz-view/quiz-view.component';
+import { ResultViewComponent } from './features/game-view/result-view/result-view.component';
+import { ExamplesViewComponent } from './features/game-view/examples-view/examples-view.component';
+import { MaterialViewComponent } from './features/game-view/material-view/material-view.component';
+import { ModuleListComponent } from './features/module-list/module-list.component';
 import { GameProgressComponent } from './components/game-progress/game-progress.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { SelectLanguageComponent } from './components/select-language/select-language.component';

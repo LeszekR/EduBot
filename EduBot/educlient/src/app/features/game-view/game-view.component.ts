@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 //Models
@@ -38,8 +38,18 @@ export class GameViewComponent implements OnInit {
   save(){
     this.module.material = this.materialComponent.material;
     this.module.examples = this.exampleComponent.example;
-
     this.moduleService.saveModule(this.module).subscribe(res => this.module = res);
+
+    this.context.editModuleId = null;
+  }
+
+  delete(){
+    console.log("delete");
+    this.context.editModuleId = null;
+  }
+
+  cancel(){
+    this.context.editModuleId = null;
   }
 
 }

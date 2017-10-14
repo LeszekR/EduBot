@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 //Components
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './components/welcome-comp/welcome.component';
-import { GameViewComponent } from './components/game-view/game-view.component';
+import { GameViewComponent } from './features/game-view/game-view.component';
 
 //Resolvers
 import { ModuleResolver } from './resolvers/module.resolver';

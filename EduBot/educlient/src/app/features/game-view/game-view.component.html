@@ -1,0 +1,29 @@
+<div class="container-fluid h-100">
+    <div class="row d-flex" style="height: calc(100% - 50px)" >
+        <div class="col-6 h-100">
+            <material-view [material]="module.material" [readonly]="!context.editModuleId" ></material-view>
+        </div>
+        <div class="col-6 h-100">
+            <examples-view [example]="module.examples" [readonly]="!context.editModuleId" ></examples-view>
+        </div>
+
+    </div>
+
+    <div class="row h-100" hidden >
+        <div class="col-6 h-100">
+            <result-view></result-view>
+        </div>
+        <div class="col-6 h-100">
+            <quiz-view></quiz-view>
+        </div>
+    </div>
+
+    <div class="row col-12" *ngIf="context.editModuleId" >
+        <div class="ml-auto">
+            <button (click)="cancel()" class="btn btn-primary">{{ 'common.cancel' | translate }}</button>
+            <button (click)="delete()" class="btn btn-primary">{{ 'common.delete' | translate }}</button>
+            <button (click)="save()" class="btn btn-primary" >{{ 'common.save' | translate }}</button>
+        </div>
+    </div>
+</div>
+

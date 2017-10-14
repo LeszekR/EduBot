@@ -3,6 +3,9 @@
 export const LANG_EN_TRANS = {
     'common.ok': 'Ok',
     'common.cancel': 'Cancel',
+    'common.delete': 'Delete',
+    'common.save': 'Save',
+    'edit.add_module': 'Add module ...',
     'error.login.credentials': 'Username or password is incorrect',
     'error.login.repeat': 'Passwords are different.',
     'error.server': 'Server error. Check your server state',

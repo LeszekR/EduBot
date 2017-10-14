@@ -1,7 +1,7 @@
 import { Component, Output } from '@angular/core'
 
-import { LoginService } from '../../services/login.service'
-import { FormField } from '../../elements/form-field'
+import { LoginService } from '../../services/login.service';
+import { FormField } from '../form-field/form-field';
 
 // import { St}  import żeby mieć dostęp do local storage
 // jesli caisteczka - też tu trzeba import

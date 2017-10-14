@@ -7,11 +7,10 @@ import { Role } from '../models/role';
 @Injectable()
 export class ContextService {
 
-    isEditMode: boolean;
     userRole: Role;
+    editModuleId: number;
 
     ngOnInit(){
-        this.isEditMode = false;
         this.userRole = Role.Admin;
     }
     

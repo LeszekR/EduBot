@@ -3,6 +3,9 @@
 export const LANG_PL_TRANS = {
     'common.ok': 'Ok',
     'common.cancel': 'Anuluj',
+    'common.delete': 'Usuń',
+    'common.save': 'Zapisz',
+    'edit.add_module': 'Dodaj moduł ...',
     'error.login.credentials': 'Nieprawidłowe dane logowania',
     'error.login.repeat': 'Hasła są różne',
     'error.server': 'Błąd serwera. Czy serwer jest uruchomiony?',

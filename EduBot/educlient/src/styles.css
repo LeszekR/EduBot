@@ -2,7 +2,24 @@ body {
     color: #017EB5 !important;
 }
 
-.fa:hover {
-    color: #053B6C !important;
+.primary-color{
+    color: #053B6C;
+}
+
+.fa-div:hover, .fa:hover {
+    color: #043A6C !important;
     cursor: pointer;
+}
+
+.btn:hover{
+    cursor: pointer;
+}
+
+a.disabled {
+    pointer-events: none;
+    background-color: lightgray !important;
+}
+
+.bg-white{
+    background-color: white !important;
 }

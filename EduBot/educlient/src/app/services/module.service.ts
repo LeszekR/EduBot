@@ -12,6 +12,8 @@ export class ModuleService {
 
     constructor(private http: HttpService){}
 
+    editedModuleId: number;
+
     getSimpleModules(): Observable<Module>{
         return this.http.get(this.moduleUrl + '/all')
             .map((res: Response) => res.json())

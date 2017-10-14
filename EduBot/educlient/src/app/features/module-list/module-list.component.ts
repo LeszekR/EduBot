@@ -27,12 +27,14 @@ export class ModuleListComponent implements OnInit {
 
   private addModule(){
     let module = new Module();
+    module.name = "Nowy moduł"
     module.isNew = true;
-    this.moduleService.saveModule(module).subscribe(res => this.modules.push(res));
+    this.modules.push(module);
+    //this.moduleService.saveModule(module).subscribe(res => this.modules.push(res));
   }
 
-  private deleteModule(id: number){
-    
+  private editModule(id: number){
+    this.context.editModuleId = id;
   }
 
 }

@@ -11,7 +11,7 @@ import { ContextService } from '../../services/context.service';
                 <a *ngIf="true" (click)="onOpenLoginWindow.emit()" class="nvbar-link pr-2" title="{{ 'toolbar.log_in' | translate }}">
                     <i class="fa fa-sign-in fa-2x" ></i>
                 </a>
-                <a *ngIf="true" (click)="switchEditMode()" class="navbar-link pr-2" title="{{ 'toolbar.edit_mode' | translate }}">
+                <a *ngIf="false" (click)="switchEditMode()" class="navbar-link pr-2" title="{{ 'toolbar.edit_mode' | translate }}">
                     <i class="fa fa-edit fa-2x"></i>
                 </a>
                 <a *ngIf="true" routerLink="/user-management" class="navbar-link pr-2" routerLinkActive="active" title="{{ 'toolbar.manage_users' | translate }}">
@@ -31,9 +31,5 @@ export class ToolbarComponent {
     constructor(private context: ContextService){}
 
     @Output() onOpenLoginWindow = new EventEmitter();
-    
-    switchEditMode(){
-        this.context.isEditMode = !this.context.isEditMode;
-    }
 
 }

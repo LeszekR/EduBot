@@ -1,8 +1,8 @@
-<div class='login_window' *ngIf="!loggedIn">
+<div class="login_window pl-3 pt-3" *ngIf="!loggedIn">
     <div *ngIf="action=='logging-in' || action=='passw-change'">
         <formfield [field]='fieldLogin' class='formfield'></formfield>
         <formfield [field]='fieldPassw' class='formfield'></formfield>
-        <div class='err_msg'>
+        <div class='text-danger'>
             <p>{{ errCredentials | translate }}</p>
         </div>
     </div>
@@ -10,7 +10,7 @@
         <formfield [field]='fieldNewLogin' class='formfield'></formfield>
         <formfield [field]='fieldNewPassw' class='formfield'></formfield>
         <formfield [field]='fieldRepPassw' class='formfield'></formfield>
-        <div class='err_msg'>
+        <div class="text-danger">
             <p>{{ errPasswChange | translate }}</p>
         </div>
     </div>

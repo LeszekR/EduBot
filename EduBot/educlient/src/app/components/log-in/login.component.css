@@ -2,12 +2,10 @@
 /* ----------------------------------------------------------------------------------------*/
 .login_window h2 {
     margin: 0;
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
     text-align: center;
 }
-.login_window {
-    padding: 3rem;
-}
+
 .login_window button {
     width: 8rem;
     height: 2.5rem;
@@ -32,12 +30,3 @@
     margin-top: 1rem;
 } 
 
-/* Error message divs */ 
-/* ----------------------------------------------------------------------------------------*/
-.err_msg {
-    height: 5rem;
-    margin-bottom: 3rem; 
-}
-.err_msg > p {
-    color: red;
-}

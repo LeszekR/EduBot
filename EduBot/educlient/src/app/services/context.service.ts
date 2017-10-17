@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 
 //Models
-import { Role } from '../models/role';
+import { Role } from '../models/enum-user-role';
 
 //Serwis zawierający informacje o zalogowanym użytkowniku, uprawnieniach, obecnym stanie
 @Injectable()

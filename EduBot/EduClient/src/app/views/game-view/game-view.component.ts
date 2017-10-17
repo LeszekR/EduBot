@@ -9,8 +9,8 @@ import { ModuleService } from '../../services/module.service';
 import { ContextService } from '../../services/context.service';
 
 //Components
-import { MaterialViewComponent } from './material-view/material-view.component';
-import { ExamplesViewComponent } from './examples-view/examples-view.component';
+import { MaterialViewComponent } from './content-view/content-view.component';
+import { ExamplesViewComponent } from './example-view/example-view.component';
 
 
 // ==================================================================================================================
@@ -21,7 +21,7 @@ import { ExamplesViewComponent } from './examples-view/examples-view.component';
 export class GameViewComponent implements OnInit {
 
   @ViewChild(MaterialViewComponent)
-  private materialComponent: MaterialViewComponent;
+  private contentComponent: MaterialViewComponent;
   @ViewChild(ExamplesViewComponent)
   private exampleComponent: ExamplesViewComponent;
 
@@ -44,8 +44,8 @@ export class GameViewComponent implements OnInit {
 
   // --------------------------------------------------------------------------------------------------------------
   save() {
-    this.module.material = this.materialComponent.material;
-    this.module.examples = this.exampleComponent.example;
+    this.module.content = this.contentComponent.content;
+    this.module.example = this.exampleComponent.example;
     this.moduleService.saveModule(this.module).subscribe(res => this.module = res);
 
     this.context.editModuleId = null;

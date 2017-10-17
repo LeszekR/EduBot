@@ -65,6 +65,16 @@ export class HttpService extends Http {
             });
     }
 
+    // --------------------------------------------------------------------------------------------------------------
+    getHttp(url: string): Observable<Response> {
+        return this.get(url)
+            .map((res: Response) => res.json())
+            .catch(error => {
+                console.log(error);
+                return Observable.throw(error);
+            });
+    }
+
     // PRIVATE
     // ==============================================================================================================
     private catchError(self: HttpService) {

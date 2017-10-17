@@ -1,10 +1,10 @@
 <div class="container-fluid h-100">
     <div class="row d-flex" style="height: calc(100% - 50px)" >
         <div class="col-6 h-100">
-            <material-view [material]="module.material" [readonly]="!context.editModuleId" ></material-view>
+            <content-view [content]="module.content" [readonly]="!context.editModuleId" ></content-view>
         </div>
         <div class="col-6 h-100">
-            <examples-view [example]="module.examples" [readonly]="!context.editModuleId" ></examples-view>
+            <example-view [example]="module.example" [readonly]="!context.editModuleId" ></example-view>
         </div>
 
     </div>

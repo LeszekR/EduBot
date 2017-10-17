@@ -6,8 +6,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
 
-import { HttpService } from './http.service';
-import { TestData } from '../models/test-data'
+import { HttpService } from '../services/http.service';
+import { TestData } from '../mock/test-data'
 
 @Injectable()
 export class TestService {

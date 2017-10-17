@@ -22,7 +22,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { SelectLanguageComponent } from './components/select-language/select-language.component';
 
 //Services
-import { TestService } from './services/test.service';
+import { TestService } from './mock/test.service';
 import { HttpService } from './services/http.service';
 import { LoginService } from './services/login.service'
 import { ModuleService } from './services/module.service';
@@ -36,6 +36,8 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
   return new HttpService(backend, options, router);
 }
 
+
+// ==================================================================================================================
 @NgModule({
   declarations: [
     TranslatePipe,

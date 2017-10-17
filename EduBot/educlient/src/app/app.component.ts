@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
-import { TestData } from './models/test-data';
-import { TestService } from './services/test.service';
+import { TestData } from './mock/test-data';
+import { TestService } from './mock/test.service';
 
 // ==================================================================================================================
 @Component({

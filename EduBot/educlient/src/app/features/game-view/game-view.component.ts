@@ -13,6 +13,7 @@ import { MaterialViewComponent } from './material-view/material-view.component';
 import { ExamplesViewComponent } from './examples-view/examples-view.component';
 
 
+// ==================================================================================================================
 @Component({
   selector: 'game-view',
   templateUrl: './game-view.component.html'
@@ -23,19 +24,26 @@ export class GameViewComponent implements OnInit {
   private materialComponent: MaterialViewComponent;
   @ViewChild(ExamplesViewComponent)
   private exampleComponent: ExamplesViewComponent;
-  
+
   module: Module;
 
-  constructor(private route: ActivatedRoute, private moduleService: ModuleService, private context: ContextService){}
 
-  ngOnInit(){
-      this.route.data
-          .subscribe((data: { module: any }) => {
-              this.module = data.module;
-            });
+  // CONSTRUCTOR
+  // ==============================================================================================================
+  constructor(private route: ActivatedRoute, private moduleService: ModuleService, private context: ContextService) { }
+
+
+  // PUBLIC
+  // ==============================================================================================================
+  ngOnInit() {
+    this.route.data
+      .subscribe((data: { module: any }) => {
+        this.module = data.module;
+      });
   }
 
-  save(){
+  // --------------------------------------------------------------------------------------------------------------
+  save() {
     this.module.material = this.materialComponent.material;
     this.module.examples = this.exampleComponent.example;
     this.moduleService.saveModule(this.module).subscribe(res => this.module = res);
@@ -43,13 +51,14 @@ export class GameViewComponent implements OnInit {
     this.context.editModuleId = null;
   }
 
-  delete(){
+  // --------------------------------------------------------------------------------------------------------------
+  delete() {
     console.log("delete");
     this.context.editModuleId = null;
   }
 
-  cancel(){
+  // --------------------------------------------------------------------------------------------------------------
+  cancel() {
     this.context.editModuleId = null;
   }
-
 }

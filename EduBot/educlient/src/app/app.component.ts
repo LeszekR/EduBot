@@ -4,6 +4,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { TestData } from './models/test-data';
 import { TestService } from './services/test.service';
 
+// ==================================================================================================================
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,13 +17,18 @@ export class AppComponent implements OnInit {
 
   someData: TestData;
 
-  constructor(private testService: TestService){}
 
-  ngOnInit(){
-  }
+  // CONSTRUCTOR
+  // ==============================================================================================================
+  constructor(private testService: TestService) { }
 
+
+  // PUBLIC
+  // ==============================================================================================================
+  ngOnInit() {}
+
+  // --------------------------------------------------------------------------------------------------------------
   openLoginWindow() {
     this.loginModal.show();
   }
-
 }

@@ -11,6 +11,10 @@ body {
     cursor: pointer;
 }
 
+select{
+    cursor: pointer;
+}
+
 .btn:hover{
     cursor: pointer;
 }

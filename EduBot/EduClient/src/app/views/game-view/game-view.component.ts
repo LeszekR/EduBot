@@ -28,7 +28,9 @@ export class GameViewComponent implements OnInit {
   @ViewChild(ExampleViewComponent)
   private exampleComponent: ExampleViewComponent;
 
-  module: Module;
+  private module: Module;
+  private diffLevels = DiffLevel;
+
 
 
   // CONSTRUCTOR
@@ -54,8 +56,6 @@ export class GameViewComponent implements OnInit {
 
     this.module.id = this.context.editModuleId;
     this.module.id_group = 0;   // TODO: pobrac z pola edycji
-    this.module.difficulty = DiffLevel.Easy;   // TODO: pobrac z pola edycji
-    this.module.title = "Tytuł zastępczy";   // TODO: pobrac z pola edycji
 
     this.module.content = this.contentComponent.content;
     this.module.example = this.exampleComponent.example;

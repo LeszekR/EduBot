@@ -3,14 +3,11 @@
         <div class="d-flex" >
             <a [routerLink]="['module/' ,module.id]"
                 class="btn-menu list-group-item list-group-item-action p-0 primary-color"
-                [ngClass]="context.editModuleId!=null ? (context.editModuleId==module.id ? 'bg-white' : 'disabled') : '' "
+                [ngClass]="context.editModuleId!=null ? (context.editModuleId==module.id ? '' : 'disabled') : '' "
                 routerLinkActive="active">
                 <div class="pl-2 p-3">
                     <div class="ml-3">
-                        <span *ngIf="context.editModuleId != module.id" class="w-100">{{ module.title }}</span>
-                    </div>
-                    <div>
-                        <input *ngIf="context.editModuleId == module.id" class="form-control" type="text" [(ngModel)]="module.title" />
+                        <span class="w-100">{{ module.title }}</span>
                     </div>
                 </div>
                 <div class="ml-auto pr-1" *ngIf="context.editModuleId==null" >

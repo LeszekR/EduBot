@@ -1,5 +1,4 @@
 <div class="container-fluid h-100">
-    
     <div class="row d-flex" style="height: calc(100% - 50px)" >
         <div class="module-content col-6 h-100">
             <content-view [content]="module.content" [readonly]="!context.editModuleId" ></content-view>
@@ -19,10 +18,18 @@
     </div>
 
     <div class="row col-12" *ngIf="context.editModuleId" >
+        <div class="ml-3 d-flex">
+            <input type="text" class="form-control" [(ngModel)]="module.title" />
+
+            <select class="form-control ml-3" [(ngModel)]="module.difficulty" >
+                <option class="form-control" *ngFor="let level of diffLevels | keys" [value]="level.key" >{{ 'module.diff-level.' + level.value | translate }}</option>
+            </select>
+        </div>
+
         <div class="ml-auto">
-            <button (click)="cancel()" class="btn btn-primary">{{ 'common.cancel' | translate }}</button>
-            <button (click)="delete()" class="btn btn-primary">{{ 'common.delete' | translate }}</button>
             <button (click)="save()" class="btn btn-primary" >{{ 'common.save' | translate }}</button>
+            <button (click)="delete()" class="btn btn-primary">{{ 'common.delete' | translate }}</button>
+            <button (click)="cancel()" class="btn btn-primary">{{ 'common.cancel' | translate }}</button> 
         </div>
     </div>
 </div>

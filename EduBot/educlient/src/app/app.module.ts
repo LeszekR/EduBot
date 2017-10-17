@@ -30,6 +30,8 @@ import { ContextService } from './services/context.service';
 import { TranslateService, TRANSLATION_PROVIDERS } from './languages';
 import { TranslatePipe } from './languages/translate.pipe';
 
+//Modules
+import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 
 export function httpServiceFactory(backend: XHRBackend, options: RequestOptions, router: Router) {
@@ -56,6 +58,7 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     SelectLanguageComponent
   ],
   imports: [
+    SharedModule,
     BrowserModule,
     FormsModule,
     HttpModule,

@@ -1,5 +1,4 @@
 
-
 .list-group a {
     margin-top: 4px;
     border-radius: 0px;
@@ -84,3 +83,15 @@ select option {
     padding: 0.25rem 1rem;
 }
 
+/* --- */
+#module-list {
+    width: 20%;
+    height: 40%;
+    padding-right: 2%;
+    float: left;
+}
+#module-content-example {
+    width: 78%;
+    height: 80vh;
+    float: right;
+}

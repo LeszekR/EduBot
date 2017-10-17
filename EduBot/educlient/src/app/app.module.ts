@@ -14,8 +14,8 @@ import { WelcomeComponent } from './components/welcome-comp/welcome.component';
 import { GameViewComponent } from './views/game-view/game-view.component';
 import { QuizViewComponent } from './views/game-view/quiz-view/quiz-view.component';
 import { ResultViewComponent } from './views/game-view/result-view/result-view.component';
-import { ExamplesViewComponent } from './views/game-view/example-view/example-view.component';
-import { MaterialViewComponent } from './views/game-view/content-view/content-view.component';
+import { ExampleViewComponent } from './views/game-view/example-view/example-view.component';
+import { ContentViewComponent } from './views/game-view/content-view/content-view.component';
 import { ModuleListComponent } from './views/module-list/module-list.component';
 import { GameProgressComponent } from './components/game-progress/game-progress.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
@@ -49,8 +49,8 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     GameViewComponent,
     QuizViewComponent,
     ResultViewComponent,
-    MaterialViewComponent,
-    ExamplesViewComponent,
+    ContentViewComponent,
+    ExampleViewComponent,
     ModuleListComponent,
     GameProgressComponent,
     SelectLanguageComponent

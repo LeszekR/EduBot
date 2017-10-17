@@ -9,21 +9,22 @@ import { ModuleService } from '../../services/module.service';
 import { ContextService } from '../../services/context.service';
 
 //Components
-import { MaterialViewComponent } from './content-view/content-view.component';
-import { ExamplesViewComponent } from './example-view/example-view.component';
+import { ContentViewComponent } from './content-view/content-view.component';
+import { ExampleViewComponent } from './example-view/example-view.component';
 
 
 // ==================================================================================================================
 @Component({
   selector: 'game-view',
-  templateUrl: './game-view.component.html'
+  templateUrl: './game-view.component.html',
+  styles: ['./game-view.component.css']
 })
 export class GameViewComponent implements OnInit {
 
-  @ViewChild(MaterialViewComponent)
-  private contentComponent: MaterialViewComponent;
-  @ViewChild(ExamplesViewComponent)
-  private exampleComponent: ExamplesViewComponent;
+  @ViewChild(ContentViewComponent)
+  private contentComponent: ContentViewComponent;
+  @ViewChild(ExampleViewComponent)
+  private exampleComponent: ExampleViewComponent;
 
   module: Module;
 

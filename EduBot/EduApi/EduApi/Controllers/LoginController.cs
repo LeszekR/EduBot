@@ -23,8 +23,7 @@ namespace EduApi.Controllers {
             user userLog = null;
 
             using (edumaticEntities baza = new edumaticEntities()) {
-                userLog = (from obiekt
-                        in baza.user
+                userLog = (from obiekt in baza.user
                            where obiekt.login == login && obiekt.password == passw
                            select obiekt).FirstOrDefault();
             }

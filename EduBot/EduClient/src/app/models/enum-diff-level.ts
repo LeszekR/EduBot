@@ -1,7 +1,7 @@
 
 // ==================================================================================================================
-export enum TestType {
-    Choice = 0,
-    OpenQuestion = 1,
-    Code = 2
+export enum DiffLevel {
+    Easy = 0,
+    Medium = 1,
+    Hard = 2
 }

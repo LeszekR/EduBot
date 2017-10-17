@@ -42,13 +42,13 @@ export class ModuleService {
     getSimpleModulesMock(): Module[] {
         let module1 = new Module();
         module1.id = 1;
-        module1.name = 'Module 1';
+        module1.title = 'Module 1';
         let module2 = new Module();
         module2.id = 2;
-        module2.name = 'Module 2';
+        module2.title = 'Module 2';
         let module3 = new Module();
         module3.id = 3;
-        module3.name = 'Module 3';
+        module3.title = 'Module 3';
         this.mockModules = [module1, module2, module3];
         return this.mockModules;
     }
@@ -81,8 +81,6 @@ export class ModuleService {
         let module = this.mockModules[id - 1];
 
         console.log("module.id: " + module.id);
-
-        console.log(this.mockData);
 
         module.content = this.mockData.mockModules[module.id].content;
         module.example = this.mockData.mockModules[module.id].example;

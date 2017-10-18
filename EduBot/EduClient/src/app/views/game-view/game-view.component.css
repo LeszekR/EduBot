@@ -1,6 +1,6 @@
-.module-content {
-    height: 40vh;
-}
-.module-example {
-    height: 40vh;
+.changeview {
+    position: absolute !important;
+    left: 49%;
+    top: 40%;
+    cursor: pointer;
 }

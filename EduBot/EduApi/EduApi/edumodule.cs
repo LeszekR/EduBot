@@ -7,29 +7,32 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EduApi.Models
+namespace EduApi
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class user
+    public partial class edumodule
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public user()
+        public edumodule()
         {
-            this.user_distractor = new HashSet<user_distractor>();
             this.user_edumodule = new HashSet<user_edumodule>();
         }
     
         public int id { get; set; }
-        public string login { get; set; }
-        public string password { get; set; }
-        public string role { get; set; }
-        public Nullable<int> score { get; set; }
+        public Nullable<short> id_group { get; set; }
+        public string difficulty { get; set; }
+        public string title { get; set; }
+        public string content { get; set; }
+        public string example { get; set; }
+        public string test_type { get; set; }
+        public string test_task { get; set; }
+        public string test_answer { get; set; }
     
-        public virtual enum_user_role enum_user_role { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<user_distractor> user_distractor { get; set; }
+        public virtual enum_diff_level enum_diff_level { get; set; }
+        public virtual edumodule_gamecontext edumodule_gamecontext { get; set; }
+        public virtual enum_test_type enum_test_type { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<user_edumodule> user_edumodule { get; set; }
     }

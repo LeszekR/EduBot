@@ -7,22 +7,30 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EduApi.Models
+namespace EduApi
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class enum_diff_level
+    public partial class user
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public enum_diff_level()
+        public user()
         {
-            this.edumodule = new HashSet<edumodule>();
+            this.user_distractor = new HashSet<user_distractor>();
+            this.user_edumodule = new HashSet<user_edumodule>();
         }
     
-        public string difficulty { get; set; }
+        public int id { get; set; }
+        public string login { get; set; }
+        public string password { get; set; }
+        public string role { get; set; }
+        public Nullable<int> score { get; set; }
     
+        public virtual enum_user_role enum_user_role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<edumodule> edumodule { get; set; }
+        public virtual ICollection<user_distractor> user_distractor { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<user_edumodule> user_edumodule { get; set; }
     }
 }

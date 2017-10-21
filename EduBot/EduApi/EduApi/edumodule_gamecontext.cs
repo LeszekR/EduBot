@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EduApi.Models
+namespace EduApi
 {
     using System;
     using System.Collections.Generic;

@@ -53,12 +53,6 @@
           </Key>
           <Property Name="role" Type="varchar" MaxLength="8000" Nullable="false" />
         </EntityType>
-        <EntityType Name="enum_user_type">
-          <Key>
-            <PropertyRef Name="role" />
-          </Key>
-          <Property Name="role" Type="varchar" MaxLength="8000" Nullable="false" />
-        </EntityType>
         <EntityType Name="user">
           <Key>
             <PropertyRef Name="id" />
@@ -190,7 +184,6 @@
           <EntitySet Name="enum_diff_level" EntityType="Self.enum_diff_level" Schema="public" store:Type="Tables" />
           <EntitySet Name="enum_test_type" EntityType="Self.enum_test_type" Schema="public" store:Type="Tables" />
           <EntitySet Name="enum_user_role" EntityType="Self.enum_user_role" Schema="public" store:Type="Tables" />
-          <EntitySet Name="enum_user_type" EntityType="Self.enum_user_type" Schema="public" store:Type="Tables" />
           <EntitySet Name="user" EntityType="Self.user" Schema="public" store:Type="Tables" />
           <EntitySet Name="user_distractor" EntityType="Self.user_distractor" Schema="public" store:Type="Tables" />
           <EntitySet Name="user_edumodule" EntityType="Self.user_edumodule" Schema="public" store:Type="Tables" />
@@ -288,12 +281,6 @@
           </Key>
           <Property Name="role" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="user" Relationship="Self.user_role_fkey" FromRole="enum_user_role" ToRole="user" />
-        </EntityType>
-        <EntityType Name="enum_user_type">
-          <Key>
-            <PropertyRef Name="role" />
-          </Key>
-          <Property Name="role" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="user">
           <Key>
@@ -426,14 +413,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="edumaticEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="edumaticEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="distractor" EntityType="Self.distractor" />
           <EntitySet Name="edumodule" EntityType="Self.edumodule" />
           <EntitySet Name="edumodule_gamecontext" EntityType="Self.edumodule_gamecontext" />
           <EntitySet Name="enum_diff_level" EntityType="Self.enum_diff_level" />
           <EntitySet Name="enum_test_type" EntityType="Self.enum_test_type" />
           <EntitySet Name="enum_user_role" EntityType="Self.enum_user_role" />
-          <EntitySet Name="enum_user_type" EntityType="Self.enum_user_type" />
           <EntitySet Name="user" EntityType="Self.user" />
           <EntitySet Name="user_distractor" EntityType="Self.user_distractor" />
           <EntitySet Name="user_edumodule" EntityType="Self.user_edumodule" />
@@ -475,7 +461,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="edumaticModelStoreContainer" CdmEntityContainer="edumaticEntities">
+        <EntityContainerMapping StorageEntityContainer="edumaticModelStoreContainer" CdmEntityContainer="edumaticEntities1">
           <EntitySetMapping Name="distractor">
             <EntityTypeMapping TypeName="edumaticModel.distractor">
               <MappingFragment StoreEntitySet="distractor">
@@ -526,13 +512,6 @@
           <EntitySetMapping Name="enum_user_role">
             <EntityTypeMapping TypeName="edumaticModel.enum_user_role">
               <MappingFragment StoreEntitySet="enum_user_role">
-                <ScalarProperty Name="role" ColumnName="role" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="enum_user_type">
-            <EntityTypeMapping TypeName="edumaticModel.enum_user_type">
-              <MappingFragment StoreEntitySet="enum_user_type">
                 <ScalarProperty Name="role" ColumnName="role" />
               </MappingFragment>
             </EntityTypeMapping>

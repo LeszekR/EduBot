@@ -1,5 +1,4 @@
 ﻿using System;
-using EduApi.Models;
 using System.Runtime.Serialization;
 
 namespace EduApi.DTO {

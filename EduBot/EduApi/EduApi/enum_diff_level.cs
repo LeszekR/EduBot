@@ -7,22 +7,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EduApi.Models
+namespace EduApi
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class enum_user_role
+    public partial class enum_diff_level
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public enum_user_role()
+        public enum_diff_level()
         {
-            this.user = new HashSet<user>();
+            this.edumodule = new HashSet<edumodule>();
         }
     
-        public string role { get; set; }
+        public string difficulty { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<user> user { get; set; }
+        public virtual ICollection<edumodule> edumodule { get; set; }
     }
 }

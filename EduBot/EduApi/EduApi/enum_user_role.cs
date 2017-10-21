@@ -7,24 +7,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EduApi.Models
+namespace EduApi
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class distractor
+    public partial class enum_user_role
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public distractor()
+        public enum_user_role()
         {
-            this.user_distractor = new HashSet<user_distractor>();
+            this.user = new HashSet<user>();
         }
     
-        public int id { get; set; }
-        public string type { get; set; }
-        public string distr_content { get; set; }
+        public string role { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<user_distractor> user_distractor { get; set; }
+        public virtual ICollection<user> user { get; set; }
     }
 }

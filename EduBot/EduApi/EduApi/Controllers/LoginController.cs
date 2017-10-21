@@ -2,7 +2,6 @@
 using System.Net;
 using System.Web.Http;
 using EduApi.DTO;
-using EduApi.Models;
 using System.Web.Http.Cors;
 
 

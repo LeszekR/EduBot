@@ -31,8 +31,6 @@ export class GameViewComponent implements OnInit {
   private module: Module;
   private diffLevels = DiffLevel;
 
-  private view: number;
-
 
   // CONSTRUCTOR
   // ==============================================================================================================
@@ -45,18 +43,10 @@ export class GameViewComponent implements OnInit {
   // PUBLIC
   // ==============================================================================================================
   ngOnInit() {
-    this.view = 1;
     this.route.data
       .subscribe((data: { module: any }) => {
         this.module = data.module;
       });
-  }
-
-  changeView(){
-    if(this.view == 1)
-      this.view = 2;
-    else
-      this.view = 1;
   }
 
   // --------------------------------------------------------------------------------------------------------------

@@ -1,7 +1,9 @@
 ﻿using EduApi.DTO;
 using System.Web.Http;
+using System.Linq;
 
 namespace EduApi.Controllers {
+
     public class ModuleController : ApiController {
         [Route("")]
         [HttpGet]

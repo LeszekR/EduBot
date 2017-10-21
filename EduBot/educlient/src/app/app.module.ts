@@ -33,6 +33,8 @@ import { TranslatePipe } from './languages/translate.pipe';
 //Modules
 import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
+import { NowyKompComponent } from './nowy-komp/nowy-komp.component';
+import { NowyJeszczeComponent } from './nowy-jeszcze/nowy-jeszcze.component';
 
 export function httpServiceFactory(backend: XHRBackend, options: RequestOptions, router: Router) {
   return new HttpService(backend, options, router);
@@ -55,7 +57,9 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     ExampleViewComponent,
     ModuleListComponent,
     GameProgressComponent,
-    SelectLanguageComponent
+    SelectLanguageComponent,
+    NowyKompComponent,
+    NowyJeszczeComponent
   ],
   imports: [
     SharedModule,

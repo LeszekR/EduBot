@@ -35,11 +35,11 @@ namespace EduApi.Controllers {
                     baza.edumodule.Add(module);
                 }
                 else {
-                    module = (
-                        from ed in baza.edumodule
-                        where ed.id == id
-                        select ed).First();
-                }
+                //    module = (
+                //        from ed in baza.edumodule
+                //        where ed.id == id
+                //        select ed).First();
+                //}
                 baza.SaveChanges();
             }
 

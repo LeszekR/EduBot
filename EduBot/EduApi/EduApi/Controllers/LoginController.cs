@@ -3,8 +3,7 @@ using System.Net;
 using System.Web.Http;
 using EduApi.DTO;
 using System.Web.Http.Cors;
-
-
+using EduApi.Dto.Mappers;
 
 namespace EduApi.Controllers {
 
@@ -30,7 +29,7 @@ namespace EduApi.Controllers {
             if (userLog == null)
                 return StatusCode(HttpStatusCode.Unauthorized);
             else
-                return Ok(new UserDTO(userLog));
+                return Ok(UserMappper.GetDTO(userLog));
         }
     }
 }

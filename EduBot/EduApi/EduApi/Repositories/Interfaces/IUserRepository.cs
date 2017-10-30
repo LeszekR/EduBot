@@ -5,6 +5,6 @@ namespace EduApi.DAL.Interfaces
 {
     public interface IUserRepository : IRepository<user>
     {
-        UserDTO LogUser(string login, string password);
+        UserDTO Authenticate(string login, string password);
     }
 }

@@ -4,6 +4,7 @@ using EduApi.DTO;
 using EduApi.Services.Interfaces;
 using System.Linq;
 using EduApi.Dto.Mappers;
+using System;
 
 namespace EduApi.Services
 {
@@ -18,9 +19,14 @@ namespace EduApi.Services
         }
         #endregion
 
-        public IList<UserDTO> GetUsers() {
+        public IList<UserDTO> GetUsers()
+        {
             return _userRepository.All().Select(x => UserMappper.GetSimpleDTO(x)).ToList();
         }
 
+        public UserDTO Authenticate(string login, string password)
+        {
+            return _userRepository.Authenticate(login, password);
+        }
     }
 }

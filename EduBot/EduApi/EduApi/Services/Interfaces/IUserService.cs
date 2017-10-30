@@ -6,5 +6,6 @@ namespace EduApi.Services.Interfaces
     public interface IUserService
     {
         IList<UserDTO> GetUsers();
+        UserDTO Authenticate(string login, string password);
     }
 }

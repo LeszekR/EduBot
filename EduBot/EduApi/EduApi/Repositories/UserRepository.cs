@@ -2,6 +2,8 @@
 using EduApi.DAL.Core;
 using EduApi.DAL.Interfaces;
 using EduApi.DTO;
+using System.Linq;
+using EduApi.Dto.Mappers;
 
 namespace EduApi.DAL
 {
@@ -14,9 +16,10 @@ namespace EduApi.DAL
             _context = context;
         }
 
-        public UserDTO LogUser(string login, string password)
+        public UserDTO Authenticate(string login, string password)
         {
-            return null;
+            var user = _context.user.Where(u => u.login == login && u.password == password).FirstOrDefault();
+            return user != null ? UserMappper.GetDTO(user) : null;
         }
     }
 }

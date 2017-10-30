@@ -22,9 +22,19 @@ namespace EduApi.Controllers
 
         [Route("")]
         [HttpGet]
-        public IHttpActionResult GetData()
+        public IHttpActionResult GetUsers()
         {
             return Ok(_userService.GetUsers());
+        }
+
+        [Route("auth")]
+        [HttpGet]
+        public IHttpActionResult Authenticate()
+        {
+            var user = _userService.Authenticate("aa", "aa");
+            if(user == null)
+                return BadRequest();
+            return Ok(user);
         }
     }
 }

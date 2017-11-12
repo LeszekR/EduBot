@@ -19,7 +19,7 @@ import { ExampleViewComponent } from './example-view/example-view.component';
 @Component({
   selector: 'game-view',
   templateUrl: './game-view.component.html',
-  styleUrls: ['game-view.component.css']
+  styles: ['./game-view.component.css']
 })
 export class GameViewComponent implements OnInit {
 
@@ -28,8 +28,7 @@ export class GameViewComponent implements OnInit {
   @ViewChild(ExampleViewComponent)
   private exampleComponent: ExampleViewComponent;
 
-  private module: Module;
-  private diffLevels = DiffLevel;
+  module: Module;
 
 
   // CONSTRUCTOR
@@ -55,6 +54,8 @@ export class GameViewComponent implements OnInit {
 
     this.module.id = this.context.editModuleId;
     this.module.id_group = 0;   // TODO: pobrac z pola edycji
+    this.module.difficulty = DiffLevel.Easy;   // TODO: pobrac z pola edycji
+    this.module.title = "Tytuł zastępczy";   // TODO: pobrac z pola edycji
 
     this.module.content = this.contentComponent.content;
     this.module.example = this.exampleComponent.example;
@@ -75,7 +76,6 @@ export class GameViewComponent implements OnInit {
 
   // --------------------------------------------------------------------------------------------------------------
   cancel() {
-    this.moduleService.getModuleById(this.module.id).subscribe(res => this.module = res);
     this.context.editModuleId = null;
   }
 }

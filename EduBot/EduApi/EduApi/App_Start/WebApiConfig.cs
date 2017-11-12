@@ -1,5 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using EduApi.App_Start;
+using EduApi.Log;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using SimpleInjector.Integration.WebApi;
 using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -7,16 +10,19 @@ using System.Web.Http.Cors;
 namespace EduApi {
     public static class WebApiConfig
     {
-        public static void Register(HttpConfiguration config)
+        public static HttpConfiguration Register()
         {
-            GlobalConfiguration.Configuration.Formatters.JsonFormatter.UseDataContractJsonSerializer = true;
-            
+            var config = new HttpConfiguration();
+
+            config.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(DepentencyInjectorConfig.init(config));
+            config.Filters.Add(new GlobalExceptionFilter());
+
             config.MapHttpAttributeRoutes();
 
             //var corsAttr = new EnableCorsAttribute("*", "accept,origin,content-type,authtoken,authorization,cache-control,x-requested-with,pragma", "*");
             //config.EnableCors(corsAttr);
 
-            var corsOrigins = "http://localhost:4200";
+            var corsOrigins = "*";
             var corsMethods = "*";
             var corsHeaders = 
                 "Accept" +
@@ -52,6 +58,8 @@ namespace EduApi {
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            return config;
         }
     }
 }

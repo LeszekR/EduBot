@@ -7,15 +7,17 @@ import { LoginComponent } from '../components/log-in/login.component';
 @Injectable()
 export class LoginService {
 
-    url: string = 'http://localhost:64365/api/login';  // adres backend
+    url: string = 'http://localhost:64365/api/login/login';  // adres backend
     loginComp: LoginComponent;
 
 
-    // --------------------------------------------------------------------------------------------------------------
+    // PUBLIC
+    // ==============================================================================================================
     constructor(private http: HttpService) { }
 
 
-    // --------------------------------------------------------------------------------------------------------------
+    // PUBLIC
+    // ==============================================================================================================
     // TODO tu wstawić zapytanie do serwera i przełączenie na GUI lub info że odrzucono logowanie
     public login(login: string, password: string): void {
 

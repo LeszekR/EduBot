@@ -6,33 +6,29 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace EduApi.Controllers
-{
+namespace EduApi.Controllers {
+
     [RoutePrefix("api/user")]
-    public class UserController : ApiController
-    {
+    public class UserController : ApiController {
         private readonly IUserService _userService;
 
         #region Constructor
-        public UserController(IUserService userService)
-        {
+        public UserController(IUserService userService) {
             _userService = userService;
         }
         #endregion
 
         [Route("")]
         [HttpGet]
-        public IHttpActionResult GetUsers()
-        {
+        public IHttpActionResult GetUsers() {
             return Ok(_userService.GetUsers());
         }
 
         [Route("auth")]
         [HttpGet]
-        public IHttpActionResult Authenticate()
-        {
+        public IHttpActionResult Authenticate() {
             var user = _userService.Authenticate("aa", "aa");
-            if(user == null)
+            if (user == null)
                 return BadRequest();
             return Ok(user);
         }

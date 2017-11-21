@@ -22,6 +22,6 @@ export class ModuleResolver implements Resolve<any> {
     // ==============================================================================================================
     resolve(route: ActivatedRouteSnapshot) : Observable<any> | Promise<any> | any {
         let moduleId = route.params['moduleId'];
-        return this.service.getModuleByIdMock(moduleId);
+        return this.service.getModuleById(moduleId);
     }
 }

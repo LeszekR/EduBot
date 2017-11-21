@@ -1,53 +1,98 @@
 ﻿using EduApi.DTO;
 using System.Web.Http;
 using System.Linq;
+using EduApi.DAL;
+using System.Web.Http.Cors;
+using System.Collections.Generic;
+using EduApi.Dto.Mappers;
 
 namespace EduApi.Controllers {
 
+
+    // -------------------------------------------------------------------------------------------------
+    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "GET,POST", SupportsCredentials = true)]
     public class ModuleController : ApiController {
-        [Route("")]
-        [HttpGet]
-        public IHttpActionResult GetData() {
-            return Ok("Udało się!");
+
+
+        //// ---------------------------------------------------------------------------------------------
+        //public IHttpActionResult GetLastIdx() {
+        //    int? index = 0;
+
+        //    using (edumaticEntities db = new edumaticEntities()) {
+        //        index = db.edumodule.Max(module => (int?)module.id) ?? 0;
+        //    }
+        //    return Ok(index);
+        //}
+
+
+        // ---------------------------------------------------------------------------------------------
+        public IHttpActionResult GetSimpleModules() {
+
+            //IQueryable<edumodule> modules;
+            List<ModuleDTO> modules;
+
+            using (edumaticEntities db = new edumaticEntities()) {
+                //modules = db.edumodule.Select(ed => ModuleMappper.GetSimpleDTO(ed)).ToList();
+                modules = (from ed in db.edumodule select ed).GetSimpleDTOList();
+            }
+            return Ok(modules);
+            //return Ok("próba");
         }
 
-        [Route("")]
-        [HttpPost]
-        public IHttpActionResult UpsertModule([FromBody]ModuleDTO edumodule) {
 
+        // ---------------------------------------------------------------------------------------------
+        public IHttpActionResult GetModule([FromUri]int moduleId) {
 
-            var id = edumodule.id;
             edumodule module;
 
-            using (edumaticEntities baza = new edumaticEntities()) {
-
-                if (id == 0) {
-                    module = new edumodule {
-                        id_group = edumodule.id_group,
-                        difficulty = edumodule.difficulty,
-                        title = edumodule.title,
-                        content = edumodule.content,
-                        example = edumodule.example,
-                        test_type = edumodule.test_type,
-                        test_task = edumodule.test_task,
-                        test_answer = edumodule.test_answer
-                    };
-
-                    baza.edumodule.Add(module);
-                }
-                else {
-                    module = (
-                        from ed in baza.edumodule
-                        where ed.id == id
-                        select ed).First();
-                }
-                baza.SaveChanges();
+            using (edumaticEntities db = new edumaticEntities()) {
+                module = (
+                    from ed in db.edumodule
+                    where ed.id == moduleId
+                    select ed)
+                    .FirstOrDefault();
             }
+            return Ok(module);
+        }
 
-            //if (userLog == null)
-            //    return StatusCode(HttpStatusCode.Unauthorized);
-            //else
-            return Ok(edumodule);
+
+        // ---------------------------------------------------------------------------------------------
+        [HttpPost]
+        public IHttpActionResult UpsertModule([FromBody]ModuleDTO moduleReceived) {
+
+            //var id = moduleReceived.id;
+            //edumodule module;
+
+            //using (edumaticEntities db = new edumaticEntities()) {
+
+            //    if (id == 0)
+            //        module = new edumodule();
+
+            //    else 
+            //        module = (
+            //            from ed in db.edumodule
+            //            where ed.id == id
+            //            select ed)
+            //            .First();
+
+            //    module.id_group = moduleReceived.id_group;
+            //    module.difficulty = moduleReceived.difficulty;
+            //    module.title = moduleReceived.title;
+            //    module.content = moduleReceived.content;
+            //    module.example = moduleReceived.example;
+            //    module.test_type = moduleReceived.test_type;
+            //    module.test_task = moduleReceived.test_task;
+            //    module.test_answer = moduleReceived.test_answer;
+
+            //    new ModuleRepository(db).Add(module);
+            //}
+
+            ////if (userLog == null)
+            ////    return StatusCode(HttpStatusCode.Unauthorized);
+            ////else
+            //return Ok(module);
+
+            return Ok(new edumodule());
         }
     }
 }

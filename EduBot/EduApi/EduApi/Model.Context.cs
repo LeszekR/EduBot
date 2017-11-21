@@ -15,11 +15,28 @@ namespace EduApi
     
     public partial class edumaticEntities : DbContext
     {
+        //// singleton -------------------------------------------------------------------
+        //private static edumaticEntities instance;
+
+        //public static edumaticEntities getInstance() {
+        //    if (instance == null)
+        //        new edumaticEntities();
+        //    return instance;
+        //}
+
+
+        //// auto-generated ---------------------------------------------------------------
+
+        //public edumaticEntities()
+        //    : base("name=edumaticEntities1")
+        //{
+        //    instance = this;
+        //}
+
         public edumaticEntities()
-            : base("name=edumaticEntities1")
-        {
+            : base("name=edumaticEntities1") {
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();

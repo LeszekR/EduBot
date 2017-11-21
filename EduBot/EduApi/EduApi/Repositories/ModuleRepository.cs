@@ -8,8 +8,7 @@ namespace EduApi.DAL
     {
         private edumaticEntities _context;
 
-        public ModuleRepository(edumaticEntities context) : base(context)
-        {
+        public ModuleRepository(edumaticEntities context) : base(context) {
             _context = context;
         }
     }

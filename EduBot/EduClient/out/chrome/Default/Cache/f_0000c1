@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="no-js hasSidebar hasPageActions hasBreadcrumb " lang="en-us" dir="ltr" >
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta property="og:title" content="Enabling Cross-Origin Requests in ASP.NET Web API 2" />
+	<meta property="og:image" content="https://docs.microsoft.com/_themes/docs.theme/master/en-us/_themes/images/microsoft-header.png" />
+
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:site" content="@docsmsft" />
+	<meta name="twitter:title" content="Enabling Cross-Origin Requests in ASP.NET Web API 2" />
+	<meta name="twitter:description" content="Shows how to support Cross-Origin Resource Sharing (CORS) in ASP.NET Web API." />
+	<meta name="twitter:image" content="https://docs.microsoft.com/_themes/docs.theme/master/en-us/_themes/images/microsoft-header.png" />
+	<meta name="twitter:image:alt" content="Microsoft Logo" />
+
+		<meta name="breadcrumb_path" content="/aspnet/breadcrumb/toc.json" />
+<meta name="msc.legacyurl" content="/web-api/overview/security/enabling-cross-origin-requests-in-web-api" />
+<meta name="ms.assetid" content="9b265a5a-6a70-4a82-adce-2d7c56ae8bdd" />
+<meta name="msc.type" content="authoredcontent" />
+<meta name="author" content="MikeWasson" />
+<meta name="description" content="Shows how to support Cross-Origin Resource Sharing (CORS) in ASP.NET Web API." />
+<meta name="ms.author" content="aspnetcontent" />
+<meta name="manager" content="wpickett" />
+<meta name="uid" content="web-api/overview/security/enabling-cross-origin-requests-in-web-api" />
+<meta name="ms.topic" content="article" />
+<meta name="ms.date" content="07/15/2014" />
+<meta name="ms.technology" content="dotnet-webapi" />
+<meta name="ms.prod" content=".net-framework" />
+<meta name="search.ms_sitename" content="Docs" />
+<meta name="search.ms_docsetname" content="aspnet-conceptual" />
+<meta name="version" content="0" />
+<meta name="locale" content="en-us" />
+<meta name="site_name" content="Docs" />
+<meta name="search.ms_product" content="MSDN" />
+<meta name="depot_name" content="MSDN.aspnet-conceptual" />
+<meta name="updated_at" content="2017-09-19 07:56 PM" />
+<meta name="gitcommit" content="https://github.com/aspnet/Docs/blob/53e19c9bfa44e69d7339f75d49d7d335a57ad9ca/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api.md" />
+<meta name="original_content_git_url" content="https://github.com/aspnet/Docs/blob/live/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api.md" />
+<meta name="document_id" content="42115d5b-f443-cce5-cfa7-8ba7c6b75b54" />
+<meta name="document_version_independent_id" content="26c7d03d-c1ce-ff7d-27c3-194dabef30bd" />
+<meta name="pagetype" content="Conceptual" />
+<meta name="toc_rel" content="../../../toc.json" />
+<meta name="pdf_url_template" content="https://docs.microsoft.com/pdfstore/en-us/MSDN.aspnet-conceptual/{branchName}{pdfName}" />
+<meta name="word_count" content="2523" />
+
+	<meta name="scope" content="ASP.NET" />
+<link href="https://docs.microsoft.com/en-us/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api" rel="canonical">
+	<title>Enabling Cross-Origin Requests in ASP.NET Web API 2 | Microsoft Docs</title>
+
+	<link rel="stylesheet" href="/_themes/docs.theme/master/en-us/_themes/css/edb57f96cb1c1ff1459e.site.css ">
+	<link rel="stylesheet" href="/_themes/docs.theme/master/en-us/_themes/css/edb57f96cb1c1ff1459e.conceptual.css ">
+
+	<script>
+	var msDocs = {
+		data:{
+			contentLocale: 'en-us',
+			contentDir: 'ltr',
+			userLocale: 'en-us',
+			userDir: 'ltr',
+			pathToTheme: '/_themes/docs.theme/master/en-us/_themes/',
+			pageTemplate: 'Conceptual',
+			brand: '',
+			hasComments: true,
+			feedbackSystem: 'LiveFyre',
+			feedbackGitHubRepo: '',
+			feedbackGitHubRepoIsPrivate: false,
+			feedbackProductUrl: '',
+			forceVersionPicker:false		},
+		functions:{},
+		settings:{
+			extendBreadcrumb: false
+		}
+	};
+	if (!('Promise' in window && 'resolve' in window.Promise && 'reject' in window.Promise && 'all' in window.Promise && 'race' in window.Promise)) {
+		document.write('<script src="/_themes/docs.theme/master/en-us/_themes/global/js/bluebird.min.js"><\/script>');
+	}
+	if (typeof fetch !== 'function') {
+		document.write('<script src="/_themes/docs.theme/master/en-us/_themes/global/js/fetch.min.js"><\/script>');
+	}
+	</script>
+
+	<!--[if lt IE 9]>
+		<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
+		<script src="/_themes/docs.theme/master/en-us/_themes/global/js/polyfills/all.js"></script>
+	<![endif]-->
+	<!--[if gte IE 9]><!-->
+		<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.4.min.js"></script>
+	<!--<![endif]-->
+	<script>window.jQuery || document.write('<script src="/_themes/docs.theme/master/en-us/_themes/global/js/jquery/jquery-1.12.4.min.js"><\/script>')</script>
+	<script src="/_themes/docs.theme/master/en-us/_themes/global/js/global.min.js?v=300"></script>
+</head>
+
+<body lang="en-us" dir="ltr">
+	<div id="headerAreaHolder" ms.pgarea="header" data-bi-name="header">
+		<div id="uhfPlaceHolder" class="c-me"></div>
+	</div>
+
+	<div class="container mainContainer" ms.pgarea="body" data-bi-name="body">
+		<div class="primary-holder">
+
+			<main id="main" role="main" class="content" ms.cmpgrp="content" data-bi-name="content" lang="en-us" dir="ltr">
+
+
+				<h1 id="enabling-cross-origin-requests-in-aspnet-web-api-2" sourcefile="web-api/overview/security/enabling-cross-origin-requests-in-web-api.md" sourcestartlinenumber="16" sourceendlinenumber="17">Enabling Cross-Origin Requests in ASP.NET Web API 2</h1>
+
+					<div class="metadata loading" ms.cmpgrp="page info" data-bi-name="page info">
+						<div>
+								<time class="date icons" datetime="07/15/2014">07/15/2014</time>
+								<span class="length icons">12 minutes to read</span>
+								<span class="contributors-text">Contributors</span>
+								<ul class="contributors" ms.cmpgrp="contributors" data-bi-name="contributors">
+											<li><a href="https://github.com/MikeWasson" title="Mike Wasson" ms.cmpnm="contributorprofile" data-bi-name="contributorprofile"><img src="https://docs.microsoft.com/_themes/docs.theme/master/en-us/_themes/images/contributor.svg" data-src="https://github.com/MikeWasson.png?size=32" alt="Mike Wasson"></a></li>
+											<li><a href="https://github.com/guardrex" title="Luke Latham" ms.cmpnm="contributorprofile" data-bi-name="contributorprofile"><img src="https://docs.microsoft.com/_themes/docs.theme/master/en-us/_themes/images/contributor.svg" data-src="https://github.com/guardrex.png?size=32" alt="Luke Latham"></a></li>
+											<li><a href="https://github.com/botondev" title="Botond Bertalan" ms.cmpnm="contributorprofile" data-bi-name="contributorprofile"><img src="https://docs.microsoft.com/_themes/docs.theme/master/en-us/_themes/images/contributor.svg" data-src="https://github.com/botondev.png?size=32" alt="Botond Bertalan"></a></li>
+											<li><a href="https://github.com/neusamir" title="Samir Patel" ms.cmpnm="contributorprofile" data-bi-name="contributorprofile"><img src="https://docs.microsoft.com/_themes/docs.theme/master/en-us/_themes/images/contributor.svg" data-src="https://github.com/neusamir.png?size=32" alt="Samir Patel"></a></li>
+											<li><a href="https://github.com/v-anpasi" title="Andy Pasic" ms.cmpnm="contributorprofile" data-bi-name="contributorprofile"><img src="https://docs.microsoft.com/_themes/docs.theme/master/en-us/_themes/images/contributor.svg" data-src="https://github.com/v-anpasi.png?size=32" alt="Andy Pasic"></a></li>
+										<li><a href="https://github.com/aspnet/Docs/blob/master/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api.md" ms.cmpnm="contributorshowall" data-bi-name="contributorshowall">all</a></li>
+								</ul>
+						</div>
+
+
+						<nav id="center-doc-outline" class="doc-outline" ms.cmpgrp="intopic toc" data-bi-name="intopic toc" role="navigation" aria-label="On page navigation">
+							<h3>In this article</h3>
+						</nav>
+					</div>
+
+				<!-- <content> -->
+					<div>
+<p>by <a href="https://github.com/MikeWasson" data-linktype="external">Mike Wasson</a></p>
+<blockquote><p>Browser security prevents a web page from making AJAX requests to another domain. This restriction is called the <em>same-origin policy</em>, and prevents a malicious site from reading sensitive data from another site. However, sometimes you might want to let other sites call your web API.</p>
+<p><a href="http://www.w3.org/TR/cors/" data-linktype="external">Cross Origin Resource Sharing</a> (CORS) is a W3C standard that allows a server to relax the same-origin policy. Using CORS, a server can explicitly allow some cross-origin requests while rejecting others. CORS is safer and more flexible than earlier techniques such as <a href="http://en.wikipedia.org/wiki/JSONP" data-linktype="external">JSONP</a>. This tutorial shows how to enable CORS in your Web API application.</p>
+<h2 id="software-versions-used-in-the-tutorial">Software versions used in the tutorial</h2>
+<ul>
+<li><a href="https://www.microsoft.com/visualstudio/eng/2013-downloads" data-linktype="external">Visual Studio 2013 Update 2</a></li>
+<li>Web API 2.2</li>
+</ul>
+</blockquote>
+<p><a id="intro"></a></p>
+<h2 id="introduction">Introduction</h2>
+<p>This tutorial demonstrates CORS support in ASP.NET Web API. We&#39;ll start by creating two ASP.NET projects – one called &quot;WebService&quot;, which hosts a Web API controller, and the other called &quot;WebClient&quot;, which calls WebService. Because the two applications are hosted at different domains, an AJAX request from WebClient to WebService is a cross-origin request.</p>
+<p><img src="enabling-cross-origin-requests-in-web-api/_static/image1.png" alt="" data-linktype="relative-path"></p>
+<h3 id="what-is-same-origin">What is &quot;Same Origin&quot;?</h3>
+<p>Two URLs have the same origin if they have identical schemes, hosts, and ports. (<a href="http://tools.ietf.org/html/rfc6454" data-linktype="external">RFC 6454</a>)</p>
+<p>These two URLs have the same origin:</p>
+<ul>
+<li><code>http://example.com/foo.html</code></li>
+<li><code>http://example.com/bar.html</code></li>
+</ul>
+<p>These URLs have different origins than the previous two:</p>
+<ul>
+<li><code>http://example.net</code> - Different domain</li>
+<li><code>http://example.com:9000/foo.html</code> - Different port</li>
+<li><code>https://example.com/foo.html</code> - Different scheme</li>
+<li><code>http://www.example.com/foo.html</code> - Different subdomain</li>
+</ul>
+<div class="NOTE"><p>Note</p><p>Internet Explorer does not consider the port when comparing origins.</p>
+</div>
+<p><a id="create-webapi-project"></a></p>
+<h2 id="create-the-webservice-project">Create the WebService Project</h2>
+<div class="NOTE"><p>Note</p><p>This section assumes you already know how to create Web API projects. If not, see <a href="../getting-started-with-aspnet-web-api/tutorial-your-first-web-api" data-linktype="relative-path">Getting Started with ASP.NET Web API</a>.</p>
+</div>
+<p>Start Visual Studio and create a new <strong>ASP.NET Web Application</strong> project. Select the <strong>Empty</strong> project template. Under &quot;Add folders and core references for&quot;, select the <strong>Web API</strong> checkbox. Optionally, select the &quot;Host in Cloud&quot; option to deploy the app to Mircosoft Azure. Microsoft offers free web hosting for up to 10 websites in a <a href="https://azure.microsoft.com/free/?WT.mc_id=A443DD604" data-linktype="external">free Azure trial account</a>.</p>
+<p><a href="enabling-cross-origin-requests-in-web-api/_static/image2.png" data-linktype="relative-path"><img src="enabling-cross-origin-requests-in-web-api/_static/image3.png" alt="" data-linktype="relative-path"></a></p>
+<p>Add a Web API controller named <code>TestController</code> with the following code:</p>
+<pre><code class="lang-csharp" data-src="https://github.com/aspnet/Docs/blob/live/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api/samples/sample1.cs" name="Main">using System.Net.Http;
+using System.Web.Http;
+
+namespace WebService.Controllers
+{
+    public class TestController : ApiController
+    {
+        public HttpResponseMessage Get()
+        {
+            return new HttpResponseMessage()
+            {
+                Content = new StringContent(&quot;GET: Test message&quot;)
+            };
+        }
+
+        public HttpResponseMessage Post()
+        {
+            return new HttpResponseMessage()
+            {
+                Content = new StringContent(&quot;POST: Test message&quot;)
+            };
+        }
+
+        public HttpResponseMessage Put()
+        {
+            return new HttpResponseMessage()
+            {
+                Content = new StringContent(&quot;PUT: Test message&quot;)
+            };
+        }
+    }
+}
+</code></pre><p>You can run the application locally or deploy to Azure. (For the screenshots in this tutorial, I deployed to Azure App Service Web Apps.) To verify that the web API is working, navigate to <code>http://hostname/api/test/</code>, where <em>hostname</em> is the domain where you deployed the application. You should see the response text, &quot;GET: Test Message&quot;.</p>
+<p><img src="enabling-cross-origin-requests-in-web-api/_static/image4.png" alt="" data-linktype="relative-path"></p>
+<p><a id="create-client"></a></p>
+<h2 id="create-the-webclient-project">Create the WebClient Project</h2>
+<p>Create another ASP.NET Web Application project and select the <strong>MVC</strong> project template. Optionally, select <strong>Change Authentication</strong> &gt; <strong>No Authentication</strong>. You don&#39;t need authentication for this tutorial.</p>
+<p><a href="enabling-cross-origin-requests-in-web-api/_static/image5.png" data-linktype="relative-path"><img src="enabling-cross-origin-requests-in-web-api/_static/image6.png" alt="" data-linktype="relative-path"></a></p>
+<p>In Solution Explorer, open the file Views/Home/Index.cshtml. Replace the code in this file with the following:</p>
+<pre><code class="lang-cshtml" data-src="https://github.com/aspnet/Docs/blob/live/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api/samples/sample2.cshtml" name="Main" highlight-lines="13">&lt;div&gt;
+    &lt;select id=&quot;method&quot;&gt;
+        &lt;option value=&quot;get&quot;&gt;GET&lt;/option&gt;
+        &lt;option value=&quot;post&quot;&gt;POST&lt;/option&gt;
+        &lt;option value=&quot;put&quot;&gt;PUT&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;input type=&quot;button&quot; value=&quot;Try it&quot; onclick=&quot;sendRequest()&quot; /&gt;
+    &lt;span id=&#39;value1&#39;&gt;(Result)&lt;/span&gt;
+&lt;/div&gt;
+
+@section scripts {
+&lt;script&gt;
+    // TODO: Replace with the URL of your WebService app
+    var serviceUrl = &#39;http://mywebservice/api/test&#39;; 
+
+    function sendRequest() {
+        var method = $(&#39;#method&#39;).val();
+
+        $.ajax({
+            type: method,
+            url: serviceUrl
+        }).done(function (data) {
+            $(&#39;#value1&#39;).text(data);
+        }).error(function (jqXHR, textStatus, errorThrown) {
+            $(&#39;#value1&#39;).text(jqXHR.responseText || textStatus);
+        });
+    }
+&lt;/script&gt;
+}
+</code></pre><p>For the <em>serviceUrl</em> variable, use the URI of the WebService app. Now run the WebClient app locally or publish it to another website.</p>
+<p>Clicking the &quot;Try It&quot; button submits an AJAX request to the WebService app, using the HTTP method listed in the dropdown box (GET, POST, or PUT). This lets us examine different cross-origin requests. Right now, the WebService app does not support CORS, so if you click the button, you will get an error.</p>
+<p><img src="enabling-cross-origin-requests-in-web-api/_static/image7.png" alt="" data-linktype="relative-path"></p>
+<div class="NOTE"><p>Note</p><p>If you watch the HTTP traffic in a tool like <a href="http://www.telerik.com/fiddler" data-linktype="external">Fiddler</a>, you will see that the browser does send the GET request, and the request succeeds, but the AJAX call returns an error. It&#39;s important to understand that same-origin policy does not prevent the browser from <em>sending</em> the request. Instead, it prevents the application from seeing the <em>response</em>.</p>
+</div>
+<p><img src="enabling-cross-origin-requests-in-web-api/_static/image8.png" alt="" data-linktype="relative-path"></p>
+<p><a id="enable-cors"></a></p>
+<h2 id="enable-cors">Enable CORS</h2>
+<p>Now let&#39;s enable CORS in the WebService app. First, add the CORS NuGet package. In Visual Studio, from the <strong>Tools</strong> menu, select <strong>Library Package Manager</strong>, then select <strong>Package Manager Console</strong>. In the Package Manager Console window, type the following command:</p>
+<pre><code class="lang-powershell" data-src="https://github.com/aspnet/Docs/blob/live/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api/samples/sample3.ps1" name="Main">Install-Package Microsoft.AspNet.WebApi.Cors
+</code></pre><p>This command installs the latest package and updates all dependencies, including the core Web API libraries. User the -Version flag to target a specific version. The CORS package requires Web API 2.0 or later.</p>
+<p>Open the file App_Start/WebApiConfig.cs. Add the following code to the <strong>WebApiConfig.Register</strong> method.</p>
+<pre><code class="lang-csharp" data-src="https://github.com/aspnet/Docs/blob/live/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api/samples/sample4.cs" name="Main" highlight-lines="9">using System.Web.Http;
+namespace WebService
+{
+    public static class WebApiConfig
+    {
+        public static void Register(HttpConfiguration config)
+        {
+            // New code
+            config.EnableCors();
+
+            config.Routes.MapHttpRoute(
+                name: &quot;DefaultApi&quot;,
+                routeTemplate: &quot;api/{controller}/{id}&quot;,
+                defaults: new { id = RouteParameter.Optional }
+            );
+        }
+    }
+}
+</code></pre><p>Next, add the <strong>[EnableCors]</strong> attribute to the <code>TestController</code> class:</p>
+<pre><code class="lang-csharp" data-src="https://github.com/aspnet/Docs/blob/live/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api/samples/sample5.cs" name="Main" highlight-lines="3,7">using System.Net.Http;
+using System.Web.Http;
+using System.Web.Http.Cors;
+
+namespace WebService.Controllers
+{
+    [EnableCors(origins: &quot;http://mywebclient.azurewebsites.net&quot;, headers: &quot;*&quot;, methods: &quot;*&quot;)]
+    public class TestController : ApiController
+    {
+        // Controller methods not shown...
+    }
+}
+</code></pre><p>For the <em>origins</em> parameter, use the URI where you deployed the WebClient application. This allows cross-origin requests from WebClient, while still disallowing all other cross-domain requests. Later, I&#39;ll describe the parameters for <strong>[EnableCors]</strong> in more detail.</p>
+<p>Do not include a forward slash at the end of the <em>origins</em> URL.</p>
+<p>Redeploy the updated WebService application. You don&#39;t need to update WebClient. Now the AJAX request from WebClient should succeed. The GET, PUT, and POST methods are all allowed.</p>
+<p><img src="enabling-cross-origin-requests-in-web-api/_static/image9.png" alt="" data-linktype="relative-path"></p>
+<p><a id="how-it-works"></a></p>
+<h2 id="how-cors-works">How CORS Works</h2>
+<p>This section describes what happens in a CORS request, at the level of the HTTP messages. It&#39;s important to understand how CORS works, so that you can configure the <strong>[EnableCors]</strong> attribute correctly, and troubleshoot if things don&#39;t work as you expect.</p>
+<p>The CORS specification introduces several new HTTP headers that enable cross-origin requests. If a browser supports CORS, it sets these headers automatically for cross-origin requests; you don&#39;t need to do anything special in your JavaScript code.</p>
+<p>Here is an example of a cross-origin request. The &quot;Origin&quot; header gives the domain of the site that is making the request.</p>
+<pre><code class="lang-console" data-src="https://github.com/aspnet/Docs/blob/live/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api/samples/sample6.cmd" name="Main" highlight-lines="5">GET http://myservice.azurewebsites.net/api/test HTTP/1.1
+Referer: http://myclient.azurewebsites.net/
+Accept: */*
+Accept-Language: en-US
+Origin: http://myclient.azurewebsites.net
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; WOW64; Trident/6.0)
+Host: myservice.azurewebsites.net
+</code></pre><p>If the server allows the request, it sets the Access-Control-Allow-Origin header. The value of this header either matches the Origin header, or is the wildcard value &quot;*&quot;, meaning that any origin is allowed.</p>
+<pre><code class="lang-console" data-src="https://github.com/aspnet/Docs/blob/live/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api/samples/sample7.cmd" name="Main" highlight-lines="5">HTTP/1.1 200 OK
+Cache-Control: no-cache
+Pragma: no-cache
+Content-Type: text/plain; charset=utf-8
+Access-Control-Allow-Origin: http://myclient.azurewebsites.net
+Date: Wed, 05 Jun 2013 06:27:30 GMT
+Content-Length: 17
+
+GET: Test message
+</code></pre><p>If the response does not include the Access-Control-Allow-Origin header, the AJAX request fails. Specifically, the browser disallows the request. Even if the server returns a successful response, the browser does not make the response available to the client application.</p>
+<p><strong>Preflight Requests</strong></p>
+<p>For some CORS requests, the browser sends an additional request, called a &quot;preflight request&quot;, before it sends the actual request for the resource.</p>
+<p>The browser can skip the preflight request if the following conditions are true:</p>
+<ul>
+<li>The request method is GET, HEAD, or POST, <em>and</em></li>
+<li>The application does not set any request headers other than Accept, Accept-Language, Content-Language, Content-Type, or Last-Event-ID, <em>and</em></li>
+<li><p>The Content-Type header (if set) is one of the following: </p>
+<ul>
+<li>application/x-www-form-urlencoded</li>
+<li>multipart/form-data</li>
+<li>text/plain</li>
+</ul>
+</li>
+</ul>
+<p>The rule about request headers applies to headers that the application sets by calling <strong>setRequestHeader</strong> on the <strong>XMLHttpRequest</strong> object. (The CORS specification calls these &quot;author request headers&quot;.) The rule does not apply to headers the <em>browser</em> can set, such as User-Agent, Host, or Content-Length.</p>
+<p>Here is an example of a preflight request:</p>
+<pre><code class="lang-console" data-src="https://github.com/aspnet/Docs/blob/live/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api/samples/sample8.cmd" name="Main" highlight-lines="4-5">OPTIONS http://myservice.azurewebsites.net/api/test HTTP/1.1
+Accept: */*
+Origin: http://myclient.azurewebsites.net
+Access-Control-Request-Method: PUT
+Access-Control-Request-Headers: accept, x-my-custom-header
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; WOW64; Trident/6.0)
+Host: myservice.azurewebsites.net
+Content-Length: 0
+</code></pre><p>The pre-flight request uses the HTTP OPTIONS method. It includes two special headers:</p>
+<ul>
+<li>Access-Control-Request-Method: The HTTP method that will be used for the actual request.</li>
+<li>Access-Control-Request-Headers: A list of request headers that the <em>application</em> set on the actual request. (Again, this does not include headers that the browser sets.)</li>
+</ul>
+<p>Here is an example response, assuming that the server allows the request:</p>
+<pre><code class="lang-console" data-src="https://github.com/aspnet/Docs/blob/live/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api/samples/sample9.cmd" name="Main" highlight-lines="6-7">HTTP/1.1 200 OK
+Cache-Control: no-cache
+Pragma: no-cache
+Content-Length: 0
+Access-Control-Allow-Origin: http://myclient.azurewebsites.net
+Access-Control-Allow-Headers: x-my-custom-header
+Access-Control-Allow-Methods: PUT
+Date: Wed, 05 Jun 2013 06:33:22 GMT
+</code></pre><p>The response includes an Access-Control-Allow-Methods header that lists the allowed methods, and optionally an Access-Control-Allow-Headers header, which lists the allowed headers. If the preflight request succeeds, the browser sends the actual request, as described earlier.</p>
+<p><a id="scope"></a></p>
+<h2 id="scope-rules-for-enablecors">Scope Rules for [EnableCors]</h2>
+<p>You can enable CORS per action, per controller, or globally for all Web API controllers in your application.</p>
+<p><strong>Per Action</strong></p>
+<p>To enable CORS for a single action, set the <strong>[EnableCors]</strong> attribute on the action method. The following example enables CORS for the <code>GetItem</code> method only.</p>
+<pre><code class="lang-csharp" data-src="https://github.com/aspnet/Docs/blob/live/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api/samples/sample10.cs" name="Main">public class ItemsController : ApiController
+{
+    public HttpResponseMessage GetAll() { ... }
+
+    [EnableCors(origins: &quot;http://www.example.com&quot;, headers: &quot;*&quot;, methods: &quot;*&quot;)]
+    public HttpResponseMessage GetItem(int id) { ... }
+
+    public HttpResponseMessage Post() { ... }
+    public HttpResponseMessage PutItem(int id) { ... }
+}
+</code></pre><p><strong>Per Controller</strong></p>
+<p>If you set <strong>[EnableCors]</strong> on the controller class, it applies to all the actions on the controller. To disable CORS for an action, add the <strong>[DisableCors]</strong> attribute to the action. The following example enables CORS for every method except <code>PutItem</code>.</p>
+<pre><code class="lang-csharp" data-src="https://github.com/aspnet/Docs/blob/live/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api/samples/sample11.cs" name="Main">[EnableCors(origins: &quot;http://www.example.com&quot;, headers: &quot;*&quot;, methods: &quot;*&quot;)]
+public class ItemsController : ApiController
+{
+    public HttpResponseMessage GetAll() { ... }
+    public HttpResponseMessage GetItem(int id) { ... }
+    public HttpResponseMessage Post() { ... }
+
+    [DisableCors]
+    public HttpResponseMessage PutItem(int id) { ... }
+}
+</code></pre><p><strong>Globally</strong></p>
+<p>To enable CORS for all Web API controllers in your application, pass an <strong>EnableCorsAttribute</strong> instance to the <strong>EnableCors</strong> method:</p>
+<pre><code class="lang-csharp" data-src="https://github.com/aspnet/Docs/blob/live/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api/samples/sample12.cs" name="Main">public static class WebApiConfig
+{
+    public static void Register(HttpConfiguration config)
+    {
+        var cors = new EnableCorsAttribute(&quot;www.example.com&quot;, &quot;*&quot;, &quot;*&quot;);
+        config.EnableCors(cors);
+        // ...
+    }
+}
+</code></pre><p>If you set the attribute at more than one scope, the order of precedence is:</p>
+<ol>
+<li>Action</li>
+<li>Controller</li>
+<li>Global</li>
+</ol>
+<p><a id="allowed-origins"></a></p>
+<h2 id="set-the-allowed-origins">Set the Allowed Origins</h2>
+<p>The <em>origins</em> parameter of the <strong>[EnableCors]</strong> attribute specifies which origins are allowed to access the resource. The value is a comma-separated list of the allowed origins.</p>
+<pre><code class="lang-csharp" data-src="https://github.com/aspnet/Docs/blob/live/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api/samples/sample13.cs" name="Main">[EnableCors(origins: &quot;http://www.contoso.com,http://www.example.com&quot;, 
+    headers: &quot;*&quot;, methods: &quot;*&quot;)]
+</code></pre><p>You can also use the wildcard value &quot;*&quot; to allow requests from any origins.</p>
+<p>Consider carefully before allowing requests from any origin. It means that literally any website can make AJAX calls to your web API.</p>
+<pre><code class="lang-csharp" data-src="https://github.com/aspnet/Docs/blob/live/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api/samples/sample14.cs" name="Main">// Allow CORS for all origins. (Caution!)
+[EnableCors(origins: &quot;*&quot;, headers: &quot;*&quot;, methods: &quot;*&quot;)]
+</code></pre><p><a id="allowed-methods"></a></p>
+<h2 id="set-the-allowed-http-methods">Set the Allowed HTTP Methods</h2>
+<p>The <em>methods</em> parameter of the <strong>[EnableCors]</strong> attribute specifies which HTTP methods are allowed to access the resource. To allow all methods, use the wildcard value &quot;*&quot;. The following example allows only GET and POST requests.</p>
+<pre><code class="lang-csharp" data-src="https://github.com/aspnet/Docs/blob/live/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api/samples/sample15.cs" name="Main">[EnableCors(origins: &quot;http://www.example.com&quot;, headers: &quot;*&quot;, methods: &quot;get,post&quot;)]
+public class TestController : ApiController
+{
+    public HttpResponseMessage Get() { ... }
+    public HttpResponseMessage Post() { ... }
+    public HttpResponseMessage Put() { ... }    
+}
+</code></pre><p><a id="allowed-request-headers"></a></p>
+<h2 id="set-the-allowed-request-headers">Set the Allowed Request Headers</h2>
+<p>Earlier I described how a preflight request might include an Access-Control-Request-Headers header, listing the HTTP headers set by the application (the so-called &quot;author request headers&quot;). The <em>headers</em> parameter of the <strong>[EnableCors]</strong> attribute specifies which author request headers are allowed. To allow any headers, set <em>headers</em> to &quot;*&quot;. To whitelist specific headers, set <em>headers</em> to a comma-separated list of the allowed headers:</p>
+<pre><code class="lang-csharp" data-src="https://github.com/aspnet/Docs/blob/live/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api/samples/sample16.cs" name="Main">[EnableCors(origins: &quot;http://example.com&quot;, 
+    headers: &quot;accept,content-type,origin,x-my-header&quot;, methods: &quot;*&quot;)]
+</code></pre><p>However, browsers are not entirely consistent in how they set Access-Control-Request-Headers. For example, Chrome currently includes &quot;origin&quot;; while FireFox does not include standard headers such as &quot;Accept&quot;, even when the application sets them in script.</p>
+<p>If you set <em>headers</em> to anything other than &quot;*&quot;, you should include at least &quot;accept&quot;, &quot;content-type&quot;, and &quot;origin&quot;, plus any custom headers that you want to support.</p>
+<p><a id="allowed-response-headers"></a></p>
+<h2 id="set-the-allowed-response-headers">Set the Allowed Response Headers</h2>
+<p>By default, the browser does not expose all of the response headers to the application. The response headers that are available by default are:</p>
+<ul>
+<li>Cache-Control</li>
+<li>Content-Language</li>
+<li>Content-Type</li>
+<li>Expires</li>
+<li>Last-Modified</li>
+<li>Pragma</li>
+</ul>
+<p>The CORS spec calls these <a href="https://dvcs.w3.org/hg/cors/raw-file/tip/Overview.html#simple-response-header" data-linktype="external">simple response headers</a>. To make other headers available to the application, set the <em>exposedHeaders</em> parameter of <strong>[EnableCors]</strong>.</p>
+<p>In the following example, the controller&#39;s <code>Get</code> method sets a custom header named ‘X-Custom-Header&#39;. By default, the browser will not expose this header in a cross-origin request. To make the header available, include ‘X-Custom-Header&#39; in <em>exposedHeaders</em>.</p>
+<pre><code class="lang-csharp" data-src="https://github.com/aspnet/Docs/blob/live/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api/samples/sample17.cs" name="Main">[EnableCors(origins: &quot;*&quot;, headers: &quot;*&quot;, methods: &quot;*&quot;, exposedHeaders: &quot;X-Custom-Header&quot;)]
+public class TestController : ApiController
+{
+    public HttpResponseMessage Get()
+    {
+        var resp = new HttpResponseMessage()
+        {
+            Content = new StringContent(&quot;GET: Test message&quot;)
+        };
+        resp.Headers.Add(&quot;X-Custom-Header&quot;, &quot;hello&quot;);
+        return resp;
+    }
+}
+</code></pre><p><a id="credentials"></a></p>
+<h2 id="passing-credentials-in-cross-origin-requests">Passing Credentials in Cross-Origin Requests</h2>
+<p>Credentials require special handling in a CORS request. By default, the browser does not send any credentials with a cross-origin request. Credentials include cookies as well as HTTP authentication schemes. To send credentials with a cross-origin request, the client must set <strong>XMLHttpRequest.withCredentials</strong> to true.</p>
+<p>Using <strong>XMLHttpRequest</strong> directly:</p>
+<pre><code class="lang-csharp" data-src="https://github.com/aspnet/Docs/blob/live/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api/samples/sample18.cs" name="Main">var xhr = new XMLHttpRequest();
+xhr.open(&#39;get&#39;, &#39;http://www.example.com/api/test&#39;);
+xhr.withCredentials = true;
+</code></pre><p>In jQuery:</p>
+<pre><code class="lang-javascript" data-src="https://github.com/aspnet/Docs/blob/live/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api/samples/sample19.js" name="Main">$.ajax({
+    type: &#39;get&#39;,
+    url: &#39;http://www.example.com/api/test&#39;,
+    xhrFields: {
+        withCredentials: true
+    }
+</code></pre><p>In addition, the server must allow the credentials. To allow cross-origin credentials in Web API, set the <strong>SupportsCredentials</strong> property to true on the <strong>[EnableCors]</strong> attribute:</p>
+<pre><code class="lang-csharp" data-src="https://github.com/aspnet/Docs/blob/live/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api/samples/sample20.cs" name="Main">[EnableCors(origins: &quot;http://myclient.azurewebsites.net&quot;, headers: &quot;*&quot;, 
+    methods: &quot;*&quot;, SupportsCredentials = true)]
+</code></pre><p>If this property is true, the HTTP response will include an Access-Control-Allow-Credentials header. This header tells the browser that the server allows credentials for a cross-origin request.</p>
+<p>If the browser sends credentials, but the response does not include a valid Access-Control-Allow-Credentials header, the browser will not expose the response to the application, and the AJAX request fails.</p>
+<p>Be very careful about setting <strong>SupportsCredentials</strong> to true, because it means a website at another domain can send a logged-in user&#39;s credentials to your Web API on the user&#39;s behalf, without the user being aware. The CORS spec also states that setting <em>origins</em> to &quot;*&quot; is invalid if <strong>SupportsCredentials</strong> is true.</p>
+<p><a id="cors-policy-providers"></a></p>
+<h2 id="custom-cors-policy-providers">Custom CORS Policy Providers</h2>
+<p>The <strong>[EnableCors]</strong> attribute implements the <strong>ICorsPolicyProvider</strong> interface. You can provide your own implementation by creating a class that derives from <strong>Attribute</strong> and implements <strong>ICorsProlicyProvider</strong>.</p>
+<pre><code class="lang-csharp" data-src="https://github.com/aspnet/Docs/blob/live/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api/samples/sample21.cs" name="Main">[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false)]
+public class MyCorsPolicyAttribute : Attribute, ICorsPolicyProvider 
+{
+    private CorsPolicy _policy;
+
+    public MyCorsPolicyAttribute()
+    {
+        // Create a CORS policy.
+        _policy = new CorsPolicy
+        {
+            AllowAnyMethod = true,
+            AllowAnyHeader = true
+        };
+
+        // Add allowed origins.
+        _policy.Origins.Add(&quot;http://myclient.azurewebsites.net&quot;);
+        _policy.Origins.Add(&quot;http://www.contoso.com&quot;);
+    }
+
+    public Task&lt;CorsPolicy&gt; GetCorsPolicyAsync(HttpRequestMessage request)
+    {
+        return Task.FromResult(_policy);
+    }
+}
+</code></pre><p>Now you can apply the attribute any place that you would put <strong>[EnableCors]</strong>.</p>
+<pre><code class="lang-csharp" data-src="https://github.com/aspnet/Docs/blob/live/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api/samples/sample22.cs" name="Main">[MyCorsPolicy]
+public class TestController : ApiController
+{
+    .. //
+</code></pre><p>For example, a custom CORS policy provider could read the settings from a configuration file.</p>
+<p>As an alternative to using attributes, you can register an <strong>ICorsPolicyProviderFactory</strong> object that creates <strong>ICorsPolicyProvider</strong> objects.</p>
+<pre><code class="lang-csharp" data-src="https://github.com/aspnet/Docs/blob/live/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api/samples/sample23.cs" name="Main">public class CorsPolicyFactory : ICorsPolicyProviderFactory
+{
+    ICorsPolicyProvider _provider = new MyCorsPolicyProvider();
+
+    public ICorsPolicyProvider GetCorsPolicyProvider(HttpRequestMessage request)
+    {
+        return _provider;
+    }
+}
+</code></pre><p>To set the <strong>ICorsPolicyProviderFactory</strong>, call the <strong>SetCorsPolicyProviderFactory</strong> extension method at startup, as follows:</p>
+<pre><code class="lang-csharp" data-src="https://github.com/aspnet/Docs/blob/live/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api/samples/sample24.cs" name="Main">public static class WebApiConfig
+{
+    public static void Register(HttpConfiguration config)
+    {
+        config.SetCorsPolicyProviderFactory(new CorsPolicyFactory());
+        config.EnableCors();
+
+        // ...
+    }
+}
+</code></pre><p><a id="browser-support"></a></p>
+<h2 id="browser-support">Browser Support</h2>
+<p>The Web API CORS package is a server-side technology. The user&#39;s browser also needs to support CORS. Fortunately, the current versions of all major browsers include <a href="http://caniuse.com/cors" data-linktype="external">support for CORS</a>.</p>
+<p>Internet Explorer 8 and Internet Explorer 9 have partial support for CORS, using the legacy XDomainRequest object instead of XMLHttpRequest. For more information, see <a href="https://blogs.msdn.com/b/ieinternals/archive/2010/05/13/xdomainrequest-restrictions-limitations-and-workarounds.aspx" data-linktype="external">XDomainRequest - Restrictions, Limitations and Workarounds</a>.</p>
+</div>
+				<!-- </content> -->
+
+
+			</main>
+
+
+					<div id="comments-container" ms.cmpgrp="comments" data-bi-name="comments" role="form"></div>
+		</div>
+
+		<div class="pageActions">
+			<div id="page-actions" ms.cmpgrp="pageactions" data-bi-name="pageactions" role="complementary">
+				<div id="page-actions-content">
+					<ul class="action-list">
+							<li>
+									<a href="#comments-container" id="comments-link" ms.cmpnm="comments" data-bi-name="comments">
+										<i class="docon docon-comment-lines" aria-hidden="true"></i>Feedback									</a>
+							</li>
+									<li id="contenteditbtn">
+										<a href="https://github.com/aspnet/Docs/blob/master/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api.md" title="Edit This Document" ms.cmpnm="edit" data-bi-name="edit">
+											<i class="icon icon-editor"></i>Edit										</a>
+										<div class="flyout">
+											<a href="#" class="flyout-button" title="Note" ms.cmpnm="contributorGuide" data-bi-name="contributorGuide">
+												<i class="icon icon-information"></i>
+											</a>
+											<div class="flyout-container"><p><a href="//docs.microsoft.com/contribute">How to contribute</a></p></div>
+										</div>
+									</li>
+						<li>
+							<div class="flyout">
+								<a href="#" class="flyout-button" title="Share This Document" ms.cmpnm="share" data-bi-name="share"><i class="icon icon-share"></i>Share</a>
+								<div class="flyout-container">
+										<div><a href="" class="share-twitter" ms.cmpnm="twitter" data-bi-name="twitter"><i class="icon icon-twitter"></i>Twitter</a></div>
+										<div><a href="" class="share-linkedin" ms.cmpnm="share-linkedin" data-bi-name="linkedin"><i class="icon icon-linkedin"></i>LinkedIn</a></div>
+										<div><a href="" class="share-facebook" ms.cmpnm="facebook" data-bi-name="facebook"><i class="icon icon-facebook"></i>Facebook</a></div>
+										<div><a href="" class="share-email" ms.cmpnm="email" data-bi-name="email"><i class="icon icon-email"></i>Email</a></div>
+								</div>
+							</div>
+						</li>
+						<li class="typeSep">|</li>
+						<li>
+							<label for="theme-selector">Theme</label>
+							<select id="theme-selector" data-bi-name="select-theme">
+								<option value="" class="removedOnload"></option>
+								<option value="">Light</option>
+								<option value="theme_night">Dark</option>
+							</select>
+						</li>
+					</ul>
+
+					<nav id="side-doc-outline" class="doc-outline" ms.cmpnm="intopic toc" data-bi-name="intopic toc" role="navigation" aria-label="On page navigation">
+						<h3>In this article</h3>
+					</nav>
+
+				</div>
+			</div>
+		</div>
+
+		<ul class="breadcrumbs" ms.cmpgrp="breadcrumb" data-bi-name="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList" role="navigation" aria-label="Breadcrumb"><li></li></ul>
+
+		<div class="sidebar" id="sidebar" ms.cmpgrp="left toc" data-bi-name="left toc" role="navigation" aria-label="Main Navigation">
+			<div id="sidebarContent">
+				<div class="filterHolder">
+				</div>
+				<nav class="toc"></nav>
+				<div class="pdfDownloadHolder"></div>
+			</div>
+			<div class="tocSpace"></div>
+		</div>
+
+		<div id="menu-nav" class="dropdown-container">
+			<div class="dropdown dropdown-full mobilenavi">
+					<select>
+					</select>
+			</div>
+		</div>
+
+	</div>
+
+	<div id="openFeedbackContainer" class="openfeedback-container"></div>
+
+	<div class="container footerContainer" >
+<footer id="footer" ms.pgarea="footer" data-bi-name="footer" class="footer-layout">
+  <div class="container" role="contentinfo">
+
+    <a data-mscc-ic="false" id="locale-selector-link" href="#" data-bi-name="select-locale" ms.cmpnm="select-locale"></a>
+
+    <ul class="links" ms.cmpgrp="footerlinks" data-bi-name="footerlinks">
+		<li><a data-mscc-ic="false" href="https://docs.microsoft.com/teamblog" ms.cmpnm="bloglink" data-bi-name="bloglink">Blog</a></li>
+		<li><a data-mscc-ic="false" href="//docs.microsoft.com/contribute" ms.cmpnm="contributorGuide" data-bi-name="contributorGuide">How to contribute</a></li>
+		<li><a data-mscc-ic="false" href="//privacy.microsoft.com/en-us/" ms.cmpnm="privacy" data-bi-name="privacy">Privacy &amp; Cookies</a></li>
+		<li><a data-mscc-ic="false" href="/en-us/legal/termsofuse" ms.cmpnm="termsofuse" data-bi-name="termsofuse">Terms of Use</a></li>
+		<li><a data-mscc-ic="false" href="//aka.ms/sitefeedback" ms.cmpnm="feedback" data-bi-name="feedback">Feedback</a></li>
+		<li><a data-mscc-ic="false" href="https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/EN-US.aspx" ms.cmpnm="trademarks" data-bi-name="trademarks">Trademarks</a></li>
+    </ul>
+  </div>
+</footer>	</div>
+
+	<script src="/_themes/docs.theme/master/en-us/_themes/javascript/edb57f96cb1c1ff1459e.conceptual.js"></script>
+</body>
+</html>

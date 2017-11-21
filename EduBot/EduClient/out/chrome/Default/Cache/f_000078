@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+
+
+<html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" lang="pl">
+<head><link rel="canonical" href="https://msdn.microsoft.com/pl-pl/library/system.linq.iqueryable(v=vs.110).aspx" />
+    <title>Interfejs IQueryable (System.Linq)</title>
+
+
+
+
+
+
+
+<meta name="DCS.dcsuri" content="/pl-pl/library/bb495796(d=default,l=pl-pl,v=vs.110).aspx" />
+
+<meta name="NormalizedUrl" content="https://msdn.microsoft.com/pl-pl/library/bb495796(d=default,l=pl-pl,v=vs.110).aspx" />
+
+<meta name="ms.normalizedurl" content="https://msdn.microsoft.com/pl-pl/library/bb495796(d=default,l=pl-pl,v=vs.110).aspx" />
+
+<meta name="ms.prod" content=".net-framework-4.6" />
+
+<meta name="ms.devlang" content="csharp" />
+
+<meta name="ms.topic" content="managed-reference" />
+
+<meta name="VotingContextUrl" content="https://msdn.microsoft.com/pl-pl/library/bb495796(d=default,l=pl-pl,v=vs.110).aspx" />
+
+<meta name="MN" content="61C41DD0-8:14:25 AM" />
+
+<meta name="Search.ShortId" content="bb495796" />
+
+<meta name="ms.shortidmsdn" content="bb495796" />
+
+<meta name="ms.locale" content="pl-pl" />
+
+<meta name="ms.prodver" content="VS.110" />
+
+<meta name="ms.contentlang" content="PL" />
+
+<meta name="ms.lang" content="PL" />
+
+<meta name="ms.loc" content="PL" />
+
+<meta name="ms.sitever" content="2017.11.07.1" />
+
+<meta name="ms.assetid" content="T:System.Linq.IQueryable" />
+
+<meta name="ms.auth" content="0" />
+
+<meta name="ms.technology" content="dotnet-bcl" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    
+        
+
+
+
+
+
+
+
+
+
+    <script type="text/javascript" data-do-not-move="true">
+        //<![CDATA[
+        var AmbientContext = null;
+
+        (function(){
+            var root = (function(){return this;}).call(null);
+
+            var GetCookie = function(name){
+                var cookies = root.document.cookie ? root.document.cookie.split('; ') : [];
+                for (var i = 0; i < cookies.length; i++) {
+                    var pos = cookies[i].indexOf('=');
+                    if (name === root.decodeURIComponent(cookies[i].slice(0, pos)))
+                    {
+                        var cookie = cookies[i].slice(pos + 1).replace(/\+/g, ' ');
+                        cookie = root.decodeURIComponent(cookie);
+                        return cookie;
+                    }
+                }
+            };
+
+            var JsonDeserialize = function(content) {
+                return root.JSON && root.JSON.parse ? root.JSON.parse(content) : (new Function('return (' + content + ')'))();
+            };
+
+            try {
+                AmbientContext = GetCookie('AmbientContext');
+                AmbientContext = AmbientContext && JsonDeserialize(AmbientContext);
+            } catch(ex) {
+            } finally {
+                AmbientContext = AmbientContext || null;
+            }
+        })();
+        //]]>
+    </script>
+
+    <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.9.1.min.js" data-do-not-move="true" data-provides="jQuery"></script>
+    
+<link rel="stylesheet" type="text/css" href="https://uhf.microsoft.com/mscc/statics/mscc-0.3.6.min.css" /><link rel="stylesheet" type="text/css" href="https://i-msdn.sec.s-msft.com/Combined.css?resources=0:ImageSprite,0:TopicResponsive,0:TopicResponsive.MediaQueries,1:CodeSnippet,1:ProgrammingSelector,1:ExpandableCollapsibleArea,0:CommunityContent,1:TopicNotInScope,1:FeedViewerBasic,1:ImageSprite,2:Header,2:HeaderFooterSprite,2:Header.MediaQueries,3:Banner.MediaQueries,0:Breadcrumbs,0:Breadcrumbs.MediaQueries,0:ResponsiveToc,0:ResponsiveToc.MediaQueries,0:TranslationWiki,0:jquery.popup,1:VersionSelector,0:LibraryMemberFilter,2:Footer,2:Footer.MediaQueries,4:StandardRating,5:LinkList,0:BaseResponsive,6:MsdnResponsive,0:Tables.MediaQueries;/Areas/Library/Content:0,/Areas/Epx/Content/Css:1,/Areas/Centers/Themes/StandardDevCenter/Content:2,/Areas/Epx/Shared/Content:3,/Areas/Global/Content:4,/Areas/Epx/Themes/Base/Content:5,/Areas/Library/Themes/Msdn/Content:6&amp;amp;v=7EF2D33BFFB4FEFBD9291A97F9C975D3" /></head>
+<body class="library Chrome">
+    <div id="page">
+
+        
+
+        
+    
+
+
+    
+    <link type="text/css" rel="stylesheet" />
+    
+        
+        
+    <input type="hidden" id="isHeaderBleeding" value="true" />
+    <div id="ux-header" dir="ltr" class="ltr msdn" ms.pgarea="header">
+        
+            
+            
+        <div id="ux-banner">
+            <div id="msccBanner" dir="ltr" data-site-name="msdn.microsoft.com" data-mscc-version="0.3.6" data-nver="aspnet-2.0.6" data-sver="0.1.2" class="cc-banner" role="alert"><div class="cc-container"><svg class="cc-icon cc-v-center" x="0px" y="0px" viewBox="0 0 44 44" height="30px" fill="none" stroke="currentColor"><circle cx="22" cy="22" r="20" stroke-width="2"></circle><line x1="22" x2="22" y1="18" y2="33" stroke-width="3"></line><line x1="22" x2="22" y1="12" y2="15" stroke-width="3"></line></svg> <span class="cc-v-center cc-text">Kontynuując przeglądanie tej witryny, zgadzasz się na używanie plików cookie w celu gromadzenia danych analitycznych oraz wyświetlania reklam i zawartości dostosowanych do preferencji użytkownika.</span> <a href="https://go.microsoft.com/fwlink/?linkid=845480" aria-label="Dowiedz się więcej o zasadach firmy Microsoft dotyczących plików cookie" id="msccLearnMore" class="cc-link cc-v-center cc-float-right" data-mscc-ic="false">Dowiedz się więcej</a></div></div>
+        </div>
+
+      <header>
+        <span id="singleCol"></span>
+        <span id="doubleCol"></span>
+        <span id="isMobile"></span>
+        <div>
+          <div class="row topRow" role="banner">
+            <div class="top">
+              <div class="left">
+                <a class="msdnLogoImg" href="https://msdn.microsoft.com/pl-pl" title="MSDN home" ms.cmpgrp="mslogo">
+                  <div class="clip70x15">
+                    <img alt="Microsoft Logo" id="msft-logo" class="msft-logo" src="https://i-msdn.sec.s-msft.com/Areas/Centers/Themes/StandardDevCenter/Content/HeaderFooterSprite.png?v=636456747532875346" />
+                  </div>
+                </a>
+                <div class="GrayPipeDiv clip1x18">
+                  <img alt="Gray Pipe" class="GrayPipe" src="https://i-msdn.sec.s-msft.com/Areas/Centers/Themes/StandardDevCenter/Content/HeaderFooterSprite.png?v=636456747532875346" />
+                </div>
+                  <a class="DevCenterFullNameNonMegaBlade" href="https://msdn.microsoft.com/pl-pl">Developer Network</a>
+                <a class="DevCenterFullName" href="https://msdn.microsoft.com/pl-pl">Developer Network</a>
+                <a class="DevCenterShortName" href="https://msdn.microsoft.com/pl-pl">Developer</a>
+              </div>
+              <div class="right" ms.cmpgrp="aux nav">
+                <div id="signIn" aria-label="Profile button">
+
+  <div class="profileImage"></div>
+
+
+
+<a class="scarabLink" href="https://login.live.com/login.srf?wa=wsignin1.0&amp;rpsnv=13&amp;ct=1511108065&amp;rver=6.7.6640.0&amp;wp=mcmbi&amp;wlcxt=msdn%24msdn%24msdn&amp;wreply=https%3a%2f%2fmsdn.microsoft.com%2fpl-pl%2flibrary%2fsystem.linq.iqueryable%2528v%3dvs.110%2529.aspx&amp;lc=1045&amp;id=254354&amp;mkt=pl-pl">Zaloguj się</a></div>
+
+
+
+
+                <div class="auxNav">
+                  <div>
+                    <div data-fragmentName="Subscriptions" id="Fragment_Subscriptions" xmlns="http://www.w3.org/1999/xhtml">
+  <a href="https://msdn.microsoft.com/subscriptions/manage/hh442900" id="Subscriptions_2153_1" xmlns="http://www.w3.org/1999/xhtml">
+    <span style="line-height:18px;" xmlns="">Subskrypcje MSDN</span>
+  </a>
+</div>
+                    <div data-fragmentName="GetTools" id="Fragment_GetTools" xmlns="http://www.w3.org/1999/xhtml">
+  <a href="https://go.microsoft.com/fwlink/?LinkId=309297&amp;clcid=0x415&amp;slcid=0x415&amp;campaign=o~msft~msdn~gettools-header~dn308572" id="GetTools_2153_3" xmlns="http://www.w3.org/1999/xhtml">
+    <span style="line-height:18px;" xmlns="">Pobierz narzędzia</span>
+  </a>
+</div>
+                  </div>
+                        <div>
+                            
+                        </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="row middleRow">
+            <div class="expandTop">
+              <div class="left"></div>
+              <div class="right"></div>
+            </div>
+          </div>
+        </div>
+        <div id="buttomRowWrapper" class="bg_default">
+          <div class="row buttomRow bg_default">
+            <div class="bottom">
+              <div class="left" role="navigation" aria-label="header toc" ms.cmpgrp="main nav">
+                <a id="grip" class="menu-icon" href="javascript:void(0)" role="button" aria-label="navigation menu" data-mscc-ic="false"></a>
+                
+                <div id="drawer">
+                  <div class="toc">
+                    
+        <nav>
+            <ul class="navL1">
+                        <li class="inactive toggle">
+                                <a href="javascript:void(0)" role="button" aria-expanded="false" data-mscc-ic="false">Materiały do pobrania</a>
+                                <ul class="navL2">
+                                        <li class="inactive">
+
+                                                <a href="https://www.visualstudio.com/downloads/download-visual-studio-vs" role="link" title="Visual Studio">Visual Studio</a>
+                                        </li>
+                                        <li class="inactive">
+
+                                                <a href="https://msdn.microsoft.com/microsoft-sdks-msdn" role="link" title="Zestawy SDK">Zestawy SDK</a>
+                                        </li>
+                                        <li class="inactive toggle">
+
+                                                <a href="javascript:void(0)" title="Oprogramowanie w wersji próbnej" role="button" aria-expanded="false" data-mscc-ic="false">Oprogramowanie w wersji próbnej</a>
+                                                <ul class="navL3">
+                                                        <li class="inactive">
+                                                            <a href="https://msdn.microsoft.com/evalcenter" title="Bezpłatne materiały do pobrania" role="link">Bezpłatne materiały do pobrania</a>
+                                                        </li>
+                                                        <li class="inactive">
+                                                            <a href="https://msdn.microsoft.com/officeevaluationresources" title="Zasoby pakietu Office" role="link">Zasoby pakietu Office</a>
+                                                        </li>
+                                                        <li class="inactive">
+                                                            <a href="https://msdn.microsoft.com/sharepoint2013resources" title="Zasoby programu SharePoint Server 2013" role="link">Zasoby programu SharePoint Server 2013</a>
+                                                        </li>
+                                                        <li class="inactive">
+                                                            <a href="https://msdn.microsoft.com/sqlserver2014expressresources" title="Zasoby programu SQL Server 2014 Express" role="link">Zasoby programu SQL Server 2014 Express</a>
+                                                        </li>
+                                                        <li class="inactive">
+                                                            <a href="https://msdn.microsoft.com/windowsserver2012r2resources" title="Zasoby systemu Windows Server 2012" role="link">Zasoby systemu Windows Server 2012</a>
+                                                        </li>
+                                                </ul>
+                                        </li>
+                                </ul>
+                        </li>
+                        <li class="inactive toggle">
+                                <a href="javascript:void(0)" role="button" aria-expanded="false" data-mscc-ic="false">Programy</a>
+                                <ul class="navL2">
+                                        <li class="inactive toggle">
+
+                                                <a href="javascript:void(0)" title="Subskrypcje" role="button" aria-expanded="false" data-mscc-ic="false">Subskrypcje</a>
+                                                <ul class="navL3">
+                                                        <li class="inactive">
+                                                            <a href="https://msdn.microsoft.com/msdn-subscriptions-administration" title="Administratorzy" role="link">Administratorzy</a>
+                                                        </li>
+                                                </ul>
+                                        </li>
+                                        <li class="inactive toggle">
+
+                                                <a href="javascript:void(0)" title="Studenci i uczniowie" role="button" aria-expanded="false" data-mscc-ic="false">Studenci i uczniowie</a>
+                                                <ul class="navL3">
+                                                        <li class="inactive">
+                                                            <a href="https://msdn.microsoft.com/imagine/imagine-home" title="Microsoft Imagine" role="link">Microsoft Imagine</a>
+                                                        </li>
+                                                        <li class="inactive">
+                                                            <a href="https://msdn.microsoft.com/microsoftstudentpartners" title="Partnerzy Microsoft Student Partner" role="link">Partnerzy Microsoft Student Partner</a>
+                                                        </li>
+                                                </ul>
+                                        </li>
+                                        <li class="inactive">
+
+                                                <a href="https://msdn.microsoft.com/applicationbuilder" role="link" title="ISV">ISV</a>
+                                        </li>
+                                        <li class="inactive">
+
+                                                <a href="https://www.microsoft.com/bizspark" role="link" title="Startupy">Startupy</a>
+                                        </li>
+                                        <li class="inactive">
+
+                                                <a href="https://events.microsoft.com/" role="link" title="Wydarzenia">Wydarzenia</a>
+                                        </li>
+                                </ul>
+                        </li>
+                        <li class="inactive toggle">
+                                <a href="javascript:void(0)" role="button" aria-expanded="false" data-mscc-ic="false">Społeczność</a>
+                                <ul class="navL2">
+                                        <li class="inactive">
+
+                                                <a href="https://msdn.microsoft.com/magazine/dd767791" role="link" title="Magazine">Magazine</a>
+                                        </li>
+                                        <li class="inactive">
+
+                                                <a href="https://social.msdn.microsoft.com/forums/" role="link" title="Forum">Forum</a>
+                                        </li>
+                                        <li class="inactive">
+
+                                                <a href="https://blogs.msdn.microsoft.com/" role="link" title="Blogi">Blogi</a>
+                                        </li>
+                                        <li class="inactive">
+
+                                                <a href="http://channel9.msdn.com/" role="link" title="Channel 9 ">Channel 9 </a>
+                                        </li>
+                                </ul>
+                        </li>
+                        <li class="inactive current toggle">
+                                <a href="javascript:void(0)" role="button" aria-expanded="false" data-mscc-ic="false">Dokumentacja</a>
+                                <ul class="navL2">
+                                        <li class="inactive current">
+
+                                                <a href="https://msdn.microsoft.com/library" role="link" title="Interfejsy API i dokumentacja">Interfejsy API i dokumentacja</a>
+                                        </li>
+                                        <li class="inactive">
+
+                                                <a href="https://msdn.microsoft.com/developer-centers-msdn" role="link" title="Centra deweloperów">Centra deweloperów</a>
+                                        </li>
+                                        <li class="inactive">
+
+                                                <a href="https://code.msdn.microsoft.com/" role="link" title="Przykłady">Przykłady</a>
+                                        </li>
+                                        <li class="inactive">
+
+                                                <a href="https://msdn.microsoft.com/mt703209" role="link" title="Zawartość wycofana">Zawartość wycofana</a>
+                                        </li>
+                                </ul>
+                        </li>
+            </ul>
+        </nav>
+
+                  </div>
+                </div>
+              </div>
+              <div class="right" ms.title="search" role="search">
+                <div data-fragmentName="SearchBox" id="Fragment_SearchBox" xmlns="http://www.w3.org/1999/xhtml">
+  <div class="SearchBox">
+    <form id="HeaderSearchForm" name="HeaderSearchForm" method="get">
+      <button id="FakeHeaderSearchButton" value="Search" type="submit" class="header-search-button" role="button" aria-label="search finder">
+        <div id="search-finder-div" class="clip16x20">
+          <img alt="search finder" id="search-finder" class="search-finder" src="https://i-msdn.sec.s-msft.com/Areas/Centers/Themes/StandardDevCenter/Content/HeaderFooterSprite.png?v=636456747532875346" />
+        </div>
+      </button>
+      <button id="HeaderSearchButton" style="display:none"></button>
+      <div id="searchSplitter"></div>
+      <div id="searchCloseIconDiv" class="clip16x20" tabindex="0">
+        <img alt="search clear" id="searchCloseIcon" class="search-clear-x" src="https://i-msdn.sec.s-msft.com/Areas/Centers/Themes/StandardDevCenter/Content/HeaderFooterSprite.png?v=636456747532875346" />
+      </div>
+      <div id="searchTextContainer" style="width: 0;">
+        <input id="HeaderSearchTextBox" name="query" type="text" aria-label="search edit textbox" maxlength="200" onfocus="Epx.Controls.SearchBox.watermarkFocus(event, this.title)" onblur="Epx.Controls.SearchBox.watermarkBlur(event, this.title)" />
+      </div>
+    </form>
+    
+    
+  </div>
+</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </header>
+
+    </div>
+
+    
+    
+    
+    <div id="jumpInfo" style="display: none">Niestety. Żądana zawartość została usunięta. Za 1 sekundę nastąpi automatyczne przekierowanie.</div>
+
+
+
+
+
+<link type="text/css" rel="stylesheet" />
+<link type="text/css" rel="stylesheet" />
+
+
+    <div id="breadcrumbs" ms.pgarea="body" ms.cmpgrp="breadcrumbs">
+        <div id="breadcrumbDesktop" class="breadCrumb">
+                        <span class="breadcrumbEllipsis"><a href="https://msdn.microsoft.com/pl-pl/library/w0x726c2(v=vs.110).aspx" title=".NET Framework 4.6 and 4.5"></a></span>
+                        <span><a href="https://msdn.microsoft.com/pl-pl/library/mt472912(v=vs.110).aspx" title="Biblioteka klas programu .NET Framework"><span>Biblioteka klas programu .NET Framework</span></a></span>
+                        <span><a href="https://msdn.microsoft.com/pl-pl/library/mt481550(v=vs.110).aspx" title="System.Linq Przestrzenie nazw"><span>System.Linq Przestrzenie nazw</span></a></span>
+                        <span class="breadcrumbDropSmall">
+                            <a id="breadcrumbDropDownButton" href="#" targethref="https://msdn.microsoft.com/pl-pl/library/mt481550(v=vs.110).aspx" title="System.Linq"><span>System.Linq</span></a>
+                        </span>
+        </div>
+        <div id="breadcrumbDropDownMenu"></div>
+
+        <div id="breadcrumbTablet" class="breadCrumb">
+                        <span class="breadcrumbEllipsis"><a href="https://msdn.microsoft.com/pl-pl/library/mt481550(v=vs.110).aspx" title="System.Linq Przestrzenie nazw"></a></span>
+                    <span><a href="https://msdn.microsoft.com/pl-pl/library/system.linq(v=vs.110).aspx" title="System.Linq"><span>System.Linq</span></a></span>
+                <span class="breadcrumbDropSmall"><a id="tocDropDownButton" href="#" title="IQueryable Interfejs"><span>IQueryable Interfejs</span></a></span>
+        </div>
+        <div id="tocDropDownMenu"></div>
+        <div id="breadcrumbMobile" class="breadCrumb">
+                <span class="breadcrumbEllipsis"><a href="https://msdn.microsoft.com/pl-pl/library/system.linq(v=vs.110).aspx" title="System.Linq"></a></span>
+            <span class="breadcrumbDropSmall"><a id="tocPopupButton" href="#" title="IQueryable Interfejs"><span>IQueryable Interfejs</span></a></span>
+        </div>
+    </div>
+    <div id="tocPopupMenu">
+        <div id="tocPopMenuClose" class="tocCloseLarge"></div>
+        <div id="tocTitle">IQueryable Interfejs</div>        
+    </div>
+
+    
+
+
+        <div id="body" ms.pgarea="body" class="">
+            <span id="tabletView_large"></span>
+            <span id="tabletView_small"></span>
+            <span id="mobileView"></span>
+            
+
+
+
+
+
+
+
+
+
+    <div id="leftNav" ms.cmpgrp="left toc" role="navigation" aria-label="left toc">
+
+    
+
+
+<div id="tocnav" class="ArchiveV2">
+    <div class="tocunselected">
+        <div id="tocExpandArea">
+            <span class="toc_empty"></span>
+            <span id="tocExpandButton"><a href="javascript:void(0)" aria-label="expand sibling toc" role="button"></a></span>
+        </div>
+        <div id="tocExpand"></div>
+    </div>
+    <div class="tocselected"></div>
+    <div class="tocunselected">
+                <div class="toclevel " data-toclevel="1">
+<a data-tochassubtree="true" href="https://msdn.microsoft.com/pl-pl/library/system.linq.enumerable(v=vs.110).aspx" id="mt526548_VS.110_pl-pl" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Enumerable Klasa">Enumerable Klasa</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<a data-tochassubtree="true" href="https://msdn.microsoft.com/pl-pl/library/system.linq.enumerableexecutor(v=vs.110).aspx" id="mt526586_VS.110_pl-pl" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="EnumerableExecutor Klasa">EnumerableExecutor Klasa</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<a data-tochassubtree="true" href="https://msdn.microsoft.com/pl-pl/library/cc190101(v=vs.110).aspx" id="mt526552_VS.110_pl-pl" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="EnumerableExecutor(T) Klasa">EnumerableExecutor(T) Klasa</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<a data-tochassubtree="true" href="https://msdn.microsoft.com/pl-pl/library/system.linq.enumerablequery(v=vs.110).aspx" id="mt526571_VS.110_pl-pl" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="EnumerableQuery Klasa">EnumerableQuery Klasa</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<a data-tochassubtree="true" href="https://msdn.microsoft.com/pl-pl/library/cc190116(v=vs.110).aspx" id="mt526631_VS.110_pl-pl" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="EnumerableQuery(T) Klasa">EnumerableQuery(T) Klasa</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<a data-tochassubtree="true" href="https://msdn.microsoft.com/pl-pl/library/bb344977(v=vs.110).aspx" id="mt526611_VS.110_pl-pl" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="IGrouping(TKey, TElement) Interfejs">IGrouping(TKey, TElement) Interfejs</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<a data-tochassubtree="true" href="https://msdn.microsoft.com/pl-pl/library/bb534291(v=vs.110).aspx" id="mt526599_VS.110_pl-pl" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="ILookup(TKey, TElement) Interfejs">ILookup(TKey, TElement) Interfejs</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<a data-tochassubtree="true" href="https://msdn.microsoft.com/pl-pl/library/bb534852(v=vs.110).aspx" id="mt526589_VS.110_pl-pl" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="IOrderedEnumerable(TElement) Interfejs">IOrderedEnumerable(TElement) Interfejs</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<a data-tochassubtree="true" href="https://msdn.microsoft.com/pl-pl/library/system.linq.iorderedqueryable(v=vs.110).aspx" id="mt526597_VS.110_pl-pl" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="IOrderedQueryable Interfejs">IOrderedQueryable Interfejs</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<a data-tochassubtree="true" href="https://msdn.microsoft.com/pl-pl/library/bb340178(v=vs.110).aspx" id="mt526600_VS.110_pl-pl" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="IOrderedQueryable(T) Interfejs">IOrderedQueryable(T) Interfejs</a>                </div>
+                <div class="toclevel current" data-toclevel="1">
+<a data-tochassubtree="true" href="https://msdn.microsoft.com/pl-pl/library/system.linq.iqueryable(v=vs.110).aspx" id="mt526604_VS.110_pl-pl" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="IQueryable Interfejs">IQueryable Interfejs</a>                </div>
+                <div class="toclevel " data-toclevel="2">
+<a href="https://msdn.microsoft.com/pl-pl/library/system.linq.iqueryable_methods(v=vs.110).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="IQueryable Metody">IQueryable Metody</a>                </div>
+                <div class="toclevel " data-toclevel="2">
+<a data-tochassubtree="true" href="https://msdn.microsoft.com/pl-pl/library/system.linq.iqueryable_properties(v=vs.110).aspx" id="mt526594_VS.110_pl-pl" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="IQueryable Właściwości">IQueryable Właściwości</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<a data-tochassubtree="true" href="https://msdn.microsoft.com/pl-pl/library/bb351562(v=vs.110).aspx" id="mt526608_VS.110_pl-pl" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="IQueryable(T) Interfejs">IQueryable(T) Interfejs</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<a data-tochassubtree="true" href="https://msdn.microsoft.com/pl-pl/library/system.linq.iqueryprovider(v=vs.110).aspx" id="mt526613_VS.110_pl-pl" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="IQueryProvider Interfejs">IQueryProvider Interfejs</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<a data-tochassubtree="true" href="https://msdn.microsoft.com/pl-pl/library/bb460184(v=vs.110).aspx" id="mt526641_VS.110_pl-pl" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Lookup(TKey, TElement) Klasa">Lookup(TKey, TElement) Klasa</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<a data-tochassubtree="true" href="https://msdn.microsoft.com/pl-pl/library/dd413755(v=vs.110).aspx" id="mt526612_VS.110_pl-pl" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="OrderedParallelQuery(TSource) Klasa">OrderedParallelQuery(TSource) Klasa</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<a data-tochassubtree="true" href="https://msdn.microsoft.com/pl-pl/library/system.linq.parallelenumerable(v=vs.110).aspx" id="mt526739_VS.110_pl-pl" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="ParallelEnumerable Klasa">ParallelEnumerable Klasa</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<a href="https://msdn.microsoft.com/pl-pl/library/system.linq.parallelexecutionmode(v=vs.110).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="ParallelExecutionMode Wyliczenie">ParallelExecutionMode Wyliczenie</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<a href="https://msdn.microsoft.com/pl-pl/library/system.linq.parallelmergeoptions(v=vs.110).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="ParallelMergeOptions Wyliczenie">ParallelMergeOptions Wyliczenie</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<a data-tochassubtree="true" href="https://msdn.microsoft.com/pl-pl/library/system.linq.parallelquery(v=vs.110).aspx" id="mt526708_VS.110_pl-pl" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="ParallelQuery Klasa">ParallelQuery Klasa</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<a data-tochassubtree="true" href="https://msdn.microsoft.com/pl-pl/library/dd383736(v=vs.110).aspx" id="mt526643_VS.110_pl-pl" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="ParallelQuery(TSource) Klasa">ParallelQuery(TSource) Klasa</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<a data-tochassubtree="true" href="https://msdn.microsoft.com/pl-pl/library/system.linq.queryable(v=vs.110).aspx" id="mt526723_VS.110_pl-pl" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Queryable Klasa">Queryable Klasa</a>                </div>
+    </div>
+    <a id="tocMenuToggler" href="javascript:void(0)" role="button">
+        <span id="tocMenuTogglerIcon" class="tocMenuCollapse" role="button" aria-expanded="true" aria-label="Table of contents menu"></span>
+        <div id="tocMenuTogglerLabel">TOC</div>
+    </a>
+</div>            <div style="display:none">
+                <div id="CollapseLocalizeString">Zwiń spis treści</div>
+                <div id="ExpandLocalizeString">Rozwiń spis treści</div>
+            </div>
+        <div>
+            <a id="isd_archiveControlResponsive" style="display:none;" href="javascript:void(0)" role="button" aria-label="Ukryj wersje archiwalne" data-include-archive="Pokaż wersje archiwalne" data-exclude-archive="Ukryj wersje archiwalne">
+            </a>
+            <div id="isd_archiveInstrument" style="display:none">Ta dokumentacja została zarchiwizowana i nie jest już poddawana konserwacji.</div>
+        </div>
+    </div>
+     <div id="content" class="content" ms.cmpgrp="content body" role="main">
+
+
+
+<div id="MTPSTranslator" class="MTPSTranslator">
+    <table class="MTPSTranslatorTable" style="width: 100%">
+        <tr>
+            <td class="TranslationAlertBox">
+                <div>Aby wyświetlić przetłumaczoną maszynowo wersję tego artykułu, zaznacz pole wyboru Tłumaczenie. Możesz też wyświetlić przetłumaczony tekst w okienku wyskakującym, przesuwając wskaźnik myszy nad konkretny tekst”.</div>
+            </td>
+                <td class="TranslationViewSwitcher">
+                    <div>
+                        <input title="Pokaż przetłumaczony tekst" value="0" name="TrnaslatorView" type="radio" class="translatechoice" /><span>Tłumaczenie</span>
+                    </div>
+                    <div>
+                        <input title="Pokaż tekst w języku angielskim " value="1" name="TrnaslatorView" type="radio" class="translatechoice" checked="checked" /><span>Angielski</span>
+                    </div>
+                </td>
+        </tr>
+    </table>
+</div>
+    
+    
+    
+     
+
+
+
+
+
+
+
+    <div id="archiveDisclaimerText" style="display:none">Ta dokumentacja została zarchiwizowana i nie jest już poddawana konserwacji.</div>
+
+
+
+<div xmlns="http://www.w3.org/1999/xhtml">
+  
+  <div class="topic">
+    <h1 class="title">Interfejs IQueryable</h1>
+    
+    <div class="lw_vs">
+      <div id="curversion">
+        <strong>
+                .NET Framework (current version)
+            </strong>
+      </div>
+    </div>
+    <div style="clear:both;"></div>
+    <div id="mainSection">
+      <div id="mainBody"> <p>Data opublikowania: październik 2016</p><div class="section"><div class="section"><p><span id="mt1" class="sentence" data-guid="0dfe37a5-18ab-b55a-a257-1d63658a3d53" data-approved="Zapewnia funkcję do oceny kwerend dla określonego źródła danych którym nie określono typu danych." xml:space="preserve">Provides functionality to evaluate queries against a specific data source wherein the type of the data is not specified.</span></p></div><strong>Przestrzeń nazw:
+      </strong>
+       
+      <a href="https://msdn.microsoft.com/pl-pl/library/system.linq(v=vs.110).aspx">System.Linq</a><br /><strong>Zestaw:
+        </strong> System.Core (w System.Core.dll)<br /><br /><div><h2 class="LW_CollapsibleArea_TitleDiv"><div><a class="LW_CollapsibleArea_TitleAhref" title="Zwiń" role="heading"><span class="cl_CollapsibleArea_expanding LW_CollapsibleArea_Img"></span><span class="LW_CollapsibleArea_Title">Składnia</span></a><div id="Anchor_0" class="LW_CollapsibleArea_Anchor_Div"><a href="/pl-pl/library/system.linq.iqueryable(v=vs.110).aspx#Anchor_0" class="LW_CollapsibleArea_Anchor_Img" title="Kliknij prawym przyciskiem myszy, aby skopiować link do tej sekcji i go udostępnić"></a></div><div class="LW_CollapsibleArea_HrDiv"><hr class="LW_CollapsibleArea_Hr" /></div></div></h2><div class="sectionblock">
+<div id="code-snippet-1" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        <div class="codeSnippetContainerTabActive" dir="ltr"><a>C#</a></div><div class="codeSnippetContainerTab" dir="ltr"><a href="https://msdn.microsoft.com/pl-pl/library/system.linq.iqueryable(v=vs.110).aspx?cs-save-lang=1&amp;cs-lang=cpp#code-snippet-1">C++</a></div><div class="codeSnippetContainerTab" dir="ltr"><a href="https://msdn.microsoft.com/pl-pl/library/system.linq.iqueryable(v=vs.110).aspx?cs-save-lang=1&amp;cs-lang=fsharp#code-snippet-1">F#</a></div><div class="codeSnippetContainerTab" dir="ltr"><a href="https://msdn.microsoft.com/pl-pl/library/system.linq.iqueryable(v=vs.110).aspx?cs-save-lang=1&amp;cs-lang=vb#code-snippet-1">VB</a></div>
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Kopiuj do schowka" href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_3155f486-2b28-4e47-81df-124699309a8f');" ms.cmptyp="CodeSnippet">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_3155f486-2b28-4e47-81df-124699309a8f" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>
+<span style="color:Blue;">public</span> <span style="color:Blue;">interface</span> IQueryable : IEnumerable
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+</div></div><div><h2 class="LW_CollapsibleArea_TitleDiv"><div><a class="LW_CollapsibleArea_TitleAhref" title="Zwiń" role="heading"><span class="cl_CollapsibleArea_expanding LW_CollapsibleArea_Img"></span><span class="LW_CollapsibleArea_Title">Właściwości</span></a><div id="Anchor_1" class="LW_CollapsibleArea_Anchor_Div"><a href="/pl-pl/library/system.linq.iqueryable(v=vs.110).aspx#Anchor_1" class="LW_CollapsibleArea_Anchor_Img" title="Kliknij prawym przyciskiem myszy, aby skopiować link do tej sekcji i go udostępnić"></a></div><div class="LW_CollapsibleArea_HrDiv"><hr class="LW_CollapsibleArea_Hr" /></div></div></h2><div class="sectionblock"><table id="idProperties" Responsive="true" summary="table"><tbody><tr Responsive="true"><th class="iconColumn" scope="col" /><th class="nameColumn" scope="col">Nazwa</th><th class="descriptionColumn" scope="col">Opis</th></tr><tr><td data-th=""><span><img id="s-e6f6a65cf14f462597b64ac058dbe1d0-system-media-system-caps-pubproperty" alt="System_CAPS_pubproperty" src="https://i-msdn.sec.s-msft.com/dynimg/IC74937.jpeg" title="System_CAPS_pubproperty" xmlns="" /></span></td><td data-th="Nazwa"><a href="https://msdn.microsoft.com/pl-pl/library/system.linq.iqueryable.elementtype(v=vs.110).aspx"><span xmlns="">ElementType</span></a></td><td data-th="Opis"><div class="section"><p><span id="mt11" class="sentence" data-guid="129d162a-a6fb-d9ab-e9ca-72d9f617f50f" data-approved="Pobiera typ elementów, które są zwracane, gdy wyrażenie drzewa skojarzonego z tym wystąpieniem programu &lt;span class=&quot;selflink&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;IQueryable&lt;/span&gt; jest wykonywany." xml:space="preserve">Gets the type of the element(s) that are returned when the expression tree associated with this instance of <span class="selflink" xmlns="http://www.w3.org/1999/xhtml">IQueryable</span> is executed.</span></p></div></td></tr><tr><td data-th=""><span><img id="s-e6f6a65cf14f462597b64ac058dbe1d0-system-media-system-caps-pubproperty" alt="System_CAPS_pubproperty" src="https://i-msdn.sec.s-msft.com/dynimg/IC74937.jpeg" title="System_CAPS_pubproperty" xmlns="" /></span></td><td data-th="Nazwa"><a href="https://msdn.microsoft.com/pl-pl/library/system.linq.iqueryable.expression(v=vs.110).aspx"><span xmlns="">Expression</span></a></td><td data-th="Opis"><div class="section"><p><span id="mt12" class="sentence" data-guid="558ce7af-1c15-c155-a536-806400524f21" data-approved="Pobiera drzewa wyrażeń, który jest skojarzony z wystąpieniem &lt;span class=&quot;selflink&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;IQueryable&lt;/span&gt;." xml:space="preserve">Gets the expression tree that is associated with the instance of <span class="selflink" xmlns="http://www.w3.org/1999/xhtml">IQueryable</span>.</span></p></div></td></tr><tr><td data-th=""><span><img id="s-e6f6a65cf14f462597b64ac058dbe1d0-system-media-system-caps-pubproperty" alt="System_CAPS_pubproperty" src="https://i-msdn.sec.s-msft.com/dynimg/IC74937.jpeg" title="System_CAPS_pubproperty" xmlns="" /></span></td><td data-th="Nazwa"><a href="https://msdn.microsoft.com/pl-pl/library/system.linq.iqueryable.provider(v=vs.110).aspx"><span xmlns="">Provider</span></a></td><td data-th="Opis"><div class="section"><p><span id="mt13" class="sentence" data-guid="f51dc4e9-3fd0-9c14-ccf4-913ea053410c" data-approved="Pobiera dostawcy kwerendy, który jest skojarzony z tym źródłem danych." xml:space="preserve">Gets the query provider that is associated with this data source.</span></p></div></td></tr></tbody></table></div></div><div><h2 class="LW_CollapsibleArea_TitleDiv"><div><a class="LW_CollapsibleArea_TitleAhref" title="Zwiń" role="heading"><span class="cl_CollapsibleArea_expanding LW_CollapsibleArea_Img"></span><span class="LW_CollapsibleArea_Title">Metody</span></a><div id="Anchor_2" class="LW_CollapsibleArea_Anchor_Div"><a href="/pl-pl/library/system.linq.iqueryable(v=vs.110).aspx#Anchor_2" class="LW_CollapsibleArea_Anchor_Img" title="Kliknij prawym przyciskiem myszy, aby skopiować link do tej sekcji i go udostępnić"></a></div><div class="LW_CollapsibleArea_HrDiv"><hr class="LW_CollapsibleArea_Hr" /></div></div></h2><div class="sectionblock"><table id="idMethods" Responsive="true" summary="table"><tbody><tr Responsive="true"><th class="iconColumn" scope="col" /><th class="nameColumn" scope="col">Nazwa</th><th class="descriptionColumn" scope="col">Opis</th></tr><tr><td data-th=""><span><img id="s-e6f6a65cf14f462597b64ac058dbe1d0-system-media-system-caps-pubmethod" alt="System_CAPS_pubmethod" src="https://i-msdn.sec.s-msft.com/dynimg/IC91302.jpeg" title="System_CAPS_pubmethod" xmlns="" /></span></td><td data-th="Nazwa"><a href="https://msdn.microsoft.com/pl-pl/library/system.collections.ienumerable.getenumerator(v=vs.110).aspx">GetEnumerator<span xmlns="">()</span></a></td><td data-th="Opis"><div class="section"><p><span id="mt14" class="sentence" data-guid="8ebcacf9-088f-7eda-ea1f-1dc05a1045e4" data-approved="Zwraca moduł wyliczający, który dokonuje iteracji w kolekcji." xml:space="preserve">Returns an enumerator that iterates through a collection.</span>(Dziedziczone z <a href="https://msdn.microsoft.com/pl-pl/library/system.collections.ienumerable(v=vs.110).aspx">IEnumerable</a>).</p></div></td></tr></tbody></table></div></div><div><h2 class="LW_CollapsibleArea_TitleDiv"><div><a class="LW_CollapsibleArea_TitleAhref" title="Zwiń" role="heading"><span class="cl_CollapsibleArea_expanding LW_CollapsibleArea_Img"></span><span class="LW_CollapsibleArea_Title">Metody rozszerzenia</span></a><div id="Anchor_3" class="LW_CollapsibleArea_Anchor_Div"><a href="/pl-pl/library/system.linq.iqueryable(v=vs.110).aspx#Anchor_3" class="LW_CollapsibleArea_Anchor_Img" title="Kliknij prawym przyciskiem myszy, aby skopiować link do tej sekcji i go udostępnić"></a></div><div class="LW_CollapsibleArea_HrDiv"><hr class="LW_CollapsibleArea_Hr" /></div></div></h2><div class="sectionblock"><table id="idExtensionMethods" Responsive="true" summary="table"><tbody><tr Responsive="true"><th class="iconColumn" scope="col" /><th class="nameColumn" scope="col">Nazwa</th><th class="descriptionColumn" scope="col">Opis</th></tr><tr><td data-th=""><span><img id="s-e6f6a65cf14f462597b64ac058dbe1d0-system-media-system-caps-pubmethod" alt="System_CAPS_pubmethod" src="https://i-msdn.sec.s-msft.com/dynimg/IC91302.jpeg" title="System_CAPS_pubmethod" xmlns="" /></span></td><td data-th="Nazwa"><a href="https://msdn.microsoft.com/pl-pl/library/dd413237(v=vs.110).aspx">AsParallel<span xmlns="">()</span></a></td><td data-th="Opis"><div class="section"><p>Przeciążone. <span id="mt15" class="sentence" data-guid="61aa50f1-d982-ff6b-8416-0231b9d29bf4" data-approved="&lt;sentenceText xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;Umożliwia zrównoleglenie kwerendy.&lt;/sentenceText&gt;" xml:space="preserve">Enables parallelization of a query.</span>(Zdefiniowane przez <a href="https://msdn.microsoft.com/pl-pl/library/system.linq.parallelenumerable(v=vs.110).aspx">ParallelEnumerable</a>).</p></div></td></tr><tr><td data-th=""><span><img id="s-e6f6a65cf14f462597b64ac058dbe1d0-system-media-system-caps-pubmethod" alt="System_CAPS_pubmethod" src="https://i-msdn.sec.s-msft.com/dynimg/IC91302.jpeg" title="System_CAPS_pubmethod" xmlns="" /></span></td><td data-th="Nazwa"><a href="https://msdn.microsoft.com/pl-pl/library/bb353734(v=vs.110).aspx">AsQueryable<span xmlns="">()</span></a></td><td data-th="Opis"><div class="section"><p>Przeciążone. <span id="mt16" class="sentence" data-guid="962a292e-543d-3e39-33dc-4965594eb49c" data-approved="Konwertuje &lt;span class=&quot;mtpsTagOuterHtml&quot;  xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;&lt;span&gt;IEnumerable&lt;/span&gt;&lt;/span&gt; do &lt;span class=&quot;selflink&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;IQueryable&lt;/span&gt;." xml:space="preserve">Converts an <a href="https://msdn.microsoft.com/pl-pl/library/system.collections.ienumerable(v=vs.110).aspx" xmlns="http://www.w3.org/1999/xhtml">IEnumerable</a> to an <span class="selflink" xmlns="http://www.w3.org/1999/xhtml">IQueryable</span>.</span>(Zdefiniowane przez <a href="https://msdn.microsoft.com/pl-pl/library/system.linq.queryable(v=vs.110).aspx">Queryable</a>).</p></div></td></tr><tr><td data-th=""><span><img id="s-e6f6a65cf14f462597b64ac058dbe1d0-system-media-system-caps-pubmethod" alt="System_CAPS_pubmethod" src="https://i-msdn.sec.s-msft.com/dynimg/IC91302.jpeg" title="System_CAPS_pubmethod" xmlns="" /></span></td><td data-th="Nazwa"><a href="https://msdn.microsoft.com/pl-pl/library/bb301460(v=vs.110).aspx">Cast<span xmlns="">&lt;TResult&gt;</span><span xmlns="">()</span></a></td><td data-th="Opis"><div class="section"><p><span id="mt17" class="sentence" data-guid="6e629863-6664-95f8-27cd-4dcaddf5bab6" data-approved="Konwertuje elementy &lt;span class=&quot;selflink&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;IQueryable&lt;/span&gt; do określonego typu." xml:space="preserve">Converts the elements of an <span class="selflink" xmlns="http://www.w3.org/1999/xhtml">IQueryable</span> to the specified type.</span>(Zdefiniowane przez <a href="https://msdn.microsoft.com/pl-pl/library/system.linq.queryable(v=vs.110).aspx">Queryable</a>).</p></div></td></tr><tr><td data-th=""><span><img id="s-e6f6a65cf14f462597b64ac058dbe1d0-system-media-system-caps-pubmethod" alt="System_CAPS_pubmethod" src="https://i-msdn.sec.s-msft.com/dynimg/IC91302.jpeg" title="System_CAPS_pubmethod" xmlns="" /></span></td><td data-th="Nazwa"><a href="https://msdn.microsoft.com/pl-pl/library/bb344857(v=vs.110).aspx">OfType<span xmlns="">&lt;TResult&gt;</span><span xmlns="">()</span></a></td><td data-th="Opis"><div class="section"><p><span id="mt18" class="sentence" data-guid="d539ff0c-9ff5-8fb5-7bdf-49f225dc40e9" data-approved="Filtry elementów &lt;span class=&quot;selflink&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;IQueryable&lt;/span&gt; na podstawie określonego typu." xml:space="preserve">Filters the elements of an <span class="selflink" xmlns="http://www.w3.org/1999/xhtml">IQueryable</span> based on a specified type.</span>(Zdefiniowane przez <a href="https://msdn.microsoft.com/pl-pl/library/system.linq.queryable(v=vs.110).aspx">Queryable</a>).</p></div></td></tr></tbody></table></div></div><div><h2 class="LW_CollapsibleArea_TitleDiv"><div><a class="LW_CollapsibleArea_TitleAhref" title="Zwiń" role="heading"><span class="cl_CollapsibleArea_expanding LW_CollapsibleArea_Img"></span><span class="LW_CollapsibleArea_Title">Uwagi</span></a><div id="Anchor_4" class="LW_CollapsibleArea_Anchor_Div"><a href="/pl-pl/library/system.linq.iqueryable(v=vs.110).aspx#Anchor_4" class="LW_CollapsibleArea_Anchor_Img" title="Kliknij prawym przyciskiem myszy, aby skopiować link do tej sekcji i go udostępnić"></a></div><div class="LW_CollapsibleArea_HrDiv"><hr class="LW_CollapsibleArea_Hr" /></div></div></h2><div class="sectionblock"><div class="section"><p><span id="mt2" class="sentence" data-guid="01354339-bf62-49e7-8139-b1d0b65deee4" data-approved="&lt;span class=&quot;selflink&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;IQueryable&lt;/span&gt; Interfejs jest przeznaczony do implementacji przez dostawców kwerend." xml:space="preserve">The <span class="selflink" xmlns="http://www.w3.org/1999/xhtml">IQueryable</span> interface is intended for implementation by query providers.</span><span id="mt3" class="sentence" data-guid="13899693-8477-9851-394a-511a0d3499ce" data-approved=" Tylko powinien być implementowany przez dostawców, które implementują także &lt;span class=&quot;mtpsTagOuterHtml&quot;  xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;&lt;span&gt;IQueryable&lt;span class=&quot;mtpsTagOuterHtml&quot;  xmlns=&quot;&quot;&gt;&lt;span&gt;&amp;lt;T&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;." xml:space="preserve"> It is only supposed to be implemented by providers that also implement <a href="https://msdn.microsoft.com/pl-pl/library/bb351562(v=vs.110).aspx" xmlns="http://www.w3.org/1999/xhtml">IQueryable<span xmlns="">&lt;T&gt;</span></a>.</span><span id="mt4" class="sentence" data-guid="a41790c4-010b-1c15-f850-68463ba9e44d" data-approved=" Jeśli dostawca nie obsługuje również &lt;span class=&quot;mtpsTagOuterHtml&quot;  xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;&lt;span&gt;IQueryable&lt;span class=&quot;mtpsTagOuterHtml&quot;  xmlns=&quot;&quot;&gt;&lt;span&gt;&amp;lt;T&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;, nie można używać standardowych operatorów zapytań w źródle danych dostawcy." xml:space="preserve"> If the provider does not also implement <a href="https://msdn.microsoft.com/pl-pl/library/bb351562(v=vs.110).aspx" xmlns="http://www.w3.org/1999/xhtml">IQueryable<span xmlns="">&lt;T&gt;</span></a>, the standard query operators cannot be used on the provider's data source.</span></p><p><span id="mt5" class="sentence" data-guid="90da80ba-d88a-e887-6ecb-e81062d48fe7" data-approved="&lt;span class=&quot;selflink&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;IQueryable&lt;/span&gt; Dziedziczy interfejs &lt;span class=&quot;mtpsTagOuterHtml&quot;  xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;&lt;span&gt;IEnumerable&lt;/span&gt;&lt;/span&gt; interfejsu tak, że jeśli reprezentuje zapytanie, można wyliczyć wyników tej kwerendy." xml:space="preserve">The <span class="selflink" xmlns="http://www.w3.org/1999/xhtml">IQueryable</span> interface inherits the <a href="https://msdn.microsoft.com/pl-pl/library/system.collections.ienumerable(v=vs.110).aspx" xmlns="http://www.w3.org/1999/xhtml">IEnumerable</a> interface so that if it represents a query, the results of that query can be enumerated.</span><span id="mt6" class="sentence" data-guid="e1d6a45f-4386-7744-e8ed-43b58cfb06e2" data-approved=" Wyliczenie powoduje, że drzewo wyrażenia skojarzonego z &lt;span class=&quot;selflink&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;IQueryable&lt;/span&gt; obiektu do wykonania." xml:space="preserve"> Enumeration causes the expression tree associated with an <span class="selflink" xmlns="http://www.w3.org/1999/xhtml">IQueryable</span> object to be executed.</span><span id="mt7" class="sentence" data-guid="ffa9b5a6-18d0-1ef7-6c78-c6cbfb3ac490" data-approved=" Definicja &quot;wykonywania drzewa wyrażeń&quot; jest specyficzne dla dostawcy kwerendy." xml:space="preserve"> The definition of "executing an expression tree" is specific to a query provider.</span><span id="mt8" class="sentence" data-guid="9ad9aa8a-9fac-5649-1cb5-794d48b8cdba" data-approved=" Na przykład może obejmować tłumaczenie drzewa wyrażeń języka odpowiednie zapytania dla źródła danych." xml:space="preserve"> For example, it may involve translating the expression tree to an appropriate query language for the underlying data source.</span><span id="mt9" class="sentence" data-guid="3ce3a712-fd34-cbc2-7d48-3b3b6eb2cb60" data-approved=" Zapytania, które nie zwracają wyniki wyliczalne są wykonywane podczas &lt;span class=&quot;mtpsTagOuterHtml&quot;  xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;&lt;span&gt;Execute&lt;/span&gt;&lt;/span&gt; jest wywoływana metoda." xml:space="preserve"> Queries that do not return enumerable results are executed when the <a href="https://msdn.microsoft.com/pl-pl/library/bb535032(v=vs.110).aspx" xmlns="http://www.w3.org/1999/xhtml">Execute</a> method is called.</span></p><p><span id="mt10" class="sentence" data-guid="61d7b961-3388-ef26-bce4-055e5e28feaa" data-approved="Aby uzyskać więcej informacji na temat tworzenia własnego dostawcy LINQ, zobacz &lt;span class=&quot;mtpsTagOuterHtml&quot;  xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;&lt;span&gt;LINQ: Building an IQueryable Provider&lt;/span&gt;&lt;/span&gt; na blogi MSDN." xml:space="preserve">For more information about how to create your own LINQ provider, see <a href="http://go.microsoft.com/fwlink/?LinkID=112370" xmlns="http://www.w3.org/1999/xhtml">LINQ: Building an IQueryable Provider</a> on MSDN Blogs.</span></p></div></div></div><div><h2 class="LW_CollapsibleArea_TitleDiv"><div><a class="LW_CollapsibleArea_TitleAhref" title="Zwiń" role="heading"><span class="cl_CollapsibleArea_expanding LW_CollapsibleArea_Img"></span><span class="LW_CollapsibleArea_Title">Informacje o wersji</span></a><div id="Anchor_5" class="LW_CollapsibleArea_Anchor_Div"><a href="/pl-pl/library/system.linq.iqueryable(v=vs.110).aspx#Anchor_5" class="LW_CollapsibleArea_Anchor_Img" title="Kliknij prawym przyciskiem myszy, aby skopiować link do tej sekcji i go udostępnić"></a></div><div class="LW_CollapsibleArea_HrDiv"><hr class="LW_CollapsibleArea_Hr" /></div></div></h2><div class="sectionblock">
+        <strong>Platforma uniwersalna systemu Windows</strong>
+      <br />Dostępne od 8<br />
+        <strong>.NET Framework</strong>
+      <br />Dostępne od 3.5<br />
+        <strong>Biblioteka klas przenośnych</strong>
+      <br />Obsługiwane w: 
+        <a href="https://msdn.microsoft.com/en-us/library/gg597391.aspx">przenośne platformy .NET</a>
+      <br />
+        <strong>Silverlight</strong>
+      <br />Dostępne od 2.0<br />
+        <strong>Windows Phone Silverlight</strong>
+      <br />Dostępne od 7.1<br />
+        <strong>Windows Phone</strong>
+      <br />Dostępne od 8.1<br /></div></div><div><h2 class="LW_CollapsibleArea_TitleDiv"><div><a class="LW_CollapsibleArea_TitleAhref" title="Zwiń" role="heading"><span class="cl_CollapsibleArea_expanding LW_CollapsibleArea_Img"></span><span class="LW_CollapsibleArea_Title">Zobacz też</span></a><div id="Anchor_6" class="LW_CollapsibleArea_Anchor_Div"><a href="/pl-pl/library/system.linq.iqueryable(v=vs.110).aspx#Anchor_6" class="LW_CollapsibleArea_Anchor_Img" title="Kliknij prawym przyciskiem myszy, aby skopiować link do tej sekcji i go udostępnić"></a></div><div class="LW_CollapsibleArea_HrDiv"><hr class="LW_CollapsibleArea_Hr" /></div></div></h2><div class="sectionblock"><p><a href="https://msdn.microsoft.com/pl-pl/library/system.linq.queryable(v=vs.110).aspx">Queryable</a><br /><a href="https://msdn.microsoft.com/pl-pl/library/bb351562(v=vs.110).aspx">IQueryable<span xmlns="">&lt;T&gt;</span></a><br /><a href="https://msdn.microsoft.com/pl-pl/library/system.linq(v=vs.110).aspx">Przestrzeń nazw System.Linq</a><br /></p></div></div><a href="#mainBody">Powrót do początku</a><br /></div></div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<div class="libraryMemberFilter">
+    <div class="filterContainer">
+        <span>Pokaż:</span>
+        <label>
+            <input type="checkbox" class="libraryFilterInherited" checked="checked" value="Inherit" />Odziedziczony
+        </label>
+        <label>
+            <input type="checkbox" class="libraryFilterProtected" checked="checked" value="Protected" />Chroniony
+        </label>
+    </div>
+</div>
+    
+<input type="hidden" id="libraryMemberFilterEmptyWarning" value="Brak dostępnych członków przy bieżących ustawieniach filtru." />
+
+
+
+    </div>
+<div id="rightNavigationMenu" ms.cmpgrp="right nav">
+    <div id="mobileButtons">
+        <div id="navigationButtons">
+            <a id="isd_print" href="https://msdn.microsoft.com/pl-pl/library/system.linq.iqueryable(d=printer,v=vs.110).aspx" rel="nofollow"><ins class="print"></ins>Drukuj </a>
+            <a id="isd_printABook" href="/pl-pl/library/export/help/?returnurl=%2fpl-pl%2flibrary%2fsystem.linq.iqueryable(v%3dvs.110).aspx">
+                <ins class="export"></ins>Eksportuj (<span class="count">0</span>)
+            </a>
+        </div>
+    </div>
+    <div id="navMain">
+        <div id="closeNavigation">
+            <a class="tocCloseSmall" id="closeButton"></a>
+        </div>
+        <div id="navigationButtons">
+            <a id="isd_print" href="https://msdn.microsoft.com/pl-pl/library/system.linq.iqueryable(d=printer,v=vs.110).aspx" rel="nofollow"><ins class="print"></ins>Drukuj </a>
+            <a id="isdShare" href="#" role="button" aria-expanded="false">
+                <ins class="share"></ins>Podziel się
+            </a>
+            <div id="socials" style="display: none">
+                <a class="isdFacebook" href="#" aria-label="Udostępnij na Facebooku">
+                    <ins class="facebook"></ins>
+                </a>
+                <a class="isdTwitter" href="#" aria-label="Udostępnij na Twitterze">
+                    <ins class="twitter"></ins>
+                </a>
+                <a class="isdGooglePlus" href="#" aria-label="Udostępnij w Google+">
+                    <ins class="googlePlus"></ins>
+                </a>
+            </div>
+        </div>
+        <div id="indoc_toc" style="display: none" ms.cmpgrp="indoc toc">
+            <div id="indoc_title">W TYM ARTYKULE</div>
+            <ul id="indoc_toclist"></ul>
+        </div>
+    </div>
+</div>
+<div id="rightNavigationMenuThumbnail" class="rightNavigationMenuThumbnail">
+</div>
+
+
+
+
+
+        </div>
+        <div class="clear"></div>
+
+        
+
+<input name="__RequestVerificationToken" type="hidden" value="ZM5BMpDhqjPpslTqtR6x6uBKlcPu0kRh_qoyQTDi7P9RgqVYizdal5v12ouTC66s68dTEBoA9jMExSnTMZEOR13cF5c1" />
+<input id="ratingValueSubmitUrl" type="hidden" value="https://msdn.microsoft.com/pl-pl/library/feedback/rate/system.linq.iqueryable(v=vs.110).aspx" />
+<input id="ratingAdditionalSubmitUrl" type="hidden" value="https://msdn.microsoft.com/pl-pl/library/feedback/additional/system.linq.iqueryable(v=vs.110).aspx" />
+<input id="isTopicRated" type="hidden" value="false" />
+
+
+
+
+    <div id="lib-footer">
+        
+
+    
+    <link type="text/css" rel="stylesheet" />
+    
+        
+    <div id="ux-footer" class="" style="" dir="ltr" ms.pgarea="footer">
+
+
+    <div id="standardRatingBefore" class="clear stdr-container-before"></div>
+    <div id="standardRating" class="stdr-container" ms.pgarea="body">
+        <div class="stdr-close"></div>
+        <div class="stdr-vote stdr-content">
+            <div class="stdr-content">
+                <span class="stdr-votetitle">Czy ta strona jest pomocna?</span>
+                <button class="stdr-yes" aria-label="Tak, ta strona była pomocna">Tak</button>
+                <button class="stdr-no" aria-label="Nie, ta strona nie była pomocna">Nie</button>
+                <input id="s_ratingValue" type="hidden" value="" />
+            </div>
+        </div>
+        <div class="stdr-feedback" style="display: none">
+            <div class="stdr-form">
+                <div class="stdr-fieldtitle">Dodatkowe opinie?</div>
+                <textarea class="stdr-detail" rows="6" maxlength="1500"></textarea>
+                <div>
+                    <span class="stdr-count">Pozostało znaków: <span class="stdr-charcnt">1500</span></span>
+                    <div class="stdr-buttons">
+                        <button class="stdr-provide" aria-label="Prześlij dodatkową opinię">Prześlij</button>
+                        <button class="stdr-skip" aria-label="Pomiń dodatkową opinię">Pomiń</button>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="stdr-thanks" style="display: none">
+            <div class="stdr-content">
+                <span class="stdr-thankyou">Dziękujemy!</span>
+                <span class="stdr-appreciate">Twoja opinia wiele dla nas znaczy.</span>
+            </div>
+        </div>
+
+        
+        <div id="contentFeedbackQAContainer" style="display: none;"></div>
+    </div>
+    <div id="standardRatingPlaceholder" style="display: none"></div>
+    
+
+        <footer class="top" role="navigation" aria-label="footer">
+            <div data-fragmentName="LeftLinks" id="Fragment_LeftLinks" xmlns="http://www.w3.org/1999/xhtml">
+  
+  <div class="linkList">
+    <h4 class="linkListTitle">Centra deweloperów</h4>
+    <ul class="links">
+      <li>
+        <a href="https://dev.windows.com" id="LeftLinks_2148_1" class="windowsBlue" xmlns="http://www.w3.org/1999/xhtml">Windows</a>
+      </li>
+      <li>
+        <a href="https://dev.office.com" id="LeftLinks_2148_3" class="office" xmlns="http://www.w3.org/1999/xhtml">Pakiet Office</a>
+      </li>
+      <li>
+        <a href="https://msdn.microsoft.com/vstudio" id="LeftLinks_2148_4" class="visualStudio" xmlns="http://www.w3.org/1999/xhtml">Visual Studio</a>
+      </li>
+      <li>
+        <a href="https://azure.microsoft.com/pl-pl/documentation/" target="_blank" id="LeftLinks_2148_12" xmlns="http://www.w3.org/1999/xhtml">Microsoft Azure</a>
+      </li>
+      <li>
+        <a href="https://msdn.microsoft.com/developer-centers-msdn" id="LeftLinks_2148_5" xmlns="http://www.w3.org/1999/xhtml">Więcej...</a>
+      </li>
+    </ul>
+  </div>
+</div>
+            <div id="rightLinks">
+                <div data-fragmentName="CenterLinks1" id="Fragment_CenterLinks1" xmlns="http://www.w3.org/1999/xhtml">
+  
+  <div class="linkList">
+    <h4 class="linkListTitle">Zasoby szkoleniowe</h4>
+    <ul class="links">
+      <li>
+        <a href="https://mva.microsoft.com/" id="CenterLinks1_2151_4" xmlns="http://www.w3.org/1999/xhtml">Microsoft Virtual Academy</a>
+      </li>
+      <li>
+        <a href="https://channel9.msdn.com/" id="CenterLinks1_2151_5" xmlns="http://www.w3.org/1999/xhtml">Channel 9</a>
+      </li>
+      <li>
+        <a href="https://msdn.microsoft.com/magazine/" id="CenterLinks1_2151_7" xmlns="http://www.w3.org/1999/xhtml">MSDN Magazine</a>
+      </li>
+    </ul>
+  </div>
+</div>
+                <div data-fragmentName="CenterLinks2" id="Fragment_CenterLinks2" xmlns="http://www.w3.org/1999/xhtml">
+  
+  <div class="linkList">
+    <h4 class="linkListTitle">Społeczność</h4>
+    <ul class="links">
+      <li>
+        <a href="https://social.msdn.microsoft.com/forums/en-us/home" id="CenterLinks2_2151_8" xmlns="http://www.w3.org/1999/xhtml">Forum</a>
+      </li>
+      <li>
+        <a href="https://blogs.msdn.com/b/developer-tools/" id="CenterLinks2_2151_9" xmlns="http://www.w3.org/1999/xhtml">Blogi</a>
+      </li>
+      <li>
+        <a href="https://www.codeplex.com" id="CenterLinks2_2151_10" xmlns="http://www.w3.org/1999/xhtml">Codeplex</a>
+      </li>
+    </ul>
+  </div>
+</div>
+                <div data-fragmentName="CenterLinks3" id="Fragment_CenterLinks3" xmlns="http://www.w3.org/1999/xhtml">
+  
+  <div class="linkList">
+    <h4 class="linkListTitle">Pomoc techniczna</h4>
+    <ul class="links">
+      <li>
+        <a href="https://msdn.microsoft.com/hh361695" id="CenterLinks3_2151_11" xmlns="http://www.w3.org/1999/xhtml">Samodzielna pomoc techniczna</a>
+      </li>
+    </ul>
+  </div>
+</div>
+                <div data-fragmentName="CenterLinks4" id="Fragment_CenterLinks4" xmlns="http://www.w3.org/1999/xhtml">
+  
+  <div class="linkList">
+    <h4 class="linkListTitle">Programy</h4>
+    <ul class="links">
+      <li>
+        <a href="https://bizspark.microsoft.com/" id="CenterLinks4_2151_13" xmlns="http://www.w3.org/1999/xhtml">Program BizSpark (dla startupów)</a>
+      </li>
+      <li>
+        <a href="https://imagine.microsoft.com" id="CenterLinks4_2151_21" xmlns="http://www.w3.org/1999/xhtml">Microsoft Imagine (for students)</a>
+      </li>
+    </ul>
+  </div>
+</div>
+            </div>
+        </footer>
+
+        <footer class="bottom" role="contentinfo">
+            <span class="localeContainer">
+                
+    <form class="selectLocale" id="selectLocaleForm" action="https://msdn.microsoft.com/pl-pl/selectlocale-dmc">
+        <input type="hidden" name="fromPage" value="https%3a%2f%2fmsdn.microsoft.com%2fpl-pl%2flibrary%2fsystem.linq.iqueryable(v%3dvs.110).aspx" />
+        <a href="#" onclick="$('#selectLocaleForm').submit();return false;" title="Zmień język">Polska (Polski)</a>
+    </form>
+
+
+            </span>
+
+            <div data-fragmentName="BottomLinks" id="Fragment_BottomLinks" xmlns="http://www.w3.org/1999/xhtml">
+  
+  <div class="linkList">
+    <ul class="links horizontal">
+      <li>
+        <a href="https://msdn.microsoft.com/newsletter.aspx" id="BottomLinks_2148_7" xmlns="http://www.w3.org/1999/xhtml">Biuletyn</a>
+      </li>
+      <li>
+        <a href="https://msdn.microsoft.com/dn529288" id="BottomLinks_2148_8" xmlns="http://www.w3.org/1999/xhtml">Prywatność i pliki cookie</a>
+      </li>
+      <li>
+        <a href="https://msdn.microsoft.com/cc300389" id="BottomLinks_2148_9" xmlns="http://www.w3.org/1999/xhtml">Warunki użytkowania</a>
+      </li>
+      <li>
+        <a href="https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/" id="BottomLinks_2148_10" xmlns="http://www.w3.org/1999/xhtml">Znaki towarowe</a>
+      </li>
+    </ul>
+  </div>
+</div>
+            <span class="logoLegal">
+                <span class="logoSpan clip67x13" role="img" tabindex="0" aria-label="microsoft logo">
+                    <img alt="logo" class="logo" src="https://i-msdn.sec.s-msft.com/Areas/Centers/Themes/StandardDevCenter/Content/HeaderFooterSprite.png?v=636456747532875346" />
+                </span>
+                <span class="copyright">© 2017 Microsoft</span>
+            </span>
+        </footer>
+    </div>
+    
+
+    </div>
+
+
+        <div class="footerPrintView">
+            <div class="footerCopyrightPrintView">© 2017 Microsoft</div>
+        </div>
+
+        
+        
+
+        
+        
+        
+
+    <input id="tocPaddingPerLevel" type="hidden" value="17" />
+
+
+
+        <input id="MtpsDevice" type="hidden" value="Default" />
+
+
+<![CDATA[ Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code, not by Microsoft.  See ASP.NET Ajax CDN Terms of Use – http://www.asp.net/ajaxlibrary/CDN.ashx. ]]>
+
+        
+        
+        
+            
+        
+
+        
+
+<div id="globalRequestVerification">
+    <input name="__RequestVerificationToken" type="hidden" value="CKAQrT_FmOjhV4j3HTbXdCue1A-L4bYorZ9TJ7pV-DyqwoapVj3eqhMrxx9RO8QkcSenWv19vfKrmbCZmpD8Z3VK4Io1" />
+</div>
+
+
+    </div>
+
+    
+
+    
+
+    
+<script type="text/javascript" class="mtps-injected">
+/*<![CDATA[*/
+(function(window,document){"use strict";function preload(scripts){for(var result=[],script,e,i=0;i<scripts.length;i++)script=scripts[i],script.hasOwnProperty("url")&&(e=document.createElement("script"),e.src=script.url,script.throwaway=e),result.push(script);return result}function inject(scripts,index){var script,elem;if(index>=scripts.length){delete mtps.injectScripts;return}script=scripts[index];elem=document.createElement("script");elem.className="mtps-injected";elem.async=!1;var isLoaded=!1,timeoutId=0,injectNextFnName="",injectNext=elem.onerror=function(){isLoaded||(isLoaded=!0,inject(scripts,index+1),window.clearTimeout(timeoutId),elem.onload=elem.onerror=elem.onreadystatechange=null,injectNextFnName&&delete mtps[injectNextFnName],elem.removeEventListener&&elem.removeEventListener("load",injectNext,!1))};elem.addEventListener?elem.addEventListener("load",injectNext,!1):elem.readyState==="uninitialized"?elem.onreadystatechange=function(){(this.readyState==="loaded"||this.readyState==="complete")&&injectNext()}:elem.onload=injectNext;script.hasOwnProperty("url")?(timeoutId=window.setTimeout(injectNext,12e4),elem.src=script.url):(injectNextFnName="_injectNextScript_"+index,mtps[injectNextFnName]=injectNext,timeoutId=window.setTimeout(injectNext,2e3),elem.text="try {\n"+script.txt+"\n} finally { MTPS."+injectNextFnName+" && MTPS."+injectNextFnName+"(); }");parent.appendChild(elem)}var mtps=window.MTPS||(window.MTPS={}),parent=document.getElementsByTagName("head")[0];mtps.injectScripts=function(scripts){inject(preload(scripts),0)}})(window,document);
+MTPS.injectScripts([
+	{ txt: "/**/\r\n(window.MTPS || (window.MTPS = {})).cdnDomains || (window.MTPS.cdnDomains = { \r\n\t\"image\": \"https://i-msdn.sec.s-msft.com\", \r\n\t\"js\": \"https://i2-msdn.sec.s-msft.com\", \r\n\t\"css\": \"https://i-msdn.sec.s-msft.com\", \r\n\t\"ttf\": \"https://i-msdn.sec.s-msft.com\"\r\n});\r\n/**/" },
+	{ txt: "//\n\n        window.appInsightsId = \u00275eb1b2eb-c47a-497a-a7ac-a1c230b2882f\u0027;\n        //" },
+	{ url: "https://i2-msdn.sec.s-msft.com/Combined.js?resources=0:Utilities,1:Layout,2:Header,3:Breadcrumbs,4:LibraryRightNavigationMenu,4:PrintExportButton,5:StandardRating,2:Footer,0:Topic,3:ResponsiveSupport,0:ABTestControl;/Areas/Epx/Content/Scripts:0,/Areas/Epx/Themes/Base/Content:1,/Areas/Centers/Themes/StandardDevCenter/Content:2,/Areas/Library/Content:3,/Areas/Library/Themes/Base/Content:4,/Areas/Global/Content:5\u0026amp;hashKey=CAED803405A331ED3E282CA92E2EC527\u0026amp;v=9AA346DC1590A8C71C13086BCD980A06" },
+	{ url: "https://uhf.microsoft.com/mscc/statics/mscc-0.3.6.min.js" },
+	{ url: "https://i2-msdn.sec.s-msft.com/Areas/Epx/Themes/Base/Content/SearchBox.js" },
+	{ url: "https://i1.services.social.microsoft.com/search/Widgets/SearchBox.jss?boxid=HeaderSearchTextBox\u0026btnid=HeaderSearchButton\u0026minimumTermLength=2\u0026pgArea=header\u0026brand=Msdn\u0026loc=pl-pl\u0026focusOnInit=false\u0026emptyWatermark=true\u0026searchButtonTooltip=Wyszukaj w sieci MSDN" },
+	{ url: "https://i2-msdn.sec.s-msft.com/Combined.js?resources=0:JumpRedirect,1:CmpgrpForHeader,1:ResponsiveToc;/Areas/Epx/Themes/Base/Content:0,/Areas/Library/Content:1\u0026amp;hashKey=27CB08B1B0C7422F93D5325C9A4B4479\u0026amp;v=9AA346DC1590A8C71C13086BCD980A06" },
+	{ txt: "//\n    MTPS = window.MTPS || {};\n    MTPS.Translation = window.MTPS.Translation || {};\n\n    MTPS.Translation.TranslationType =  1;\n    \n    \n        \n        MTPS.Translation.EditorLink = {\n            includeEditor : 0,\n            editLink: \"https://msdn.microsoft.com/pl-pl/library/translation/edit/system.linq.iqueryable(v=vs.110).aspx\",\n            editLinkText: \"Zasugeruj lepsze tłumaczenie\"\n        };\n        \n    //" },
+	{ url: "https://i2-msdn.sec.s-msft.com/Combined.js?resources=0:jquery.popup,0:Translator;/Areas/Library/Content:0\u0026amp;hashKey=16D24150BAC1A18066CEC17E9B28E03E\u0026amp;v=9AA346DC1590A8C71C13086BCD980A06" },
+	{ txt: "MTPS = window.MTPS || {}; MTPS.LocalizedStrings = window.MTPS.LocalizedStrings || {}; MTPS.LocalizedStrings.ExpandButtonTooltip = \u0027Rozwiń\u0027; MTPS.LocalizedStrings.CollapseButtonTooltip = \u0027Zwiń\u0027; MTPS.LocalizedStrings.EnhancedExpandTooltip = \u0027Kliknij, aby rozwinąć. Kliknij dwukrotnie, aby rozwinąć wszystko.\u0027; MTPS.LocalizedStrings.EnhancedCollapseTooltip = \u0027Kliknij, aby zwinąć. Kliknij dwukrotnie, aby zwinąć wszystko.\u0027; MTPS.LocalizedStrings.ExpandAllButtonTooltip = \u0027Rozwiń wszystko\u0027; MTPS.LocalizedStrings.CollapseAllButtonTooltip = \u0027Zwiń wszystko\u0027;" },
+	{ url: "https://i2-msdn.sec.s-msft.com/Combined.js?resources=0:LibraryMemberFilter,1:Toc_Fixed,1:CodeSnippet,1:TopicNotInScope,1:VersionSelector,1:SurveyBroker;/Areas/Library/Content:0,/Areas/Epx/Content/Scripts:1\u0026amp;hashKey=D8D1FFAA6CA68460B7EFA5923975CA44\u0026amp;v=9AA346DC1590A8C71C13086BCD980A06" },
+	{ txt: "$(document).ready(function() {\n        try {\n            var token = $(\"#globalRequestVerification input[name=\u0027__RequestVerificationToken\u0027]\").clone();\n            $(\"#siteFeedbackForm\").append(token);\n        } catch(err) {\n            \n        }\n    });" }
+]);
+
+/*]]>*/
+</script></body>
+</html>

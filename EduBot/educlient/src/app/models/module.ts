@@ -1,18 +1,36 @@
 //Models
-import { TestType }     from './enum-test-type';
-import { DiffLevel }    from './enum-diff-level';
+import { TestType } from './enum-test-type';
+import { DiffLevel } from './enum-diff-level';
 
 
 // ==================================================================================================================
-export class Module {  
+export class Module {
+
     id: number;
     id_group: number;
-    difficulty: DiffLevel;
+    difficulty: string;
     title: string;
     content: string;
     example: string;
-    testType: TestType;
+    testType: string;
     testTask: string;
+    testAnswer: string;
     
-    isNew: boolean;
+    // isNew: boolean;
+
+
+    // CONSTRUCTOR
+    // ==============================================================================================================
+    constructor() {
+        this.id = 0;    
+        this.id_group = null;
+        this.difficulty = "easy";
+        this.title = "<podaj tytuł>";
+        this.content = "";
+        this.example = "";
+        this.testType = "";
+        this.testTask = "";
+        this.testAnswer = "";
+        // this.isNew = true;
+    }
 }

@@ -1,11 +1,10 @@
 ﻿using System.Web.Http;
 
 namespace EduApi.Controllers {
-    public class ServerController : ApiController
-    {
-        // GET: EduBotServer
+
+    public class ServerController : ApiController {
+
         [HttpGet]
-        //public ActionResult Index() { 
         public IHttpActionResult Index() {
             return Ok("<h3>Serwer Edu Api pracuje.</h3>");
         }

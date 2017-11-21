@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { FormsModule } from "@angular/forms";
 import { HttpModule, RequestOptions, RequestMethod, XHRBackend } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AlertModule } from 'ngx-bootstrap';
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -11,12 +12,12 @@ import { FormFieldComponent } from './components/form-field/form-field.component
 import { LoginComponent } from './components/log-in/login.component'
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './components/welcome-comp/welcome.component';
-import { GameViewComponent } from './views/game-view/game-view.component';
-import { QuizViewComponent } from './views/game-view/quiz-view/quiz-view.component';
-import { ResultViewComponent } from './views/game-view/result-view/result-view.component';
-import { ExampleViewComponent } from './views/game-view/example-view/example-view.component';
-import { ContentViewComponent } from './views/game-view/content-view/content-view.component';
-import { ModuleListComponent } from './views/module-list/module-list.component';
+import { ModuleViewComponent } from './views/module-view/module-view.component';
+import { QuizViewComponent } from './views/module-view/quiz-view/quiz-view.component';
+import { ResultViewComponent } from './views/module-view/result-view/result-view.component';
+import { ExampleViewComponent } from './views/module-view/example-view/example-view.component';
+import { ContentViewComponent } from './views/module-view/content-view/content-view.component';
+import { ModuleListComponent } from './views/module-list-view/module-list.component';
 import { GameProgressComponent } from './components/game-progress/game-progress.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { SelectLanguageComponent } from './components/select-language/select-language.component';
@@ -44,11 +45,11 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
   declarations: [
     TranslatePipe,
     AppComponent,
-	  FormFieldComponent,
+    FormFieldComponent,
     LoginComponent,
     WelcomeComponent,
     ToolbarComponent,
-    GameViewComponent,
+    ModuleViewComponent,
     QuizViewComponent,
     ResultViewComponent,
     ContentViewComponent,
@@ -60,6 +61,7 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
   imports: [
     SharedModule,
     BrowserModule,
+    HttpClientModule,
     FormsModule,
     HttpModule,
     AppRoutingModule,
@@ -68,7 +70,7 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
   ],
   providers: [
     TestService,
-	  LoginService,
+    LoginService,
     ModuleService,
     ContextService,
     TranslateService,

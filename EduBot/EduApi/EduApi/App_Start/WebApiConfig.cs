@@ -19,30 +19,28 @@ namespace EduApi {
 
             config.MapHttpAttributeRoutes();
 
-            //var corsAttr = new EnableCorsAttribute("*", "accept,origin,content-type,authtoken,authorization,cache-control,x-requested-with,pragma", "*");
-            //config.EnableCors(corsAttr);
-
             var corsOrigins = "*";
-            var corsMethods = "*";
-            var corsHeaders = 
-                "Accept" +
-                ",Accept-Encoding" +
-                ",Accept-Language" +
-                ",Authtoken" +
-                ",Authorisation" +
-                ",Cache-Control," +
-                ",Content-Type" +
-                ",Connection" +
-                ",Content-Length" +
-                ",Host" +
-                ",Origin" +
-                ",Pragma" +
-                ",Referer" +
-                ",User-Agent" +
-                ",X-requested-with";
-            corsHeaders = "*";
+            var corsHeaders = "*";
+            var corsMethods = "GET, POST, PUT, DELETE, OPTIONS";
+            //var corsHeaders =
+            //    "Accept" +
+            //    ",Accept-Encoding" +
+            //    ",Accept-Language" +
+            //    ",Authtoken" +
+            //    ",Authorisation" +
+            //    ",Cache-Control," +
+            //    ",Content-Type" +
+            //    ",Connection" +
+            //    ",Content-Length" +
+            //    ",Host" +
+            //    ",Origin" +
+            //    ",Pragma" +
+            //    ",Referer" +
+            //    ",User-Agent" +
+            //    ",X-requested-with";
 
-            config.EnableCors(new EnableCorsAttribute(corsOrigins, corsHeaders, corsMethods));
+            var corsAttr = new EnableCorsAttribute(corsOrigins, corsHeaders, corsMethods);
+            config.EnableCors(corsAttr);
 
             var formatters = config.Formatters;
             formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
@@ -55,8 +53,8 @@ namespace EduApi {
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                routeTemplate: "api/{controller}/{action}/{id}",
+                defaults: new { id = RouteParameter.Optional, action = RouteParameter.Optional }
             );
 
             return config;

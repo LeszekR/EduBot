@@ -42,10 +42,11 @@ export class ModuleViewComponent implements OnInit {
   // PUBLIC
   // ==============================================================================================================
   ngOnInit() {
-    this.route.data
-      .subscribe((data: { module: any }) => {
-        this.module = data.module;
-      });
+    this.route.data.subscribe(data => this.module = data.module);
+
+    // this.route.data.subscribe((data: { module: Module }) => {
+    //   // this.module = ( data.module instanceof Module) ?  data.module : new  Module();
+    //   });
   }
 
   // --------------------------------------------------------------------------------------------------------------

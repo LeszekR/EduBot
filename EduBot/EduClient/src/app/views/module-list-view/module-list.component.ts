@@ -33,13 +33,11 @@ export class ModuleListComponent implements OnInit {
   // PRIVATE
   // ==============================================================================================================
   private getModules() {
-    // this.modules = this.moduleService.getSimpleModulesMock();
-    this.modules = this.moduleService.getSimpleModules();
+    this.moduleService.getSimpleModules().subscribe(newModules => this.modules = newModules);
   }
 
   // --------------------------------------------------------------------------------------------------------------
   private addModule() {
-    // this.modules.push(new Module());
     this.moduleService.saveModule(new Module()).subscribe(res => this.modules.push(res));
   }
 

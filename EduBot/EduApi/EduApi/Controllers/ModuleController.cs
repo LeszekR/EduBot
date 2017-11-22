@@ -41,58 +41,43 @@ namespace EduApi.Controllers {
 
 
         // ---------------------------------------------------------------------------------------------
-        public IHttpActionResult GetModule([FromUri]int moduleId) {
+        public IHttpActionResult GetModule(int id) {
 
             edumodule module;
 
             using (edumaticEntities db = new edumaticEntities()) {
                 module = (
                     from ed in db.edumodule
-                    where ed.id == moduleId
+                    where ed.id == id
                     select ed)
                     .FirstOrDefault();
             }
-            return Ok(module);
+            return Ok(ModuleMappper.GetDTO(module));
         }
 
 
         // ---------------------------------------------------------------------------------------------
         [HttpPost]
-        public IHttpActionResult UpsertModule([FromBody]ModuleDTO moduleReceived) {
+        //public IHttpActionResult UpsertModule([FromBody]ModuleDTO moduleReceived) {
+        public IHttpActionResult UpsertModule(ModuleDTO moduleReceived) {
 
-            //var id = moduleReceived.id;
-            //edumodule module;
+            var id = moduleReceived.id;
+            edumodule module;
 
-            //using (edumaticEntities db = new edumaticEntities()) {
+            using (edumaticEntities db = new edumaticEntities()) {
 
-            //    if (id == 0)
-            //        module = new edumodule();
+                if (id == 0) {
+                    module = new edumodule();
+                    db.edumodule.Add(module);
+                }
+                else
+                    module = db.edumodule.Where(edd => edd.id == id).First();
 
-            //    else 
-            //        module = (
-            //            from ed in db.edumodule
-            //            where ed.id == id
-            //            select ed)
-            //            .First();
+                db.Entry(module).CurrentValues.SetValues(moduleReceived);
+                db.SaveChanges();
+            }
 
-            //    module.id_group = moduleReceived.id_group;
-            //    module.difficulty = moduleReceived.difficulty;
-            //    module.title = moduleReceived.title;
-            //    module.content = moduleReceived.content;
-            //    module.example = moduleReceived.example;
-            //    module.test_type = moduleReceived.test_type;
-            //    module.test_task = moduleReceived.test_task;
-            //    module.test_answer = moduleReceived.test_answer;
-
-            //    new ModuleRepository(db).Add(module);
-            //}
-
-            ////if (userLog == null)
-            ////    return StatusCode(HttpStatusCode.Unauthorized);
-            ////else
-            //return Ok(module);
-
-            return Ok(new edumodule());
+            return Ok(ModuleMappper.GetDTO(module));
         }
     }
 }

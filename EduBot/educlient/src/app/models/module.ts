@@ -23,7 +23,7 @@ export class Module {
     // ==============================================================================================================
     constructor() {
         this.id = 0;    
-        this.id_group = null;
+        this.id_group = 0;
         this.difficulty = "easy";
         this.title = "<podaj tytuł>";
         this.content = "";

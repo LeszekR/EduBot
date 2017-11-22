@@ -19,101 +19,26 @@ export class ModuleService {
     editedModuleId: number;
 
     modules: Module[] = [];
-    // mockData: MockData = new MockData();
 
 
     // CONSTRUCTOR
     // ==============================================================================================================
-    constructor(private http: HttpService, private httpClient: HttpClient) { }
+    constructor(private http: HttpService) { }
 
 
     // PUBLIC
     // ==============================================================================================================
-    getSimpleModules(): Module[] {
-        this.httpClient.get<Module[]>(this.moduleUrl + '/getsimplemodules')
-            .subscribe(
-            newModules => {
-                this.modules = newModules;
-            },
-            err => console.log(err));
-
-        // this.http.getHttp(this.moduleUrl)
-        //     .subscribe(
-        //     res => this.modules = res[0],
-        //     err => console.log(err));
-
-        return this.modules;
-        // return this.getSimpleModulesMock();
+    getSimpleModules(): Observable<Module[]> {
+        return this.http.get<Module[]>(this.moduleUrl + '/getsimplemodules');
     }
 
     // --------------------------------------------------------------------------------------------------------------
-    getModuleById(id: number): Module {
-        let module: Module;
-        this.httpClient.get<Module>(this.moduleUrl + '/getmodule/' + id)
-            .subscribe(newModule => module = newModule,
-            err => console.log(err)
-        );
-        return module;
+    getModuleById(id: number): Observable<Module> {
+        return this.http.get<Module>(this.moduleUrl + '/getmodule/' + id);
     }
-
-    // // --------------------------------------------------------------------------------------------------------------
-    // getModuleById(id: number): Observable<Module> {
-    //     return this.http.get(this.moduleUrl + '/getmodule/' + id)
-    // .map((res: Response) => res.json())
-    // .catch(error => {
-    //     console.log(error);
-    //     return Observable.throw(error);
-    // });
-    // }
-
-    // // --------------------------------------------------------------------------------------------------------------
-    // getLastModuleId(): number {
-    //     let idx = 0;
-    //     this.httpClient.get<number>(this.moduleUrl + '/getlastidx')
-    //         .subscribe(
-    //         index => idx = index,
-    //         err => console.log(err));
-    //     return idx;
-    // }
-
 
     // --------------------------------------------------------------------------------------------------------------
     saveModule(module: Module): Observable<Module> {
-        let body = JSON.stringify(module);
-        return this.http.post(this.moduleUrl + '/upsertmodule', body)
-            .map((res: Response) => res.json())
-            .catch(error => {
-                console.log(error);
-                return Observable.throw(error);
-            });
+        return this.http.post<Module>(this.moduleUrl + '/upsertmodule', module);
     }
-
-
-    // MOCK
-    // ==============================================================================================================
-    // getSimpleModulesMock(): Module[] {
-    //     let module1 = new Module();
-    //     module1.id = 1;
-    //     module1.title = 'Module 1';
-    //     let module2 = new Module();
-    //     module2.id = 2;
-    //     module2.title = 'Module 2';
-    //     let module3 = new Module();
-    //     module3.id = 3;
-    //     module3.title = 'Module 3';
-
-    //     let mockModules: Module[] = [module1, module2, module3];
-    //     return mockModules;
-    // }
-
-    // getModuleByIdMock(id: number): Module {
-    //     let module = this.modules[id - 1];
-
-    //     console.log("module.id: " + module.id);
-
-    //     module.content = this.mockData.mockModules[module.id].content;
-    //     module.example = this.mockData.mockModules[module.id].example;
-
-    //     return module;
-    // }
 }

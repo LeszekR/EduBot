@@ -23,7 +23,7 @@ export class LoginService {
 
         // console.log('Rejestruję - login: ' + login + ', password: ' + password);
 
-        let user = this.http.postHttp(this.url, { login: login, password: password })
+        let user = this.http.post(this.url, { login: login, password: password })
             .subscribe(
             data => {
                 this.loginComp.loggedIn = true;

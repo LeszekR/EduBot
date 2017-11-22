@@ -24,60 +24,50 @@ export class HttpService extends Http {
     constructor(backend: XHRBackend, options: RequestOptions, router: Router) {
         //let token = JSON.parse(sessionStorage.getItem('currentUser'));
 
-        // options.headers = new Headers();
-        // //options.headers.append('Authorization', "Bearer " + token);
-        // options.headers.append('Cache-Control', 'no-cache');
-        // options.headers.append('Pragma', 'no-cache');
         super(backend, options);
-
         this.router = router;
     }
 
     // PUBLIC
     // ==============================================================================================================
+    post<T>(url: string, data: any): Observable<T> {
+        let options: RequestOptionsArgs = this.setHeaders({ 'Content-Type': 'application/json' });
+        let body = JSON.stringify(data);
+        return super.post(url, body, options)
+            .map((res: Response) => res.json())
+            .catch(error => this.catchError(error));
+        }
+
+    // --------------------------------------------------------------------------------------------------------------
+    get<T>(url: string): Observable<T> {
+        let options: RequestOptionsArgs = this.setHeaders({});
+        return super.get(url, options)
+            .map((res: Response) => res.json())
+            .catch(error => this.catchError(error));
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
     // request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
-        // //let token = JSON.parse(sessionStorage.getItem('currentUser'));
-        
-        // if (typeof url === 'string') {
-        //     if (!options) {
-        //         options = { headers: new Headers() };
-        //     }
-        //     //options.headers.append('Authorization', `Bearer ` + token);
-        //     options.headers.append('Content-Type', 'application/json');
-        //     options.headers.append('Cache-Control', 'no-cache');
-        //     options.headers.append('Pragma', 'no-cache');
-        // } else {
-        //     url.headers = new Headers();
-        //     //url.headers.append('Authorization', `Bearer ` + token);
-        //     url.headers.append('Content-Type', 'application/json');
-        //     url.headers.append('Cache-Control', 'no-cache');
-        //     url.headers.append('Pragma', 'no-cache');
-        // }
-        // return super.request(url, options).catch(this.catchError(this));
+    // //let token = JSON.parse(sessionStorage.getItem('currentUser'));
+
+    // if (typeof url === 'string') {
+    //     if (!options) {
+    //         options = { headers: new Headers() };
+    //     }
+    //     //options.headers.append('Authorization', `Bearer ` + token);
+    //     options.headers.append('Content-Type', 'application/json');
+    //     options.headers.append('Cache-Control', 'no-cache');
+    //     options.headers.append('Pragma', 'no-cache');
+    // } else {
+    //     url.headers = new Headers();
+    //     //url.headers.append('Authorization', `Bearer ` + token);
+    //     url.headers.append('Content-Type', 'application/json');
+    //     url.headers.append('Cache-Control', 'no-cache');
+    //     url.headers.append('Pragma', 'no-cache');
+    // }
+    // return super.request(url, options).catch(this.catchError(this));
     // }
 
-    // --------------------------------------------------------------------------------------------------------------
-    postHttp(url: string, data: any): Observable<Response> {
-        let options: RequestOptionsArgs = this.setHeaders({'Content-Type': 'application/json'});        
-        let body = JSON.stringify(data);
-        return this.post(url, body, options)
-            .map((res: Response) => res.json())
-            .catch(error => {
-                console.log(error);
-                return Observable.throw(error);
-            });
-    }
-
-    // --------------------------------------------------------------------------------------------------------------
-    getHttp(url: string): Observable<Response> {
-        let options: RequestOptionsArgs = this.setHeaders({});
-        return this.get(url, options)
-            .map((res: Response) => res.json())
-            .catch(error => {
-                console.log(error);
-                return Observable.throw(error);
-            });
-    }
 
     // PRIVATE
     // ==============================================================================================================
@@ -95,14 +85,18 @@ export class HttpService extends Http {
         newHeaders.append('Cache-Control', 'no-cache');
         newHeaders.append('Pragma', 'no-cache');
 
-        let options:  RequestOptionsArgs = {headers: newHeaders};
+        let options: RequestOptionsArgs = { headers: newHeaders };
         return options;
     }
 
     // --------------------------------------------------------------------------------------------------------------
-    private catchError(self: HttpService) {
-        return (res: Response) => {
-            return Observable.throw(res);
-        };
+    private catchError(error: any): Observable<Response> {
+        console.log(error);
+        return Observable.throw(error);
     }
+    // private catchError(self: HttpService) {
+    //     return (res: Response) => {
+    //         return Observable.throw(res);
+    //     };
+    // }
 }

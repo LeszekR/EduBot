@@ -61,9 +61,9 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
   imports: [
     SharedModule,
     BrowserModule,
+    HttpModule,
     HttpClientModule,
     FormsModule,
-    HttpModule,
     AppRoutingModule,
     ModalModule.forRoot(),
     AlertModule.forRoot()

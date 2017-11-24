@@ -62,7 +62,7 @@ export class ModuleViewComponent implements OnInit {
     this.module.testType = "choice";   // TODO: pobrac z pola edycji
     this.module.testTask = "próbne pytanie testowe";   // TODO: pobrac z pola edycji
 
-    this.moduleService.saveModule(this.module).subscribe(res => this.module = res);
+    this.moduleService.saveModule(this.module).subscribe(m => this.module = m);
 
     this.context.editModuleId = null;
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 //Models
@@ -63,7 +63,7 @@ export class ModuleViewComponent implements OnInit {
     this.module.testTask = "próbne pytanie testowe";   // TODO: pobrac z pola edycji
 
     this.moduleService.saveModule(this.module).subscribe(res => this.module = res);
-
+    this.moduleService.moduleAdded.emit(this.module);
     this.context.editModuleId = null;
   }
 

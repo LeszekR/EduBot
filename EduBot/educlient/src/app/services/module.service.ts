@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 // import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Http, XHRBackend, RequestOptions, Request, RequestOptionsArgs, Response, Headers } from '@angular/http';
@@ -16,6 +16,7 @@ export class ModuleService {
 
     private moduleUrl = 'http://localhost:64365/api/module';
 
+    moduleAdded = new EventEmitter<Module>();
     editedModuleId: number;
 
     modules: Module[] = [];

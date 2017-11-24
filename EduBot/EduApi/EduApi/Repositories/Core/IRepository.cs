@@ -5,7 +5,7 @@ namespace EduApi.DAL.Core
 {
     public interface IRepository<T> where T : class
     {
-        void Add(T entity);
+        T Add(T entity);
         void Delete(int id);
         void Update(T entity);
         List<T> All();

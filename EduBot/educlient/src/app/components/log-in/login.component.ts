@@ -1,7 +1,9 @@
 import { Component, Output } from '@angular/core'
 
 import { LoginService } from '../../services/login.service';
+import { UserService } from '../../services/user.service';
 import { FormField } from '../form-field/form-field';
+import { User } from '../../models/user';
 
 // import { St}  import żeby mieć dostęp do local storage
 // jesli caisteczka - też tu trzeba import
@@ -42,7 +44,7 @@ export class LoginComponent {
 
     // CONSTRUCTOR
     // ==============================================================================================================
-    constructor(private loginService: LoginService) { // , private localStor: LocalStorage ... ) {
+    constructor(private loginService: LoginService, private userService: UserService) { // , private localStor: LocalStorage ... ) {
         loginService.setLoginComp(this);
 
         this.action = 'logging-in';
@@ -84,7 +86,11 @@ export class LoginComponent {
      * Records new user in the database.
      */
     registerUser(): void {
+        let user = new User();
+        user.login = this.fieldNewLogin.text;
+        user.password = this.fieldNewPassw.text;
 
+        this.userService.addUser(user).subscribe();
     }
 
     // --------------------------------------------------------------------------------------------------------------

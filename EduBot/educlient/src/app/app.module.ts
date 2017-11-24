@@ -25,6 +25,7 @@ import { SelectLanguageComponent } from './components/select-language/select-lan
 //Services
 import { TestService } from './mock/test.service';
 import { HttpService } from './services/http.service';
+import { UserService } from './services/user.service'
 import { LoginService } from './services/login.service'
 import { ModuleService } from './services/module.service';
 import { ContextService } from './services/context.service';
@@ -69,6 +70,7 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     AlertModule.forRoot()
   ],
   providers: [
+    UserService,
     TestService,
     LoginService,
     ModuleService,

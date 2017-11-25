@@ -58,7 +58,6 @@ namespace EduApi.Controllers {
 
         // ---------------------------------------------------------------------------------------------
         [HttpPost]
-        //public IHttpActionResult UpsertModule([FromBody]ModuleDTO moduleReceived) {
         public IHttpActionResult UpsertModule(ModuleDTO moduleReceived) {
 
             var id = moduleReceived.id;
@@ -79,5 +78,37 @@ namespace EduApi.Controllers {
 
             return Ok(ModuleMappper.GetDTO(module));
         }
+
+
+        // ---------------------------------------------------------------------------------------------
+        [HttpPost]
+        public IHttpActionResult NewMetaModule(ModuleDTO[] modulesGrouped) {
+
+            edumodule module = new edumodule();
+            string content = "";
+            string example = "";
+            string testTask = "";
+
+
+            // połączenie treści, przykładów i - jeżeli jest - testów z kodu modułów podrzędnych
+            foreach (var mod in modulesGrouped) {
+                content += "\n\n" + mod.content;
+                example += "\n\n" + mod.example;
+                if (mod.test_type == "code")
+                    testTask += "\n\n" + mod.test_task;
+            }
+            content = content.Substring(2);
+            example = example.Substring(2);
+            testTask = testTask.Substring(2);
+
+
+            // zapisanie nowego nadrzędnego modułu w bazie danych
+
+
+            // zapisanie id_grupy wszystkich modułów podrzędnych jako id nowo utworzonego modułu
+
+
+            // wysłanie do frontu nowo utworzonego modułu
+            return Ok(ModuleMappper.GetDTO(module));
+        }
     }
-}

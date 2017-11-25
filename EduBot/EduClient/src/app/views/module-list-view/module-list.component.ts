@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 
 //Models
 import { Module } from '../../models/module';
@@ -17,7 +17,6 @@ export class ModuleListComponent implements OnInit {
 
   modules: Module[];
 
-
   // CONSTRUCTOR
   // ==============================================================================================================
   constructor(private moduleService: ModuleService, private context: ContextService) { }
@@ -27,6 +26,13 @@ export class ModuleListComponent implements OnInit {
   // ==============================================================================================================
   ngOnInit() {
     this.getModules();
+    this.moduleService.moduleAdded
+    .subscribe(
+      (m: Module) => {
+        let index = this.modules.findIndex(x => x.id == m.id);
+        this.modules[index] = m;
+      }
+    );
   }
 
 

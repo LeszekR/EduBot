@@ -23,5 +23,18 @@ namespace EduApi.Services {
         public UserDTO Authenticate(string login, string password) {
             return _userRepository.Authenticate(login, password);
         }
+
+        public int SaveUser(UserDTO user)
+        {
+           user entity = new user();
+           UserMappper.MapDtoToEntity(user, entity);
+           entity.role = "student";
+           return _userRepository.Add(entity).id;
+        }
+
+        public bool DeleteUser(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

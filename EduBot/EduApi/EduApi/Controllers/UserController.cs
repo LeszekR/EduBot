@@ -1,4 +1,5 @@
-﻿using EduApi.Services.Interfaces;
+﻿using EduApi.DTO;
+using EduApi.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,27 @@ namespace EduApi.Controllers {
             if (user == null)
                 return BadRequest();
             return Ok(user);
+        }
+
+        [Route("")]
+        [HttpPost]
+        public IHttpActionResult CreateUser(UserDTO user)
+        {
+            return Ok(_userService.SaveUser(user));
+        }
+
+        [Route("")]
+        [HttpPut]
+        public IHttpActionResult Update(UserDTO user)
+        {
+            return Ok();
+        }
+        
+        [HttpDelete]
+        [Route("{id}")]
+        public IHttpActionResult Delete(int id)
+        {
+            return Ok();
         }
     }
 }

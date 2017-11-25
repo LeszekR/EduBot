@@ -24,9 +24,10 @@ namespace EduApi.DAL.Core {
             }
         }
 
-        public void Add(T entity) {
+        public T Add(T entity) {
             DbSet.Add(entity);
             _context.SaveChanges();
+            return entity;
         }
 
         public List<T> All() {

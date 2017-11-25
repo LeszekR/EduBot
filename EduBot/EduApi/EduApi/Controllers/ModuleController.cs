@@ -82,7 +82,7 @@ namespace EduApi.Controllers {
 
         // ---------------------------------------------------------------------------------------------
         [HttpPost]
-        public IHttpActionResult NewMetaModule(ModuleDTO[] modulesGrouped) {
+        public IHttpActionResult NewMetaModule(ModuleDTO[] moduleGroup) {
 
             edumodule module = new edumodule();
             string content = "";
@@ -91,24 +91,36 @@ namespace EduApi.Controllers {
 
 
             // połączenie treści, przykładów i - jeżeli jest - testów z kodu modułów podrzędnych
-            foreach (var mod in modulesGrouped) {
+            foreach (var mod in moduleGroup) {
                 content += "\n\n" + mod.content;
                 example += "\n\n" + mod.example;
                 if (mod.test_type == "code")
                     testTask += "\n\n" + mod.test_task;
             }
-            content = content.Substring(2);
-            example = example.Substring(2);
-            testTask = testTask.Substring(2);
+            module.content = content.Substring(2);
+            module.example = example.Substring(2);
+            module.test_task = testTask == "" ? "" : testTask.Substring(2);
+
+            module.difficulty = moduleGroup[0].difficulty == "easy" ? "medium" : "hard";
+            module.title = "<podaj tytuł>";
 
 
             // zapisanie nowego nadrzędnego modułu w bazie danych
+            using (edumaticEntities db = new edumaticEntities()) {
+                db.edumodule.Add(module);
+                db.SaveChanges();
 
-
-            // zapisanie id_grupy wszystkich modułów podrzędnych jako id nowo utworzonego modułu
+                // zapisanie id_grupy wszystkich modułów podrzędnych jako id nowo utworzonego modułu
+                // TODO - zmienić w bazie i EF id_group z short na int
+                foreach (var mod in moduleGroup) {
+                    db.edumodule.Where(m => m.id == mod.id).First().id_group = (short)module.id;
+                    db.SaveChanges();
+                }
+            }
 
 
             // wysłanie do frontu nowo utworzonego modułu
             return Ok(ModuleMappper.GetDTO(module));
         }
     }
+}

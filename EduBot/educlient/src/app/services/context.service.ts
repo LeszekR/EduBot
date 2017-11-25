@@ -16,6 +16,6 @@ export class ContextService {
     // PUBLIC
     // ==============================================================================================================
     ngOnInit(){
-        this.userRole = Role.Admin;
+        this.userRole = Role.admin;
     }    
 }

@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 //Models
+import { SharedModule } from '../../shared/shared.module';
 import { UserManagementComponent } from './user-management.component';
 
 //Services
@@ -11,6 +13,8 @@ import { UserManagementRoutingModule } from './user-management-routing.module';
 
 @NgModule({
     imports: [
+        CommonModule,
+        SharedModule,
         UserManagementRoutingModule
     ],
     declarations: [

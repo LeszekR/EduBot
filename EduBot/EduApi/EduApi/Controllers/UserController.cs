@@ -41,10 +41,11 @@ namespace EduApi.Controllers {
             return Ok(_userService.SaveUser(user));
         }
 
-        [Route("")]
+        [Route("role")]
         [HttpPut]
-        public IHttpActionResult Update(UserDTO user)
+        public IHttpActionResult UpdateUserRole(UserDTO user)
         {
+            _userService.UpdateUserRole(user);
             return Ok();
         }
         

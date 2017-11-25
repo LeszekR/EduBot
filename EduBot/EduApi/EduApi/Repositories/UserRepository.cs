@@ -13,14 +13,22 @@ namespace EduApi.DAL {
         //    _context = edumaticEntities.getInstance();
         //}
 
-        public UserRepository(edumaticEntities context) : base(context) {
+        public UserRepository(edumaticEntities context) : base(context)
+        {
             _context = context;
         }
-
-
-        public UserDTO Authenticate(string login, string password) {
+        
+        public UserDTO Authenticate(string login, string password)
+        {
             var user = _context.user.Where(u => u.login == login && u.password == password).FirstOrDefault();
             return user != null ? UserMappper.GetDTO(user) : null;
+        }
+
+        public void UpdateUserRole(int userId, string role)
+        {
+            var user = _context.user.Where(u => u.id == userId).FirstOrDefault();
+            user.role = role;
+            _context.SaveChanges();
         }
     }
 }

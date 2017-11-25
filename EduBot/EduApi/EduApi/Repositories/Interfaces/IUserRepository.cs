@@ -6,5 +6,6 @@ namespace EduApi.DAL.Interfaces
     public interface IUserRepository : IRepository<user>
     {
         UserDTO Authenticate(string login, string password);
+        void UpdateUserRole(int userId, string role);
     }
 }

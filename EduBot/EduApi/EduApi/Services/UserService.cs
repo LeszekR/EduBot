@@ -32,6 +32,11 @@ namespace EduApi.Services {
            return _userRepository.Add(entity).id;
         }
 
+        public void UpdateUserRole(UserDTO user)
+        {
+            _userRepository.UpdateUserRole(user.Id, user.Role);
+        }
+
         public bool DeleteUser(int id)
         {
             throw new NotImplementedException();

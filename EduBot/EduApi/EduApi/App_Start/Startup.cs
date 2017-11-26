@@ -1,7 +1,12 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Microsoft.Owin;
 using Owin;
+using System.Configuration;
+using Microsoft.Owin.Security.DataHandler.Encoder;
+using Microsoft.Owin.Security.OAuth;
+using EduApi.Security;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Jwt;
 
 [assembly: OwinStartup(typeof(EduApi.App_Start.Startup))]
 
@@ -11,11 +16,11 @@ namespace EduApi.App_Start
     {
         public void Configuration(IAppBuilder app)
         {
-            //ConfigureOAuth(app);
+            ConfigureOAuth(app);
             app.UseWebApi(WebApiConfig.Register());
         }
 
-        /*private void ConfigureOAuth(IAppBuilder app)
+        private void ConfigureOAuth(IAppBuilder app)
         {
             var issuer = ConfigurationManager.AppSettings["issuer"];
             var secret = TextEncodings.Base64Url.Decode(ConfigurationManager.AppSettings["secret"]);
@@ -37,7 +42,8 @@ namespace EduApi.App_Start
                 {
                     new SymmetricKeyIssuerSecurityTokenProvider(issuer, secret)
                 }
-            });*/
+            });
+        }
         
     }
 }

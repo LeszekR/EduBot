@@ -28,13 +28,10 @@ export class UserManagementComponent implements OnInit {
     }
 
     changeUserRole(u: User, role: string){
+        let temp = u.role;
         u.role = role;
         this.userService.updateUserRole(u)
             .subscribe();
-    }
-
-    updateUserRole(){
-
     }
 
 }

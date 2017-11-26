@@ -1,4 +1,5 @@
-﻿using Microsoft.Owin.Security;
+﻿using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,13 @@ namespace EduApi.Security
         {
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
 
-            //TODO get user
-            var user = new Object();
+            var user = context.OwinContext.Get<edumaticEntities>().user.FirstOrDefault(u => u.login == context.UserName && u.password == context.Password);
+
             if (user == null)
             {
                 context.SetError("invalid_grant", "The user name or password is incorrect");
+                context.Rejected();
+                return Task.FromResult<object>(null);
             }
 
             var ticket = new AuthenticationTicket(SetClaimsIdentity(context, user), new AuthenticationProperties());
@@ -34,14 +37,13 @@ namespace EduApi.Security
             return Task.FromResult<object>(null);
         }
 
-        private static ClaimsIdentity SetClaimsIdentity(OAuthGrantResourceOwnerCredentialsContext context, Object user)
+        private static ClaimsIdentity SetClaimsIdentity(OAuthGrantResourceOwnerCredentialsContext context, user user)
         {
             var identity = new ClaimsIdentity("JWT");
             identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
             identity.AddClaim(new Claim("sub", context.UserName));
-
-            //TODO put user roles in token
-            identity.AddClaim(new Claim(ClaimTypes.Role, "admin"));
+            
+            identity.AddClaim(new Claim(ClaimTypes.Role, user.role));
 
             return identity;
         }

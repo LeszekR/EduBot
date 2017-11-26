@@ -16,6 +16,7 @@ namespace EduApi.App_Start
     {
         public void Configuration(IAppBuilder app)
         {
+            app.CreatePerOwinContext(() => new edumaticEntities());
             ConfigureOAuth(app);
             app.UseWebApi(WebApiConfig.Register());
         }

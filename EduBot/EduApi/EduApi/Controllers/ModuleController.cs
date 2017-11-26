@@ -14,17 +14,6 @@ namespace EduApi.Controllers {
     public class ModuleController : ApiController {
 
 
-        //// ---------------------------------------------------------------------------------------------
-        //public IHttpActionResult GetLastIdx() {
-        //    int? index = 0;
-
-        //    using (edumaticEntities db = new edumaticEntities()) {
-        //        index = db.edumodule.Max(module => (int?)module.id) ?? 0;
-        //    }
-        //    return Ok(index);
-        //}
-
-
         // ---------------------------------------------------------------------------------------------
         public IHttpActionResult GetSimpleModules() {
 
@@ -32,11 +21,10 @@ namespace EduApi.Controllers {
             List<ModuleDTO> modules;
 
             using (edumaticEntities db = new edumaticEntities()) {
-                //modules = db.edumodule.Select(ed => ModuleMappper.GetSimpleDTO(ed)).ToList();
                 modules = (from ed in db.edumodule select ed).GetSimpleDTOList();
             }
+            modules.Sort((a, b) => (a.id > b.id ? 1 : -1));
             return Ok(modules);
-            //return Ok("próba");
         }
 
 
@@ -91,11 +79,15 @@ namespace EduApi.Controllers {
 
 
             // połączenie treści, przykładów i - jeżeli jest - testów z kodu modułów podrzędnych
-            foreach (var mod in moduleGroup) {
-                content += "\n\n" + mod.content;
-                example += "\n\n" + mod.example;
-                if (mod.test_type == "code")
-                    testTask += "\n\n" + mod.test_task;
+            List<ModuleDTO> moduleList = new List<ModuleDTO>(moduleGroup);
+            moduleList.Sort((a, b) => (a.id > b.id ? 1 : -1));
+
+            ModuleDTO modul;
+            for (var i = 0; i < moduleList.Count; i++) {
+                modul = moduleList[i];
+                content += "\n\n" + modul.content;
+                example += "\n\n" + modul.example;
+                if (modul.test_type == "code") testTask += "\n\n" + modul.test_task;
             }
             module.content = content.Substring(2);
             module.example = example.Substring(2);
@@ -117,7 +109,6 @@ namespace EduApi.Controllers {
                     db.SaveChanges();
                 }
             }
-
 
             // wysłanie do frontu nowo utworzonego modułu
             return Ok(ModuleMappper.GetDTO(module));

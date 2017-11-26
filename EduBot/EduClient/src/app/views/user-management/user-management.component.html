@@ -1,32 +1,40 @@
 <div class="container-fluid p-2">
-  <div class="font-weight-bold">
-    <i class="fa fa-user-circle-o fa-2x"></i>
-    Users Management
-  </div>
-  <div *ngIf="users" class="pt-2">
-      <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Login</th>
-              <th>Role</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let user of users;let i = index">
-              <th scope="row">{{ i }}</th>
-              <td>{{ user.login }}</td>
-              <td>
-                  <div class="btn-group btn-group" data-toggle="buttons">
-                      <label *ngFor="let role of roles | keys" class="btn">
-                        <input type="checkbox" (change)="changeUserRole(user, role.value)" >
-                        <i [ngClass]="role.value==user.role ? 'fa fa-check-square-o' : 'fa fa-square-o'"></i>
-                        <span> {{ role.value }} </span>
-                      </label>
-                  </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-  </div>
+  <fieldset>
+    <legend>
+      <div class="font-weight-bold">
+        <i class="fa fa-user-circle-o fa-2x"></i>
+        Users Management
+      </div>
+    </legend>
+    <div class="card">
+        <div class="card-block">
+          <div *ngIf="users" class="pt-2">
+              <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Login</th>
+                      <th>Role</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let user of users;let i = index">
+                      <th scope="row">{{ i }}</th>
+                      <td>{{ user.login }}</td>
+                      <td class="pl-0">
+                          <div class="btn-group btn-group" data-toggle="buttons">
+                              <label *ngFor="let role of roles | keys" class="btn">
+                                <input type="checkbox" (change)="changeUserRole(user, role.value)" >
+                                <i [ngClass]="role.value==user.role ? 'fa fa-check-square-o' : 'fa fa-square-o'"></i>
+                                <span> {{ role.value }} </span>
+                              </label>
+                          </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+          </div>
+        </div>
+    </div>
+  </fieldset>
 </div>

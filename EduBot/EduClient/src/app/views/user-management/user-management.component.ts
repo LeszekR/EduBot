@@ -11,6 +11,7 @@ import { UserService } from '../../services/user.service';
     moduleId: module.id,
     selector: 'user-management',
     templateUrl: 'user-management.component.html',
+    styleUrls: ['user-management.component.css']
 })
 
 export class UserManagementComponent implements OnInit {

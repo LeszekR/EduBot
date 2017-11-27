@@ -75,11 +75,8 @@ export class HttpService extends Http {
         let newHeaders: Headers = new Headers();
 
         let keys = Object.keys(headersToSet);
-        for (var i in keys) {
-            var name = keys[i];
-            var value = headersToSet[keys[i]];
+        for (var i in keys) 
             newHeaders.append(keys[i], headersToSet[keys[i]]);
-        }
 
         //newHeaders.append('Authorization', `Bearer ` + token);
         newHeaders.append('Cache-Control', 'no-cache');
@@ -94,9 +91,4 @@ export class HttpService extends Http {
         console.log(error);
         return Observable.throw(error);
     }
-    // private catchError(self: HttpService) {
-    //     return (res: Response) => {
-    //         return Observable.throw(res);
-    //     };
-    // }
 }

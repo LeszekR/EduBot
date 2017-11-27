@@ -42,4 +42,9 @@ export class ModuleService {
     saveModule(module: Module): Observable<Module> {
         return this.http.post<Module>(this.moduleUrl + '/upsertmodule', module);
     }
+
+    // --------------------------------------------------------------------------------------------------------------
+    saveMetaModule(moduleGroup: Module[]): Observable<Module> {
+        return this.http.post<Module>(this.moduleUrl + '/newmetamodule', moduleGroup);
+    }
 }

@@ -14,17 +14,6 @@ namespace EduApi.Controllers {
     public class ModuleController : ApiController {
 
 
-        //// ---------------------------------------------------------------------------------------------
-        //public IHttpActionResult GetLastIdx() {
-        //    int? index = 0;
-
-        //    using (edumaticEntities db = new edumaticEntities()) {
-        //        index = db.edumodule.Max(module => (int?)module.id) ?? 0;
-        //    }
-        //    return Ok(index);
-        //}
-
-
         // ---------------------------------------------------------------------------------------------
         public IHttpActionResult GetSimpleModules() {
 
@@ -32,11 +21,10 @@ namespace EduApi.Controllers {
             List<ModuleDTO> modules;
 
             using (edumaticEntities db = new edumaticEntities()) {
-                //modules = db.edumodule.Select(ed => ModuleMappper.GetSimpleDTO(ed)).ToList();
                 modules = (from ed in db.edumodule select ed).GetSimpleDTOList();
             }
+            modules.Sort((a, b) => (a.id > b.id ? 1 : -1));
             return Ok(modules);
-            //return Ok("próba");
         }
 
 
@@ -58,7 +46,6 @@ namespace EduApi.Controllers {
 
         // ---------------------------------------------------------------------------------------------
         [HttpPost]
-        //public IHttpActionResult UpsertModule([FromBody]ModuleDTO moduleReceived) {
         public IHttpActionResult UpsertModule(ModuleDTO moduleReceived) {
 
             var id = moduleReceived.id;
@@ -77,6 +64,53 @@ namespace EduApi.Controllers {
                 db.SaveChanges();
             }
 
+            return Ok(ModuleMappper.GetDTO(module));
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
+        [HttpPost]
+        public IHttpActionResult NewMetaModule(ModuleDTO[] moduleGroup) {
+
+            edumodule module = new edumodule();
+            string content = "";
+            string example = "";
+            string testTask = "";
+
+
+            // połączenie treści, przykładów i - jeżeli jest - testów z kodu modułów podrzędnych
+            List<ModuleDTO> moduleList = new List<ModuleDTO>(moduleGroup);
+            moduleList.Sort((a, b) => (a.id > b.id ? 1 : -1));
+
+            ModuleDTO modul;
+            for (var i = 0; i < moduleList.Count; i++) {
+                modul = moduleList[i];
+                content += "\n\n" + modul.content;
+                example += "\n\n" + modul.example;
+                if (modul.test_type == "code") testTask += "\n\n" + modul.test_task;
+            }
+            module.content = content.Substring(2);
+            module.example = example.Substring(2);
+            module.test_task = testTask == "" ? "" : testTask.Substring(2);
+
+            module.difficulty = moduleGroup[0].difficulty == "easy" ? "medium" : "hard";
+            module.title = "<podaj tytuł>";
+
+
+            // zapisanie nowego nadrzędnego modułu w bazie danych
+            using (edumaticEntities db = new edumaticEntities()) {
+                db.edumodule.Add(module);
+                db.SaveChanges();
+
+                // zapisanie id_grupy wszystkich modułów podrzędnych jako id nowo utworzonego modułu
+                // TODO - zmienić w bazie i EF id_group z short na int
+                foreach (var mod in moduleGroup) {
+                    db.edumodule.Where(m => m.id == mod.id).First().id_group = (short)module.id;
+                    db.SaveChanges();
+                }
+            }
+
+            // wysłanie do frontu nowo utworzonego modułu
             return Ok(ModuleMappper.GetDTO(module));
         }
     }

@@ -72,46 +72,47 @@ namespace EduApi.Controllers {
         [HttpPost]
         public IHttpActionResult NewMetaModule(ModuleDTO[] moduleGroup) {
 
-            edumodule module = new edumodule();
+            // sortowanie otrzymanych modułów w kolejności id
+            List<ModuleDTO> moduleList = new List<ModuleDTO>(moduleGroup);
+            moduleList.Sort((a, b) => (a.id > b.id ? 1 : -1));
+
+
+            // połączenie treści, przykładów i - jeżeli jest - testów z kodu modułów podrzędnych
+            edumodule newModule = new edumodule();
             string content = "";
             string example = "";
             string testTask = "";
 
-
-            // połączenie treści, przykładów i - jeżeli jest - testów z kodu modułów podrzędnych
-            List<ModuleDTO> moduleList = new List<ModuleDTO>(moduleGroup);
-            moduleList.Sort((a, b) => (a.id > b.id ? 1 : -1));
-
-            ModuleDTO modul;
+            ModuleDTO moduleDTO;
             for (var i = 0; i < moduleList.Count; i++) {
-                modul = moduleList[i];
-                content += "\n\n" + modul.content;
-                example += "\n\n" + modul.example;
-                if (modul.test_type == "code") testTask += "\n\n" + modul.test_task;
+                moduleDTO = moduleList[i];
+                content += "\n\n" + moduleDTO.content;
+                example += "\n\n" + moduleDTO.example;
+                if (moduleDTO.test_type == "code") testTask += "\n\n" + moduleDTO.test_task;
             }
-            module.content = content.Substring(2);
-            module.example = example.Substring(2);
-            module.test_task = testTask == "" ? "" : testTask.Substring(2);
+            newModule.content = content.Substring(2);
+            newModule.example = example.Substring(2);
+            newModule.test_task = testTask == "" ? "" : testTask.Substring(2);
 
-            module.difficulty = moduleGroup[0].difficulty == "easy" ? "medium" : "hard";
-            module.title = "<podaj tytuł>";
+            newModule.difficulty = moduleGroup[0].difficulty == "easy" ? "medium" : "hard";
+            newModule.title = "<podaj tytuł>";
 
 
             // zapisanie nowego nadrzędnego modułu w bazie danych
             using (edumaticEntities db = new edumaticEntities()) {
-                db.edumodule.Add(module);
+                db.edumodule.Add(newModule);
                 db.SaveChanges();
 
                 // zapisanie id_grupy wszystkich modułów podrzędnych jako id nowo utworzonego modułu
                 // TODO - zmienić w bazie i EF id_group z short na int
                 foreach (var mod in moduleGroup) {
-                    db.edumodule.Where(m => m.id == mod.id).First().id_group = (short)module.id;
+                    db.edumodule.Where(m => m.id == mod.id).First().id_group = (short)newModule.id;
                     db.SaveChanges();
                 }
             }
 
             // wysłanie do frontu nowo utworzonego modułu
-            return Ok(ModuleMappper.GetDTO(module));
+            return Ok(ModuleMappper.GetDTO(newModule));
         }
     }
 }

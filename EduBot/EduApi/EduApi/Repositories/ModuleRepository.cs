@@ -1,5 +1,6 @@
 ﻿using EduApi.DAL.Core;
 using EduApi.DAL.Interfaces;
+using EduApi.DTO;
 using System;
 
 namespace EduApi.DAL
@@ -10,6 +11,11 @@ namespace EduApi.DAL
 
         public ModuleRepository(edumaticEntities context) : base(context) {
             _context = context;
+        }
+
+        public void SetNewValues(ModuleDTO source, edumodule result) {
+            _context.Entry(result).CurrentValues.SetValues(source);
+            _context.SaveChanges();
         }
     }
 }

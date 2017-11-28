@@ -9,10 +9,6 @@ namespace EduApi.DAL {
     public class UserRepository : Repository<user>, IUserRepository {
         private edumaticEntities _context;
 
-        //public UserRepository() {
-        //    _context = edumaticEntities.getInstance();
-        //}
-
         public UserRepository(edumaticEntities context) : base(context)
         {
             _context = context;

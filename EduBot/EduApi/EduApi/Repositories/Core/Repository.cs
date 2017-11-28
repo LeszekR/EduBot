@@ -42,7 +42,7 @@ namespace EduApi.DAL.Core {
             _context.SaveChanges();
         }
 
-        public T Get(int Id)
+            public T Get(int Id)
         {
             return DbSet.Find(Id);
         }
@@ -50,6 +50,10 @@ namespace EduApi.DAL.Core {
         public void Update(T entity)
         {
             DbSet.Attach(entity);
+            _context.SaveChanges();
+        }
+
+        public void SaveChanges() {
             _context.SaveChanges();
         }
     }

@@ -23,6 +23,7 @@ namespace EduApi.Controllers {
         }
         #endregion
 
+
         // ---------------------------------------------------------------------------------------------
         public IHttpActionResult GetSimpleModules() {
             return Ok(_moduleService.GetSimpleModules());

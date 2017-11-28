@@ -4,17 +4,13 @@ using EduApi.Services;
 using EduApi.Services.Interfaces;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Http;
 
-namespace EduApi.App_Start
-{
+namespace EduApi.App_Start {
+
     public static class DepentencyInjectorConfig
     {
-        public static Container init(HttpConfiguration config)
+        public static Container Init(HttpConfiguration config)
         {
             var container = new Container();
 

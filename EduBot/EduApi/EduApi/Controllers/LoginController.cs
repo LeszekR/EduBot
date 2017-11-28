@@ -4,6 +4,7 @@ using System.Web.Http;
 using EduApi.DTO;
 using System.Web.Http.Cors;
 using EduApi.Dto.Mappers;
+using EduApi.Services.Interfaces;
 
 namespace EduApi.Controllers {
 
@@ -12,24 +13,25 @@ namespace EduApi.Controllers {
     [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*", SupportsCredentials = true)]
     public class LoginController : ApiController {
 
+        private readonly ILoginService _loginService;
 
+        #region Constructor
+        public LoginController(ILoginService loginService) {
+            _loginService = loginService;
+        }
+        #endregion
+
+
+        // ---------------------------------------------------------------------------------------------
         [HttpPost]
-        public IHttpActionResult Login([FromBody]Credentials cred) {
+        public IHttpActionResult Login([FromBody]CredentialsDTO cred) {
 
-            var login = cred.Login;
-            var passw = cred.Password;
-            user userLog = null;
-
-            using (edumaticEntities baza = new edumaticEntities()) {
-                userLog = (from obiekt in baza.user
-                           where obiekt.login == login && obiekt.password == passw
-                           select obiekt).FirstOrDefault();
-            }
+            UserDTO userLog = _loginService.Login(cred);
 
             if (userLog == null)
                 return StatusCode(HttpStatusCode.Unauthorized);
             else
-                return Ok(UserMappper.GetDTO(userLog));
+                return Ok(userLog);
         }
     }
 }

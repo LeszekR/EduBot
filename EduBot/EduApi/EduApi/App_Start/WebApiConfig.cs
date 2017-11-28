@@ -14,7 +14,7 @@ namespace EduApi {
         {
             var config = new HttpConfiguration();
 
-            config.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(DepentencyInjectorConfig.init(config));
+            config.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(DepentencyInjectorConfig.Init(config));
             config.Filters.Add(new GlobalExceptionFilter());
 
             config.MapHttpAttributeRoutes();

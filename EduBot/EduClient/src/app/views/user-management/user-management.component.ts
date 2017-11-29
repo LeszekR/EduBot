@@ -6,6 +6,7 @@ import { Role } from '../../models/enum-user-role';
 
 //Services
 import { UserService } from '../../services/user.service';
+import { MessageService } from '../../shared/components/message/message.service';
 
 @Component({
     moduleId: module.id,
@@ -19,13 +20,15 @@ export class UserManagementComponent implements OnInit {
     users: User[];
     roles = Role;
 
-    constructor(private userService: UserService){
+    constructor(private userService: UserService, private messageService: MessageService){
 
     }
 
     ngOnInit(){
         this.userService.getSimpleUsers()
             .subscribe( res => this.users = res);
+
+        this.messageService.info("AAAA", "title");
     }
 
     changeUserRole(u: User, role: string){

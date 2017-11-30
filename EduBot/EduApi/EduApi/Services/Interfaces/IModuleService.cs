@@ -5,16 +5,20 @@ namespace EduApi.Services.Interfaces
 {
     public interface IModuleService
     {
+        // ---------------------------------------------------------------------------------------------
         /* Pobiera z bazy wszystkie moduły i zwraca ich uproszczoną postać - tylko te elementy,
          * które pobierane są w metodzie ModuleMapper.GetSimpleDTO(). */
         List<ModuleDTO> GetSimpleModules();
 
+        // ---------------------------------------------------------------------------------------------
         /* Pobiera moduł wybrany wg jego id. */
         ModuleDTO GetModule(int id);
 
+        // ---------------------------------------------------------------------------------------------
         /* Aktualizuje dane modułu */
         ModuleDTO UpsertModule(ModuleDTO moduleReceived);
 
+        // ---------------------------------------------------------------------------------------------
         /* Pobiera elementy, które znajdują się w modułach zawartych w moduleGroup i łączy je:
          * - elementy content => w jeden string oddzielony pustymi liniami: nowy content
          * - elemnty example => w jeden string oddzielony pustymi liniami: nowy example
@@ -32,5 +36,11 @@ namespace EduApi.Services.Interfaces
          * zamknięte można edytować tylko na poziomie modułów podstawowych.
          */
         ModuleDTO NewMetaModule(ModuleDTO[] moduleGroup);
+
+        // ---------------------------------------------------------------------------------------------
+        /* 1. Usuwa z bazy moduł o podanym id.
+         * 2. Jeżeli to był moduł nadrzędny - usuwa id_grupy z dla wszystkich modułów podrzędnych
+         */
+        List<ModuleDTO> DeleteModule(int id);
     }
 }

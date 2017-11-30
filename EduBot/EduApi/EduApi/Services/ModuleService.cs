@@ -89,7 +89,7 @@ namespace EduApi.Services {
             // zmiana id_grupy wszystkich modułów podrzędnych na id nowo utworzonego modułu
             // TODO - zmienić w bazie i EF id_group z short na int
             edumodule childModule;
-            foreach(var child in moduleGroup) {
+            foreach (var child in moduleGroup) {
                 childModule = _moduleRepository.Get(child.id);
                 childModule.id_group = (short)newModule.id;
                 _moduleRepository.SaveChanges();
@@ -97,6 +97,28 @@ namespace EduApi.Services {
 
             // wysłanie do frontu nowo utworzonego modułu
             return ModuleMappper.GetDTO(newModule);
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
+        public List<ModuleDTO> DeleteModule(int id) {
+
+            // usunięcie dzieci usuwanego modułu z grupy
+            edumodule mod = _moduleRepository.Get(id);
+            if (mod.difficulty != "easy") {
+
+                List<edumodule> children = _moduleRepository.SelectChildren(id);
+                foreach (var child in children)
+                    child.id_group = null;
+
+                _moduleRepository.SaveChanges();
+            }
+
+
+            // usunięcie modułu
+            _moduleRepository.Delete(id);
+
+            return GetSimpleModules();
         }
     }
 }

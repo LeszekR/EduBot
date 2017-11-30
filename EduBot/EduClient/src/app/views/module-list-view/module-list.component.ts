@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+// import { ActivatedRoute } from '@angular/router/src/router_state';
+import { ActivatedRoute } from '@angular/router';
 
 //Models
 import { Module } from '../../models/module';
@@ -6,6 +8,8 @@ import { Module } from '../../models/module';
 //Services
 import { ModuleService } from '../../services/module.service';
 import { ContextService } from '../../services/context.service';
+import { MessageService } from '../../shared/components/message/message.service';
+import { TranslatePipe } from '../../languages/translate.pipe';
 
 
 // ==================================================================================================================
@@ -19,7 +23,12 @@ export class ModuleListComponent implements OnInit {
 
     // CONSTRUCTOR
     // ==============================================================================================================
-    constructor(private moduleService: ModuleService, private context: ContextService) { }
+    constructor(
+        private moduleService: ModuleService,
+        private context: ContextService,
+        private messageService: MessageService,
+        private route: ActivatedRoute
+    ) { }
 
 
     // PUBLIC
@@ -57,9 +66,44 @@ export class ModuleListComponent implements OnInit {
         // TODO: pobrać grupę modułów zaznaczonych przez użytkownika dla utworzenia modułu nadrzędnego
         // let moduleGroup: Module[] = ...
         // moduleService.saveMetaModule(moduleGroup).subscribe(res => modules.push(res));
-        
+
         // TODO: usunąć mock 
         this.mockAddMetaModule();
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
+    private deleteModule() {
+
+        // TODO: dodać do projektu msgbox z opcją 'Yes-No' i wykorzystać tu dla decyzji użytkownika        
+        // let continue: boolean = this.messageService.question(
+        //     'edit.del_module_title' , 'edit.del_module_decision');
+        // if (!continue) return;
+
+
+        console.log("delete module");
+
+        let moduleId = this.route.snapshot.children[0].params["moduleId"];
+
+        console.log("delete module: " + moduleId);
+
+        this.moduleService.deleteModule(moduleId)
+            .subscribe(newModules => {
+                this.context.editModuleId = null;
+                this.modules = newModules;
+            });
+
+
+        // this.moduleService.deleteModule(this.context.editModuleId)
+        //     .subscribe(res => {
+        //         if (res == false) this.messageService.error(
+        //             'edit.del_module_title', 'edit.del_module_failed');
+        //         else {
+        //             let modules = this.modules;
+        //             let index = this.modules.findIndex((mod: Module, index, modules) => mod.id == id);
+        //             this.modules.splice(index, 1);
+        //         }
+        //     });
+
     }
 
 
@@ -70,7 +114,7 @@ export class ModuleListComponent implements OnInit {
 
         let group: Module[] = [];
 
-        let moduleIds: number[] = [1,12,8,13];
+        let moduleIds: number[] = [1, 12, 8, 13];
 
         let modules = this.modules;
         let modServ: ModuleService = this.moduleService;
@@ -84,24 +128,11 @@ export class ModuleListComponent implements OnInit {
                 if (group.length == moduleIds.length)
                     callback(group);
             });
-
-
-
-        // let ready: boolean = false;
-
-        // while (!ready) {
-        //   if (group.length == 3) {
-        //     ready = group[0] != undefined;
-        //     ready = ready && group[1] != undefined;
-        //     ready = ready && group[2] != undefined;
-        //   }
-        // }
     }
-
 }
 
-function delay(ms: number) {
-    return new Promise<void>(function (resolve) {
-        setTimeout(resolve, ms);
-    });
-}
+// function delay(ms: number) {
+//     return new Promise<void>(function (resolve) {
+//         setTimeout(resolve, ms);
+//     });
+// }

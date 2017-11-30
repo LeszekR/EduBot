@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
+// ==================================================================================================================
 enum MessageType {
     success,
     info,
@@ -9,36 +10,49 @@ enum MessageType {
     danger
 }
 
-export class MessageData{
-    constructor(public msg: string, public type: string, public title: string){}
+// ==================================================================================================================
+export class MessageData {
+    constructor(public msg: string, public type: string, public title: string) { }
 }
 
+// ==================================================================================================================
 @Injectable()
 export class MessageService {
 
-    constructor(){}
-
     messageSource: Subject<MessageData> = new Subject<MessageData>();
 
-    success(msg: string, title?: string): void{
+
+    // CONSTRUCTOR
+    // ==============================================================================================================
+    constructor() { }
+
+
+    // PUBLIC
+    // ==============================================================================================================
+    success(msg: string, title?: string): void {
         this.add(msg, MessageType.success, title);
     }
 
-    info(msg: string, title?: string): void{
+    // --------------------------------------------------------------------------------------------------------------
+    info(msg: string, title?: string): void {
         this.add(msg, MessageType.info, title);
     }
 
-    warning(msg: string, title?: string): void{
+    // --------------------------------------------------------------------------------------------------------------
+    warning(msg: string, title?: string): void {
         this.add(msg, MessageType.warning, title);
     }
 
-    error(msg: string, title?: string): void{
+    // --------------------------------------------------------------------------------------------------------------
+    error(msg: string, title?: string): void {
         this.add(msg, MessageType.danger, title);
     }
 
+
+    // PRIVATE
+    // ==============================================================================================================
     private add(msg: string, type: MessageType, title: string) {
         let message = new MessageData(msg, MessageType[type], title);
         this.messageSource.next(message);
     }
-   
 }

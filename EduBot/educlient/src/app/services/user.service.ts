@@ -6,23 +6,31 @@ import { HttpService } from './http.service';
 
 import { User } from '../models/user';
 
+// ==================================================================================================================
 @Injectable()
 export class UserService {
 
     private userUrl = 'http://localhost:64365/api/user';
 
+
+    // CONSTRUCTOR
+    // ==============================================================================================================
     constructor(private http: HttpService){}
 
+
+    // PUBLIC
+    // ==============================================================================================================
     getSimpleUsers(): Observable<User[]> {
         return this.http.get<User[]>(this.userUrl);
     }
 
+    // --------------------------------------------------------------------------------------------------------------
     addUser(user: User): Observable<User> {
         return this.http.post<User>(this.userUrl, user);
     }
 
+    // --------------------------------------------------------------------------------------------------------------
     updateUserRole(user: User): any {
         return this.http.put(this.userUrl + '/role', user);
-    }
-    
+    }    
 }

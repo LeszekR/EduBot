@@ -1,9 +1,7 @@
-﻿using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Web.Http;
 using EduApi.DTO;
 using System.Web.Http.Cors;
-using EduApi.Dto.Mappers;
 using EduApi.Services.Interfaces;
 
 namespace EduApi.Controllers {
@@ -15,6 +13,9 @@ namespace EduApi.Controllers {
 
         private readonly ILoginService _loginService;
 
+
+        // CONSTRUCTOR
+        // =============================================================================================
         #region Constructor
         public LoginController(ILoginService loginService) {
             _loginService = loginService;
@@ -22,7 +23,8 @@ namespace EduApi.Controllers {
         #endregion
 
 
-        // ---------------------------------------------------------------------------------------------
+        // PUBLIC
+        // =============================================================================================
         [HttpPost]
         public IHttpActionResult Login([FromBody]CredentialsDTO cred) {
 

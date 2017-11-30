@@ -43,16 +43,10 @@ export class ModuleViewComponent implements OnInit {
   // ==============================================================================================================
   ngOnInit() {
     this.route.data.subscribe(data => this.module = data.module);
-
-    // this.route.data.subscribe((data: { module: Module }) => {
-    //   // this.module = ( data.module instanceof Module) ?  data.module : new  Module();
-    //   });
   }
 
   // --------------------------------------------------------------------------------------------------------------
   save() {
-    // TODO : pobrać wszystkie zastępcze dane z faktycznych pól edycji 
-
     this.module.id = this.context.editModuleId;
     this.module.id_group = 0;   // TODO: pobrac z pola edycji
 
@@ -67,11 +61,11 @@ export class ModuleViewComponent implements OnInit {
     this.context.editModuleId = null;
   }
 
-  // --------------------------------------------------------------------------------------------------------------
-  delete() {
-    console.log("delete");
-    this.context.editModuleId = null;
-  }
+  // // --------------------------------------------------------------------------------------------------------------
+  // delete() {
+  //   console.log("delete");
+  //   this.context.editModuleId = null;
+  // }
 
   // --------------------------------------------------------------------------------------------------------------
   cancel() {

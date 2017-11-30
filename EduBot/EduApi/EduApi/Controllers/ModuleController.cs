@@ -17,6 +17,9 @@ namespace EduApi.Controllers {
 
         private readonly IModuleService _moduleService;
 
+
+        // CONSTRUCTOR
+        // =============================================================================================
         #region Constructor
         public ModuleController(IModuleService moduleService) {
             _moduleService = moduleService;
@@ -24,17 +27,16 @@ namespace EduApi.Controllers {
         #endregion
 
 
-        // ---------------------------------------------------------------------------------------------
+        // PUBLIC
+        // =============================================================================================
         public IHttpActionResult GetSimpleModules() {
             return Ok(_moduleService.GetSimpleModules());
         }
-
 
         // ---------------------------------------------------------------------------------------------
         public IHttpActionResult GetModule(int id) {
             return Ok(_moduleService.GetModule(id));
         }
-
 
         // ---------------------------------------------------------------------------------------------
         [HttpPost]
@@ -42,11 +44,15 @@ namespace EduApi.Controllers {
             return Ok(_moduleService.UpsertModule(moduleReceived));
         }
 
-
         // ---------------------------------------------------------------------------------------------
         [HttpPost]
         public IHttpActionResult NewMetaModule(ModuleDTO[] moduleGroup) {
             return Ok(_moduleService.NewMetaModule(moduleGroup));
+        }
+
+        // ---------------------------------------------------------------------------------------------
+        public IHttpActionResult DeleteModule(int id) {
+            return Ok(_moduleService.DeleteModule(id));
         }
     }
 }

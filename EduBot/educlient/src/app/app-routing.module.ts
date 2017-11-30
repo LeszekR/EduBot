@@ -13,7 +13,7 @@ const routes: Routes = [
     { path: '', component: WelcomeComponent },
     //Lazy loading module, only when needed
     { path: 'user-management', loadChildren: 'app/views/user-management/user-management.module#UserManagementModule' },
-    { path: 'module/:moduleId', component: ModuleViewComponent,
+    {   path: 'module/:moduleId', component: ModuleViewComponent,
         data: {},
         resolve: {
             module: ModuleResolver
@@ -25,6 +25,6 @@ const routes: Routes = [
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule],
-    providers: [ ModuleResolver ]
+    providers: [ModuleResolver]
 })
 export class AppRoutingModule { }

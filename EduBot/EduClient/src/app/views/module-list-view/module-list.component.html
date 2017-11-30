@@ -7,6 +7,10 @@
         <i class="fa fa-plus fa-2x m-1" aria-hidden="true" ></i>
         <span style="font-size: 1rem" > {{ 'edit.add_module' | translate }} </span>
     </div>
+    <div class="align-items-center d-inline-flex fa-div" *ngIf="context.editModuleId == null" (click)="deleteModule()" >
+        <i class="fa fa-plus fa-2x m-1" aria-hidden="true" ></i>
+        <span style="font-size: 1rem" > {{ 'edit.del_module' | translate }} </span>
+    </div>
     <ng-template ngFor let-module [ngForOf]="modules">
         <div class="d-flex" >
             <a [routerLink]="['module/' ,module.id]"

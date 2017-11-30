@@ -22,6 +22,7 @@ namespace EduApi.App_Start {
             container.Register<IUserService, UserService>(Lifestyle.Scoped);
             container.Register<IModuleRepository, ModuleRepository>(Lifestyle.Scoped);
             container.Register<IModuleService, ModuleService>(Lifestyle.Scoped);
+            container.Register<ILoginService, LoginService>(Lifestyle.Scoped);
 
             // This is an extension method from the integration package.
             container.RegisterWebApiControllers(config);

@@ -1,15 +1,15 @@
 import { Injectable, EventEmitter } from '@angular/core';
-// import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Http, XHRBackend, RequestOptions, Request, RequestOptionsArgs, Response, Headers } from '@angular/http';
 
-import { HttpService } from './http.service';
+//Services
+import { HttpClientModule } from '@angular/common/http/src/module';
 import { HttpClient } from "@angular/common/http";
+import { HttpService } from './http.service';
 import { Module } from '../models/module'
 
 import { MockData } from '../mock/test-data'
 
-import { HttpClientModule } from '@angular/common/http/src/module';
 // ==================================================================================================================
 @Injectable()
 export class ModuleService {
@@ -46,5 +46,10 @@ export class ModuleService {
     // --------------------------------------------------------------------------------------------------------------
     saveMetaModule(moduleGroup: Module[]): Observable<Module> {
         return this.http.post<Module>(this.moduleUrl + '/newmetamodule', moduleGroup);
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
+    deleteModule(id: string): Observable<Module[]> {
+        return this.http.post<Module[]>(this.moduleUrl + '/deletemodule/', id);
     }
 }

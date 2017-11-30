@@ -5,11 +5,18 @@ export const LANG_DE_TRANS = {
     'common.cancel': 'Stornieren',
     'common.delete': 'Löschen',
     'common.save': 'Sparen',
+    
     'edit.add_module': 'Modul hinzufügen',
     'edit.add_meta_module': 'Fater Modul',
+    'edit.del_module': '<brak tłumaczenia>',
+    'edit.del_module_title': '<brak tłumaczenia>',
+    'edit.del_module_decision': '<brak tłumaczenia>',
+    'edit.del_module_failed': '<brak tłumaczenia>',
+
     'error.login.credentials': 'Benutzername oder Passwort ist falsch',
     'error.login.repeat': 'Passwörter sind anders',
     'error.server': 'Serverfehler. Überprüfen Sie Ihren Serverstatus',
+
     'login': 'Anmeldung',
     'login.log_in': 'Einloggen',
     'login.login': 'Benutzer-Anmeldung',
@@ -20,9 +27,11 @@ export const LANG_DE_TRANS = {
     'login.register': 'Neu registrieren',
     'login.register_new_user': 'Neuen Benutzer registrieren',
     'login.repeat_password': 'Passwort wiederholen',
+
     'module.diff-level.Easy': 'Einfach',
     'module.diff-level.Medium': 'Mittel',
     'module.diff-level.Hard': 'Hart',
+
     'toolbar.edit_mode': 'Ausgabemodus',
     'toolbar.log_in': 'Einloggen',
     'toolbar.manage_users': 'Nutzer verwalten',

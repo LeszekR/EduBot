@@ -82,7 +82,7 @@ export class ModuleListComponent implements OnInit {
 
         console.log("delete module");
 
-        let moduleId = this.route.snapshot.children[0].params["moduleId"];
+        let moduleId  = +this.route.snapshot.children[0].params["moduleId"];
 
         console.log("delete module: " + moduleId);
 

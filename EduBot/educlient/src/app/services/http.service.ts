@@ -47,6 +47,15 @@ export class HttpService extends Http {
     }
 
     // --------------------------------------------------------------------------------------------------------------
+    delete<T>(url: string, data: any): Observable<T> {
+        let options: RequestOptionsArgs = this.setHeaders({});
+        options.body = JSON.stringify(data);
+        return super.delete(url, options)
+            .map((res: Response) => res.json())
+            .catch(error => this.catchError(error));
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
     // request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
     // //let token = JSON.parse(sessionStorage.getItem('currentUser'));
 

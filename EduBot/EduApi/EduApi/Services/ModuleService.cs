@@ -2,10 +2,7 @@
 using EduApi.Dto.Mappers;
 using EduApi.DTO;
 using EduApi.Services.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace EduApi.Services {
 

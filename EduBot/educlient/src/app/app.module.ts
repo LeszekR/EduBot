@@ -21,6 +21,7 @@ import { ModuleListComponent } from './views/module-list-view/module-list.compon
 import { GameProgressComponent } from './components/game-progress/game-progress.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { SelectLanguageComponent } from './components/select-language/select-language.component';
+import { MessageComponent } from './shared/components/message/message.component';
 
 //Services
 import { TestService } from './mock/test.service';
@@ -31,6 +32,7 @@ import { ModuleService } from './services/module.service';
 import { ContextService } from './services/context.service';
 import { TranslateService, TRANSLATION_PROVIDERS } from './languages';
 import { TranslatePipe } from './languages/translate.pipe';
+import { MessageService } from './shared/components/message/message.service';
 
 //Modules
 import { SharedModule } from './shared/shared.module';
@@ -58,6 +60,7 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     ModuleListComponent,
     GameProgressComponent,
     SelectLanguageComponent,
+    MessageComponent
   ],
   imports: [
     SharedModule,
@@ -75,6 +78,7 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     LoginService,
     ModuleService,
     ContextService,
+    MessageService,
     TranslateService,
     TRANSLATION_PROVIDERS,
     {

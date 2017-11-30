@@ -1,0 +1,29 @@
+<div #staticModal="bs-modal" bsModal class="modal" tabindex="-1" role="dialog"  >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header p-0">
+                <div class="modal-title alert w-100" [ngClass]="getAlertClass()" >
+                    <span class="icon-"></span>
+                    <strong>{{ message?.title }}</strong>
+                </div>
+            </div>
+
+            <div class="modal-body">
+             
+                {{ message?.msg }}
+
+            </div>
+            <div class="modal-footer">
+                <div class="form-inline">
+                    <button
+                        (click)="closeModal()"
+                        tabindex="0"
+                        id="okButton" 
+                        class="btn-form btn btn-sm rounded" >
+                        {{ 'common.ok' | translate }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

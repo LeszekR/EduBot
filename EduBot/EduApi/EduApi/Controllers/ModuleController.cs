@@ -12,7 +12,7 @@ namespace EduApi.Controllers {
 
 
     // -------------------------------------------------------------------------------------------------
-    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "GET,POST", SupportsCredentials = true)]
+    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*", SupportsCredentials = true)]
     public class ModuleController : ApiController {
 
         private readonly IModuleService _moduleService;

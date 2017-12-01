@@ -47,9 +47,10 @@ export class HttpService extends Http {
     }
 
     // --------------------------------------------------------------------------------------------------------------
-    delete<T>(url: string, data: any): Observable<T> {
-        let options: RequestOptionsArgs = this.setHeaders({});
-        options.body = JSON.stringify(data);
+    // delete<T>(url: string, data: any): Observable<T> {
+        delete<T>(url: string): Observable<T> {
+            let options: RequestOptionsArgs = this.setHeaders({});
+        // options.body = JSON.stringify(data);
         return super.delete(url, options)
             .map((res: Response) => res.json())
             .catch(error => this.catchError(error));

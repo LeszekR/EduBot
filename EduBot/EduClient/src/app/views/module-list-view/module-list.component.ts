@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
-// import { ActivatedRoute } from '@angular/router/src/router_state';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 //Models
 import { Module } from '../../models/module';
@@ -27,7 +27,8 @@ export class ModuleListComponent implements OnInit {
         private moduleService: ModuleService,
         private context: ContextService,
         private messageService: MessageService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private router: Router
     ) { }
 
 
@@ -80,30 +81,14 @@ export class ModuleListComponent implements OnInit {
         // if (!continue) return;
 
 
-        console.log("delete module");
-
-        let moduleId  = +this.route.snapshot.children[0].params["moduleId"];
-
-        console.log("delete module: " + moduleId);
+        let moduleId  = this.route.snapshot.children[0].params["moduleId"];
 
         this.moduleService.deleteModule(moduleId)
             .subscribe(newModules => {
                 this.context.editModuleId = null;
+                this.router.navigate(['']);
                 this.modules = newModules;
             });
-
-
-        // this.moduleService.deleteModule(this.context.editModuleId)
-        //     .subscribe(res => {
-        //         if (res == false) this.messageService.error(
-        //             'edit.del_module_title', 'edit.del_module_failed');
-        //         else {
-        //             let modules = this.modules;
-        //             let index = this.modules.findIndex((mod: Module, index, modules) => mod.id == id);
-        //             this.modules.splice(index, 1);
-        //         }
-        //     });
-
     }
 
 

@@ -53,4 +53,10 @@ export class ModuleService {
         // return this.http.delete<Module[]>(this.moduleUrl + '/deletemodule', id);
         return this.http.delete<Module[]>(this.moduleUrl + '/deletemodule/' + id);
     }
+
+    // --------------------------------------------------------------------------------------------------------------
+    nextModule(): Observable<string> {
+        // TODO: zdecydować jak przysyłać kolejny moduł - tylko id, czy cały, czy wiele modułów
+        return this.http.get<string>(this.moduleUrl + '/getnextmodule');
+    }
 }

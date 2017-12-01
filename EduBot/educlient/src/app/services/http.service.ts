@@ -36,7 +36,7 @@ export class HttpService extends Http {
         return super.post(url, body, options)
             .map((res: Response) => res.json())
             .catch(error => this.catchError(error));
-        }
+    }
 
     // --------------------------------------------------------------------------------------------------------------
     get<T>(url: string): Observable<T> {
@@ -48,9 +48,8 @@ export class HttpService extends Http {
 
     // --------------------------------------------------------------------------------------------------------------
     // delete<T>(url: string, data: any): Observable<T> {
-        delete<T>(url: string): Observable<T> {
-            let options: RequestOptionsArgs = this.setHeaders({});
-        // options.body = JSON.stringify(data);
+    delete<T>(url: string): Observable<T> {
+        let options: RequestOptionsArgs = this.setHeaders({});
         return super.delete(url, options)
             .map((res: Response) => res.json())
             .catch(error => this.catchError(error));
@@ -85,14 +84,17 @@ export class HttpService extends Http {
         let newHeaders: Headers = new Headers();
 
         let keys = Object.keys(headersToSet);
-        for (var i in keys) 
+        for (var i in keys)
             newHeaders.append(keys[i], headersToSet[keys[i]]);
 
         //newHeaders.append('Authorization', `Bearer ` + token);
         newHeaders.append('Cache-Control', 'no-cache');
         newHeaders.append('Pragma', 'no-cache');
 
-        let options: RequestOptionsArgs = { headers: newHeaders };
+        let options: RequestOptionsArgs = { 
+            withCredentials: true,
+            headers: newHeaders 
+        };
         return options;
     }
 

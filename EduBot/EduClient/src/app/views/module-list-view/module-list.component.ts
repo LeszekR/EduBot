@@ -81,7 +81,7 @@ export class ModuleListComponent implements OnInit {
         // if (!continue) return;
 
 
-        let moduleId  = this.route.snapshot.children[0].params["moduleId"];
+        let moduleId = this.route.snapshot.children[0].params["moduleId"];
 
         this.moduleService.deleteModule(moduleId)
             .subscribe(newModules => {
@@ -89,6 +89,12 @@ export class ModuleListComponent implements OnInit {
                 this.router.navigate(['']);
                 this.modules = newModules;
             });
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
+    private nextModule() {
+        this.moduleService.nextModule()
+            .subscribe(res => console.log(res));
     }
 
 

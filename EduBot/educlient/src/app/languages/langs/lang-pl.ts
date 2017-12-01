@@ -35,7 +35,7 @@ export const LANG_PL_TRANS = {
     'toolbar.edit_mode': 'Tryb edycji',
     'toolbar.log_in': 'Zaloguj się',
     'toolbar.manage_users': 'Zarządzaj użytkownikami',
-    'toolbar.view_report': 'Wyświetl raport'
-    
-    
+    'toolbar.view_report': 'Wyświetl raport',
+
+    'learn.next_module': 'Następny moduł'
 };

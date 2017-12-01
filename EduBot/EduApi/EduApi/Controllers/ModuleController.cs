@@ -7,11 +7,13 @@ using System.Collections.Generic;
 using EduApi.Dto.Mappers;
 using EduApi.Services;
 using EduApi.Services.Interfaces;
+using System.Net.Http.Headers;
+using System.Net.Http;
 
 namespace EduApi.Controllers {
 
 
-    // -------------------------------------------------------------------------------------------------
+    // =================================================================================================
     [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*", SupportsCredentials = true)]
     public class ModuleController : ApiController {
 
@@ -29,6 +31,23 @@ namespace EduApi.Controllers {
 
         // PUBLIC
         // =============================================================================================
+        [HttpGet]
+        public IHttpActionResult GetNextModule() {
+
+            CookieHeaderValue cookie = Request.Headers.GetCookies("session-id").FirstOrDefault();
+
+            if (cookie == null)
+                return Unauthorized();
+
+            string sessionId = cookie["session-id"].Value;
+
+            return Ok(_moduleService.NextModule(sessionId));
+
+            //return Ok("session-id: " + sessionId);
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
         public IHttpActionResult GetSimpleModules() {
             return Ok(_moduleService.GetSimpleModules());
         }

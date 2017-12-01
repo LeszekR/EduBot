@@ -35,5 +35,7 @@ export const LANG_EN_TRANS = {
     'toolbar.edit_mode': 'Edition mode',
     'toolbar.log_in': 'Log in',
     'toolbar.manage_users': 'Manage user',
-    'toolbar.view_report': 'View report'
+    'toolbar.view_report': 'View report',
+
+    'learn.next_module': 'Next module'
 };

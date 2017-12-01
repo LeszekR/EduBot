@@ -42,5 +42,11 @@ namespace EduApi.Services.Interfaces
          * 2. Jeżeli to był moduł nadrzędny - usuwa id_grupy z dla wszystkich modułów podrzędnych
          */
         List<ModuleDTO> DeleteModule(int id);
+
+        /* 1. Sprawdza jaki użytkownik jest przyłączony z tym numerem sesji
+         * 2. Na podstawie postępów tego użytkownika decyduje który moduł powinien zostać teraz podany
+         * 3. Wysyła id rekomendowanego modułu do frontu
+         */
+        ModuleDTO NextModule(string sessionId);
     }
 }

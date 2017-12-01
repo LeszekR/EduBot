@@ -5,7 +5,7 @@ export const LANG_DE_TRANS = {
     'common.cancel': 'Stornieren',
     'common.delete': 'Löschen',
     'common.save': 'Sparen',
-    
+
     'edit.add_module': 'Modul hinzufügen',
     'edit.add_meta_module': 'Fater Modul',
     'edit.del_module': '<brak tłumaczenia>',
@@ -35,5 +35,7 @@ export const LANG_DE_TRANS = {
     'toolbar.edit_mode': 'Ausgabemodus',
     'toolbar.log_in': 'Einloggen',
     'toolbar.manage_users': 'Nutzer verwalten',
-    'toolbar.view_report': 'Zeige Bericht'
+    'toolbar.view_report': 'Zeige Bericht',
+
+    'learn.next_module': '<brak tłumaczenia>'
 };

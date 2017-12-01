@@ -3,13 +3,18 @@ using EduApi.Dto.Mappers;
 using EduApi.DTO;
 using EduApi.Services.Interfaces;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 
 namespace EduApi.Services {
 
+    // =================================================================================================
     public class ModuleService : IModuleService {
 
         private readonly IModuleRepository _moduleRepository;
 
+
+        // CONSTRUCTOR
+        // =============================================================================================
         #region Constructor
         public ModuleService(IModuleRepository moduleRepository) {
             _moduleRepository = moduleRepository;
@@ -17,7 +22,31 @@ namespace EduApi.Services {
         #endregion
 
 
-        // ---------------------------------------------------------------------------------------------
+        // PUBLIC
+        // =============================================================================================
+        public ModuleDTO NextModule(string sessionId) {
+
+            /* source: 
+             * https://stackoverflow.com/questions/10960131/authentication-authorization-and-session-management-in-traditional-web-apps-and
+             * 
+             * 1. give the client an identifier, be it via a Set-Cookie HTTP response header, 
+             * inside the response body (XML/JSON auth response).
+             * 
+             * 2. have a mechanism to maintain identifier/client association, for example 
+             * a database table that associates identifier 00112233445566778899aabbccddeeff 
+             * with client/user #1337.
+             * 
+             * 3. have the client resend the identifier sent to it at (1.) in all subsequent requests, 
+             * be it in an HTTP Cookie request header, a ?sid=00112233445566778899aabbccddeeff param(*).
+             * 
+             * 4. lookup the received identifier, using the mechanism at (2.), check if a valid 
+             * authentication, and is authorized to do requested operation, and then proceed 
+             * with the operation on behalf on the auth'd user.
+             */
+
+            return null;
+        }
+
         public List<ModuleDTO> GetSimpleModules() {
             List<ModuleDTO> modules = _moduleRepository.All().GetSimpleDTOList();
             modules.Sort((a, b) => (a.id > b.id ? 1 : -1));

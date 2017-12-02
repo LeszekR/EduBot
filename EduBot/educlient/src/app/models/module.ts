@@ -15,8 +15,6 @@ export class Module {
     testType: string;
     testTask: string;
     testAnswer: string;
-    
-    // isNew: boolean;
 
 
     // CONSTRUCTOR
@@ -31,6 +29,5 @@ export class Module {
         this.testType = "";
         this.testTask = "";
         this.testAnswer = "";
-        // this.isNew = true;
     }
 }

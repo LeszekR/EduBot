@@ -1,13 +1,13 @@
 <div class="list-group mt-2 mt-md-0 pb-md-5 pl-md-2" style="width: inherit;">
 
-    <div class="align-items-center d-inline-flex fa-div" *ngIf="context.editModuleId == null" (click)="addMetaModule()" >
-        <i class="fa fa-plus fa-2x m-1" aria-hidden="true" ></i>
-        <span style="font-size: 1rem" > {{ 'edit.add_meta_module' | translate }} </span>
-    </div>
-
     <div class="align-items-center d-inline-flex fa-div" *ngIf="context.editModuleId == null" (click)="addModule()" >
         <i class="fa fa-plus fa-2x m-1" aria-hidden="true" ></i>
         <span style="font-size: 1rem" > {{ 'edit.add_module' | translate }} </span>
+    </div>
+
+    <div class="align-items-center d-inline-flex fa-div" *ngIf="context.editModuleId == null" (click)="addMetaModule()" >
+        <i class="fa fa-plus fa-2x m-1" aria-hidden="true" ></i>
+        <span style="font-size: 1rem" > {{ 'edit.add_meta_module' | translate }} </span>
     </div>
 
     <div class="align-items-center d-inline-flex fa-div" *ngIf="context.editModuleId == null" (click)="deleteModule()" >

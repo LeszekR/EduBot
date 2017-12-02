@@ -10,6 +10,7 @@ using Microsoft.Owin.Security.Jwt;
 
 [assembly: OwinStartup(typeof(EduApi.App_Start.Startup))]
 
+
 namespace EduApi.App_Start {
 
 

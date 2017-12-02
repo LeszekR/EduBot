@@ -27,7 +27,8 @@ export const LANG_EN_TRANS = {
     'login.register': 'Register',
     'login.register_new_user': 'Register new user',
     'login.repeat_password': 'Repeat password',
-
+    'login.success': 'You are logged in.',
+    
     'module.diff-level.Easy': 'Easy',
     'module.diff-level.Medium': 'Medium',
     'module.diff-level.Hard': 'Hard',

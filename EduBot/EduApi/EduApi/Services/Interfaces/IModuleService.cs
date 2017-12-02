@@ -1,8 +1,11 @@
 ﻿using EduApi.DTO;
 using System.Collections.Generic;
 
+
 namespace EduApi.Services.Interfaces
 {
+
+    // =================================================================================================
     public interface IModuleService
     {
         // ---------------------------------------------------------------------------------------------
@@ -11,7 +14,7 @@ namespace EduApi.Services.Interfaces
         List<ModuleDTO> GetSimpleModules();
 
         // ---------------------------------------------------------------------------------------------
-        /* Pobiera moduł wybrany wg jego id. */
+        /* Pobiera cały moduł wybrany wg jego id. */
         ModuleDTO GetModule(int id);
 
         // ---------------------------------------------------------------------------------------------
@@ -43,9 +46,8 @@ namespace EduApi.Services.Interfaces
          */
         List<ModuleDTO> DeleteModule(int id);
 
-        /* 1. Sprawdza jaki użytkownik jest przyłączony z tym numerem sesji
-         * 2. Na podstawie postępów tego użytkownika decyduje który moduł powinien zostać teraz podany
-         * 3. Wysyła id rekomendowanego modułu do frontu
+        /* 1. Na podstawie postępów użytkownika decyduje który moduł powinien zostać teraz podany
+         * 2. Wysyła id rekomendowanego modułu do frontu
          */
         ModuleDTO NextModule(int userId);
     }

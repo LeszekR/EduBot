@@ -61,11 +61,5 @@ namespace EduApi.Controllers {
         public IHttpActionResult DeleteModule(int id) {
             return Ok(_moduleService.DeleteModule(id));
         }
-
-        //// ---------------------------------------------------------------------------------------------
-        //[HttpPost]
-        //public IHttpActionResult Usun(int id) {
-        //    return Ok(_moduleService.DeleteModule(id));
-        //}
     }
 }

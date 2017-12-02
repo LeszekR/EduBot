@@ -27,7 +27,8 @@ export const LANG_DE_TRANS = {
     'login.register': 'Neu registrieren',
     'login.register_new_user': 'Neuen Benutzer registrieren',
     'login.repeat_password': 'Passwort wiederholen',
-
+    'login.success': '<brak tłumaczenia>',
+    
     'module.diff-level.Easy': 'Einfach',
     'module.diff-level.Medium': 'Mittel',
     'module.diff-level.Hard': 'Hart',

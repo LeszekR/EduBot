@@ -105,7 +105,7 @@ export class ModuleListComponent implements OnInit {
 
         let group: Module[] = [];
 
-        let moduleIds: number[] = [1, 12, 8, 13];
+        let moduleIds: number[] = [8,10,12];
 
         let modules = this.modules;
         let modServ: ModuleService = this.moduleService;

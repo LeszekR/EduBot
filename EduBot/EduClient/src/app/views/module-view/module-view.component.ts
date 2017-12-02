@@ -51,10 +51,6 @@ export class ModuleViewComponent implements OnInit {
 
   // --------------------------------------------------------------------------------------------------------------
   save() {
-    // this.module.id = this.context.editModuleId;
-    // this.module.id_group = 0;   // TODO: pobrac z pola edycji
-    // this.module.testType = "choice";   // TODO: pobrac z pola edycji
-
     this.module.content = this.contentComponent.content;
     this.module.example = this.exampleComponent.example;
     this.module.testTask = this.moduleService.StringifyClosedQuestions(this.quizComponent);

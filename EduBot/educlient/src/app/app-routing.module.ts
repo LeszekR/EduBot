@@ -13,7 +13,8 @@ const routes: Routes = [
     { path: '', component: WelcomeComponent },
     //Lazy loading module, only when needed
     { path: 'user-management', loadChildren: 'app/views/user-management/user-management.module#UserManagementModule' },
-    {   path: 'module/:moduleId', component: ModuleViewComponent,
+    {   path: 'module/:moduleId', 
+        component: ModuleViewComponent,
         data: {},
         resolve: {
             module: ModuleResolver

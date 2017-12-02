@@ -1,5 +1,4 @@
-﻿using System;
-using EduApi.DAL.Core;
+﻿using EduApi.DAL.Core;
 using EduApi.DAL.Interfaces;
 using EduApi.DTO;
 using System.Linq;

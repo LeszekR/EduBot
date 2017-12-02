@@ -1,8 +1,6 @@
 ﻿using EduApi.DTO;
 using EduApi.Services.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -39,22 +37,7 @@ namespace EduApi.Controllers {
             if (userLog == null)
                 return StatusCode(HttpStatusCode.Unauthorized);
 
-            //return Ok(userLog);
-
-            string sessionId = Guid.NewGuid().ToString();
-            var cookie = new CookieHeaderValue("session-id", sessionId) {
-                Expires = DateTimeOffset.Now.AddDays(1),
-                Domain = Request.RequestUri.Host,
-                Path = "/"
-            };
-
-            //Create response as usual
-            var response = Request.CreateResponse(HttpStatusCode.OK, userLog);
-            response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            response.Headers.AddCookies(new[] { cookie });
-
-            //Use ResponseMessage to convert it to IHttpActionResult
-            return ResponseMessage(response);
+            return Ok(userLog);
         }
 
         // ---------------------------------------------------------------------------------------------

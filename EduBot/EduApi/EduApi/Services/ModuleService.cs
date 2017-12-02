@@ -3,7 +3,6 @@ using EduApi.Dto.Mappers;
 using EduApi.DTO;
 using EduApi.Services.Interfaces;
 using System.Collections.Generic;
-using System.Net.Http.Headers;
 
 namespace EduApi.Services {
 
@@ -145,6 +144,12 @@ namespace EduApi.Services {
             _moduleRepository.Delete(id);
 
             return GetSimpleModules();
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
+        public ModuleDTO NextModule(int userId) {
+            return null;
         }
     }
 }

@@ -1,11 +1,7 @@
 ﻿using EduApi.DTO;
 using System.Web.Http;
 using System.Linq;
-using EduApi.DAL;
 using System.Web.Http.Cors;
-using System.Collections.Generic;
-using EduApi.Dto.Mappers;
-using EduApi.Services;
 using EduApi.Services.Interfaces;
 using System.Net.Http.Headers;
 using System.Net.Http;
@@ -33,17 +29,8 @@ namespace EduApi.Controllers {
         // =============================================================================================
         [HttpGet]
         public IHttpActionResult GetNextModule() {
-
-            CookieHeaderValue cookie = Request.Headers.GetCookies("session-id").FirstOrDefault();
-
-            if (cookie == null)
-                return Unauthorized();
-
-            string sessionId = cookie["session-id"].Value;
-
-            return Ok(_moduleService.NextModule(sessionId));
-
-            //return Ok("session-id: " + sessionId);
+            int userId = 0;
+            return Ok(_moduleService.NextModule(userId));
         }
 
 

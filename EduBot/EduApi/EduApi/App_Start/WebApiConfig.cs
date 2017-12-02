@@ -8,16 +8,20 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 
 namespace EduApi {
-    public static class WebApiConfig
-    {
-        public static HttpConfiguration Register()
-        {
+
+    public static class WebApiConfig {
+
+        public static HttpConfiguration Register() {
+
             var config = new HttpConfiguration();
 
             config.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(DepentencyInjectorConfig.Init(config));
-            config.Filters.Add(new GlobalExceptionFilter());
 
-            config.MapHttpAttributeRoutes();
+            config.Filters.Add(new GlobalExceptionFilter());
+            //config.Filters.Add(new EduAthenticationFilter());
+
+            //config.SuppressHostPrincipal();
+
 
             var corsOrigins = "*";
             var corsHeaders = "*";
@@ -50,6 +54,9 @@ namespace EduApi {
 
             formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
+
+
+            config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

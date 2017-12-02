@@ -1,17 +1,14 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Web;
 using System.Web.Http.Tracing;
 using System.Web.Script.Serialization;
 
-namespace EduApi.Log
-{
+namespace EduApi.Log {
     public sealed class NLogger : System.Web.Http.Tracing.ITraceWriter
     {
         private static readonly Logger ClassLogger = LogManager.GetCurrentClassLogger();

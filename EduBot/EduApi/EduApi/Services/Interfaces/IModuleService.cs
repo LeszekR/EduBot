@@ -47,6 +47,6 @@ namespace EduApi.Services.Interfaces
          * 2. Na podstawie postępów tego użytkownika decyduje który moduł powinien zostać teraz podany
          * 3. Wysyła id rekomendowanego modułu do frontu
          */
-        ModuleDTO NextModule(string sessionId);
+        ModuleDTO NextModule(int userId);
     }
 }

@@ -64,7 +64,7 @@ export class ModuleViewComponent implements OnInit {
       let questions = this.moduleService.UnpackClosedQuestions(this.module.test_task);
 
       // TODO: mock, usunąć ***************************
-      if (questions == undefined || '') questions = new MockData().mockQuestions;
+      // if (questions == undefined || '') questions = new MockData().mockQuestions;
       // **********************************************
 
       this.questions = questions;

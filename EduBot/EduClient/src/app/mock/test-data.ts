@@ -13,9 +13,9 @@ export class MockData {
 
     public mockQuestions: ClosedQuestion[] = [
         <ClosedQuestion>{
-            question: "Jaka jest kaczka?",
-            correct_idx: 2,
-            answers: ["mała", "duża", "nijaka", "nie wiem"]
+            question: "Chromolęta - cena, wypłostki i 3 podstawowe zastosowania. Wyjasnij mechanizm namnażania, opisz przydaczki niewklęsłe, maszynowane do wciór.",
+            correct_idx: 0,
+            answers: ["1 buś, wypłaszanie, kronowanie i chuśtkowanie", "4 duże konie, krowa, stado lemurów giętkich i rurka-gazówka", "200 kun, wygonne podkopy umacniane szkliwem", "nie wiem"]
         },
         <ClosedQuestion>{
             question: "Grube bale leżą na łące. Kto je poprzynosił, dlaczego i jak zostaną późnie pocieniowane?",
@@ -23,9 +23,9 @@ export class MockData {
             answers: ["Bysio z Dużej, nie zostaną w ogóle.", "Ludzie z bagna to przyniesli! to nie my!", "Stefan. To zawsze on, przecie waidomo."]
         },
         <ClosedQuestion>{
-            question: "Chromolęta - cena, wypłostki i 3 podstawowe zastosowania. Wyjasnij mechanizm namnażania, opisz przydaczki niewklęsłe, maszynowane do wciór.",
-            correct_idx: 0,
-            answers: ["1 buś, wypłaszanie, kronowanie i chuśtkowanie", "4 duże konie, krowa, stado lemurów giętkich i rurka-gazówka", "200 kun, wygonne podkopy umacniane szkliwem", "nie wiem"]
+            question: "Jaka jest kaczka?",
+            correct_idx: 2,
+            answers: ["mała", "duża", "nijaka", "nie wiem"]
         },
         <ClosedQuestion>{
             question: "Wór kostek małych to w podstawowej wersji jest:",

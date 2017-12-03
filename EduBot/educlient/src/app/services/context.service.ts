@@ -11,6 +11,7 @@ export class ContextService {
 
     userRole: Role;
     editModuleId: number;
+    isEditMode: boolean = false;
 
 
     // PUBLIC

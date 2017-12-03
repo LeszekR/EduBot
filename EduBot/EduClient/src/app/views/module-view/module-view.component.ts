@@ -6,7 +6,6 @@ import { TestType } from '../../models/enum-test-type';
 import { DiffLevel } from '../../models/enum-diff-level';
 import { Module } from '../../models/module';
 
-
 //Services
 import { ModuleService } from '../../services/module.service';
 import { ContextService } from '../../services/context.service';

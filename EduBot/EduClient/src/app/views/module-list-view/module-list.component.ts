@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 
 //Models
@@ -15,11 +14,16 @@ import { TranslatePipe } from '../../languages/translate.pipe';
 // ==================================================================================================================
 @Component({
     selector: 'module-list-view',
-    templateUrl: './module-list.component.html'
+    templateUrl: './module-list.component.html',
+    styles: [`
+        .list-group-item { line-height: 0.2 }
+    `]
 })
 export class ModuleListComponent implements OnInit {
 
     modules: Module[];
+    selectedModuleId: number;
+    selectedModuleIds: number[];
 
     // CONSTRUCTOR
     // ==============================================================================================================
@@ -27,7 +31,6 @@ export class ModuleListComponent implements OnInit {
         private moduleService: ModuleService,
         private context: ContextService,
         private messageService: MessageService,
-        private route: ActivatedRoute,
         private router: Router
     ) { }
 
@@ -35,6 +38,7 @@ export class ModuleListComponent implements OnInit {
     // PUBLIC
     // ==============================================================================================================
     ngOnInit() {
+        this.selectedModuleIds = new Array();
         this.getModules();
         this.moduleService.moduleAdded
             .subscribe(
@@ -49,7 +53,11 @@ export class ModuleListComponent implements OnInit {
     // PRIVATE
     // ==============================================================================================================
     private getModules() {
-        this.moduleService.getSimpleModules().subscribe(newModules => this.modules = newModules);
+        this.moduleService.getSimpleModules()
+            .subscribe(newModules => { 
+                this.modules = newModules;
+                this.modules.forEach( m => m.isSelected = false );
+            });
     }
 
     // --------------------------------------------------------------------------------------------------------------
@@ -58,8 +66,8 @@ export class ModuleListComponent implements OnInit {
     }
 
     // --------------------------------------------------------------------------------------------------------------
-    private editModule(id: number) {
-        this.context.editModuleId = id;
+    private editModule() {
+        this.context.editModuleId = this.selectedModuleId;
     }
 
     // --------------------------------------------------------------------------------------------------------------
@@ -80,10 +88,7 @@ export class ModuleListComponent implements OnInit {
         //     'edit.del_module_title' , 'edit.del_module_decision');
         // if (!continue) return;
 
-
-        let moduleId = this.route.snapshot.children[0].params["moduleId"];
-
-        this.moduleService.deleteModule(moduleId)
+        this.moduleService.deleteModule(this.selectedModuleId)
             .subscribe(newModules => {
                 this.context.editModuleId = null;
                 this.router.navigate(['']);

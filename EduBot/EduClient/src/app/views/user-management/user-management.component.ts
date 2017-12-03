@@ -33,7 +33,6 @@ export class UserManagementComponent implements OnInit {
         this.userService.getSimpleUsers()
             .subscribe( res => this.users = res);
 
-        this.messageService.info("AAAA", "title");
     }
 
     // --------------------------------------------------------------------------------------------------------------

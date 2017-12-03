@@ -15,6 +15,7 @@ export class Module {
     testType: string;
     testTask: string;
     testAnswer: string;
+    isSelected: boolean;
 
 
     // CONSTRUCTOR

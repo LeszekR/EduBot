@@ -1,11 +1,11 @@
 <div class="container-fluid h-100">
 
     <div class="row d-flex" *ngIf="module!=undefined" style="height: calc(100% - 50px)">
-        <div class="col-6 h-100">
+        <div class="col-6 h-100 p-0">
             <content-view [content]="module.content" [readonly]="!context.editModuleId"></content-view>
         </div>
 
-        <div class="col-6 h-100">
+        <div class="col-6 h-100 p-0">
             <example-view [example]="module.example" [readonly]="!context.editModuleId"></example-view>
         </div>
 

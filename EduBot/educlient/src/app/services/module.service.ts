@@ -102,7 +102,7 @@ export class ModuleService {
     }
 
     // --------------------------------------------------------------------------------------------------------------
-    deleteModule(id: string): Observable<Module[]> {
+    deleteModule(id: number): Observable<Module[]> {
         // return this.http.delete<Module[]>(this.moduleUrl + '/deletemodule', id);
         return this.http.delete<Module[]>(this.moduleUrl + '/deletemodule/' + id);
     }

@@ -4,7 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { HttpModule, RequestOptions, RequestMethod, XHRBackend } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { AlertModule } from 'ngx-bootstrap';
+import { AlertModule, TooltipModule } from 'ngx-bootstrap';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
 //Components
@@ -70,7 +70,8 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     FormsModule,
     AppRoutingModule,
     ModalModule.forRoot(),
-    AlertModule.forRoot()
+    AlertModule.forRoot(),
+    TooltipModule.forRoot()
   ],
   providers: [
     UserService,

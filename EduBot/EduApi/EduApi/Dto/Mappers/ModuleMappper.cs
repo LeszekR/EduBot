@@ -10,7 +10,8 @@ namespace EduApi.Dto.Mappers {
             return new ModuleDTO {
                 id = entity.id,
                 id_group = entity.id_group,
-                title = entity.title
+                title = entity.title,
+                difficulty = entity.difficulty
             };
         }
 

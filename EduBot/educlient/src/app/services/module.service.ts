@@ -36,6 +36,13 @@ export class ModuleService {
     // ==============================================================================================================
     public StringifyClosedQuestions(quizView: QuizViewComponent): string {
 
+        if (quizView == undefined)
+            return '';
+        // if (quizView.questions == undefined)
+        //     return '';
+        // if (quizView.questions.length == 0)
+        //     return '';
+
         let questionsStr = "";
 
         let q: ClosedQuestion;

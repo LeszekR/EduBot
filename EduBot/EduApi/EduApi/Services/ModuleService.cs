@@ -87,17 +87,16 @@ namespace EduApi.Services {
             var id = moduleReceived.id;
             edumodule module;
 
-            if (id == 0)
+            if (id == 0) {
                 module = new edumodule();
-            else
-                module = _moduleRepository.Get(id);
-
-            ModuleMappper.CopyModule(moduleReceived, module);
-
-            if (id == 0)
+                ModuleMappper.CopyModule(moduleReceived, module);
                 _moduleRepository.Add(module);
-            else
+            }
+            else {
+                module = _moduleRepository.Get(id);
+                ModuleMappper.CopyModule(moduleReceived, module);
                 _moduleRepository.SaveChanges();
+            }
 
             return ModuleMappper.GetDTO(module);
         }

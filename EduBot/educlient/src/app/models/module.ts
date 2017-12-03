@@ -12,9 +12,9 @@ export class Module {
     title: string;
     content: string;
     example: string;
-    testType: string;
-    testTask: string;
-    testAnswer: string;
+    test_type: string;
+    test_task: string;
+    test_answer: string;
     isSelected: boolean;
 
 
@@ -27,8 +27,8 @@ export class Module {
         this.title = "<podaj tytuł>";
         this.content = "";
         this.example = "";
-        this.testType = "";
-        this.testTask = "";
-        this.testAnswer = "";
+        this.test_type = "";
+        this.test_task = "";
+        this.test_answer = "";
     }
 }

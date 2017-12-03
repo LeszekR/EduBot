@@ -12,8 +12,6 @@ import { Module } from '../models/module'
 import { ClosedQuestion } from '../models/closed-question';
 import { QuizViewComponent } from '../views/module-view/quiz-view/quiz-view.component';
 
-// import { MockData } from '../mock/test-data'
-
 
 // ==================================================================================================================
 @Injectable()
@@ -34,19 +32,24 @@ export class ModuleService {
 
     // PUBLIC
     // ==============================================================================================================
-    public StringifyClosedQuestions(quizView: QuizViewComponent): string {
+    public StringifyClosedQuestions(questions: ClosedQuestion[]): string {
 
+        if (questions == undefined)
+            return '';
+        if (questions.length == 0)
+            return '';
+
+        
         let questionsStr = "";
-
         let q: ClosedQuestion;
         let answersStr: string;
-
-        for (var i in quizView.questions) {
-            q = quizView.questions[i];
+        
+        for (var i in questions) {
+            q = questions[i];
 
             answersStr = "";
             for (var j in q.answers)
-                answersStr += "*" + q.question;
+                answersStr += "*" + q.answers[j];
             answersStr = answersStr.substr(1);
 
             questionsStr += "#" + q.question;
@@ -60,7 +63,7 @@ export class ModuleService {
     // --------------------------------------------------------------------------------------------------------------
     public UnpackClosedQuestions(questionsStr: string): ClosedQuestion[] {
 
-        if (questionsStr == undefined || '')
+        if (questionsStr == undefined || questionsStr == '')
             return;
 
 

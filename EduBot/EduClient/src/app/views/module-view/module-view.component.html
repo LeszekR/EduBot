@@ -1,31 +1,32 @@
 <!-- <div class="container-fluid h-100" *ngIf="module!=undefined"> -->
-<div class="container-fluid h-100">
+<div class="container-fluid h-100 m-0 p-0">
 
-    <div class="row d-flex" *ngIf="module!=undefined" style="height: calc(100% - 50px)">
-        <div class="col-6 h-100 p-0">
+
+    <!-- content i example -->
+    <div class="row d-flex m-0 p-0" *ngIf="viewType==CONTENT_VIEW" style="height: calc(100% - 50px)">
+        <div class="col-6 h-100 m-0 p-0">
             <content-view [content]="module.content" [readonly]="!context.editModuleId"></content-view>
         </div>
-
-        <div class="col-6 h-100 p-0">
+        <div class="col-6 h-100 m-0 p-0">
             <example-view [example]="module.example" [readonly]="!context.editModuleId"></example-view>
         </div>
     </div>
 
 
     <!-- test - pytania otwarte -->
-    <div class="row d-flex" *ngIf="viewType==QUIZ_VIEW" style="height: calc(100% - 50px)">
-        <div class="col-12 h-100">
-            <quiz-view></quiz-view>
+    <div class="row d-flex m-0 p-0" *ngIf="viewType==QUIZ_VIEW" style="height: calc(100% - 50px)">
+        <div class="col-12 h-100 m-0 p-0">
+            <quiz-view [tx]="tx" [questions]="questions" [readonly]="!context.editModuleId"></quiz-view>
         </div>
     </div>
 
 
     <!-- test - pytanie z kodu -->
-    <div class="row d-flex" *ngIf="viewType==CODE_VIEW" style="height: calc(100% - 50px)">
-        <div class="col-6 h-100">
+    <div class="row d-flex m-0 p-0" *ngIf="viewType==CODE_VIEW" style="height: calc(100% - 50px)">
+        <div class="col-6 h-100 m-0 p-0">
             <!-- <code-editor-view></code-editor-view> -->
         </div>
-        <div class="col-56h-100">
+        <div class="col-56h-100 m-0 p-0">
             <!-- <code-result-view></code-result-view> -->
         </div>
     </div>
@@ -37,13 +38,10 @@
 
             <!-- kontrolki edycji -->
             <div class="row col-12 h-100 ml-3 pl-0" *ngIf="context.editModuleId">
-                <div class="d-flex">
+                <div class="col-7 pl-0">
                     <input type="text" class="col-md-12 form-control" [(ngModel)]="module.title" />
-                    <!-- <select class="col-md-6 form-control ml-3" [(ngModel)]="module.difficulty">
-                        <option class="form-control" *ngFor="let level of diffLevels | keys" [value]="level.key">{{ 'module.diff-level.' + level.value | translate }}</option>
-                    </select> -->
                 </div>
-                <div class="ml-auto">
+                <div class="ml-1">
                     <button (click)="save()" class="btn btn-primary">{{ 'common.save' | translate }}</button>
                     <button (click)="cancel()" class="btn btn-primary">{{ 'common.cancel' | translate }}</button>
                 </div>

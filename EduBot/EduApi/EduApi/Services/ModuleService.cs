@@ -8,6 +8,7 @@ using System.Linq;
 
 namespace EduApi.Services {
 
+
     // =================================================================================================
     public class ModuleService : IModuleService {
 
@@ -86,34 +87,17 @@ namespace EduApi.Services {
             var id = moduleReceived.id;
             edumodule module;
 
-            if (id == 0) {
+            if (id == 0)
                 module = new edumodule();
-                try
-                {
-                    _moduleRepository.Add(module);
-                }
-                catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
-                {
-                    Exception raise = dbEx;
-                    foreach (var validationErrors in dbEx.EntityValidationErrors)
-                    {
-                        foreach (var validationError in validationErrors.ValidationErrors)
-                        {
-                            string message = string.Format("{0}:{1}",
-                                validationErrors.Entry.Entity.ToString(),
-                                validationError.ErrorMessage);
-                            // raise a new exception nesting
-                            // the current instance as InnerException
-                            raise = new InvalidOperationException(message, raise);
-                        }
-                    }
-                    throw raise;
-                }
-            }
             else
                 module = _moduleRepository.Get(id);
 
-            _moduleRepository.SetNewValues(moduleReceived, module);
+            ModuleMappper.CopyModule(moduleReceived, module);
+
+            if (id == 0)
+                _moduleRepository.Add(module);
+            else
+                _moduleRepository.SaveChanges();
 
             return ModuleMappper.GetDTO(module);
         }

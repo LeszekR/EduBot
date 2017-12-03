@@ -22,14 +22,14 @@ export class Module {
     // CONSTRUCTOR
     // ==============================================================================================================
     constructor() {
-        this.id = 0;    
-        this.id_group = 0;
+        // this.id = 0;    
+        // this.id_group = 0;
         this.difficulty = "easy";
         this.title = "<podaj tytuł>";
         this.content = "";
-        this.example = "";
-        this.test_type = "";
-        this.test_task = "";
-        this.test_answer = "";
+        // this.example = "";
+        // this.test_type = "";
+        // this.test_task = "";
+        // this.test_answer = "";
     }
 }

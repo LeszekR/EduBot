@@ -46,7 +46,7 @@ namespace EduApi.Controllers {
 
         // ---------------------------------------------------------------------------------------------
         [HttpPost]
-        public IHttpActionResult UpsertModule(ModuleDTO moduleReceived) {
+        public IHttpActionResult UpsertModule([FromBody]ModuleDTO moduleReceived) {
             return Ok(_moduleService.UpsertModule(moduleReceived));
         }
 

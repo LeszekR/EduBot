@@ -68,13 +68,12 @@ export class ModuleService {
 
 
         let questionsArr: ClosedQuestion[] = [];
-        let q: ClosedQuestion;
-
-        let questionsStrings: string[];
+        
+        let questionsStrings: string[] = questionsStr.split("#");
+        
         let elements: string[];
-
-        questionsStrings = questionsStr.split("#");
-
+        let q: ClosedQuestion;
+        
         for (var i in questionsStrings) {
             elements = questionsStrings[i].split("^");
 

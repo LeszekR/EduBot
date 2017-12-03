@@ -32,6 +32,11 @@ export class ModuleViewComponent implements OnInit {
   private quizComponent: QuizViewComponent;
 
   module: Module;
+  viewType: string;
+
+  private readonly CONTENT_VIEW = 'content';
+  private readonly QUIZ_VIEW = 'quiz';
+  private readonly CODE_VIEW = 'code';
 
 
   // CONSTRUCTOR
@@ -45,7 +50,15 @@ export class ModuleViewComponent implements OnInit {
   // PUBLIC
   // ==============================================================================================================
   ngOnInit() {
-    this.route.data.subscribe(data => this.module = data.module);
+    this.route.data.subscribe(data => {
+      this.module = data.module;
+
+      let questions = this.moduleService.UnpackClosedQuestions(this.module.testTask);
+      if (questions != undefined) this.quizComponent.questions = questions;
+
+      this.viewType = this.CONTENT_VIEW;
+    }
+    );
   }
 
   // --------------------------------------------------------------------------------------------------------------

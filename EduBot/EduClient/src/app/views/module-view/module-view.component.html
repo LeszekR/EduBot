@@ -1,3 +1,4 @@
+<!-- <div class="container-fluid h-100" *ngIf="module!=undefined"> -->
 <div class="container-fluid h-100">
 
     <div class="row d-flex" *ngIf="module!=undefined" style="height: calc(100% - 50px)">
@@ -8,25 +9,56 @@
         <div class="col-6 h-100 p-0">
             <example-view [example]="module.example" [readonly]="!context.editModuleId"></example-view>
         </div>
-
     </div>
 
-    <div class="row col-12" *ngIf="context.editModuleId">
-        <div class="ml-3 d-flex">
-            <input type="text" class="col-md-12 form-control" [(ngModel)]="module.title" />
 
-            <select class="col-md-6 form-control ml-3" [(ngModel)]="module.difficulty">
-                <option class="form-control" *ngFor="let level of diffLevels | keys" [value]="level.key">{{ 'module.diff-level.' + level.value | translate }}</option>
-            </select>
-        </div>
-
-        <div class="ml-auto">
-            <button (click)="save()" class="btn btn-primary">{{ 'common.save' | translate }}</button>
-            <button (click)="cancel()" class="btn btn-primary">{{ 'common.cancel' | translate }}</button>
+    <!-- test - pytania otwarte -->
+    <div class="row d-flex" *ngIf="viewType==QUIZ_VIEW" style="height: calc(100% - 50px)">
+        <div class="col-12 h-100">
+            <quiz-view></quiz-view>
         </div>
     </div>
 
-    <quiz-view></quiz-view>
+
+    <!-- test - pytanie z kodu -->
+    <div class="row d-flex" *ngIf="viewType==CODE_VIEW" style="height: calc(100% - 50px)">
+        <div class="col-6 h-100">
+            <!-- <code-editor-view></code-editor-view> -->
+        </div>
+        <div class="col-56h-100">
+            <!-- <code-result-view></code-result-view> -->
+        </div>
+    </div>
+
+    
+    <!-- kontrolki -->
+    <div class="row col-12" style="margin-right:0; margin-left:0; padding-left:0;">
+        <div class="col-9 h-100" style="margin-left:0; padding-left:0;">
+
+            <!-- kontrolki edycji -->
+            <div class="row col-12 h-100 ml-3 pl-0" *ngIf="context.editModuleId">
+                <div class="d-flex">
+                    <input type="text" class="col-md-12 form-control" [(ngModel)]="module.title" />
+                    <!-- <select class="col-md-6 form-control ml-3" [(ngModel)]="module.difficulty">
+                        <option class="form-control" *ngFor="let level of diffLevels | keys" [value]="level.key">{{ 'module.diff-level.' + level.value | translate }}</option>
+                    </select> -->
+                </div>
+                <div class="ml-auto">
+                    <button (click)="save()" class="btn btn-primary">{{ 'common.save' | translate }}</button>
+                    <button (click)="cancel()" class="btn btn-primary">{{ 'common.cancel' | translate }}</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- przyciski widoku -->
+        <div class="col-3 h-100 m-0 p-0">
+            <button (click)="viewType=CODE_VIEW" *ngIf="viewType!==CODE_VIEW" class="btn btn-primary pull-right ml-1">{{ 'common.code' | translate }}</button>
+            <button (click)="viewType=QUIZ_VIEW" *ngIf="viewType!==QUIZ_VIEW" class="btn btn-primary pull-right ml-1">{{ 'common.quiz' | translate }}</button>
+            <button (click)="viewType=CONTENT_VIEW" *ngIf="viewType!==CONTENT_VIEW" class="btn btn-primary pull-right ml-1">{{ 'common.content' | translate }}</button>
+        </div>
+
+    </div>
 </div>
+
 
 <!-- <button (click)="delete()" class="btn btn-primary">{{ 'common.delete' | translate }}</button> -->

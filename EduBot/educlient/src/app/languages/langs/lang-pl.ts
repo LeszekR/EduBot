@@ -5,7 +5,10 @@ export const LANG_PL_TRANS = {
     'common.cancel': 'Anuluj',
     'common.delete': 'Usuń',
     'common.save': 'Zapisz',
-
+    'common.content': 'Treść',
+    'common.quiz': 'Pytania',
+    'common.code': 'Koduj',
+    
     'edit.add_module': 'Dodaj moduł',
     'edit.add_meta_module': 'Moduł nadrzędny',
     'edit.del_module': 'Usuń moduł',

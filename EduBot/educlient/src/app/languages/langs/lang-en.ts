@@ -5,7 +5,10 @@ export const LANG_EN_TRANS = {
     'common.cancel': 'Cancel',
     'common.delete': 'Delete',
     'common.save': 'Save',
-
+    'common.content': 'Content',
+    'common.quiz': 'Questions',
+    'common.code': 'Code task',
+    
     'edit.add_module': 'Add module',
     'edit.add_meta_module': 'Parent module',
     'edit.del_module': 'Delete module',

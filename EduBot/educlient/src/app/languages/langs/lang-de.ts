@@ -5,7 +5,10 @@ export const LANG_DE_TRANS = {
     'common.cancel': 'Stornieren',
     'common.delete': 'Löschen',
     'common.save': 'Sparen',
-
+    'common.content': '<brak tłuamcz>',
+    'common.quiz': '<brak tłuamcz>',
+    'common.code': '<brak tłuamcz>',
+    
     'edit.add_module': 'Modul hinzufügen',
     'edit.add_meta_module': 'Fater Modul',
     'edit.del_module': '<brak tłumaczenia>',

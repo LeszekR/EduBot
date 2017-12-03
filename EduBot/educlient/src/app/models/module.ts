@@ -12,10 +12,11 @@ export class Module {
     title: string;
     content: string;
     example: string;
+
+    isSelected: boolean;
     test_type: string;
     test_task: string;
     test_answer: string;
-    isSelected: boolean;
 
 
     // CONSTRUCTOR

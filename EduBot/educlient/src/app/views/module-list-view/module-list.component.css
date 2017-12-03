@@ -1,0 +1,41 @@
+.list-group-item { 
+    line-height: 0.2;
+    margin-bottom: 1px;
+}
+
+.lvl-easy {
+    background-color: #dff0d8;
+    border-color: #d0e9c6;
+    color: #3c763d;
+}
+
+.lvl-medium {
+    background-color: #fff2ae;
+    border-color: #faf2cc;
+    color: #8a6d3b;
+}
+
+.lvl-hard {
+    background-color: #f2dede;
+    border-color: #ebcccc;
+    color: #a94442;
+}
+
+.lvl-easy.active {
+    background-color: #3c763d;
+    border-color: #d0e9c6;
+    color: #dff0d8;
+}
+
+.lvl-medium.active {
+    background-color: #8a6d3b;
+    border-color: #d0e9c6;
+    color: #fff2ae;
+}
+
+.lvl-hard.active {
+    background-color: #a94442;
+    border-color: #d0e9c6;
+    color: #f2dede;
+}
+

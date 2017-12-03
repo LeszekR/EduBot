@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
-import { TestData } from './mock/test-data';
-import { TestService } from './mock/test.service';
+import { ContextService } from './services/context.service';
 
 // ==================================================================================================================
 @Component({
@@ -15,12 +14,10 @@ export class AppComponent implements OnInit {
   @ViewChild('loginModal')
   loginModal: ModalDirective;
 
-  someData: TestData;
-
 
   // CONSTRUCTOR
   // ==============================================================================================================
-  constructor(private testService: TestService) { }
+  constructor(private context: ContextService) { }
 
 
   // PUBLIC

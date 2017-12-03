@@ -1,9 +1,11 @@
 ﻿export const LANG_PL_NAME = 'pl';
 
 export const LANG_PL_TRANS = {
+    'common.add': 'Dodaj',
     'common.ok': 'Ok',
     'common.cancel': 'Anuluj',
     'common.delete': 'Usuń',
+    'common.edit': 'Edytuj',
     'common.save': 'Zapisz',
     'common.content': 'Treść',
     'common.quiz': 'Pytania',
@@ -15,6 +17,8 @@ export const LANG_PL_TRANS = {
     'edit.del_module_title': 'Usuwanie modułu',
     'edit.del_module_decision': 'Czy na pewno chcesz usunąć ten moduł?',
     'edit.del_module_failed': 'Nie udało się usunąć modułu.',
+    'edit.enter_edit_mode': 'Włącz tryb edycji',
+    'edit.exit_edit_mode': 'Wyłącz tryb edycji',
     
     'error.login.credentials': 'Nieprawidłowe dane logowania',
     'error.login.repeat': 'Hasła są różne',

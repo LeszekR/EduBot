@@ -1,9 +1,11 @@
 ﻿export const LANG_EN_NAME = 'en';
 
 export const LANG_EN_TRANS = {
+    'common.add': 'Add',
     'common.ok': 'Ok',
     'common.cancel': 'Cancel',
     'common.delete': 'Delete',
+    'common.edit': 'Edit',
     'common.save': 'Save',
     'common.content': 'Content',
     'common.quiz': 'Questions',
@@ -15,6 +17,8 @@ export const LANG_EN_TRANS = {
     'edit.del_module_title': 'Deleting module',
     'edit.del_module_decision': 'Are you sure you want to delete this module?',
     'edit.del_module_failed': 'Failure - the module has not been deleted.',
+    'edit.enter_edit_mode': 'Enter edit mode',
+    'edit.exit_edit_mode': 'Exit edit mode',
 
     'error.login.credentials': 'Username or password is incorrect',
     'error.login.repeat': 'Passwords are different.',

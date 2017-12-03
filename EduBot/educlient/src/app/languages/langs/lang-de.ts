@@ -1,9 +1,11 @@
 ﻿export const LANG_DE_NAME = 'de';
 
 export const LANG_DE_TRANS = {
+    'common.add': '<brak tłuamcz>',
     'common.ok': 'Ok',
     'common.cancel': 'Stornieren',
     'common.delete': 'Löschen',
+    'common.edit': '<brak tłuamcz>',
     'common.save': 'Sparen',
     'common.content': '<brak tłuamcz>',
     'common.quiz': '<brak tłuamcz>',
@@ -15,6 +17,8 @@ export const LANG_DE_TRANS = {
     'edit.del_module_title': '<brak tłumaczenia>',
     'edit.del_module_decision': '<brak tłumaczenia>',
     'edit.del_module_failed': '<brak tłumaczenia>',
+    'edit.enter_edit_mode': '<brak tłumaczenia>',
+    'edit.exit_edit_mode': '<brak tłumaczenia>',
 
     'error.login.credentials': 'Benutzername oder Passwort ist falsch',
     'error.login.repeat': 'Passwörter sind anders',

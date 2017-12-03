@@ -2,7 +2,9 @@
 using EduApi.Dto.Mappers;
 using EduApi.DTO;
 using EduApi.Services.Interfaces;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EduApi.Services {
 
@@ -48,8 +50,26 @@ namespace EduApi.Services {
 
         public List<ModuleDTO> GetSimpleModules() {
             List<ModuleDTO> modules = _moduleRepository.All().GetSimpleDTOList();
-            modules.Sort((a, b) => (a.id > b.id ? 1 : -1));
-            return modules;
+            List<ModuleDTO> hardModules = modules.Where(m => m.difficulty == "hard").ToList();
+            List<ModuleDTO> mediumModules = modules.Where(m => m.difficulty == "medium").ToList();
+            List<ModuleDTO> sortedModules = modules.Where(m => m.difficulty == "easy").ToList();
+
+            mediumModules.ForEach( mm =>
+            {
+                int idx = sortedModules.FindIndex(em => em.id_group == mm.id);
+                if(idx >= 0)
+                    sortedModules.Insert(idx, mm);
+                else sortedModules.Add(mm);
+            });
+
+            hardModules.ForEach(hm => {
+                var idx = sortedModules.FindIndex(em => em.id_group == hm.id);
+                if (idx >= 0)
+                    sortedModules.Insert(idx, hm);
+                else sortedModules.Add(hm);
+            });
+
+            return sortedModules;
         }
 
 
@@ -68,7 +88,27 @@ namespace EduApi.Services {
 
             if (id == 0) {
                 module = new edumodule();
-                _moduleRepository.Add(module);
+                try
+                {
+                    _moduleRepository.Add(module);
+                }
+                catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
+                {
+                    Exception raise = dbEx;
+                    foreach (var validationErrors in dbEx.EntityValidationErrors)
+                    {
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            string message = string.Format("{0}:{1}",
+                                validationErrors.Entry.Entity.ToString(),
+                                validationError.ErrorMessage);
+                            // raise a new exception nesting
+                            // the current instance as InnerException
+                            raise = new InvalidOperationException(message, raise);
+                        }
+                    }
+                    throw raise;
+                }
             }
             else
                 module = _moduleRepository.Get(id);

@@ -15,9 +15,7 @@ import { TranslatePipe } from '../../languages/translate.pipe';
 @Component({
     selector: 'module-list-view',
     templateUrl: './module-list.component.html',
-    styles: [`
-        .list-group-item { line-height: 0.2 }
-    `]
+    styleUrls: ['module-list.component.css']
 })
 export class ModuleListComponent implements OnInit {
 

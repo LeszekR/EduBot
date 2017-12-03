@@ -60,17 +60,21 @@ export class ModuleService {
     // --------------------------------------------------------------------------------------------------------------
     public UnpackClosedQuestions(questionsStr: string): ClosedQuestion[] {
 
+        if (questionsStr == undefined || '')
+            return;
+
+
         let questionsArr: ClosedQuestion[] = [];
         let q: ClosedQuestion;
 
         let questionsStrings: string[];
         let elements: string[];
-        
+
         questionsStrings = questionsStr.split("#");
 
         for (var i in questionsStrings) {
             elements = questionsStrings[i].split("^");
-            
+
             q = new ClosedQuestion();
             q.question = elements[0];
             q.correct_idx = Number(elements[1]);

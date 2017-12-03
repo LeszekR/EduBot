@@ -6,6 +6,7 @@ using System.Collections.Generic;
 
 namespace EduApi.Services {
 
+
     // =================================================================================================
     public class ModuleService : IModuleService {
 
@@ -66,14 +67,17 @@ namespace EduApi.Services {
             var id = moduleReceived.id;
             edumodule module;
 
-            if (id == 0) {
+            if (id == 0)
                 module = new edumodule();
-                _moduleRepository.Add(module);
-            }
             else
                 module = _moduleRepository.Get(id);
 
-            _moduleRepository.SetNewValues(moduleReceived, module);
+            ModuleMappper.CopyModule(moduleReceived, module);
+
+            if (id == 0)
+                _moduleRepository.Add(module);
+            else
+                _moduleRepository.SaveChanges();
 
             return ModuleMappper.GetDTO(module);
         }

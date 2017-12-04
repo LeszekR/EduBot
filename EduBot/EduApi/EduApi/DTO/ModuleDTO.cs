@@ -11,5 +11,6 @@ namespace EduApi.DTO {
         public string test_type { get; set; }
         public string test_task { get; set; }
         public string test_answer { get; set; }
+        public bool isSelected { get; set; }
     }
 }

@@ -39,3 +39,8 @@
     color: #f2dede;
 }
 
+.check-absolute {
+    position: absolute;
+    z-index: 1001;
+}
+

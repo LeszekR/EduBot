@@ -21,7 +21,6 @@ export class ModuleListComponent implements OnInit {
 
     modules: Module[];
     selectedModuleId: number;
-    selectedModuleIds: number[];
 
     // CONSTRUCTOR
     // ==============================================================================================================
@@ -36,14 +35,12 @@ export class ModuleListComponent implements OnInit {
     // PUBLIC
     // ==============================================================================================================
     ngOnInit() {
-        this.selectedModuleIds = new Array();
         this.getModules();
         this.moduleService.moduleAdded
-            .subscribe(
-            (m: Module) => {
-                let index = this.modules.findIndex(x => x.id == m.id);
-                this.modules[index] = m;
-            }
+            .subscribe((m: Module) => {
+                    let index = this.modules.findIndex(x => x.id == m.id);
+                    this.modules[index] = m;
+                }
             );
     }
 
@@ -60,7 +57,11 @@ export class ModuleListComponent implements OnInit {
 
     // --------------------------------------------------------------------------------------------------------------
     private addModule() {
-        this.moduleService.saveModule(new Module()).subscribe(res => this.modules.push(res));
+        console.log(this.modules);
+        if(this.modules.every(m => !m.isSelected))
+            this.moduleService.saveModule(new Module()).subscribe(res => this.modules.push(res));
+        else
+            this.addMetaModule();
     }
 
     // --------------------------------------------------------------------------------------------------------------
@@ -71,11 +72,11 @@ export class ModuleListComponent implements OnInit {
     // --------------------------------------------------------------------------------------------------------------
     private addMetaModule() {
         // TODO: pobrać grupę modułów zaznaczonych przez użytkownika dla utworzenia modułu nadrzędnego
-        // let moduleGroup: Module[] = ...
-        // moduleService.saveMetaModule(moduleGroup).subscribe(res => modules.push(res));
+        let moduleGroup = this.modules.filter(m => m.isSelected);
+        this.moduleService.saveMetaModule(moduleGroup).subscribe(res => this.modules.push(res));
 
         // TODO: usunąć mock 
-        this.mockAddMetaModule();
+        //this.mockAddMetaModule();
     }
 
     // --------------------------------------------------------------------------------------------------------------
@@ -122,6 +123,11 @@ export class ModuleListComponent implements OnInit {
                 if (group.length == moduleIds.length)
                     callback(group);
             });
+    }
+
+    moduleSelected(module: any){
+        console.log(module);
+        module.isSelected=!module.isSelected;
     }
 }
 

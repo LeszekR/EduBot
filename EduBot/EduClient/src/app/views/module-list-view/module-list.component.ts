@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 //Models
 import { Module } from '../../models/module';
@@ -28,7 +28,8 @@ export class ModuleListComponent implements OnInit {
         private moduleService: ModuleService,
         private context: ContextService,
         private messageService: MessageService,
-        private router: Router
+        private router: Router,
+        private route: ActivatedRoute
     ) { }
 
 
@@ -57,7 +58,6 @@ export class ModuleListComponent implements OnInit {
 
     // --------------------------------------------------------------------------------------------------------------
     private addModule() {
-        console.log(this.modules);
         if(this.modules.every(m => !m.isSelected))
             this.moduleService.saveModule(new Module()).subscribe(res => this.modules.push(res));
         else
@@ -73,10 +73,13 @@ export class ModuleListComponent implements OnInit {
     private addMetaModule() {
         // TODO: pobrać grupę modułów zaznaczonych przez użytkownika dla utworzenia modułu nadrzędnego
         let moduleGroup = this.modules.filter(m => m.isSelected);
-        this.moduleService.saveMetaModule(moduleGroup).subscribe(res => this.modules.push(res));
-
-        // TODO: usunąć mock 
-        //this.mockAddMetaModule();
+        this.moduleService.saveMetaModule(moduleGroup)
+            .subscribe(res => {
+                moduleGroup.forEach(m => { m.isSelected = false; m.id_group = res.id })
+                let idx = this.modules.indexOf(moduleGroup[0]);
+                this.modules.splice(idx, 0, res);
+                this.router.navigate(['module', res.id], {relativeTo: this.route});
+            });
     }
 
     // --------------------------------------------------------------------------------------------------------------
@@ -101,38 +104,4 @@ export class ModuleListComponent implements OnInit {
             .subscribe(res => console.log(res));
     }
 
-
-    // MOCK
-    // ==============================================================================================================
-    // TODO: usunąc po testach
-    private mockAddMetaModule(): void {
-
-        let group: Module[] = [];
-
-        let moduleIds: number[] = [41,43];
-
-        let modules = this.modules;
-        let modServ: ModuleService = this.moduleService;
-        var callback = function (moduleGroup: Module[]) {
-            modServ.saveMetaModule(moduleGroup).subscribe(res => modules.push(res));
-        }
-
-        for (var i in moduleIds)
-            this.moduleService.getModuleById(moduleIds[i]).subscribe(m => {
-                group[group.length] = m;
-                if (group.length == moduleIds.length)
-                    callback(group);
-            });
-    }
-
-    moduleSelected(module: any){
-        console.log(module);
-        module.isSelected=!module.isSelected;
-    }
 }
-
-// function delay(ms: number) {
-//     return new Promise<void>(function (resolve) {
-//         setTimeout(resolve, ms);
-//     });
-// }

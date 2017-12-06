@@ -10,6 +10,7 @@ import { HttpService } from './http.service';
 // Model
 import { Module } from '../models/module'
 import { ClosedQuestion } from '../models/closed-question';
+import { ClosedQuestionDTO } from '../models/closed-question-DTO';
 import { QuizViewComponent } from '../views/module-view/quiz-view/quiz-view.component';
 
 
@@ -32,51 +33,50 @@ export class ModuleService {
 
     // PUBLIC
     // ==============================================================================================================
-    public StringifyClosedQuestions(questions: ClosedQuestion[]): string {
+    public StringifyClosedQuestions(questions: ClosedQuestion[]): ClosedQuestionDTO[] {
 
         if (questions == undefined)
-            return '';
+            return null;
         if (questions.length == 0)
-            return '';
+            return null;
 
         
-        let questionsStr = "";
+        let questionsArr: ClosedQuestionDTO[] = [];
         let q: ClosedQuestion;
+        let qDTO: ClosedQuestionDTO;
         let answersStr: string;
         
         for (var i in questions) {
             q = questions[i];
+            qDTO = new ClosedQuestionDTO();
 
             answersStr = "";
             for (var j in q.answers)
                 answersStr += "*" + q.answers[j];
             answersStr = answersStr.substr(1);
 
-            questionsStr += "#" + q.question;
-            questionsStr += "^" + q.correct_idx;
-            questionsStr += "^" + answersStr;
+            qDTO.position = +i;
+            qDTO.question_answer = q.question; + "^" + q.correct_idx + "^" + answersStr;
+
+            questionsArr[questionsArr.length] = qDTO;
         }
 
-        return questionsStr.substr(1);
+        return questionsArr;
     }
 
     // --------------------------------------------------------------------------------------------------------------
-    public UnpackClosedQuestions(questionsStr: string): ClosedQuestion[] {
+    public UnpackClosedQuestions(questions: ClosedQuestionDTO[]): ClosedQuestion[] {
 
-        if (questionsStr == undefined || questionsStr == '')
+        if (questions == undefined || questions == null)
             return;
 
 
         let questionsArr: ClosedQuestion[] = [];
         let q: ClosedQuestion;
-
-        let questionsStrings: string[];
         let elements: string[];
 
-        questionsStrings = questionsStr.split("#");
-
-        for (var i in questionsStrings) {
-            elements = questionsStrings[i].split("^");
+        for (var i in questions) {
+            elements = questions[i].question_answer.split("^");
 
             q = new ClosedQuestion();
             q.question = elements[0];

@@ -49,7 +49,9 @@ namespace EduApi.Services {
         }
 
         public List<ModuleDTO> GetSimpleModules() {
+
             List<ModuleDTO> modules = _moduleRepository.All().GetSimpleDTOList();
+
             List<ModuleDTO> hardModules = modules.Where(m => m.Difficulty == "hard").ToList();
             List<ModuleDTO> mediumModules = modules.Where(m => m.Difficulty == "medium").ToList();
             List<ModuleDTO> sortedModules = modules.Where(m => m.Difficulty == "easy").ToList();
@@ -87,7 +89,9 @@ namespace EduApi.Services {
             edumodule module;
 
             if (id == 0) {
+
                 module = new edumodule();
+
                 try
                 {
                     _moduleRepository.Add(module);

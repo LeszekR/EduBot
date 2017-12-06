@@ -193,6 +193,8 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Dto\Mappers\ModuleMappper.cs" />
     <Compile Include="Dto\Mappers\UserMapper.cs" />
+    <Compile Include="Dto\TestCodeDTO.cs" />
+    <Compile Include="Dto\TestQuestionDTO.cs" />
     <Compile Include="Log\GlobalExceptionFilter.cs" />
     <Compile Include="Log\NLogger.cs" />
     <Compile Include="Repositories\Core\IRepository.cs" />

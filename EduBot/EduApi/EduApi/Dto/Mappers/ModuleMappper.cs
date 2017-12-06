@@ -10,6 +10,7 @@ namespace EduApi.Dto.Mappers {
             return new ModuleDTO {
                 Id = entity.id,
                 Group_id = entity.group_id,
+                Group_position = entity.group_position,
                 Title = entity.title,
                 Difficulty = entity.difficulty
             };
@@ -23,12 +24,14 @@ namespace EduApi.Dto.Mappers {
             return new ModuleDTO {
                 Id = entity.id,
                 Group_id = entity.group_id,
+                Group_position = entity.group_position,
                 Title = entity.title,
                 Difficulty = entity.difficulty,
                 Content = entity.content,
-                Example = entity.example
+                Example = entity.example,
+                Test_question = entity.test_question.Cast<TestQuestionDTO>().ToList(),
+                Test_code = entity.test_question.Cast<TestCodeDTO>().ToList()
             };
         }
-
     }
 }

@@ -26,7 +26,7 @@ namespace EduApi.DAL {
 
         // ---------------------------------------------------------------------------------------------
         public List<edumodule> SelectChildren(int id_grupy) {
-            return _context.edumodule.Where(mod => mod.id_group == id_grupy).ToList();
+            return _context.edumodule.Where(mod => mod.group_id == id_grupy).ToList();
         }
     }
 }

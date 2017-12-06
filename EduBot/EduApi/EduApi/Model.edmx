@@ -18,7 +18,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="id_group" Type="int2" />
+          <Property Name="group_id" Type="int2" />
           <Property Name="difficulty" Type="varchar" MaxLength="8000" Nullable="false" />
           <Property Name="title" Type="varchar" MaxLength="8000" Nullable="false" />
           <Property Name="content" Type="varchar" MaxLength="8000" Nullable="false" />
@@ -360,7 +360,7 @@ warning 6002: The table/view 'edumatic.public.user_question' does not have a pri
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_group" Type="Int16" />
+          <Property Name="group_id" Type="Int16" />
           <Property Name="difficulty" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="title" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="content" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" Nullable="false" />
@@ -684,7 +684,7 @@ warning 6002: The table/view 'edumatic.public.user_question' does not have a pri
             <EntityTypeMapping TypeName="edumaticModel.edumodule">
               <MappingFragment StoreEntitySet="edumodule">
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="id_group" ColumnName="id_group" />
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
                 <ScalarProperty Name="difficulty" ColumnName="difficulty" />
                 <ScalarProperty Name="title" ColumnName="title" />
                 <ScalarProperty Name="content" ColumnName="content" />

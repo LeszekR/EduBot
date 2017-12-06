@@ -9,7 +9,7 @@ namespace EduApi.Dto.Mappers {
         public static ModuleDTO GetSimpleDTO(edumodule entity) {
             return new ModuleDTO {
                 Id = entity.id,
-                Id_group = entity.id_group,
+                Group_id = entity.group_id,
                 Title = entity.title,
                 Difficulty = entity.difficulty
             };
@@ -22,7 +22,7 @@ namespace EduApi.Dto.Mappers {
         public static ModuleDTO GetDTO(edumodule entity) {
             return new ModuleDTO {
                 Id = entity.id,
-                Id_group = entity.id_group,
+                Group_id = entity.group_id,
                 Title = entity.title,
                 Difficulty = entity.difficulty,
                 Content = entity.content,

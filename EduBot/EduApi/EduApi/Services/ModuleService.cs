@@ -56,14 +56,14 @@ namespace EduApi.Services {
 
             mediumModules.ForEach( mm =>
             {
-                int idx = sortedModules.FindIndex(em => em.Id_group == mm.Id);
+                int idx = sortedModules.FindIndex(em => em.Group_id == mm.Id);
                 if(idx >= 0)
                     sortedModules.Insert(idx, mm);
                 else sortedModules.Add(mm);
             });
 
             hardModules.ForEach(hm => {
-                var idx = sortedModules.FindIndex(em => em.Id_group == hm.Id);
+                var idx = sortedModules.FindIndex(em => em.Group_id == hm.Id);
                 if (idx >= 0)
                     sortedModules.Insert(idx, hm);
                 else sortedModules.Add(hm);
@@ -149,11 +149,11 @@ namespace EduApi.Services {
             _moduleRepository.Add(newModule);
 
             // zmiana id_grupy wszystkich modułów podrzędnych na id nowo utworzonego modułu
-            // TODO - zmienić w bazie i EF id_group z short na int
+            // TODO - zmienić w bazie i EF group_id z short na int
             edumodule childModule;
             foreach (var child in moduleGroup) {
                 childModule = _moduleRepository.Get(child.Id);
-                childModule.id_group = (short)newModule.id;
+                childModule.group_id = (short)newModule.id;
                 _moduleRepository.SaveChanges();
             }
 
@@ -171,7 +171,7 @@ namespace EduApi.Services {
 
                 List<edumodule> children = _moduleRepository.SelectChildren(id);
                 foreach (var child in children)
-                    child.id_group = null;
+                    child.group_id = null;
 
                 _moduleRepository.SaveChanges();
             }

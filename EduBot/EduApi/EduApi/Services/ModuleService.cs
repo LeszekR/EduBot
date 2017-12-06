@@ -50,20 +50,20 @@ namespace EduApi.Services {
 
         public List<ModuleDTO> GetSimpleModules() {
             List<ModuleDTO> modules = _moduleRepository.All().GetSimpleDTOList();
-            List<ModuleDTO> hardModules = modules.Where(m => m.difficulty == "hard").ToList();
-            List<ModuleDTO> mediumModules = modules.Where(m => m.difficulty == "medium").ToList();
-            List<ModuleDTO> sortedModules = modules.Where(m => m.difficulty == "easy").ToList();
+            List<ModuleDTO> hardModules = modules.Where(m => m.Difficulty == "hard").ToList();
+            List<ModuleDTO> mediumModules = modules.Where(m => m.Difficulty == "medium").ToList();
+            List<ModuleDTO> sortedModules = modules.Where(m => m.Difficulty == "easy").ToList();
 
             mediumModules.ForEach( mm =>
             {
-                int idx = sortedModules.FindIndex(em => em.id_group == mm.id);
+                int idx = sortedModules.FindIndex(em => em.Id_group == mm.Id);
                 if(idx >= 0)
                     sortedModules.Insert(idx, mm);
                 else sortedModules.Add(mm);
             });
 
             hardModules.ForEach(hm => {
-                var idx = sortedModules.FindIndex(em => em.id_group == hm.id);
+                var idx = sortedModules.FindIndex(em => em.Id_group == hm.Id);
                 if (idx >= 0)
                     sortedModules.Insert(idx, hm);
                 else sortedModules.Add(hm);
@@ -83,7 +83,7 @@ namespace EduApi.Services {
         // ---------------------------------------------------------------------------------------------
         public ModuleDTO UpsertModule(ModuleDTO moduleReceived) {
 
-            var id = moduleReceived.id;
+            var id = moduleReceived.Id;
             edumodule module;
 
             if (id == 0) {
@@ -124,27 +124,24 @@ namespace EduApi.Services {
 
             // sortowanie otrzymanych modułów w kolejności id
             List<ModuleDTO> moduleList = new List<ModuleDTO>(moduleGroup);
-            moduleList.Sort((a, b) => (a.id > b.id ? 1 : -1));
+            moduleList.Sort((a, b) => (a.Id > b.Id ? 1 : -1));
 
 
             // połączenie treści, przykładów i - jeżeli jest - testów z kodu modułów podrzędnych
             edumodule newModule = new edumodule();
             string content = "";
             string example = "";
-            string testTask = "";
 
             ModuleDTO moduleDTO;
             for (var i = 0; i < moduleList.Count; i++) {
                 moduleDTO = moduleList[i];
-                content += "\n\n" + moduleDTO.content;
-                example += "\n\n" + moduleDTO.example;
-                if (moduleDTO.test_type == "code") testTask += "\n\n" + moduleDTO.test_task;
+                content += "\n\n" + moduleDTO.Content;
+                example += "\n\n" + moduleDTO.Example;
             }
             newModule.content = content.Substring(2);
             newModule.example = example.Substring(2);
-            newModule.test_task = testTask == "" ? "" : testTask.Substring(2);
 
-            newModule.difficulty = moduleGroup[0].difficulty == "easy" ? "medium" : "hard";
+            newModule.difficulty = moduleGroup[0].Difficulty == "easy" ? "medium" : "hard";
             newModule.title = "<podaj tytuł>";
 
 
@@ -155,7 +152,7 @@ namespace EduApi.Services {
             // TODO - zmienić w bazie i EF id_group z short na int
             edumodule childModule;
             foreach (var child in moduleGroup) {
-                childModule = _moduleRepository.Get(child.id);
+                childModule = _moduleRepository.Get(child.Id);
                 childModule.id_group = (short)newModule.id;
                 _moduleRepository.SaveChanges();
             }

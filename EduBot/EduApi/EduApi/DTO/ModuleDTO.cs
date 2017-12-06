@@ -1,15 +1,14 @@
 ﻿using System;
 
 namespace EduApi.DTO {
+
     public class ModuleDTO {
-        public int id { get; set; }
-        public Nullable<short> id_group { get; set; }
-        public string difficulty { get; set; }
-        public string title { get; set; }
-        public string content { get; set; }
-        public string example { get; set; }
-        public string test_type { get; set; }
-        public string test_task { get; set; }
-        public string test_answer { get; set; }
+        public int Id { get; set; }
+        public short? Id_group { get; set; }
+        public int Group_position { get; set; }
+        public string Difficulty { get; set; }
+        public string Title { get; set; }
+        public string Content { get; set; }
+        public string Example { get; set; }
     }
 }

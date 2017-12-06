@@ -16,6 +16,7 @@ namespace EduApi.DTO {
         public string Role { get; set; }
         [DataMember]
         public Nullable<int> Score { get; set; }
-
+        [DataMember]
+        public Nullable<int> Last_module { get; set; }
     }
 }

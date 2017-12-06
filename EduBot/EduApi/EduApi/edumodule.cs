@@ -17,7 +17,9 @@ namespace EduApi
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public edumodule()
         {
-            this.user_edumodule = new HashSet<user_edumodule>();
+            this.test_code = new HashSet<test_code>();
+            this.test_question = new HashSet<test_question>();
+            this.user = new HashSet<user>();
         }
     
         public int id { get; set; }
@@ -26,14 +28,15 @@ namespace EduApi
         public string title { get; set; }
         public string content { get; set; }
         public string example { get; set; }
-        public string test_type { get; set; }
-        public string test_task { get; set; }
-        public string test_answer { get; set; }
+        public int group_position { get; set; }
     
         public virtual enum_diff_level enum_diff_level { get; set; }
         public virtual edumodule_gamecontext edumodule_gamecontext { get; set; }
-        public virtual enum_test_type enum_test_type { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<user_edumodule> user_edumodule { get; set; }
+        public virtual ICollection<test_code> test_code { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<test_question> test_question { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<user> user { get; set; }
     }
 }

@@ -17,8 +17,10 @@ namespace EduApi
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public user()
         {
+            this.user_code = new HashSet<user_code>();
             this.user_distractor = new HashSet<user_distractor>();
-            this.user_edumodule = new HashSet<user_edumodule>();
+            this.user_question = new HashSet<user_question>();
+            this.edumodule = new HashSet<edumodule>();
         }
     
         public int id { get; set; }
@@ -26,11 +28,16 @@ namespace EduApi
         public string password { get; set; }
         public string role { get; set; }
         public Nullable<int> score { get; set; }
+        public Nullable<int> last_module { get; set; }
     
         public virtual enum_user_role enum_user_role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<user_code> user_code { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<user_distractor> user_distractor { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<user_edumodule> user_edumodule { get; set; }
+        public virtual ICollection<user_question> user_question { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<edumodule> edumodule { get; set; }
     }
 }

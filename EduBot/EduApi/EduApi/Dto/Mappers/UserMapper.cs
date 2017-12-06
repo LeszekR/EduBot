@@ -9,7 +9,8 @@ namespace EduApi.Dto.Mappers {
                 Login = entity.login,
                 Role = entity.role,
                 Score = entity.score,
-                Id = entity.id
+                Id = entity.id,
+                Last_module = entity.last_module
             };
         }
 

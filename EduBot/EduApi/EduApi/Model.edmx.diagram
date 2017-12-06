@@ -4,24 +4,30 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ff8029758aee4434bd49ba3c79fa5b80" Name="Diagram1">
-        <EntityTypeShape EntityType="edumaticModel.distractor" Width="1.5" PointX="3" PointY="11.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="edumaticModel.edumodule" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
-        <EntityTypeShape EntityType="edumaticModel.edumodule_gamecontext" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="edumaticModel.enum_diff_level" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="edumaticModel.enum_test_type" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="edumaticModel.enum_user_role" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="edumaticModel.user" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="edumaticModel.user_distractor" Width="1.5" PointX="5.25" PointY="8.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="edumaticModel.user_edumodule" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="d9606abb46e34df0b1cad998ab3b4db2" Name="Diagram1">
+        <EntityTypeShape EntityType="edumaticModel.distractor" Width="1.5" PointX="8.25" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="edumaticModel.edumodule" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="edumaticModel.edumodule_gamecontext" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="edumaticModel.enum_diff_level" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="edumaticModel.enum_user_role" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="edumaticModel.test_code" Width="1.5" PointX="5.25" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="edumaticModel.test_question" Width="1.5" PointX="5.25" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="edumaticModel.user" Width="1.5" PointX="8.25" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="edumaticModel.user_distractor" Width="1.5" PointX="10.5" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="edumaticModel.user_code" Width="1.5" PointX="7.5" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="edumaticModel.user_question" Width="1.5" PointX="7.5" PointY="9.125" IsExpanded="true" />
         <AssociationConnector Association="edumaticModel.user_distractor_distractor_id_fkey" ManuallyRouted="false" />
         <AssociationConnector Association="edumaticModel.edumodule_difficulty_fkey" ManuallyRouted="false" />
         <AssociationConnector Association="edumaticModel.edumodule_gamecontext_edumodule_id_fkey" ManuallyRouted="false" />
-        <AssociationConnector Association="edumaticModel.edumodule_test_type_fkey" ManuallyRouted="false" />
-        <AssociationConnector Association="edumaticModel.user_edumodule_edumodule_id_fkey" ManuallyRouted="false" />
+        <AssociationConnector Association="edumaticModel.test_code_module_id_fkey" ManuallyRouted="false" />
+        <AssociationConnector Association="edumaticModel.test_question_module_id_fkey" ManuallyRouted="false" />
         <AssociationConnector Association="edumaticModel.user_role_fkey" ManuallyRouted="false" />
+        <AssociationConnector Association="edumaticModel.user_code_code_id_fkey" ManuallyRouted="false" />
+        <AssociationConnector Association="edumaticModel.user_question_question_id_fkey" ManuallyRouted="false" />
+        <AssociationConnector Association="edumaticModel.user_code_user_id_fkey" ManuallyRouted="false" />
         <AssociationConnector Association="edumaticModel.user_distractor_user_id_fkey" ManuallyRouted="false" />
-        <AssociationConnector Association="edumaticModel.user_edumodule_user_id_fkey" ManuallyRouted="false" />
+        <AssociationConnector Association="edumaticModel.user_question_user_id_fkey" ManuallyRouted="false" />
+        <AssociationConnector Association="edumaticModel.user_edumodule" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

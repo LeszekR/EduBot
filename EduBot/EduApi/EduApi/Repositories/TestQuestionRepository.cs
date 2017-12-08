@@ -1,35 +1,37 @@
 ﻿using EduApi.DAL.Core;
-using EduApi.DAL.Interfaces;
-using EduApi.DTO;
+using EduApi.Dto;
+using EduApi.Repositories.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace EduApi.DAL {
+namespace EduApi.Repositories {
 
 
     // =================================================================================================
-    public class ModuleRepository : Repository<edumodule>, IModuleRepository {
+    public class TestQuestionRepository : Repository<test_question>, ITestQuestionRepository  {
 
         private edumaticEntities _context;
 
 
         // CONSTRUCTOR
         // =============================================================================================
-        public ModuleRepository(edumaticEntities context) : base(context) {
+        public TestQuestionRepository(edumaticEntities context) : base(context) {
             _context = context;
         }
 
 
         // PUBLIC
         // =============================================================================================
-        public void SetNewValues(ModuleDTO source, edumodule result) {
+        /* Kopiuje dane z TestQuestionDTO do edumodule pobranego z bazy i zapisuje zmiany w bazie. */
+        public void SetNewValues(TestQuestionDTO source, test_question result) {
             _context.Entry(result).CurrentValues.SetValues(source);
             _context.SaveChanges();
         }
 
         // ---------------------------------------------------------------------------------------------
-        public List<edumodule> SelectChildren(int id_grupy) {
-            return _context.edumodule.Where(mod => mod.group_id == id_grupy).ToList();
+        /* Pobiera wszystkie pytania przypisane do modułu o wskazanym id */
+        public List<test_question> SelectQuestionsForModule(int module_id) {
+            return _context.test_question.Where(q => q.module_id == module_id).ToList();
         }
     }
 }

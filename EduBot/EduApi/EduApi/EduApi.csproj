@@ -192,6 +192,7 @@
     <Compile Include="Controllers\ServerController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Dto\Mappers\ModuleMappper.cs" />
+    <Compile Include="Dto\Mappers\TestQuestionMapper.cs" />
     <Compile Include="Dto\Mappers\UserMapper.cs" />
     <Compile Include="Dto\TestCodeDTO.cs" />
     <Compile Include="Dto\TestQuestionDTO.cs" />
@@ -215,6 +216,7 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\Interfaces\IModuleRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ITestQuestionRepository.cs" />
     <Compile Include="Repositories\Interfaces\IUserRepository.cs" />
     <Compile Include="Model.Context.cs">
       <AutoGen>True</AutoGen>
@@ -232,6 +234,9 @@
       <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
     <Compile Include="Repositories\ModuleRepository.cs" />
+    <Compile Include="Repositories\TestQuestionRepository.cs" />
+    <Compile Include="Services\Interfaces\ITestQuestionService.cs" />
+    <Compile Include="Services\TestQuestionService.cs" />
     <Compile Include="test_code.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

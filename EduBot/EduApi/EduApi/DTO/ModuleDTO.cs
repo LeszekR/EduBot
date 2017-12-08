@@ -1,5 +1,4 @@
 ﻿using EduApi.Dto;
-using System;
 using System.Collections.Generic;
 
 namespace EduApi.DTO {
@@ -15,5 +14,8 @@ namespace EduApi.DTO {
         public string example { get; set; }
         public List<TestQuestionDTO> test_question { get; set; }
         public List<TestCodeDTO> test_code { get; set; }
+
+        public List<int> remove_question { get; set; }
+        public List<int> remove_code { get; set; }
     }
 }

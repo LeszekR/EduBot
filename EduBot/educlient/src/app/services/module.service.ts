@@ -33,7 +33,7 @@ export class ModuleService {
 
     // PUBLIC
     // ==============================================================================================================
-    public StringifyClosedQuestions(questions: ClosedQuestion[]): ClosedQuestionDTO[] {
+    public StringifyClosedQuestions(questions: ClosedQuestion[], moduleId: number): ClosedQuestionDTO[] {
 
         if (questions == undefined)
             return null;
@@ -55,7 +55,9 @@ export class ModuleService {
                 answersStr += "*" + q.answers[j];
             answersStr = answersStr.substr(1);
 
+            qDTO.id = q.id;
             qDTO.position = +i;
+            qDTO.module_id = moduleId;
             qDTO.question_answer = q.question; + "^" + q.correct_idx + "^" + answersStr;
 
             questionsArr[questionsArr.length] = qDTO;
@@ -79,6 +81,7 @@ export class ModuleService {
             elements = questions[i].question_answer.split("^");
 
             q = new ClosedQuestion();
+            q.id = questions[i].id;
             q.question = elements[0];
             q.correct_idx = Number(elements[1]);
             q.answers = elements[2].split("*");

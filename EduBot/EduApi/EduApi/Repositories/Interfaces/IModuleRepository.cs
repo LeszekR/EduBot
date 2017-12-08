@@ -4,7 +4,9 @@ using System.Collections.Generic;
 
 namespace EduApi.DAL.Interfaces
 {
-    public interface IModuleRepository : IRepository<edumodule>
+
+    // =================================================================================================
+        public interface IModuleRepository : IRepository<edumodule>
     {
         // ---------------------------------------------------------------------------------------------
         /* Kopiuje dane z ModuleDTO do edumodule pobranego z bazy i zapisuje zmiany w bazie. */

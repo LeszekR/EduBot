@@ -56,7 +56,7 @@ namespace EduApi.Services {
         public List<ModuleDTO> GetSimpleModules() {
 
             List<ModuleDTO> sortedModules = new List<ModuleDTO>();
-            List<ModuleDTO> orphans = new List<ModuleDTO>();
+            List<ModuleDTO> children = new List<ModuleDTO>();
 
             List<ModuleDTO> modules, hardModules, mediumModules, easyModules;
             List<ModuleDTO> mediumChildren, easyChildren;
@@ -86,13 +86,13 @@ namespace EduApi.Services {
                     easyChildren.ForEach(easyMod => {
 
                         sortedModules.Add(easyMod);
-                        orphans.Add(easyMod);
+                        children.Add(easyMod);
                     });
                 });
             });
 
-            // dodanie modułów 'easy' nie przypisanych do żadnego nadrzędnego
-            sortedModules.AddRange(orphans);
+            // modułów 'easy' nie przypisanych do żadnego nadrzędnego
+            sortedModules.AddRange(easyModules.Except(children));
 
             return sortedModules;
         }
@@ -100,13 +100,9 @@ namespace EduApi.Services {
 
         // ---------------------------------------------------------------------------------------------
         public ModuleDTO GetModule(int id) {
-
             edumodule module = _moduleRepository.Get(id);
             ModuleDTO moduleDTO = ModuleMappper.GetDTO(module);
-
-            IEnumerable<test_question> questions = _questionService.SelectQuestionsForModule(id);
-            moduleDTO.test_question = TestQuestionMapper.GetListDTO(questions);
-
+            moduleDTO.test_question = GetQuestionsForModule(module);
             return moduleDTO;
         }
 
@@ -201,11 +197,12 @@ namespace EduApi.Services {
                 _moduleRepository.SaveChanges();
             }
 
-            // usunięcie z bazy pytań przypisanych do usuwanego modułu
-            List<test_question> questions = _questionService.SelectQuestionsForModule(id);
-            foreach (var child in questions)
-                _questionService.DeleteQuestion(child.id);
-
+            // usunięcie z bazy pytań przypisanych do usuwanego modułu, jesli to moduł 'easy'
+            else {
+                List<test_question> questions = _questionService.SelectQuestionsForModule(id);
+                foreach (var child in questions)
+                    _questionService.DeleteQuestion(child.id);
+            }
 
             // usunięcie modułu
             _moduleRepository.Delete(id);
@@ -222,8 +219,42 @@ namespace EduApi.Services {
 
         // PRIVATE
         // =============================================================================================
+        private List<TestQuestionDTO> GetQuestionsForModule(edumodule module) {
+
+            List<TestQuestionDTO> questions = new List<TestQuestionDTO>();
+            IEnumerable<test_question> questionsData = null;
+
+            // pytania dla modułu 'easy'
+            if (module.difficulty == "easy") {
+                questionsData = _questionService.SelectQuestionsForModule(module.id);
+                questions = TestQuestionMapper.GetListDTO(questionsData);
+            }
+
+            // pytania dla modułów 'medium' i 'hard' - rekurencyjnie
+            else {
+                var children = _moduleRepository.SelectChildren(module.id);
+                children.Sort((a, b) => SortListView(a, b));
+                children.ForEach(child => {
+                    questions.AddRange(GetQuestionsForModule(child));
+                });
+            }
+
+            return questions;
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
         private int SortListView(ModuleDTO a, ModuleDTO b) {
-            return a.group_position > b.group_position ? 1 : -1;
+            if (a.group_position != b.group_position)
+                return a.group_position > b.group_position ? 1 : -1;
+            else
+                return a.id > b.id ? 1 : -1;
+        }
+        private int SortListView(edumodule a, edumodule b) {
+            if (a.group_position != b.group_position)
+                return a.group_position > b.group_position ? 1 : -1;
+            else
+                return a.id > b.id ? 1 : -1;
         }
     }
 }

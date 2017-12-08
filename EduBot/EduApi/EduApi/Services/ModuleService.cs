@@ -1,4 +1,5 @@
 ﻿using EduApi.DAL.Interfaces;
+using EduApi.Dto;
 using EduApi.Dto.Mappers;
 using EduApi.DTO;
 using EduApi.Repositories.Interfaces;
@@ -12,13 +13,13 @@ namespace EduApi.Services {
     public class ModuleService : IModuleService {
 
         private readonly IModuleRepository _moduleRepository;
-        private readonly TestQuestionService _questionService;
+        private readonly ITestQuestionService _questionService;
 
 
         // CONSTRUCTOR
         // =============================================================================================
         #region Constructor
-        public ModuleService(IModuleRepository moduleRepository, TestQuestionService questionService) {
+        public ModuleService(IModuleRepository moduleRepository, ITestQuestionService questionService) {
             _moduleRepository = moduleRepository;
             _questionService = questionService;
         }
@@ -54,25 +55,44 @@ namespace EduApi.Services {
         // ---------------------------------------------------------------------------------------------
         public List<ModuleDTO> GetSimpleModules() {
 
-            List<ModuleDTO> modules = _moduleRepository.All().GetSimpleDTOList();
+            List<ModuleDTO> sortedModules = new List<ModuleDTO>();
+            List<ModuleDTO> orphans = new List<ModuleDTO>();
 
-            List<ModuleDTO> hardModules = modules.Where(m => m.difficulty == "hard").ToList();
-            List<ModuleDTO> mediumModules = modules.Where(m => m.difficulty == "medium").ToList();
-            List<ModuleDTO> sortedModules = modules.Where(m => m.difficulty == "easy").ToList();
+            List<ModuleDTO> modules, hardModules, mediumModules, easyModules;
+            List<ModuleDTO> mediumChildren, easyChildren;
 
-            mediumModules.ForEach(mm => {
-                int idx = sortedModules.FindIndex(em => em.group_id == mm.id);
-                if (idx >= 0)
-                    sortedModules.Insert(idx, mm);
-                else sortedModules.Add(mm);
+
+            // pobranie danych z bazy
+            modules = _moduleRepository.All().GetSimpleDTOList();
+            hardModules = modules.Where(m => m.difficulty == "hard").ToList();
+            mediumModules = modules.Where(m => m.difficulty == "medium").ToList();
+            easyModules = modules.Where(m => m.difficulty == "easy").ToList();
+
+
+            // ustawienie wszystkich modułów w hierarchiczne drzewo
+            hardModules.Sort((a, b) => SortListView(a, b));
+            hardModules.ForEach(hardMod => {
+
+                sortedModules.Add(hardMod);
+
+                mediumChildren = mediumModules.Where(medMod => medMod.group_id == hardMod.id).ToList();
+                mediumChildren.Sort((a, b) => SortListView(a, b));
+                mediumChildren.ForEach(medMod => {
+
+                    sortedModules.Add(medMod);
+
+                    easyChildren = easyModules.Where(easyMod => easyMod.group_id == medMod.id).ToList();
+                    easyChildren.Sort((a, b) => SortListView(a, b));
+                    easyChildren.ForEach(easyMod => {
+
+                        sortedModules.Add(easyMod);
+                        orphans.Add(easyMod);
+                    });
+                });
             });
 
-            hardModules.ForEach(hm => {
-                var idx = sortedModules.FindIndex(em => em.group_id == hm.id);
-                if (idx >= 0)
-                    sortedModules.Insert(idx, hm);
-                else sortedModules.Add(hm);
-            });
+            // dodanie modułów 'easy' nie przypisanych do żadnego nadrzędnego
+            sortedModules.AddRange(orphans);
 
             return sortedModules;
         }
@@ -80,8 +100,14 @@ namespace EduApi.Services {
 
         // ---------------------------------------------------------------------------------------------
         public ModuleDTO GetModule(int id) {
+
             edumodule module = _moduleRepository.Get(id);
-            return ModuleMappper.GetDTO(module);
+            ModuleDTO moduleDTO = ModuleMappper.GetDTO(module);
+
+            IEnumerable<test_question> questions = _questionService.SelectQuestionsForModule(id);
+            moduleDTO.test_question = TestQuestionMapper.GetListDTO(questions);
+
+            return moduleDTO;
         }
 
 
@@ -91,46 +117,27 @@ namespace EduApi.Services {
             var id = moduleReceived.id;
             edumodule module;
 
+            // zapisanie nowego modułu lub zmian istniejącego
             if (id == 0) {
                 module = new edumodule();
+                ModuleMappper.CopyValues(moduleReceived, module);
                 _moduleRepository.Add(module);
-
-                //try {
-                //    _moduleRepository.Add(module);
-                //}
-                //catch (System.Data.Entity.Validation.DbEntityValidationException dbEx) {
-                //    Exception raise = dbEx;
-
-                //    foreach (var validationErrors in dbEx.EntityValidationErrors) {
-                //        foreach (var validationError in validationErrors.ValidationErrors) {
-                //            string message = string.Format(
-                //                "{0}:{1}",
-                //                validationErrors.Entry.Entity.ToString(),
-                //                validationError.ErrorMessage);
-
-                //            // raise a new exception nesting the current instance as InnerException
-                //            raise = new InvalidOperationException(message, raise);
-                //        }
-                //    }
-                //    throw raise;
-                //}
             }
-            else
+            else {
                 module = _moduleRepository.Get(id);
-
-
-            // zapisanie nowego modułu lub zmian istniejącego
-            _moduleRepository.SetNewValues(moduleReceived, module);
-
+                _moduleRepository.SetNewValues(moduleReceived, module);
+            }
 
             // zapisanie lub odświeżenie pytań przypisanych do modułu
-            foreach (var new_question in moduleReceived.test_question)
-                _questionService.UpsertQuestion(new_question);
+            if (moduleReceived.test_question != null)
+                foreach (var new_question in moduleReceived.test_question)
+                    _questionService.UpsertQuestion(new_question);
 
 
             // usunięcie pytań przysłanych w tablicy 'remove_question'
-            foreach (var rm_question_id in moduleReceived.remove_question)
-                _questionService.DeleteQuestion(rm_question_id);
+            if (moduleReceived.remove_question != null)
+                foreach (var rm_question_id in moduleReceived.remove_question)
+                    _questionService.DeleteQuestion(rm_question_id);
 
 
             return ModuleMappper.GetDTO(module);
@@ -210,6 +217,13 @@ namespace EduApi.Services {
         // ---------------------------------------------------------------------------------------------
         public ModuleDTO NextModule(int userId) {
             return null;
+        }
+
+
+        // PRIVATE
+        // =============================================================================================
+        private int SortListView(ModuleDTO a, ModuleDTO b) {
+            return a.group_position > b.group_position ? 1 : -1;
         }
     }
 }

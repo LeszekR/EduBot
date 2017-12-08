@@ -1,12 +1,13 @@
 ﻿using EduApi.Dto;
 using EduApi.Dto.Mappers;
 using EduApi.Repositories.Interfaces;
+using EduApi.Services.Interfaces;
 using System.Collections.Generic;
 
 namespace EduApi.Services {
 
     // =================================================================================================
-    public class TestQuestionService {
+    public class TestQuestionService : ITestQuestionService {
 
         private readonly ITestQuestionRepository _questionRepository;
 
@@ -29,12 +30,13 @@ namespace EduApi.Services {
 
             if (id == 0) {
                 question = new test_question();
+                TestQuestionMapper.CopyValues(questionReceived, question);
                 _questionRepository.Add(question);
             }
-            else
+            else {
                 question = _questionRepository.Get(id);
-
-            _questionRepository.SetNewValues(questionReceived, question);
+                _questionRepository.SetNewValues(questionReceived, question);
+            }
 
             return TestQuestionMapper.GetDTO(question);
         }

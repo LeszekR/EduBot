@@ -58,7 +58,7 @@ export class ModuleService {
             qDTO.id = q.id;
             qDTO.position = +i;
             qDTO.module_id = moduleId;
-            qDTO.question_answer = q.question; + "^" + q.correct_idx + "^" + answersStr;
+            qDTO.question_answer = q.question + "^" + q.correct_idx + "^" + answersStr;
 
             questionsArr[questionsArr.length] = qDTO;
         }

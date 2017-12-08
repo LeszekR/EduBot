@@ -18,7 +18,7 @@ export class MockData {
             answers: ["1 buś, wypłaszanie, kronowanie i chuśtkowanie", "4 duże konie, krowa, stado lemurów giętkich i rurka-gazówka", "200 kun, wygonne podkopy umacniane szkliwem", "nie wiem"]
         },
         <ClosedQuestion>{
-            question: "Grube bale leżą na łące. Kto je poprzynosił, dlaczego i jak zostaną późnie pocieniowane?",
+            question: "Grube bale leżą na łące. Kto je poprzynosił, dlaczego i jak zostaną później pocieniowane?",
             correct_idx: 1,
             answers: ["Bysio z Dużej, nie zostaną w ogóle.", "Ludzie z bagna to przyniesli! to nie my!", "Stefan. To zawsze on, przecie waidomo."]
         },
@@ -30,7 +30,7 @@ export class MockData {
         <ClosedQuestion>{
             question: "Wór kostek małych to w podstawowej wersji jest:",
             correct_idx: 4,
-            answers: ["żywnośc dla kota", "żywność dla marynarzy na morzu", "chrzęszcząca trzęstawka akkustyczna", "masażer de luxe bez intsrukcji"]
+            answers: ["żywnośc dla kota", "żywność dla marynarzy na morzu", "chrzęszcząca trzęsawka akustyczna", "masażer de luxe bez intsrukcji"]
         }
     ];
 

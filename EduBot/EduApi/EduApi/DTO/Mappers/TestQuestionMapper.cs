@@ -22,5 +22,13 @@ namespace EduApi.Dto.Mappers {
         public static List<TestQuestionDTO> GetListDTO(this IEnumerable<test_question> questions) {
             return questions.Select(q => GetDTO(q)).ToList();
         }
+
+        // ---------------------------------------------------------------------------------------------
+        public static void CopyValues(TestQuestionDTO source, test_question target) {
+            target.id = source.id;
+            target.module_id = source.module_id;
+            target.position = source.position;
+            target.question_answer = source.question_answer;
+        }
     }
 }

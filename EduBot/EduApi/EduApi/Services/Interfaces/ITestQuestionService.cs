@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace EduApi.Services.Interfaces {
 
     // =================================================================================================
-    interface ITestQuestionService {
+    public interface ITestQuestionService {
 
         // ---------------------------------------------------------------------------------------------
         /* Pobiera z bazy wszystkie pytania dla danego modułu. */

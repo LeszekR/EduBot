@@ -86,7 +86,8 @@ export class ModuleViewComponent implements OnInit {
 
   // --------------------------------------------------------------------------------------------------------------
   save() {
-    this.module.test_question = this.moduleService.StringifyClosedQuestions(this.questions);
+    this.module.test_question = this.moduleService
+      .StringifyClosedQuestions(this.questions, this.context.editModuleId);
 
     this.moduleService.saveModule(this.module).subscribe(res => this.module = res);
     this.moduleService.moduleAdded.emit(this.module);

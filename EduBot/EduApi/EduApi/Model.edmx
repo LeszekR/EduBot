@@ -18,7 +18,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="group_id" Type="int2" />
+          <Property Name="group_id" Type="int4" />
           <Property Name="difficulty" Type="varchar" MaxLength="8000" Nullable="false" />
           <Property Name="title" Type="varchar" MaxLength="8000" Nullable="false" />
           <Property Name="content" Type="varchar" MaxLength="8000" Nullable="false" />
@@ -360,7 +360,7 @@ warning 6002: The table/view 'edumatic.public.user_question' does not have a pri
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="group_id" Type="Int16" />
+          <Property Name="group_id" Type="Int32" />
           <Property Name="difficulty" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="title" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="content" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" Nullable="false" />

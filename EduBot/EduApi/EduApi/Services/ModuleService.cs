@@ -1,4 +1,5 @@
-﻿using EduApi.DAL.Interfaces;
+﻿using EduApi.Controllers;
+using EduApi.DAL.Interfaces;
 using EduApi.Dto;
 using EduApi.Dto.Mappers;
 using EduApi.DTO;
@@ -110,7 +111,7 @@ namespace EduApi.Services {
 
             // zapisanie kolejnego modułu na liście wysłanych użytkownikowi
             // oraz zapamiętanie nowego ostatniego modułu użytkownika
-            if (saveLastModule) {
+            if (saveLastModule && newModule != null) {
                 user.edumodule.Add(newModule);
                 user.last_module = newModule.id;
                 _userService.SaveChanges();
@@ -290,7 +291,16 @@ namespace EduApi.Services {
             // TODO: sprawdzenie dotychczasowych yników 
             // TODO: dostosowanie trudności modułu do emocji i wyników
 
-            return DiffChange.NO_CHANGE;
+            var emoState = EmoServiceController._emoState;
+
+            DiffChange change = DiffChange.NO_CHANGE;
+
+            if (emoState == EmoServiceController.EmoState.BORED)
+                change = DiffChange.UP;
+            else if (emoState == EmoServiceController.EmoState.FRUSTRATED)
+                change = DiffChange.DOWN;
+
+            return change;
         }
 
 

@@ -23,7 +23,7 @@ namespace EduApi
         }
     
         public int id { get; set; }
-        public Nullable<short> group_id { get; set; }
+        public Nullable<int> group_id { get; set; }
         public string difficulty { get; set; }
         public string title { get; set; }
         public string content { get; set; }

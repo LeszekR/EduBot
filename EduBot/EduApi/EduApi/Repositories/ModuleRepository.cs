@@ -22,19 +22,25 @@ namespace EduApi.DAL {
 
         // PUBLIC
         // =============================================================================================
-        public List<edumodule> SelectDifficultyGroup(string difficulty) {
-            return _context.edumodule.Where(mod => mod.difficulty == difficulty).ToList();
-        }
-
-        // ---------------------------------------------------------------------------------------------
         public List<edumodule> SelectChildren(int id_grupy) {
-            return _context.edumodule.Where(mod => mod.group_id == id_grupy).ToList();
+            var modules = _context.edumodule.Where(mod => mod.group_id == id_grupy).ToList();
+            modules.Sort((a, b) => SortModules(a, b));
+            return modules;
         }
 
         // ---------------------------------------------------------------------------------------------
         public void SetNewValues(ModuleDTO source, edumodule result) {
             _context.Entry(result).CurrentValues.SetValues(source);
             _context.SaveChanges();
+        }
+
+
+        // PRIVATE
+        // =============================================================================================
+        private int SortModules(edumodule a, edumodule b) {
+            if (a.group_position != b.group_position)
+                return a.group_position > b.group_position ? 1 : -1;
+            return a.id > b.id ? 1 : -1;
         }
     }
 }

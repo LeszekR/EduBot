@@ -1,0 +1,25 @@
+
+Collapse All Outlining		Ctrl+M, Ctrl+A
+Collapse Current Region		Ctrl+M, Ctrl+S
+Collapse Tag				Ctrl+M, Ctrl+T
+Collapse to Definitions		Ctrl+M, Ctrl+O
+
+Expand All Outlining				Ctrl+M, Ctrl+X
+Expand Current Region				Ctrl+M, Ctrl+E
+Expand Collapse Base Type List		Shift+Alt+B
+
+Format Document			Ctrl+K, Ctrl+D		Ctrl+E, D		Ctrl+E, Ctrl+D
+Format Selection		Ctrl+K, Ctrl+F		Ctrl+E, F		Ctrl+E, Ctrl+F
+
+Find					Ctrl+F
+Find All References		Ctrl+K, R		Ctrl+K, Ctrl+R		Shift+F12
+
+Go To Declaration		Ctrl+F12
+Go To Definition		F12
+
+Extract Method			Ctrl+R, Ctrl+M		Ctrl+R, M
+Extract Interface		Ctrl+R, Ctrl+I		Ctrl+R, I
+
+Rename		Ctrl+R, R
+
+Full Screen		Shift+Alt+Enter

@@ -6,6 +6,21 @@ namespace EduApi.Services.Interfaces {
 
     // =================================================================================================
     public interface IModuleService {
+
+        // ---------------------------------------------------------------------------------------------
+        /* 1. Na podstawie postępów użytkownika decyduje który moduł powinien zostać teraz podany
+         * 2. Jeżeli aktualnie oglądany to najnowszy z pokazanych użytkownikowi - określa jaki przysłać 
+         *    na podstawie stanu emocjonalnego oraz wyników ucznia
+         * 3. Jeżeli wcześniej użytkownik wcisnął 'wstecz' - wysyła ten, który przedtem podanoo jako następny
+         *    po aktualnie wyświetlanym
+         * 4. Wysyła wybrany moduł do frontu
+         */
+        ModuleDTO NextModule(int userId, int currentModuleId);
+
+        // ---------------------------------------------------------------------------------------------
+        /* Wysyła moduł przeglądany przed oglądanym obecnie */
+        ModuleDTO PrevModule(int userId, int currentModuleId);
+
         // ---------------------------------------------------------------------------------------------
         /* Pobiera z bazy wszystkie moduły i zwraca ich uproszczoną postać - tylko te elementy,
          * które pobierane są w metodzie ModuleMapper.GetSimpleDTO(). */
@@ -43,19 +58,5 @@ namespace EduApi.Services.Interfaces {
          * 2. Jeżeli to był moduł nadrzędny - usuwa id_grupy z dla wszystkich modułów podrzędnych
          */
         List<ModuleDTO> DeleteModule(int id);
-
-        // ---------------------------------------------------------------------------------------------
-        /* 1. Na podstawie postępów użytkownika decyduje który moduł powinien zostać teraz podany
-         * 2. Jeżeli aktualnie oglądany to najnowszy z pokazanych użytkownikowi - określa jaki przysłać 
-         *    na podstawie stanu emocjonalnego oraz wyników ucznia
-         * 3. Jeżeli wcześniej użytkownik wcisnął 'wstecz' - wysyła ten, który przedtem podanoo jako następny
-         *    po aktualnie wyświetlanym
-         * 4. Wysyła wybrany moduł do frontu
-         */
-        ModuleDTO NextModule(int userId, int currentModuleId);
-
-        // ---------------------------------------------------------------------------------------------
-        /* Wysyła moduł przeglądany przed oglądanym obecnie */
-        ModuleDTO PrevModule(int userId, int currentModuleId);
     }
 }

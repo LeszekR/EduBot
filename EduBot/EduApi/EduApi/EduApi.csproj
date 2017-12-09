@@ -180,6 +180,7 @@
       <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
+    <Content Include="Skroty_klawiaturowe.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

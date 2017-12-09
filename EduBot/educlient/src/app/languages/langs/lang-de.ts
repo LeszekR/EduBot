@@ -45,5 +45,6 @@ export const LANG_DE_TRANS = {
     'toolbar.manage_users': 'Nutzer verwalten',
     'toolbar.view_report': 'Zeige Bericht',
 
-    'learn.next_module': '<brak tłumaczenia>'
+    'learn.next_module': '<Next>',
+    'learn.prev_module': '<Back>'
 };

@@ -5,17 +5,30 @@
             *ngIf="selectedModuleIds.length==0">
             {{ 'common.add' | translate }} 
         </button>
-        <button type="button" class="btn btn-success mr-2" (click)="addMetaModule()"
-            *ngIf="selectedModuleIds.length>0" >
-           {{ 'common.add' | translate }} 
+        <button type="button" class="btn btn-success mr-2" (click)="addMetaModule()" 
+            *ngIf="selectedModuleIds.length==0">
+           {{ 'edit.add_meta_module' | translate }} 
         </button>
-        <button type="button" class="btn btn-primary mr-2" (click)="editModule()" >
+        <button type="button" class="btn btn-primary mr-2" (click)="editModule()"  
+            *ngIf="selectedModuleIds.length==0">
             {{ 'common.edit' | translate }}
         </button>
-        <button type="button" class="btn btn-danger mr-2" (click)="deleteModule()" >
+        <button type="button" class="btn btn-danger mr-2" (click)="deleteModule()"  
+            *ngIf="selectedModuleIds.length==0">
             {{ 'common.delete' | translate }} 
         </button>
     </div>
+
+
+    <div class="mt-1 pb-2 pl-2 d-flex justify-content-center" role="group">
+        <button type="button" class="col-6 pr-1 btn btn-danger mr-2" (click)="prevModule()">
+            {{ 'learn.prev_module' | translate }} 
+         </button>
+         <button type="button" class="col-6 btn btn-success mr-2" (click)="nextModule()">
+            {{ 'learn.next_module' | translate }} 
+        </button>
+    </div>
+
 
     <ng-template ngFor let-module [ngForOf]="modules">
         <div class="d-flex" 
@@ -43,10 +56,10 @@
             </a>
         </div>
     </ng-template>
+</div>
 
-
-    <div class="align-items-center d-inline-flex fa-div" (click)="nextModule()" >
+    <!-- <div class="align-items-center d-inline-flex fa-div" (click)="nextModule()" >
         <i class="fa fa-plus fa-2x m-1" aria-hidden="true" ></i>
         <span style="font-size: 1rem" > {{ 'learn.next_module' | translate }} </span>
-    </div>
-</div>
+    </div> -->
+

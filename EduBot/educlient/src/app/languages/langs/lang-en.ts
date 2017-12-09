@@ -45,5 +45,6 @@ export const LANG_EN_TRANS = {
     'toolbar.manage_users': 'Manage user',
     'toolbar.view_report': 'View report',
 
-    'learn.next_module': 'Next module'
+    'learn.next_module': 'Next',
+    'learn.prev_module': 'Back'
 };

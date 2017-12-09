@@ -37,25 +37,22 @@ namespace EduApi.Services {
 
 
         // ---------------------------------------------------------------------------------------------
-        public int SaveUser(UserDTO user)
-        {
-           user entity = new user();
-           UserMappper.MapDtoToEntity(user, entity);
-           entity.role = "student";
-           return _userRepository.Add(entity).id;
+        public int SaveUser(UserDTO user) {
+            user entity = new user();
+            UserMappper.MapDtoToEntity(user, entity);
+            entity.role = "student";
+            return _userRepository.Add(entity).id;
         }
 
 
         // ---------------------------------------------------------------------------------------------
-        public void UpdateUserRole(UserDTO user)
-        {
+        public void UpdateUserRole(UserDTO user) {
             _userRepository.UpdateUserRole(user.Id, user.Role);
         }
 
 
         // ---------------------------------------------------------------------------------------------
-        public bool DeleteUser(int id)
-        {
+        public bool DeleteUser(int id) {
             throw new NotImplementedException();
         }
     }

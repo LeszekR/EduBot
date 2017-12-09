@@ -33,6 +33,18 @@ export class ModuleService {
 
     // PUBLIC
     // ==============================================================================================================
+    prevModule(currentModuleId: number): Observable<string> {
+        // TODO: zdecydować jak przysyłać kolejny moduł - tylko id, czy cały, czy wiele modułów
+        return this.http.get<string>(this.moduleUrl + '/getprevmodule/' + currentModuleId);
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
+    nextModule(currentModuleId: number): Observable<string> {
+        // TODO: zdecydować jak przysyłać kolejny moduł - tylko id, czy cały, czy wiele modułów
+        return this.http.get<string>(this.moduleUrl + '/getnextmodule/' + currentModuleId);
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
     public StringifyClosedQuestions(questions: ClosedQuestion[], moduleId: number): ClosedQuestionDTO[] {
 
         if (questions == undefined)
@@ -117,9 +129,4 @@ export class ModuleService {
         return this.http.delete<Module[]>(this.moduleUrl + '/deletemodule/' + id);
     }
 
-    // --------------------------------------------------------------------------------------------------------------
-    nextModule(): Observable<string> {
-        // TODO: zdecydować jak przysyłać kolejny moduł - tylko id, czy cały, czy wiele modułów
-        return this.http.get<string>(this.moduleUrl + '/getnextmodule');
-    }
 }

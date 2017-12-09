@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Module } from '../../models/module';
 
 //Services
+import { ModuleResolver } from '../../resolvers/module.resolver';
 import { ModuleService } from '../../services/module.service';
 import { ContextService } from '../../services/context.service';
 import { MessageService } from '../../shared/components/message/message.service';
@@ -29,7 +30,8 @@ export class ModuleListComponent implements OnInit {
         private moduleService: ModuleService,
         private context: ContextService,
         private messageService: MessageService,
-        private router: Router
+        private router: Router,
+        private resolver: ModuleResolver
     ) { }
 
 
@@ -50,11 +52,23 @@ export class ModuleListComponent implements OnInit {
 
     // PRIVATE
     // ==============================================================================================================
+    private prevModule() {
+        this.moduleService.prevModule(this.resolver.currentModuleId)
+            .subscribe(res => console.log(res));
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
+    private nextModule() {
+        this.moduleService.nextModule(this.resolver.currentModuleId)
+            .subscribe(res => console.log(res));
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
     private getModules() {
         this.moduleService.getSimpleModules()
-            .subscribe(newModules => { 
+            .subscribe(newModules => {
                 this.modules = newModules;
-                this.modules.forEach( m => m.isSelected = false );
+                this.modules.forEach(m => m.isSelected = false);
             });
     }
 
@@ -94,11 +108,6 @@ export class ModuleListComponent implements OnInit {
             });
     }
 
-    // --------------------------------------------------------------------------------------------------------------
-    private nextModule() {
-        this.moduleService.nextModule()
-            .subscribe(res => console.log(res));
-    }
 
 
     // MOCK
@@ -108,7 +117,7 @@ export class ModuleListComponent implements OnInit {
 
         let group: Module[] = [];
 
-        let moduleIds: number[] = [13,20];
+        let moduleIds: number[] = [47,39];
 
         let modules = this.modules;
         let modServ: ModuleService = this.moduleService;

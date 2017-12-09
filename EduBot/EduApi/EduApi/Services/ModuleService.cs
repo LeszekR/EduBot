@@ -4,6 +4,7 @@ using EduApi.Dto.Mappers;
 using EduApi.DTO;
 using EduApi.Repositories.Interfaces;
 using EduApi.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -28,7 +29,13 @@ namespace EduApi.Services {
 
         // PUBLIC
         // =============================================================================================
-        public ModuleDTO NextModule(string sessionId) {
+        public ModuleDTO PrevModule(int userId, int currentModuleId) {
+            throw new NotImplementedException();
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
+        public ModuleDTO NextModule(int userId, int currentModuleId) {
 
             /* source: 
              * https://stackoverflow.com/questions/10960131/authentication-authorization-and-session-management-in-traditional-web-apps-and

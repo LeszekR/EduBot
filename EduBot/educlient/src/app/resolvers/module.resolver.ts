@@ -23,7 +23,7 @@ export class ModuleResolver implements Resolve<any> {
     // PUBLIC
     // ==============================================================================================================
     resolve(route: ActivatedRouteSnapshot) : Observable<any> | Promise<any> | any {
-        this.currentModuleId = route.params['moduleId'];
+        this.currentModuleId = +route.params['moduleId'];
         return this.service.getModuleById(this.currentModuleId);
     }
 }

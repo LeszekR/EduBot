@@ -8,6 +8,26 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+
+/* source: 
+ * https://stackoverflow.com/questions/10960131/authentication-authorization-and-session-management-in-traditional-web-apps-and
+ * 
+ * 1. give the client an identifier, be it via a Set-Cookie HTTP response header, 
+ * inside the response body (XML/JSON auth response).
+ * 
+ * 2. have a mechanism to maintain identifier/client association, for example 
+ * a database table that associates identifier 00112233445566778899aabbccddeeff 
+ * with client/user #1337.
+ * 
+ * 3. have the client resend the identifier sent to it at (1.) in all subsequent requests, 
+ * be it in an HTTP Cookie request header, a ?sid=00112233445566778899aabbccddeeff param(*).
+ * 
+ * 4. lookup the received identifier, using the mechanism at (2.), check if a valid 
+ * authentication, and is authorized to do requested operation, and then proceed 
+ * with the operation on behalf on the auth'd user.
+ */
+
+
 namespace EduApi.Services {
 
     // =================================================================================================
@@ -15,14 +35,20 @@ namespace EduApi.Services {
 
         private readonly IModuleRepository _moduleRepository;
         private readonly ITestQuestionService _questionService;
+        private readonly IUserService _userService;
 
 
         // CONSTRUCTOR
         // =============================================================================================
         #region Constructor
-        public ModuleService(IModuleRepository moduleRepository, ITestQuestionService questionService) {
+        public ModuleService(
+            IModuleRepository moduleRepository,
+            ITestQuestionService questionService,
+            IUserService userService) {
+
             _moduleRepository = moduleRepository;
             _questionService = questionService;
+            _userService = userService;
         }
         #endregion
 
@@ -37,25 +63,74 @@ namespace EduApi.Services {
         // ---------------------------------------------------------------------------------------------
         public ModuleDTO NextModule(int userId, int currentModuleId) {
 
-            /* source: 
-             * https://stackoverflow.com/questions/10960131/authentication-authorization-and-session-management-in-traditional-web-apps-and
-             * 
-             * 1. give the client an identifier, be it via a Set-Cookie HTTP response header, 
-             * inside the response body (XML/JSON auth response).
-             * 
-             * 2. have a mechanism to maintain identifier/client association, for example 
-             * a database table that associates identifier 00112233445566778899aabbccddeeff 
-             * with client/user #1337.
-             * 
-             * 3. have the client resend the identifier sent to it at (1.) in all subsequent requests, 
-             * be it in an HTTP Cookie request header, a ?sid=00112233445566778899aabbccddeeff param(*).
-             * 
-             * 4. lookup the received identifier, using the mechanism at (2.), check if a valid 
-             * authentication, and is authorized to do requested operation, and then proceed 
-             * with the operation on behalf on the auth'd user.
-             */
 
-            return null;
+            edumodule newModule;
+            user user = _userService.GetUserEntity(userId);
+
+
+            // pobranie listy modułów dotychczas wysłanych do tego użytkownika
+            List<edumodule> prevModules = user.edumodule.ToList();
+
+            var saveLastModule = true;
+
+
+            // PIERWSZY moduł pobierany przez tego użytkownika
+            if (prevModules.Count() == 0)
+                newModule = _moduleRepository.Get(1);
+
+
+            // KOLEJNY moduł
+            else {
+
+                // ustalenie pozycji aktualnego modułu na liście obejrzanych modułów
+                int idx = prevModules.FindIndex(mod => mod.id == currentModuleId);
+
+
+                // aktualnie użytkownik ogląda któryś z wczesniej pobranych 
+                // => pobranie kolejnego, który już oglądał
+                if (idx < prevModules.Count() - 1 && idx > -1) {
+                    newModule = prevModules[idx + 1];
+                    saveLastModule = false;
+                }
+
+
+                // aktualnie użytkownik ogląda ostatni z pobranych
+                // => podjęcie decyzji który moduł teraz wysłać jako nowy
+                else {
+                    var difficulty = _moduleRepository.Get(currentModuleId).difficulty;
+
+                    // TODO: sprawdzenie stanu emocjonalnego i dotychczasowych wyników użytkownika
+                    // TODO: sprawdzenie dotychczasowych yników 
+                    // TODO: dostosowanie do niego trudności modułu do emocji i wyników
+                    // TODO: sprawdzenie czy należy wysłać dystraktor
+                    // TODO: wysłanie dystraktora
+                    // TODO: zaktualizowanie stanu gry, itd
+
+                    // TODO: sprawdzenie stanu emocjonalnego - dostosowanie do niego trudności modułu
+
+                    // lista modułów o aktualnym stopniu trudności posortowana wg kolejności podawania
+                    var allModules = _moduleRepository.SelectDifficultyGroup(difficulty);
+                    allModules.Sort((a, b) => SortListView(a, b));
+
+                    // ustalenie który moduł wysłać teraz
+                    idx = allModules.FindIndex(mod => mod.id == currentModuleId);
+
+                    if (idx < allModules.Count() - 1)
+                        newModule = allModules[idx + 1];
+                    else
+                        return null;
+                }
+            }
+
+            // zapisanie kolejnego modułu na liście wysłanych użytkownikowi
+            // oraz zapamiętanie nowego ostatniego modułu użytkownika
+            if (saveLastModule) {
+                user.edumodule.Add(newModule);
+                user.last_module = newModule.id;
+                _userService.SaveChanges();
+            }
+
+            return ModuleMapper.GetDTO(newModule);
         }
 
 
@@ -108,7 +183,7 @@ namespace EduApi.Services {
         // ---------------------------------------------------------------------------------------------
         public ModuleDTO GetModule(int id) {
             edumodule module = _moduleRepository.Get(id);
-            ModuleDTO moduleDTO = ModuleMappper.GetDTO(module);
+            ModuleDTO moduleDTO = ModuleMapper.GetDTO(module);
             moduleDTO.test_question = GetQuestionsForModule(module);
             return moduleDTO;
         }
@@ -123,7 +198,7 @@ namespace EduApi.Services {
             // zapisanie nowego modułu lub zmian istniejącego
             if (id == 0) {
                 module = new edumodule();
-                ModuleMappper.CopyValues(moduleReceived, module);
+                ModuleMapper.CopyValues(moduleReceived, module);
                 _moduleRepository.Add(module);
             }
             else {
@@ -143,7 +218,7 @@ namespace EduApi.Services {
                     _questionService.DeleteQuestion(rm_question_id);
 
 
-            return ModuleMappper.GetDTO(module);
+            return ModuleMapper.GetDTO(module);
         }
 
 
@@ -186,7 +261,7 @@ namespace EduApi.Services {
             }
 
             // wysłanie do frontu nowo utworzonego modułu
-            return ModuleMappper.GetDTO(newModule);
+            return ModuleMapper.GetDTO(newModule);
         }
 
 

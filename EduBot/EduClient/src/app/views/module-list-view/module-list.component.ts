@@ -60,7 +60,10 @@ export class ModuleListComponent implements OnInit {
     // --------------------------------------------------------------------------------------------------------------
     private nextModule() {
         this.moduleService.nextModule(this.resolver.currentModuleId)
-            .subscribe(res => console.log(res));
+            .subscribe(newModule => {
+                // this.modules[this.modules.length] = newModule;
+                this.router.navigate(['module/' + newModule.id]);
+            });
     }
 
     // --------------------------------------------------------------------------------------------------------------

@@ -6,7 +6,7 @@ namespace EduApi.Dto.Mappers {
 
 
     // =================================================================================================
-    public static class ModuleMappper {
+    public static class ModuleMapper {
 
 
         // PUBLIC

@@ -9,6 +9,10 @@ namespace EduApi.DAL.Interfaces
         public interface IModuleRepository : IRepository<edumodule>
     {
         // ---------------------------------------------------------------------------------------------
+        /* Zwraca listę id wszystkich modułów o wskazanym stopniu trudności - nie posortowaną. */
+        List<edumodule> SelectDifficultyGroup(string difficulty);
+
+        // ---------------------------------------------------------------------------------------------
         /* Kopiuje dane z ModuleDTO do edumodule pobranego z bazy i zapisuje zmiany w bazie. */
         void SetNewValues(ModuleDTO source, edumodule result);
 

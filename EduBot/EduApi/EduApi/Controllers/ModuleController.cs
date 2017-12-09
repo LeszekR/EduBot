@@ -24,18 +24,16 @@ namespace EduApi.Controllers {
 
         // PUBLIC
         // =============================================================================================
-        [HttpGet]
-        public IHttpActionResult GetPrevModule(int currentModuleId) {
-            int userId = 0;
-            return Ok(_moduleService.PrevModule(userId, currentModuleId));
+        public IHttpActionResult GetPrevModule(int id) {
+            int userId = 1;
+            return Ok(_moduleService.PrevModule(userId, id));
         }
 
 
         // ---------------------------------------------------------------------------------------------
-        [HttpGet]
-        public IHttpActionResult GetNextModule(int currentModuleId) {
-            int userId = 0;
-            return Ok(_moduleService.NextModule(userId, currentModuleId));
+        public IHttpActionResult GetNextModule(int id) {
+            int userId = 1;
+            return Ok(_moduleService.NextModule(userId, id));
         }
 
 

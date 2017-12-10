@@ -27,3 +27,24 @@ a.disabled {
 .bg-white{
     background-color: white !important;
 }
+
+.of-auto {
+    overflow-y: auto;
+}
+
+
+::-webkit-scrollbar
+{
+  width: 12px;  /* for vertical scrollbars */
+  height: 12px; /* for horizontal scrollbars */
+}
+
+::-webkit-scrollbar-track
+{
+  background: #FFF /*#B5CCF6*/;
+}
+
+::-webkit-scrollbar-thumb
+{
+  background: #017EB5;
+}

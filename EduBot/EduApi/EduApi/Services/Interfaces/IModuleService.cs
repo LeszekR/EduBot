@@ -7,6 +7,14 @@ namespace EduApi.Services.Interfaces {
     // =================================================================================================
     public interface IModuleService {
 
+        /* Wywoływana po każdym zamknięciu trygu edycji modułów.
+         * Ustawia wszystkie moduły w prawidłowe drzewo i numeruje: nadaje kolejne 'group_position'.
+         * Dzięki temu przy dalszym korzystaniu można sortować moduły:
+         * - szybko
+         * - również gdy lista jest niekompletna (nieznani są rodzice) 
+         */ 
+        void CreateModuleSequence();
+
         // ---------------------------------------------------------------------------------------------
         /* 1. Na podstawie postępów użytkownika decyduje który moduł powinien zostać teraz podany
          * 2. Jeżeli aktualnie oglądany to najnowszy z pokazanych użytkownikowi - określa jaki przysłać 

@@ -33,6 +33,12 @@ export class ModuleService {
 
     // PUBLIC
     // ==============================================================================================================
+    CreateModuleSequence() {
+        this.http.get<string>(this.moduleUrl + '/createmodulesequence')
+        .subscribe(res => console.log(res));
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
     prevModule(currentModuleId: number): Observable<string> {
         // TODO: zdecydować jak przysyłać kolejny moduł - tylko id, czy cały, czy wiele modułów
         return this.http.get<string>(this.moduleUrl + '/getprevmodule/' + currentModuleId);

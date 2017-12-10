@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
 import { ContextService } from './services/context.service';
+import { ModuleService } from './services/module.service';
 
 
 // MOCK *******************************************
@@ -22,7 +23,11 @@ export class AppComponent implements OnInit {
 
   // CONSTRUCTOR
   // ==============================================================================================================
-  constructor(private context: ContextService, private http: HttpService) { }
+  constructor(
+    private context: ContextService,
+    private http: HttpService,
+    private moduleService: ModuleService) { }
+
 
 
   // MOCK
@@ -39,5 +44,13 @@ export class AppComponent implements OnInit {
   // --------------------------------------------------------------------------------------------------------------
   openLoginWindow() {
     this.loginModal.show();
+  }
+
+  // PRIVATE
+  // ==============================================================================================================
+  toggleEditMode() {
+    if (this.context.isEditMode)
+      this.moduleService.CreateModuleSequence();
+    this.context.isEditMode = !this.context.isEditMode;
   }
 }

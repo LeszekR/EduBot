@@ -5,7 +5,7 @@
             <span style="margin-left: 50px">Edugame</span>
         </a>
         <div class="d-flex justify-content-center">
-            <button class="btn btn-primary" (click)="context.isEditMode=!context.isEditMode">
+            <button class="btn btn-primary" (click)="toggleEditMode()">
                 {{ context.isEditMode ? ('edit.exit_edit_mode' | translate) : ('edit.enter_edit_mode' | translate) }}
             </button>
 

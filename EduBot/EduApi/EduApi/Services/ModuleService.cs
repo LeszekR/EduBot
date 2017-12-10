@@ -59,6 +59,15 @@ namespace EduApi.Services {
 
         // PUBLIC
         // =============================================================================================
+        public void CreateModuleSequence() {
+            List<edumodule> modules = TreeModules(_moduleRepository.All());
+            for (var i = 0; i < modules.Count(); i++)
+                modules[i].group_position = i;
+            _moduleRepository.SaveChanges();
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
         public ModuleDTO PrevModule(int userId, int currentModuleId) {
             throw new NotImplementedException();
         }
@@ -73,8 +82,8 @@ namespace EduApi.Services {
 
 
             // pobranie listy modułów dotychczas wysłanych do tego użytkownika
-            List<edumodule> prevModules = TreeModules(user.edumodule.ToList());
-
+            List<edumodule> prevModules = user.edumodule.ToList();
+            SortGroupPosition(ref prevModules);
 
             var saveLastModule = true;
 
@@ -128,7 +137,9 @@ namespace EduApi.Services {
 
         // ---------------------------------------------------------------------------------------------
         public List<ModuleDTO> GetSimpleModules() {
-            return TreeModules(_moduleRepository.All()).GetSimpleDTOList();
+            List<edumodule> modules = _moduleRepository.All();
+            SortGroupPosition(ref modules);
+            return modules.GetSimpleDTOList();
 
             // pobranie danych z bazy
             //List<edumodule> modules = _moduleRepository.All();
@@ -305,7 +316,7 @@ namespace EduApi.Services {
             // wykluczenie modułów nie przypisanych do żadnego nadrzędnego, 
             // które powinny mieć rodzica (czyli na poziomie niższym niz "hard")
             siblings = siblings.Where(s => (s.group_id != null || s.difficulty == "hard")).ToList();
-            siblings = TreeModules(siblings);
+            SortGroupPosition(ref siblings);
 
 
             // ustalenie czy to ostatnie dziecko
@@ -364,7 +375,7 @@ namespace EduApi.Services {
                     newModule = null;
 
                 // to jest ostatnie dziecko - podanie następnego trudniejszego
-                else 
+                else
                     newModule = PickNextModule(parentId ?? 0, ChangeDifficulty.NO_CHANGE);
             }
 
@@ -405,26 +416,32 @@ namespace EduApi.Services {
 
 
         // ---------------------------------------------------------------------------------------------
-        public int SortModules(edumodule a, edumodule b) {
-            if (a.difficulty != b.difficulty)
-                if (a.difficulty == "hard")
-                    return -1;
-                else if (b.difficulty == "hard")
-                    return 1;
-                else if (a.difficulty == "medium")
-                    return -1;
-                else if (b.difficulty == "medium")
-                    return 1;
-
-            if (a.group_id != null)
-                if (a.group_id != b.group_id) {
-                    var aParent = _moduleRepository.Get(a.group_id ?? 0);
-                    var bParent = _moduleRepository.Get(b.group_id ?? 0);
-                    return SortModules(aParent, bParent);
-                }
-
-            return ModuleRepository.SortModules(a, b);
+        private void SortGroupPosition(ref List<edumodule> modules) {
+            modules.Sort((a, b) => a.group_position > b.group_position ? 1 : -1);
         }
+
+
+        //// ---------------------------------------------------------------------------------------------
+        //public int SortModules(edumodule a, edumodule b) {
+        //    if (a.difficulty != b.difficulty)
+        //        if (a.difficulty == "hard")
+        //            return -1;
+        //        else if (b.difficulty == "hard")
+        //            return 1;
+        //        else if (a.difficulty == "medium")
+        //            return -1;
+        //        else if (b.difficulty == "medium")
+        //            return 1;
+
+        //    if (a.group_id != null)
+        //        if (a.group_id != b.group_id) {
+        //            var aParent = _moduleRepository.Get(a.group_id ?? 0);
+        //            var bParent = _moduleRepository.Get(b.group_id ?? 0);
+        //            return SortModules(aParent, bParent);
+        //        }
+
+        //    return ModuleRepository.SortModules(a, b);
+        //}
 
 
         // ---------------------------------------------------------------------------------------------
@@ -440,56 +457,19 @@ namespace EduApi.Services {
                 if (foundModules.Count() == 0)
                     foundModules = modules.Where(m => m.difficulty == "easy").ToList();
             }
-
             CreateModuleTree(foundModules, ref modules, ref sortedModules);
 
             // dodanie modułów nie przypisanych do żadnego nadrzędnego
             sortedModules.AddRange(modules.Except(sortedModules));
 
             return sortedModules;
-
-            //List<edumodule> children = new List<edumodule>();
-            //List<edumodule> sortedModules = new List<edumodule>();
-
-            //List<edumodule> hardModules, mediumModules, easyModules;
-            //List<edumodule> mediumChildren, easyChildren;
-
-            //hardModules = modules.Where(m => m.difficulty == "hard").ToList();
-            //mediumModules = modules.Where(m => m.difficulty == "medium").ToList();
-            //easyModules = modules.Where(m => m.difficulty == "easy").ToList();
-
-            //// ustawienie wszystkich modułów w hierarchiczne drzewo
-            //hardModules.Sort((a, b) => SortModules(a, b));
-            //hardModules.ForEach(hardMod => {
-
-            //    sortedModules.Add(hardMod);
-
-            //    mediumChildren = mediumModules.Where(medMod => medMod.group_id == hardMod.id).ToList();
-            //    mediumChildren.Sort((a, b) => SortModules(a, b));
-            //    mediumChildren.ForEach(medMod => {
-
-            //        sortedModules.Add(medMod);
-
-            //        easyChildren = easyModules.Where(easyMod => easyMod.group_id == medMod.id).ToList();
-            //        easyChildren.Sort((a, b) => SortModules(a, b));
-            //        easyChildren.ForEach(easyMod => {
-
-            //            sortedModules.Add(easyMod);
-            //            children.Add(easyMod);
-            //        });
-            //    });
-            //});
-
-            //// modułów 'easy' nie przypisanych do żadnego nadrzędnego
-            //sortedModules.AddRange(easyModules.Except(children));
-            //return sortedModules;
         }
 
 
         // ---------------------------------------------------------------------------------------------
         private void CreateModuleTree(List<edumodule> foundModules, ref List<edumodule> modules, ref List<edumodule> sortedModules) {
 
-            foundModules.Sort((a, b) => SortModules(a, b));
+            foundModules.Sort((a, b) => ModuleRepository.SortModules(a, b));
             List<edumodule> children;
 
             foreach (var mod in foundModules) {

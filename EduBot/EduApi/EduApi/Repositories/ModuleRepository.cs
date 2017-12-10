@@ -1,6 +1,7 @@
 ﻿using EduApi.DAL.Core;
 using EduApi.DAL.Interfaces;
 using EduApi.DTO;
+using EduApi.Services;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,7 +23,7 @@ namespace EduApi.DAL {
 
         // PUBLIC
         // =============================================================================================
-        public List<edumodule> SelectChildren(int id_grupy) {
+        public List<edumodule> SelectChildren(int? id_grupy) {
             var modules = _context.edumodule.Where(mod => mod.group_id == id_grupy).ToList();
             modules.Sort((a, b) => SortModules(a, b));
             return modules;
@@ -34,10 +35,8 @@ namespace EduApi.DAL {
             _context.SaveChanges();
         }
 
-
-        // PRIVATE
-        // =============================================================================================
-        private int SortModules(edumodule a, edumodule b) {
+        // ---------------------------------------------------------------------------------------------
+        public static int SortModules(edumodule a, edumodule b) {
             if (a.group_position != b.group_position)
                 return a.group_position > b.group_position ? 1 : -1;
             return a.id > b.id ? 1 : -1;

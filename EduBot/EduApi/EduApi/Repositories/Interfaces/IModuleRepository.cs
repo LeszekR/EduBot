@@ -20,6 +20,6 @@ namespace EduApi.DAL.Interfaces
         /* 1. Pobiera wszystkie moduły, które należą do grupy o podanym id_grupy 
          * 2. sortuje wg pozycji w grupie (kolejności)
          */
-        List<edumodule> SelectChildren(int id_grupy);
+        List<edumodule> SelectChildren(int? id_grupy);
     }
 }

@@ -26,7 +26,7 @@ namespace EduApi.Controllers {
                 _emoState = EmoState.BORED;
             else if (emoState == 0)
                 _emoState = EmoState.OK;
-            if (emoState == -1)
+            if (emoState == 1)
                 _emoState = EmoState.FRUSTRATED;
 
             return Ok("Ustawiono emostan: " + _emoState.ToString());

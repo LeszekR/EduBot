@@ -23,6 +23,15 @@ namespace EduApi.Services {
         #endregion
 
 
+        // MOCK
+        // =============================================================================================
+        public void ClearModuleHistory(int userId) {
+            var modules = _userRepository.Get(userId).edumodule;
+            modules = new HashSet<edumodule>();
+            _userRepository.SaveChanges();
+        }
+
+
         // PUBLIC
         // =============================================================================================
         public void SaveChanges() {

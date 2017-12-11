@@ -5,6 +5,11 @@ namespace EduApi.Services.Interfaces {
 
     public interface IUserService {
 
+        // =============================================================================================
+        // TODO: po testach usunąc - MOCK
+        void ClearModuleHistory(int userId);
+        // =============================================================================================
+
         void SaveChanges();
         user GetUserEntity(int id);
         //int? GetLastModuleId(int userId);

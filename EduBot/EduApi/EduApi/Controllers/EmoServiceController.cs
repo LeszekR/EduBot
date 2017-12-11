@@ -1,4 +1,6 @@
-﻿using System;
+﻿using EduApi.DAL.Interfaces;
+using EduApi.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,6 +17,16 @@ namespace EduApi.Controllers {
         public enum EmoState { BORED, FRUSTRATED, OK }
         public static EmoState _emoState = EmoState.OK;
 
+        private readonly IUserService _userService;
+
+
+        // CONSTRUCTOR
+        // =============================================================================================
+        #region Constructor
+        public EmoServiceController(IUserService userService) {
+            _userService = userService;
+        }
+        #endregion
 
 
         // PUBLIC
@@ -22,12 +34,18 @@ namespace EduApi.Controllers {
         [HttpPost]
         public IHttpActionResult SetEmoState([FromBody]int emoState) {
 
+
             if (emoState == -1)
                 _emoState = EmoState.BORED;
             else if (emoState == 0)
                 _emoState = EmoState.OK;
-            if (emoState == 1)
+            else if (emoState == 1)
                 _emoState = EmoState.FRUSTRATED;
+            else if (emoState == 2) {
+                int userId = 1;
+                _userService.ClearModuleHistory(userId);
+                return Ok("Wyczyszczono historię modułów");
+            }
 
             return Ok("Ustawiono emostan: " + _emoState.ToString());
         }

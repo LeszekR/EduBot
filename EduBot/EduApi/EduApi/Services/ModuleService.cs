@@ -363,7 +363,8 @@ namespace EduApi.Services {
             }
 
 
-            // jeżeli zmiana w górę 
+            // PODNIESIENIE POZIOMU TRUDNOŚCI - podanie kolejnego modułu w wersji trudniejszej
+            // pod warunkiem, że aktualny moduł był ostatnim dzieckiem swojego rodzica
             else {
 
                 // to nie jest ostatnie dziecko - podanie następnego brata bez zmiany trudności
@@ -421,29 +422,6 @@ namespace EduApi.Services {
         }
 
 
-        //// ---------------------------------------------------------------------------------------------
-        //public int SortModules(edumodule a, edumodule b) {
-        //    if (a.difficulty != b.difficulty)
-        //        if (a.difficulty == "hard")
-        //            return -1;
-        //        else if (b.difficulty == "hard")
-        //            return 1;
-        //        else if (a.difficulty == "medium")
-        //            return -1;
-        //        else if (b.difficulty == "medium")
-        //            return 1;
-
-        //    if (a.group_id != null)
-        //        if (a.group_id != b.group_id) {
-        //            var aParent = _moduleRepository.Get(a.group_id ?? 0);
-        //            var bParent = _moduleRepository.Get(b.group_id ?? 0);
-        //            return SortModules(aParent, bParent);
-        //        }
-
-        //    return ModuleRepository.SortModules(a, b);
-        //}
-
-
         // ---------------------------------------------------------------------------------------------
         /* Ustawia tablicę nieuporządkowaną modułów w drzewo posortowane wg kolejności podawania materiału */
         private List<edumodule> TreeModules(List<edumodule> modules) {
@@ -473,7 +451,6 @@ namespace EduApi.Services {
             List<edumodule> children;
 
             foreach (var mod in foundModules) {
-
                 sortedModules.Add(mod);
 
                 children = modules.Where(child => child.group_id == mod.id).ToList();
@@ -482,5 +459,4 @@ namespace EduApi.Services {
             }
         }
     }
-
 }

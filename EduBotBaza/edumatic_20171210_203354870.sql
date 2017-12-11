@@ -5,7 +5,7 @@
 -- Dumped from database version 9.6.2
 -- Dumped by pg_dump version 9.6.0
 
--- Started on 2017-12-10 20:33:55
+-- Started on 2017-12-11 12:01:40
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -440,6 +440,7 @@ COPY edumodule (id, group_id, difficulty, title, content, example, group_positio
 46	\N	easy	Białucha kolczata wąska	13 twardych kasztanów zmieszanych z kozim mlekiem wymieszać dokładnie.\nDolać 2 kwarty octu korzennego, utrzeć 2 jaja i posypać masłem.\nMleć 3 pacierze, zmienić kierunek i udać się do Wielobrzeża Górnego.	Tam pobrać 13 złotych tokenów Waligóry i wbić 2 jaja do rosołu.	21
 47	48	easy	Góry, żywioł zdziczały	Stada kozic rogatych zaatakowały wioski. Pożary zasnuły niebo dymem, kozice, zbryzgane krwią, z szaleństwem w oczach ściagają przerażone kury po autostradach, lotniskach i suchych dokach. Bydło rogate zabarykadowało się w ratuszu i ryknęło, że żywcem ich nie wezmą.	Tymczasem ukradkiem pod jamy kozicze zakradł się oddział uderzeniowy szkolonych chomików. W kevlarowych nagoolennikach zsynchornizowały time-chipy. Dowódca w milczeniu zwinął ogon w pięść wskazując nim kierunki ataku 3 podgrupom. Żołnieże obnażyli opancerzone zęby i ruszyli	3
 48	44	medium	Życie w żywiołach ponurych	Przykład\nRozkład\nNakład\nPodkład\nWykład\nWkład\nZakład\n\n\nStada kozic rogatych zaatakowały wioski. Pożary zasnuły niebo dymem, kozice, zbryzgane krwią, z szaleństwem w oczach ścigają przerażone kury po autostradach, lotniskach i suchych dokach. Bydło rogate zabarykadowało się w ratuszu i ryknęło, że żywcem ich nie wezmą. Bydło  nierogate zagrzebało się w ściółce, płasko, znikając. Kilka zdesperowanych osobników ze szczeciną rzadką wtargnęło do ministerstwa, gdzie natychmiast wtopiły się w tłum.	if (nic) then\n    coś;\n    potem jeszcze;\nendif\n\nTymczasem ukradkiem pod jamy kozicze zakradł się oddział uderzeniowy szkolonych chomików. W kevlarowych nagolennikach zsynchornizowały time-chipy. Dowódca w milczeniu zwinął ogon w pięść wskazując nim kierunki ataku 3 podgrupom. Żołnierze obnażyli opancerzone zęby i ruszyli	1
+49	\N	easy	<podaj tytuł>		\N	22
 \.
 
 
@@ -459,7 +460,7 @@ COPY edumodule_gamecontext (edumodule_id, game_score, game_content) FROM stdin;
 -- Name: edumodule_id_seq; Type: SEQUENCE SET; Schema: public; Owner: lmp
 --
 
-SELECT pg_catalog.setval('edumodule_id_seq', 48, true);
+SELECT pg_catalog.setval('edumodule_id_seq', 49, true);
 
 
 --
@@ -553,8 +554,8 @@ SELECT pg_catalog.setval('test_question_id_seq', 32, true);
 --
 
 COPY "user" (id, login, password, role, score, last_module) FROM stdin;
-1	pysio	grubasek	teacher	0	28
 2	Konio	buzdygan	student	\N	\N
+1	pysio	grubasek	teacher	0	28
 \.
 
 
@@ -585,13 +586,6 @@ COPY user_distractor (user_id, distractor_id, time_last_used) FROM stdin;
 --
 
 COPY user_edumodule (user_id, edumodule_id) FROM stdin;
-1	1
-1	47
-1	39
-1	43
-1	20
-1	29
-1	28
 \.
 
 
@@ -851,7 +845,7 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 GRANT ALL ON SCHEMA public TO lmp;
 
 
--- Completed on 2017-12-10 20:33:56
+-- Completed on 2017-12-11 12:01:41
 
 --
 -- PostgreSQL database dump complete

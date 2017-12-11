@@ -27,7 +27,7 @@ namespace EduApi.Services {
         // =============================================================================================
         public void ClearModuleHistory(int userId) {
             var modules = _userRepository.Get(userId).edumodule;
-            modules = new HashSet<edumodule>();
+            modules.Clear();
             _userRepository.SaveChanges();
         }
 

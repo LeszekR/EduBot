@@ -47,7 +47,8 @@ export class ModuleService {
     // --------------------------------------------------------------------------------------------------------------
     nextModule(currentModuleId: number): Observable<Module> {
         // TODO: zdecydować jak przysyłać kolejny moduł - tylko id, czy cały, czy wiele modułów
-        return this.http.get<Module>(this.moduleUrl + '/getnextmodule/' + currentModuleId);
+        let moduleId = currentModuleId == undefined ? 0 : currentModuleId;
+        return this.http.get<Module>(this.moduleUrl + '/getnextmodule/' + moduleId);
     }
 
     // --------------------------------------------------------------------------------------------------------------

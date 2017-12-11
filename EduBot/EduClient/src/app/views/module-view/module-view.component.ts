@@ -61,10 +61,10 @@ export class ModuleViewComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.module = data.module;
 
-      let questions = this.moduleService.UnpackClosedQuestions(this.module.test_task);
+      let questions = this.moduleService.UnpackClosedQuestions(this.module.test_question);
 
       // TODO: mock, usunąć ***************************
-      // if (questions == undefined || '') questions = new MockData().mockQuestions;
+      if (questions.length == 0) questions = new MockData().mockQuestions;
       // **********************************************
 
       this.questions = questions;
@@ -86,9 +86,8 @@ export class ModuleViewComponent implements OnInit {
 
   // --------------------------------------------------------------------------------------------------------------
   save() {
-    this.module.content = this.contentComponent.content;
-    this.module.example = this.exampleComponent.example;
-    this.module.test_task = this.moduleService.StringifyClosedQuestions(this.questions);
+    this.module.test_question = this.moduleService
+      .StringifyClosedQuestions(this.questions, this.context.editModuleId);
 
     this.moduleService.saveModule(this.module).subscribe(res => this.module = res);
     this.moduleService.moduleAdded.emit(this.module);

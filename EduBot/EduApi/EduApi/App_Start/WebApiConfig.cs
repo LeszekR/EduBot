@@ -23,7 +23,7 @@ namespace EduApi {
             //config.SuppressHostPrincipal();
 
 
-            var corsOrigins = "*";
+            var corsOrigins = "http://localhost:4200";
             var corsHeaders = "*";
             var corsMethods = "GET, POST, PUT, DELETE, OPTIONS";
             //var corsHeaders =

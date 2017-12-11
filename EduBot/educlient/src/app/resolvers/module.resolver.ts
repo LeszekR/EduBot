@@ -9,6 +9,8 @@ import { ModuleService } from '../services/module.service';
 @Injectable()
 export class ModuleResolver implements Resolve<any> {
 
+    public currentModuleId: number;
+
 
     // CONSTRUCTOR
     // ==============================================================================================================
@@ -21,7 +23,7 @@ export class ModuleResolver implements Resolve<any> {
     // PUBLIC
     // ==============================================================================================================
     resolve(route: ActivatedRouteSnapshot) : Observable<any> | Promise<any> | any {
-        let moduleId = route.params['moduleId'];
-        return this.service.getModuleById(moduleId);
+        this.currentModuleId = +route.params['moduleId'];
+        return this.service.getModuleById(this.currentModuleId);
     }
 }

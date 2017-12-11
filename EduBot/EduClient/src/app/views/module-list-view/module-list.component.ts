@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Module } from '../../models/module';
 
 //Services
+import { ModuleResolver } from '../../resolvers/module.resolver';
 import { ModuleService } from '../../services/module.service';
 import { ContextService } from '../../services/context.service';
 import { MessageService } from '../../shared/components/message/message.service';
@@ -29,7 +30,8 @@ export class ModuleListComponent implements OnInit {
         private context: ContextService,
         private messageService: MessageService,
         private router: Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private resolver: ModuleResolver
     ) { }
 
 
@@ -48,11 +50,26 @@ export class ModuleListComponent implements OnInit {
 
     // PRIVATE
     // ==============================================================================================================
+    private prevModule() {
+        this.moduleService.prevModule(this.resolver.currentModuleId)
+            .subscribe(res => console.log(res));
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
+    private nextModule() {
+        this.moduleService.nextModule(this.resolver.currentModuleId)
+            .subscribe(newModule => {
+                // this.modules[this.modules.length] = newModule;
+                this.router.navigate(['module/' + newModule.id]);
+            });
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
     private getModules() {
         this.moduleService.getSimpleModules()
-            .subscribe(newModules => { 
+            .subscribe(newModules => {
                 this.modules = newModules;
-                this.modules.forEach( m => m.isSelected = false );
+                this.modules.forEach(m => m.isSelected = false);
             });
     }
 
@@ -75,7 +92,7 @@ export class ModuleListComponent implements OnInit {
         let moduleGroup = this.modules.filter(m => m.isSelected);
         this.moduleService.saveMetaModule(moduleGroup)
             .subscribe(res => {
-                moduleGroup.forEach(m => { m.isSelected = false; m.id_group = res.id })
+                moduleGroup.forEach(m => { m.isSelected = false; m.group_id = res.id })
                 let idx = this.modules.indexOf(moduleGroup[0]);
                 this.modules.splice(idx, 0, res);
                 this.router.navigate(['module', res.id], {relativeTo: this.route});
@@ -98,10 +115,28 @@ export class ModuleListComponent implements OnInit {
             });
     }
 
-    // --------------------------------------------------------------------------------------------------------------
-    private nextModule() {
-        this.moduleService.nextModule()
-            .subscribe(res => console.log(res));
-    }
 
+
+    // MOCK
+    // ==============================================================================================================
+    // TODO: usunąc po testach
+    private mockAddMetaModule(): void {
+
+        let group: Module[] = [];
+
+        let moduleIds: number[] = [47, 39];
+
+        let modules = this.modules;
+        let modServ: ModuleService = this.moduleService;
+        var callback = function (moduleGroup: Module[]) {
+            modServ.saveMetaModule(moduleGroup).subscribe(res => modules.push(res));
+        }
+
+        for (var i in moduleIds)
+            this.moduleService.getModuleById(moduleIds[i]).subscribe(m => {
+                group[group.length] = m;
+                if (group.length == moduleIds.length)
+                    callback(group);
+            });
+    }
 }

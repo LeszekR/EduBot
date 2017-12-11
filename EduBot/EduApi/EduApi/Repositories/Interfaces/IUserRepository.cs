@@ -7,5 +7,6 @@ namespace EduApi.DAL.Interfaces
     {
         UserDTO Authenticate(string login, string password);
         void UpdateUserRole(int userId, string role);
+        int? GetLastModuleId(int userId);
     }
 }

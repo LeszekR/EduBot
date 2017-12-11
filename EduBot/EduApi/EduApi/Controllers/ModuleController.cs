@@ -1,10 +1,7 @@
 ﻿using EduApi.DTO;
 using System.Web.Http;
-using System.Linq;
 using System.Web.Http.Cors;
 using EduApi.Services.Interfaces;
-using System.Net.Http.Headers;
-using System.Net.Http;
 
 namespace EduApi.Controllers {
 
@@ -28,9 +25,23 @@ namespace EduApi.Controllers {
         // PUBLIC
         // =============================================================================================
         [HttpGet]
-        public IHttpActionResult GetNextModule() {
-            int userId = 0;
-            return Ok(_moduleService.NextModule(userId));
+        public IHttpActionResult CreateModuleSequence() {
+            _moduleService.CreateModuleSequence();
+            return Ok("Odnowiono sekwencję modułów");
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
+        public IHttpActionResult GetPrevModule(int id) {
+            int userId = 1;
+            return Ok(_moduleService.PrevModule(userId, id));
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
+        public IHttpActionResult GetNextModule(int id) {
+            int userId = 1;
+            return Ok(_moduleService.NextModule(userId, id));
         }
 
 

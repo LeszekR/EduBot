@@ -34,5 +34,11 @@ namespace EduApi.DAL {
             user.role = role;
             _context.SaveChanges();
         }
+
+
+        // ---------------------------------------------------------------------------------------------
+        public int? GetLastModuleId(int userId) {
+            return Get(userId).last_module; 
+        }
     }
 }

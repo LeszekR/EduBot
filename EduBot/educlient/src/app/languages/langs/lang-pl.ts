@@ -45,5 +45,6 @@ export const LANG_PL_TRANS = {
     'toolbar.manage_users': 'Zarządzaj użytkownikami',
     'toolbar.view_report': 'Wyświetl raport',
 
-    'learn.next_module': 'Następny moduł'
+    'learn.next_module': 'Dalej',
+    'learn.prev_module': 'Wstecz'
 };

@@ -2,34 +2,30 @@
 import { TestType } from './enum-test-type';
 import { DiffLevel } from './enum-diff-level';
 
+import { ClosedQuestionDTO } from './closed-question-DTO';
+
 
 // ==================================================================================================================
 export class Module {
 
     id: number;
-    id_group: number;
+    group_id: number;
+    group_position: number;
     difficulty: string;
     title: string;
     content: string;
     example: string;
-
+    test_question: ClosedQuestionDTO[];
+    remove_question: number[];
+    
     isSelected: boolean;
-    test_type: string;
-    test_task: string;
-    test_answer: string;
 
 
     // CONSTRUCTOR
     // ==============================================================================================================
     constructor() {
-        // this.id = 0;    
-        // this.id_group = 0;
         this.difficulty = "easy";
         this.title = "<podaj tytuł>";
         this.content = "";
-        // this.example = "";
-        // this.test_type = "";
-        // this.test_task = "";
-        // this.test_answer = "";
     }
 }

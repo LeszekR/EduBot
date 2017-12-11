@@ -2,6 +2,7 @@
 // ==================================================================================================================
 export class ClosedQuestion {
 
+    id: number;
     question: string;
     correct_idx: number;
     answers: string[];

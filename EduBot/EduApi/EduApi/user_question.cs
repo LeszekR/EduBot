@@ -12,13 +12,13 @@ namespace EduApi
     using System;
     using System.Collections.Generic;
     
-    public partial class user_edumodule
+    public partial class user_question
     {
         public int user_id { get; set; }
-        public int edumodule_id { get; set; }
+        public int question_id { get; set; }
         public bool result { get; set; }
     
-        public virtual edumodule edumodule { get; set; }
+        public virtual test_question test_question { get; set; }
         public virtual user user { get; set; }
     }
 }

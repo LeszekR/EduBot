@@ -12,17 +12,21 @@ namespace EduApi
     using System;
     using System.Collections.Generic;
     
-    public partial class enum_test_type
+    public partial class test_code
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public enum_test_type()
+        public test_code()
         {
-            this.edumodule = new HashSet<edumodule>();
+            this.user_code = new HashSet<user_code>();
         }
     
-        public string type { get; set; }
+        public int id { get; set; }
+        public int position { get; set; }
+        public int module_id { get; set; }
+        public string task_answer { get; set; }
     
+        public virtual edumodule edumodule { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<edumodule> edumodule { get; set; }
+        public virtual ICollection<user_code> user_code { get; set; }
     }
 }

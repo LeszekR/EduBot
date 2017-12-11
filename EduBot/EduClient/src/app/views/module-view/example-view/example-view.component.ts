@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 
+import { Module } from '../../../models/module'
+
 // ==================================================================================================================
 @Component({
   selector: 'example-view',
@@ -7,6 +9,6 @@ import { Component, Input } from '@angular/core';
   styles: ['../module-view.component.css']
 })
 export class ExampleViewComponent {
-  @Input() example: string;
+  @Input() module: Module;
   @Input() readonly: boolean;
 }

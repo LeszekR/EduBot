@@ -6,54 +6,51 @@ namespace EduApi.Dto.Mappers {
 
 
     // =================================================================================================
-    public static class ModuleMappper {
+    public static class ModuleMapper {
 
 
         // PUBLIC
         // =============================================================================================
-        public static void CopyModule(ModuleDTO source, edumodule target) {
-            target.content = source.content;
-            target.difficulty = source.difficulty;
-            target.example = source.example;
-            target.id = source.id;
-            target.id_group = source.id_group;
-            target.test_answer = source.test_answer;
-            target.test_task = source.test_task;
-            target.test_type = source.test_type;
-            target.title = source.title;
-        }
-
-
-        // ---------------------------------------------------------------------------------------------
         public static ModuleDTO GetSimpleDTO(edumodule entity) {
             return new ModuleDTO {
                 id = entity.id,
-                id_group = entity.id_group,
+                group_id = entity.group_id,
+                group_position = entity.group_position,
                 title = entity.title,
                 difficulty = entity.difficulty
             };
         }
-
 
         // ---------------------------------------------------------------------------------------------
         public static List<ModuleDTO> GetSimpleDTOList(this IEnumerable<edumodule> modules) {
             return modules.Select(module => GetSimpleDTO(module)).ToList();
         }
 
-
         // ---------------------------------------------------------------------------------------------
         public static ModuleDTO GetDTO(edumodule entity) {
             return new ModuleDTO {
                 id = entity.id,
-                id_group = entity.id_group,
+                group_id = entity.group_id,
+                group_position = entity.group_position,
                 title = entity.title,
                 difficulty = entity.difficulty,
                 content = entity.content,
-                example = entity.example,
-                test_type = entity.test_type,
-                test_task = entity.test_task,
-                test_answer = entity.test_answer
+                example = entity.example
+                //,
+                //test_question = entity.test_question.Cast<TestQuestionDTO>().ToList(),
+                //test_code = entity.test_question.Cast<TestCodeDTO>().ToList()
             };
+        }
+
+        // ---------------------------------------------------------------------------------------------
+        public static void CopyValues(ModuleDTO source, edumodule target) {
+            target.id = source.id;
+            target.group_id = source.group_id;
+            target.group_position = source.group_position;
+            target.title = source.title;
+            target.difficulty = source.difficulty;
+            target.content = source.content;
+            target.example = source.example;
         }
     }
 }

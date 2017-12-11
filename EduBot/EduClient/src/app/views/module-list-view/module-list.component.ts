@@ -41,9 +41,9 @@ export class ModuleListComponent implements OnInit {
         this.getModules();
         this.moduleService.moduleAdded
             .subscribe((m: Module) => {
-                    let index = this.modules.findIndex(x => x.id == m.id);
-                    this.modules[index] = m;
-                }
+                let index = this.modules.findIndex(x => x.id == m.id);
+                this.modules[index] = m;
+            }
             );
     }
 
@@ -57,10 +57,16 @@ export class ModuleListComponent implements OnInit {
 
     // --------------------------------------------------------------------------------------------------------------
     private nextModule() {
-        this.moduleService.nextModule(this.resolver.currentModuleId)
+        // jeśli jeszcze nie zaznaczono żadnego modułu to serwer otrzymawszy currModuleId = -1
+        // zareaguje tak samo jak na żądanie nowego modułu - kolejnego, który jeszcze nie był oglądany
+        let currModuleId = this.resolver.currentModuleId;
+        if (currModuleId == undefined) currModuleId = -1;
+
+        this.moduleService.nextModule(currModuleId)
             .subscribe(newModule => {
                 // this.modules[this.modules.length] = newModule;
-                this.router.navigate(['module/' + newModule.id]);
+                if (newModule != undefined)
+                    this.router.navigate(['module/' + newModule.id]);
             });
     }
 
@@ -75,7 +81,7 @@ export class ModuleListComponent implements OnInit {
 
     // --------------------------------------------------------------------------------------------------------------
     private addModule() {
-        if(this.modules.every(m => !m.isSelected))
+        if (this.modules.every(m => !m.isSelected))
             this.moduleService.saveModule(new Module()).subscribe(res => this.modules.push(res));
         else
             this.addMetaModule();
@@ -95,7 +101,7 @@ export class ModuleListComponent implements OnInit {
                 moduleGroup.forEach(m => { m.isSelected = false; m.group_id = res.id })
                 let idx = this.modules.indexOf(moduleGroup[0]);
                 this.modules.splice(idx, 0, res);
-                this.router.navigate(['module', res.id], {relativeTo: this.route});
+                this.router.navigate(['module', res.id], { relativeTo: this.route });
             });
     }
 

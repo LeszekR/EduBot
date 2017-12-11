@@ -113,7 +113,8 @@ namespace EduApi.Services {
                 // dostosowanie trudności do stanu emocjonalnego i dotychczasowych wyników użytkownika
                 else {
                     var nextDifficulty = PickNextDifficulty(userId);
-                    newModule = PickNextModule(currentModuleId, nextDifficulty);
+                    var lastModuleId = prevModules[prevModules.Count() - 1].id;
+                    newModule = PickNextModule(lastModuleId, nextDifficulty);
                 }
 
                 // TODO: sprawdzenie czy należy wysłać dystraktor
@@ -291,13 +292,13 @@ namespace EduApi.Services {
          * Jeżeli nie da się zmienić poziomu w żądanym kierunku - na tym samym poziomie.
          * Jeżeli to ostatni moduł materiału - zwraca null.
          */
-        private edumodule PickNextModule(int currentModuleId, ModuleService.ChangeDifficulty change) {
+        private edumodule PickNextModule(int lastModuleId, ModuleService.ChangeDifficulty change) {
 
             edumodule newModule = null;
-            edumodule currentModule = _moduleRepository.Get(currentModuleId);
+            edumodule lastModule = _moduleRepository.Get(lastModuleId);
 
             // ustalenie aktualnego poziomu trudności
-            var difficultyNow = currentModule.difficulty;
+            var difficultyNow = lastModule.difficulty;
 
 
             // ustalenie czy można poziom zmienić
@@ -310,7 +311,7 @@ namespace EduApi.Services {
 
             // TODO: uporządkować przypadek group_id == null - nie może występować
             // pobranie rodzeństwa bieżącego modułu
-            int? parentId = currentModule.group_id;
+            int? parentId = lastModule.group_id;
             var siblings = _moduleRepository.SelectChildren(parentId);
 
 
@@ -321,7 +322,7 @@ namespace EduApi.Services {
 
 
             // ustalenie czy to ostatnie dziecko
-            int idxChild = siblings.FindIndex(mod => mod.id == currentModuleId);
+            int idxChild = siblings.FindIndex(mod => mod.id == lastModuleId);
             bool lastChild = (idxChild == siblings.Count() - 1);
 
 
@@ -352,7 +353,7 @@ namespace EduApi.Services {
                 }
 
                 // nie ma więcej modułów - ten był ostatni
-                else if (currentModule.difficulty == "hard" || parentId == null || parentId == 0)
+                else if (lastModule.difficulty == "hard" || parentId == null || parentId == 0)
                     newModule = null;
 
 

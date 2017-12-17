@@ -31,11 +31,11 @@ export class ModuleListComponent implements OnInit {
         private messageService: MessageService,
         private router: Router,
         private route: ActivatedRoute,
-        private resolver: ModuleResolver
+        // private resolver: ModuleResolver
     ) { }
 
 
-    // PUBLIC
+    // ON-NG-INIT
     // ==============================================================================================================
     ngOnInit() {
         this.getModules();
@@ -43,39 +43,93 @@ export class ModuleListComponent implements OnInit {
             .subscribe((m: Module) => {
                 let index = this.modules.findIndex(x => x.id == m.id);
                 this.modules[index] = m;
-            }
-            );
+            });
+    }
+
+
+    // PUBLIC
+    // ==============================================================================================================
+    explain() {
+        let currentModule = this.context.currentModule;
+        let currentModuleId = currentModule.id;
+        this.moduleService.explainModule(currentModuleId)
+            .subscribe(newModules => {
+                let newId = this.insertNewModules(newModules, currentModule);
+                this.router.navigate['module/' + newId];
+            });
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
+    public getModules() {
+        if (this.context.isEditMode)
+            this.moduleService.getSimpleModules()
+                .subscribe(newModules => {
+                    this.modules = newModules;
+                    this.modules.forEach(m => m.isSelected = false);
+                });
+        else
+            this.moduleService.getSimpleModulesOfUser()
+                .subscribe(newModules => {
+                    this.modules = newModules;
+                    this.modules.forEach(m => m.isSelected = false);
+                });
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
+    public clearModules() {
+        this.modules = [];
     }
 
 
     // PRIVATE
     // ==============================================================================================================
+    private insertNewModules(newModules: Module[], currentModule: Module): number {
+        let index = this.modules.indexOf(currentModule);
+        let tail;
+        if (index < this.modules.length - 1)
+            tail = this.modules.splice(index + 1);
+        this.modules.concat(newModules);
+        this.modules.concat(tail);
+        return newModules[newModules.length - 1].id;
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
+    private explanationExists(): boolean {
+        let currentModule = this.context.currentModule;
+        if (currentModule == null)
+            return false;
+        return currentModule.difficulty != 'easy';
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
     private prevModule() {
-        this.moduleService.prevModule(this.resolver.currentModuleId)
-            .subscribe(res => console.log(res));
+        // jeśli jeszcze nie zaznaczono żadnego modułu to serwer otrzymawszy currModuleId = -1
+        // zareaguje tak samo jak na żądanie nowego modułu - kolejnego, który jeszcze nie był oglądany
+        let currModuleId = this.context.currentModule.id;
+        if (currModuleId == undefined) currModuleId = -1;
+
+        this.moduleService.prevModule(currModuleId)
+            .subscribe(newModule => {
+                if (newModule != undefined && newModule != null) {
+                    this.router.navigate(['module/' + newModule.id]);
+                }
+            });
     }
 
     // --------------------------------------------------------------------------------------------------------------
     private nextModule() {
         // jeśli jeszcze nie zaznaczono żadnego modułu to serwer otrzymawszy currModuleId = -1
         // zareaguje tak samo jak na żądanie nowego modułu - kolejnego, który jeszcze nie był oglądany
-        let currModuleId = this.resolver.currentModuleId;
+        let currModuleId = this.context.currentModule.id;
         if (currModuleId == undefined) currModuleId = -1;
 
         this.moduleService.nextModule(currModuleId)
             .subscribe(newModule => {
-                // this.modules[this.modules.length] = newModule;
-                if (newModule != undefined)
+                if (newModule != undefined && newModule != null) {
+                    if (this.modules.filter(m => { return m.id == newModule.id; }).length == 0)
+                        this.modules[this.modules.length] = newModule;
                     this.router.navigate(['module/' + newModule.id]);
-            });
-    }
-
-    // --------------------------------------------------------------------------------------------------------------
-    private getModules() {
-        this.moduleService.getSimpleModules()
-            .subscribe(newModules => {
-                this.modules = newModules;
-                this.modules.forEach(m => m.isSelected = false);
+                }
             });
     }
 

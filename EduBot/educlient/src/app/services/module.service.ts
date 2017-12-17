@@ -33,15 +33,20 @@ export class ModuleService {
 
     // PUBLIC
     // ==============================================================================================================
-    CreateModuleSequence() {    
-        this.http.get<string>(this.moduleUrl + '/createmodulesequence')
-        .subscribe(res => console.log(res));
+    explainModule(moduleId: number): Observable<Module[]> {
+        return this.http.get<Module[]>(this.moduleUrl + '/explainmodule/' + moduleId);
     }
 
     // --------------------------------------------------------------------------------------------------------------
-    prevModule(currentModuleId: number): Observable<string> {
+    CreateModuleSequence() {
+        this.http.get<string>(this.moduleUrl + '/createmodulesequence')
+            .subscribe(res => console.log(res));
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
+    prevModule(currentModuleId: number): Observable<Module> {
         // TODO: zdecydować jak przysyłać kolejny moduł - tylko id, czy cały, czy wiele modułów
-        return this.http.get<string>(this.moduleUrl + '/getprevmodule/' + currentModuleId);
+        return this.http.get<Module>(this.moduleUrl + '/getprevmodule/' + currentModuleId);
     }
 
     // --------------------------------------------------------------------------------------------------------------
@@ -59,12 +64,12 @@ export class ModuleService {
         if (questions.length == 0)
             return null;
 
-        
+
         let questionsArr: ClosedQuestionDTO[] = [];
         let q: ClosedQuestion;
         let qDTO: ClosedQuestionDTO;
         let answersStr: string;
-        
+
         for (var i in questions) {
             q = questions[i];
             qDTO = new ClosedQuestionDTO();
@@ -108,6 +113,11 @@ export class ModuleService {
             questionsArr[questionsArr.length] = q;
         }
         return questionsArr;
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
+    getSimpleModulesOfUser(): Observable<Module[]> {
+        return this.http.get<Module[]>(this.moduleUrl + '/getsimplemodulesofuser');
     }
 
     // --------------------------------------------------------------------------------------------------------------

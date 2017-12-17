@@ -60,23 +60,42 @@ namespace EduApi.Services {
 
         // PUBLIC
         // =============================================================================================
-        public void CreateModuleSequence() {
-            List<edumodule> modules = TreeModules(_moduleRepository.All());
-            for (var i = 0; i < modules.Count(); i++)
-                modules[i].group_position = i;
+        public List<ModuleDTO> ExplainModule(int userId, int moduleId) {
+
+            var children = _moduleRepository.SelectChildren(moduleId);
+            var user = _userService.GetUserEntity(userId);
+
+            // Zapamiętanie nowych modułów na liście odwiedzonych przez użytkownika
+            foreach (var child in children)
+                child.user.ToList().Add(user);
             _moduleRepository.SaveChanges();
+
+            // Przekazanie listy modułów wyjaśniających moduł nadrzędny
+            return ModuleMapper.GetSimpleDTOList(children);
         }
 
 
         // ---------------------------------------------------------------------------------------------
         public ModuleDTO PrevModule(int userId, int currentModuleId) {
-            throw new NotImplementedException();
+
+            user user = _userService.GetUserEntity(userId);
+
+            // pobranie listy modułów dotychczas wysłanych do tego użytkownika
+            List<edumodule> prevModules = user.edumodule.ToList();
+            SortGroupPosition(ref prevModules);
+
+            // ustalenie pozycji aktualnego modułu na liście obejrzanych modułów
+            int idx = prevModules.FindIndex(mod => mod.id == currentModuleId);
+
+            if (idx > 0)
+                return ModuleMapper.GetDTO(prevModules[idx - 1]);
+
+            return null;
         }
 
 
         // ---------------------------------------------------------------------------------------------
         public ModuleDTO NextModule(int userId, int currentModuleId) {
-
 
             edumodule newModule;
             user user = _userService.GetUserEntity(userId);
@@ -138,15 +157,18 @@ namespace EduApi.Services {
 
 
         // ---------------------------------------------------------------------------------------------
+        public List<ModuleDTO> GetSimpleModules(int userId) {
+            List<edumodule> modules = _moduleRepository.ModulesOfUser(userId);
+            SortGroupPosition(ref modules);
+            return modules.GetSimpleDTOList();
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
         public List<ModuleDTO> GetSimpleModules() {
             List<edumodule> modules = _moduleRepository.All();
             SortGroupPosition(ref modules);
             return modules.GetSimpleDTOList();
-
-            // pobranie danych z bazy
-            //List<edumodule> modules = _moduleRepository.All();
-            //List<edumodule> sortedModules = TreeModules(modules);
-            //return sortedModules.GetSimpleDTOList();
         }
 
 
@@ -156,6 +178,15 @@ namespace EduApi.Services {
             ModuleDTO moduleDTO = ModuleMapper.GetDTO(module);
             moduleDTO.test_question = GetQuestionsForModule(module);
             return moduleDTO;
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
+        public void CreateModuleSequence() {
+            List<edumodule> modules = TreeModules(_moduleRepository.All());
+            for (var i = 0; i < modules.Count(); i++)
+                modules[i].group_position = i;
+            _moduleRepository.SaveChanges();
         }
 
 

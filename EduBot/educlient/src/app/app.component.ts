@@ -3,11 +3,13 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 
 import { ContextService } from './services/context.service';
 import { ModuleService } from './services/module.service';
+import { ModuleListComponent } from './views/module-list-view/module-list.component'
 
 
 // MOCK *******************************************
 import { HttpService } from './services/http.service';
 // *******************************************
+
 
 // ==================================================================================================================
 @Component({
@@ -20,6 +22,9 @@ export class AppComponent implements OnInit {
   @ViewChild('loginModal')
   loginModal: ModalDirective;
 
+  @ViewChild(ModuleListComponent) 
+  moduleListComponent: ModuleListComponent;
+
 
   // CONSTRUCTOR
   // ==============================================================================================================
@@ -29,22 +34,30 @@ export class AppComponent implements OnInit {
     private moduleService: ModuleService) { }
 
 
-
   // MOCK
   // ==============================================================================================================
   setEmoState(state: number) {
     this.http.post<string>('http://localhost:64365/api/emoservice/setemostate', state)
       .subscribe(res => console.log(res));
+    if (state == 2)
+      this.moduleListComponent.clearModules();
   }
+
 
   // PUBLIC
   // ==============================================================================================================
   ngOnInit() { }
 
+  // // --------------------------------------------------------------------------------------------------------------
+  // explain() {
+  //   this.moduleListComponent.explain();
+  // }
+
   // --------------------------------------------------------------------------------------------------------------
   openLoginWindow() {
     this.loginModal.show();
   }
+
 
   // PRIVATE
   // ==============================================================================================================
@@ -52,5 +65,6 @@ export class AppComponent implements OnInit {
     if (this.context.isEditMode)
       this.moduleService.CreateModuleSequence();
     this.context.isEditMode = !this.context.isEditMode;
+    this.moduleListComponent.getModules();
   }
 }

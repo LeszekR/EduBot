@@ -1,7 +1,9 @@
 import { Injectable, OnInit } from '@angular/core';
 
+
 //Models
 import { Role } from '../models/enum-user-role';
+import { Module } from '../models/module'
 
 
 // ==================================================================================================================
@@ -12,7 +14,9 @@ export class ContextService {
     userRole: Role;
     editModuleId: number;
     isEditMode: boolean = false;
-
+    currentModuleId: number;
+    currentModule: Module;
+    
 
     // PUBLIC
     // ==============================================================================================================

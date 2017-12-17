@@ -46,5 +46,6 @@ export const LANG_DE_TRANS = {
     'toolbar.view_report': 'Zeige Bericht',
 
     'learn.next_module': '<Next>',
-    'learn.prev_module': '<Back>'
+    'learn.prev_module': '<Back>',
+    'learn.explain': '<Explain in detail>'    
 };

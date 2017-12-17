@@ -46,5 +46,6 @@ export const LANG_PL_TRANS = {
     'toolbar.view_report': 'Wyświetl raport',
 
     'learn.next_module': 'Dalej',
-    'learn.prev_module': 'Wstecz'
+    'learn.prev_module': 'Wstecz',
+    'learn.explain': 'Wyjaśnij dokładniej'
 };

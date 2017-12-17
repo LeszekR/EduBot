@@ -7,12 +7,18 @@ namespace EduApi.Services.Interfaces {
     // =================================================================================================
     public interface IModuleService {
 
+        /* Wysyła moduły łatwiejsze składające się na wskazany moduł trudniejszy.
+         * Front wywołuje ten endpoint tylko gdy oglądany moduł nie jest na najłatwiejszym poziomie
+         * trudności (difficulty != 'easy').
+         */
+        List<ModuleDTO> ExplainModule(int userId, int moduleId);
+
         /* Wywoływana po każdym zamknięciu trygu edycji modułów.
          * Ustawia wszystkie moduły w prawidłowe drzewo i numeruje: nadaje kolejne 'group_position'.
          * Dzięki temu przy dalszym korzystaniu można sortować moduły:
          * - szybko
          * - również gdy lista jest niekompletna (nieznani są rodzice) 
-         */ 
+         */
         void CreateModuleSequence();
 
         // ---------------------------------------------------------------------------------------------
@@ -26,8 +32,17 @@ namespace EduApi.Services.Interfaces {
         ModuleDTO NextModule(int userId, int currentModuleId);
 
         // ---------------------------------------------------------------------------------------------
-        /* Wysyła moduł przeglądany przed oglądanym obecnie */
+        /* Wysyła do frontu poprzedni moduł oglądany przez użytkownika przed
+         * modułem oglądanym w tej chwili.
+         * Jeśli użytkownik jeszcze nie otrzymał żadnych modułów - wysyła null.
+         */
         ModuleDTO PrevModule(int userId, int currentModuleId);
+
+        // ---------------------------------------------------------------------------------------------
+        /* Pobiera z bazy moduły wcześniej już wysłane do danego użytkownika
+         * i zwraca ich uproszczoną postać - tylko te elementy,
+         * które pobierane są w metodzie ModuleMapper.GetSimpleDTO(). */
+        List<ModuleDTO> GetSimpleModules(int userId);
 
         // ---------------------------------------------------------------------------------------------
         /* Pobiera z bazy wszystkie moduły i zwraca ich uproszczoną postać - tylko te elementy,

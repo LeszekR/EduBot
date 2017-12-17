@@ -32,6 +32,13 @@ namespace EduApi.Controllers {
 
 
         // ---------------------------------------------------------------------------------------------
+        public IHttpActionResult ExplainModule(int id) {
+            int userId = 1;
+            return Ok(_moduleService.ExplainModule(userId, id));
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
         public IHttpActionResult GetPrevModule(int id) {
             int userId = 1;
             return Ok(_moduleService.PrevModule(userId, id));
@@ -42,6 +49,13 @@ namespace EduApi.Controllers {
         public IHttpActionResult GetNextModule(int id) {
             int userId = 1;
             return Ok(_moduleService.NextModule(userId, id));
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
+        public IHttpActionResult GetSimpleModulesOfUser() {
+            int userId = 1;
+            return Ok(_moduleService.GetSimpleModules(userId));
         }
 
 

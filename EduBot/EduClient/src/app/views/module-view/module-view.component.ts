@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 //Models
@@ -11,12 +11,14 @@ import { ModuleService } from '../../services/module.service';
 import { ContextService } from '../../services/context.service';
 
 //Components
+import { AppComponent } from '../../app.component'
 import { ContentViewComponent } from './content-view/content-view.component';
 import { ExampleViewComponent } from './example-view/example-view.component';
 import { QuizViewComponent } from './quiz-view/quiz-view.component';
 
 import { MockData } from '../../mock/test-data'
 import { ClosedQuestion } from '../../models/closed-question';
+// import { EventEmitter } from 'events';
 
 
 // ==================================================================================================================
@@ -37,6 +39,7 @@ export class ModuleViewComponent implements OnInit {
   module: Module;
   questions: ClosedQuestion[];
   viewType: string;
+  appComp: AppComponent;
 
   // TODO: mock, usunąć ***************************
   tx: string;
@@ -60,11 +63,12 @@ export class ModuleViewComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.module = data.module;
+      this.context.currentModule = data.module;
 
       let questions = this.moduleService.UnpackClosedQuestions(this.module.test_question);
 
       // TODO: mock, usunąć ***************************
-      if (questions.length == 0) questions = new MockData().mockQuestions;
+      // if (questions.length == 0) questions = new MockData().mockQuestions;
       // **********************************************
 
       this.questions = questions;

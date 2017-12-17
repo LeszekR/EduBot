@@ -4,13 +4,16 @@
         <button type="button" class="btn btn-success mr-2" (click)="addModule()">
             {{ 'common.add' | translate }}
         </button>
-        <button type="button" class="btn btn-success mr-2" (click)="addMetaModule()" *ngIf="selectedModuleIds.length==0">
+        <button type="button" class="btn btn-success mr-2" (click)="addMetaModule()" 
+            *ngIf="selectedModuleIds.length==0">
             {{ 'edit.add_meta_module' | translate }}
         </button>
-        <button type="button" class="btn btn-primary mr-2" (click)="editModule()" *ngIf="selectedModuleIds.length==0">
+        <button type="button" class="btn btn-primary mr-2" (click)="editModule()" 
+            *ngIf="selectedModuleIds.length==0">
             {{ 'common.edit' | translate }}
         </button>
-        <button type="button" class="btn btn-danger mr-2" (click)="deleteModule()" *ngIf="selectedModuleIds.length==0">
+        <button type="button" class="btn btn-danger mr-2" (click)="deleteModule()" 
+            *ngIf="selectedModuleIds.length==0">
             {{ 'common.delete' | translate }}
         </button>
     </div>
@@ -23,7 +26,7 @@
         <button type="button" class="col-3 btn btn-success mr-2" (click)="nextModule()">
             {{ 'learn.next_module' | translate }}
         </button>
-        <div class="col-6">            
+        <div class="col-6">
             <button type="button" *ngIf="explanationExists()" class="btn btn-primary" (click)="explain()">
                 {{ 'learn.explain' | translate }}
             </button>
@@ -32,7 +35,9 @@
 
 
     <ng-template ngFor let-module [ngForOf]="modules">
-        <div class="d-flex" [class.justify-content-end]="this.context.currentModule.difficulty=='easy'" [class.justify-content-center]="module.difficulty=='medium'"
+        <div class="d-flex" 
+        [class.justify-content-end]="module.difficulty=='easy'" 
+        [class.justify-content-center]="module.difficulty=='medium'"
             [class.justify-content-start]="module.difficulty=='hard'">
             <a [routerLink]="['module/' ,module.id]" (click)="selectedModuleId=module.id" class="btn-menu list-group-item p-0 col-10"
                 [class.lvl-easy]="module.difficulty=='easy'" [class.lvl-medium]="module.difficulty=='medium'" [class.lvl-hard]="module.difficulty=='hard'"

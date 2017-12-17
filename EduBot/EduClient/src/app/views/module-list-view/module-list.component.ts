@@ -30,8 +30,7 @@ export class ModuleListComponent implements OnInit {
         private context: ContextService,
         private messageService: MessageService,
         private router: Router,
-        private route: ActivatedRoute,
-        // private resolver: ModuleResolver
+        private route: ActivatedRoute
     ) { }
 
 

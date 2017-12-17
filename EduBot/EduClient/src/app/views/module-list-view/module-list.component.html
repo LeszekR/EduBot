@@ -44,16 +44,29 @@
 
 
     <ng-template ngFor let-module [ngForOf]="modules">
-        <div class="d-flex" [class.justify-content-end]="module.difficulty=='easy'" [class.justify-content-center]="module.difficulty=='medium'"
+        
+        <div class="d-flex" 
+            [class.justify-content-end]="module.difficulty=='easy'" 
+            [class.justify-content-center]="module.difficulty=='medium'"
             [class.justify-content-start]="module.difficulty=='hard'">
-            <a [routerLink]="['module/' ,module.id]" (click)="selectedModuleId=module.id" class="btn-menu list-group-item p-0 col-10"
-                [class.lvl-easy]="module.difficulty=='easy'" [class.lvl-medium]="module.difficulty=='medium'" [class.lvl-hard]="module.difficulty=='hard'"
-                [ngClass]="context.editModuleId!=null ? (context.editModuleId==module.id ? '' : 'disabled') : '' " routerLinkActive="active">
+            
+            <a 
+                class="btn-menu list-group-item p-0 col-10"
+                [class.lvl-easy]="module.difficulty=='easy'" 
+                [class.lvl-medium]="module.difficulty=='medium'" 
+                [class.lvl-hard]="module.difficulty=='hard'"
+                [routerLink]="['module/', module.id]" 
+                routerLinkActive="active"
+                [ngClass]="context.editModuleId==null ? '' : (context.editModuleId==module.id ? '' : 'disabled')" 
+                (click)="selectedModuleId=module.id" 
+                >
+                
                 <div class="pl-2 p-3">
                     <div class="ml-3">
                         <span class="w-100">{{ module.title }}</span>
                     </div>
                 </div>
+                
                 <div class="ml-auto pr-1" *ngIf="context.isEditMode && module.difficulty!='hard' && module.group_id != 0 && !context.editModuleId">
                     <input type="checkbox" [checked]="module.isSelected" (change)="module.isSelected = !module.isSelected">
                 </div>

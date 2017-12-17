@@ -62,16 +62,32 @@ namespace EduApi.Services {
         // =============================================================================================
         public List<ModuleDTO> ExplainModule(int userId, int moduleId) {
 
-            var children = _moduleRepository.SelectChildren(moduleId);
+            //var children = _moduleRepository.SelectChildren(moduleId);
+            //var user = _userService.GetUserEntity(userId);
+            //var prevModules = user.edumodule.ToList();
+            //var newModules = new List<edumodule>();
+
+            //// Zapamiętanie nowych modułów na liście odwiedzonych przez użytkownika
+            //foreach (var child in children)
+            //    if (!prevModules.Contains(child)) {
+            //        newModules.Add(child);
+            //        child.user.Add(user);
+            //    }
+
             var user = _userService.GetUserEntity(userId);
+            var children = _moduleRepository.SelectChildren(moduleId);
+            List<edumodule> newModules = children.Where(child => !user.edumodule.Contains(child)).ToList();
+
+            if (newModules.Count() == 0)
+                return null;
 
             // Zapamiętanie nowych modułów na liście odwiedzonych przez użytkownika
-            foreach (var child in children)
-                child.user.ToList().Add(user);
+            foreach (var child in newModules)
+                child.user.Add(user);
             _moduleRepository.SaveChanges();
 
             // Przekazanie listy modułów wyjaśniających moduł nadrzędny
-            return ModuleMapper.GetSimpleDTOList(children);
+            return newModules.GetSimpleDTOList();
         }
 
 

@@ -54,8 +54,10 @@ export class ModuleListComponent implements OnInit {
         let currentModuleId = currentModule.id;
         this.moduleService.explainModule(currentModuleId)
             .subscribe(newModules => {
-                let newId = this.insertNewModules(newModules, currentModule);
-                this.router.navigate(['module/' + newId]);
+                if (newModules != null) {
+                    let newId = this.insertNewModules(newModules, currentModule);
+                    this.router.navigate(['module/' + newId]);
+                }
             });
     }
 
@@ -85,10 +87,14 @@ export class ModuleListComponent implements OnInit {
     // ==============================================================================================================
     private insertNewModules(newModules: Module[], currentModule: Module): number {
         let index = this.modules.findIndex(mod => mod.id == currentModule.id);
-        let tail;
-        if (index < this.modules.length - 1)
-            tail = this.modules.splice(index + 1);
-        this.modules = this.modules.concat(newModules).concat(tail);
+        let tail = null;
+        let newMod = this.modules;
+        if (index < newMod.length - 1)
+            tail = newMod.splice(index + 1);
+        newMod = newMod.concat(newModules);
+        if (tail != null)
+            newMod = newMod.concat(tail);
+        this.modules = newMod;
         return newModules[0].id;
     }
 
@@ -119,8 +125,8 @@ export class ModuleListComponent implements OnInit {
     private nextModule() {
         // jeśli jeszcze nie zaznaczono żadnego modułu to serwer otrzymawszy currModuleId = -1
         // zareaguje tak samo jak na żądanie nowego modułu - kolejnego, który jeszcze nie był oglądany
-        let currModuleId = this.context.currentModule.id;
-        if (currModuleId == undefined) currModuleId = -1;
+        let currModule = this.context.currentModule;
+        let currModuleId = currModule == undefined ? -1 : currModule.id;
 
         this.moduleService.nextModule(currModuleId)
             .subscribe(newModule => {

@@ -22,6 +22,7 @@ export class ModuleListComponent implements OnInit {
 
     modules: Module[];
     selectedModuleId: number;
+    selectedModules: Module[] = [];
 
     // CONSTRUCTOR
     // ==============================================================================================================
@@ -54,7 +55,7 @@ export class ModuleListComponent implements OnInit {
         this.moduleService.explainModule(currentModuleId)
             .subscribe(newModules => {
                 let newId = this.insertNewModules(newModules, currentModule);
-                this.router.navigate['module/' + newId];
+                this.router.navigate(['module/' + newId]);
             });
     }
 
@@ -83,13 +84,12 @@ export class ModuleListComponent implements OnInit {
     // PRIVATE
     // ==============================================================================================================
     private insertNewModules(newModules: Module[], currentModule: Module): number {
-        let index = this.modules.indexOf(currentModule);
+        let index = this.modules.findIndex(mod => mod.id == currentModule.id);
         let tail;
         if (index < this.modules.length - 1)
             tail = this.modules.splice(index + 1);
-        this.modules.concat(newModules);
-        this.modules.concat(tail);
-        return newModules[newModules.length - 1].id;
+        this.modules = this.modules.concat(newModules).concat(tail);
+        return newModules[0].id;
     }
 
     // --------------------------------------------------------------------------------------------------------------
@@ -148,7 +148,7 @@ export class ModuleListComponent implements OnInit {
     // --------------------------------------------------------------------------------------------------------------
     private addMetaModule() {
         // TODO: pobrać grupę modułów zaznaczonych przez użytkownika dla utworzenia modułu nadrzędnego
-        let moduleGroup = this.modules.filter(m => m.isSelected);
+        let moduleGroup = this.selectedModules;
         this.moduleService.saveMetaModule(moduleGroup)
             .subscribe(res => {
                 moduleGroup.forEach(m => { m.isSelected = false; m.group_id = res.id })

@@ -32,6 +32,7 @@ namespace EduApi.Controllers {
 
 
         // ---------------------------------------------------------------------------------------------
+        [HttpGet]
         public IHttpActionResult ExplainModule(int id) {
             int userId = 1;
             return Ok(_moduleService.ExplainModule(userId, id));

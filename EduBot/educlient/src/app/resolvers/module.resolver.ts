@@ -12,9 +12,6 @@ import { Module } from '../models/module'
 @Injectable()
 export class ModuleResolver implements Resolve<any> {
 
-    // public currentModuleId: number;
-    // public currentModule: Module;
-
 
     // CONSTRUCTOR
     // ==============================================================================================================
@@ -30,11 +27,5 @@ export class ModuleResolver implements Resolve<any> {
     resolve(route: ActivatedRouteSnapshot): Observable<any> | Promise<any> | any {
         this.context.currentModuleId = +route.params['moduleId'];
         return this.service.getModuleById(this.context.currentModuleId);
-    // this.service.getModuleById(this.currentModuleId)
-        //     .subscribe(mod => {
-        //         this.currentModule = mod;
-        //     });
-        // return new Observable<any>((subscriber: Subscriber<Module>) =>
-        //     subscriber.next(this.currentModule)).map(o => JSON.stringify(o));
     }
 }

@@ -1,32 +1,41 @@
 <div class="list-group h-100 mt-2 mt-md-0 pb-md-5 pl-md-2" style="width: inherit;">
 
     <div *ngIf="context.isEditMode" class="pb-2 pl-2 d-flex justify-content-center" role="group">
-        <button type="button" class="btn btn-success mr-2" (click)="addModule()">
-            {{ 'common.add' | translate }}
-        </button>
-        <button type="button" class="btn btn-success mr-2" (click)="addMetaModule()" 
-            *ngIf="selectedModuleIds.length==0">
-            {{ 'edit.add_meta_module' | translate }}
-        </button>
-        <button type="button" class="btn btn-primary mr-2" (click)="editModule()" 
-            *ngIf="selectedModuleIds.length==0">
-            {{ 'common.edit' | translate }}
-        </button>
-        <button type="button" class="btn btn-danger mr-2" (click)="deleteModule()" 
-            *ngIf="selectedModuleIds.length==0">
-            {{ 'common.delete' | translate }}
-        </button>
-    </div>
+        <div class="col-3 mr-2">
+            <button type="button" class="btn btn-success" (click)="addModule()"
+                *ngIf="selectedModules.length==0">
+                {{ 'common.add' | translate }}
+            </button>
+        </div>
+        <div class="col-3 mr-2">
+            <button type="button" class="btn btn-primary" (click)="editModule()" 
+                *ngIf="selectedModules.length==0">
+                {{ 'common.edit' | translate }}
+            </button>
+        </div>
+        <div class="col-3 mr-2">
+            <button type="button" class="btn btn-danger" (click)="deleteModule()" 
+                *ngIf="selectedModules.length==0">
+                {{ 'common.delete' | translate }}
+            </button>
+        </div>
+        <div class="col-3">
+                <button type="button" class="btn btn-success" (click)="addMetaModule()" 
+                    *ngIf="selectedModules.length>0">
+                    {{ 'edit.add_meta_module' | translate }}
+                </button>
+            </div>
+        </div>
 
 
     <div class="mt-1 pb-2 pl-2 d-flex justify-content-center" role="group">
-        <button type="button" class="col-3 btn btn-danger mr-2" (click)="prevModule()">
+        <button type="button" class="col-3 btn btn-danger mr-1" (click)="prevModule()">
             {{ 'learn.prev_module' | translate }}
         </button>
-        <button type="button" class="col-3 btn btn-success mr-2" (click)="nextModule()">
+        <button type="button" class="col-3 btn btn-success mr-1" (click)="nextModule()">
             {{ 'learn.next_module' | translate }}
         </button>
-        <div class="col-6">
+        <div class="col-6 m-0">
             <button type="button" *ngIf="explanationExists()" class="btn btn-primary" (click)="explain()">
                 {{ 'learn.explain' | translate }}
             </button>
@@ -35,9 +44,7 @@
 
 
     <ng-template ngFor let-module [ngForOf]="modules">
-        <div class="d-flex" 
-        [class.justify-content-end]="module.difficulty=='easy'" 
-        [class.justify-content-center]="module.difficulty=='medium'"
+        <div class="d-flex" [class.justify-content-end]="module.difficulty=='easy'" [class.justify-content-center]="module.difficulty=='medium'"
             [class.justify-content-start]="module.difficulty=='hard'">
             <a [routerLink]="['module/' ,module.id]" (click)="selectedModuleId=module.id" class="btn-menu list-group-item p-0 col-10"
                 [class.lvl-easy]="module.difficulty=='easy'" [class.lvl-medium]="module.difficulty=='medium'" [class.lvl-hard]="module.difficulty=='hard'"

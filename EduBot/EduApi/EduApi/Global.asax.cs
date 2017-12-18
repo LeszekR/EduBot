@@ -1,4 +1,7 @@
-﻿namespace EduApi {
+﻿using System;
+using System.Web.SessionState;
+
+namespace EduApi {
 
     public class WebApiApplication : System.Web.HttpApplication {
 
@@ -9,6 +12,13 @@
 
         public static void RegisterWebApiFilters(System.Web.Http.Filters.HttpFilterCollection filters) {
             //filters.Add(new CredentialsActionFilter());
+        }
+
+        protected void Application_PostAuthorizeRequest(
+            Object sender,
+            EventArgs e
+        ) {
+            System.Web.HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.Required);
         }
     }
 }

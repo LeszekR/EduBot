@@ -189,6 +189,7 @@
     <Compile Include="App_Start\DepentencyInjectorConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\EmoServiceController.cs" />
     <Compile Include="Controllers\ModuleController.cs" />
     <Compile Include="Controllers\ServerController.cs" />
@@ -237,8 +238,10 @@
     </Compile>
     <Compile Include="Repositories\ModuleRepository.cs" />
     <Compile Include="Repositories\TestQuestionRepository.cs" />
+    <Compile Include="Services\AffitsApi.cs" />
     <Compile Include="Services\Interfaces\ITestQuestionService.cs" />
     <Compile Include="Services\TestQuestionService.cs" />
+    <Compile Include="Services\AffitsApiAdapter.cs" />
     <Compile Include="test_code.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

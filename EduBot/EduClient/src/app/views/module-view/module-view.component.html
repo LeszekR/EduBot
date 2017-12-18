@@ -16,7 +16,7 @@
     <!-- test - pytania otwarte -->
     <div class="row d-flex m-0 p-0" *ngIf="viewType==QUIZ_VIEW" style="height: calc(100% - 50px)">
         <div class="col-12 h-100 m-0 p-0">
-            <quiz-view [tx]="tx" [questions]="questions" [readonly]="!context.editModuleId"></quiz-view>
+            <quiz-view [questions]="questions" [readonly]="!context.editModuleId"></quiz-view>
         </div>
     </div>
 
@@ -50,7 +50,7 @@
 
         <!-- przycisk 'sprawdź test' -->
         <div class="col-1 h-100 m-0 p-0 pull-right">
-            <button (click)="verifyTest()" *ngIf="viewType==QUIZ_VIEW" class="btn btn-primary pull-right ml-1">{{ 'learn.verify-test' | translate }}</button>
+            <button (click)="verifyClosedTest()" *ngIf="viewType==QUIZ_VIEW" class="btn btn-primary pull-right ml-1">{{ 'learn.verify-test' | translate }}</button>
         </div>
     
         <!-- przyciski widoku -->

@@ -35,7 +35,7 @@ namespace EduApi.Controllers {
         [HttpPost]
         public IHttpActionResult VerifyClosedTest([FromBody]TestQuestionAnswDTO[] answers) {
             int userId = 1;
-            return Ok(_moduleService.VerifyClosedTest(userId, answers));
+            return Ok(_moduleService.VerifyClosedTest(answers, userId));
         }
 
         // ---------------------------------------------------------------------------------------------

@@ -11,11 +11,6 @@ import { ClosedQuestion } from '../../../../models/closed-question'
 export class QuestionViewComponent implements OnInit {
 
   @Input() questionData: ClosedQuestion;
-  public answerIdx: number;
-
-  // TODO: usunąć po testach ***************************
-  private tx: string;
-  // ***************************************************
 
 
   // CONSTRUCTOR
@@ -24,9 +19,7 @@ export class QuestionViewComponent implements OnInit {
 
   // --------------------------------------------------------------------------------------------------------------
   ngOnInit() {
-    // TODO: usunąć po testach ***************************
-      this.tx = this.questionData.question;
-    // ***************************************************
+    this.questionData.correct_idx = -1;
   }
 
   // PUBLIC

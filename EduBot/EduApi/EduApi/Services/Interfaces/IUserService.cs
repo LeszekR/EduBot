@@ -10,6 +10,7 @@ namespace EduApi.Services.Interfaces {
         void ClearModuleHistory(int userId);
         // =============================================================================================
 
+        //List<user_question> GetQuestionsOfUser(int userId);
         void SaveChanges();
         user GetUserEntity(int id);
         //int? GetLastModuleId(int userId);

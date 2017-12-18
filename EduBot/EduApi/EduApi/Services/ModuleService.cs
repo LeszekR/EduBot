@@ -4,7 +4,6 @@ using EduApi.DAL.Interfaces;
 using EduApi.Dto;
 using EduApi.Dto.Mappers;
 using EduApi.DTO;
-using EduApi.Repositories.Interfaces;
 using EduApi.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -36,9 +35,10 @@ namespace EduApi.Services {
     // =================================================================================================
     public class ModuleService : IModuleService {
 
+        private readonly IUserService _userService;
         private readonly IModuleRepository _moduleRepository;
         private readonly ITestQuestionService _questionService;
-        private readonly IUserService _userService;
+        private readonly IUserQuestionService _userQuestionService;
 
         public enum ChangeDifficulty { UP, NO_CHANGE, DOWN };
 
@@ -47,38 +47,69 @@ namespace EduApi.Services {
         // =============================================================================================
         #region Constructor
         public ModuleService(
+            IUserService userService,
             IModuleRepository moduleRepository,
             ITestQuestionService questionService,
-            IUserService userService) {
+            IUserQuestionService userQuestionService
+            ) {
 
+            _userService = userService;
             _moduleRepository = moduleRepository;
             _questionService = questionService;
-            _userService = userService;
+            _userQuestionService = userQuestionService;
         }
         #endregion
 
 
         // PUBLIC
         // =============================================================================================
-        public TestQuestionAnswDTO[] VerifyClosedTest(TestQuestionAnswDTO[] answers, int userId) {
+        public List<TestQuestionAnswDTO> VerifyClosedTest(TestQuestionAnswDTO[] answers, int userId) {
 
             var answersList = answers.ToList();
             var user = _userService.GetUserEntity(userId);
 
+            string questionAnswerStr;
             int correctAnswer;
-            string questionAnswer;
-            user_question userQuestion;
-            test_question question;
 
             foreach (var ans in answersList) {
+                
+                // Pobranie lub dodanie pytania do listy pytań, na które użytkownik odpowiedział
+                user_question answeredQuestion = user.user_question.ToList()
+                    .Where(q => q.question_id == ans.question_id)
+                    .FirstOrDefault();
 
-                question = _questionService.GetQuestionEntity(ans.answer_id);
-                userQuestion = question.user_question.ToList().Find(q => q.question_id = ;
+                if (answeredQuestion == null) {
+                    answeredQuestion = new user_question() {
+                        question_id = ans.question_id,
+                        user_id = userId,
+                        user = user,
+                        test_question = _questionService.GetQuestionEntity(ans.question_id),
+                        result = false                    
+                    };
+                    answeredQuestion = _userQuestionService.UpsertUserQuestion(answeredQuestion);
+                    //user.user_question.Add(answeredQuestion);
+                }
 
-                questionAnswer = question.question_answer;
-                correctAnswer = Int32.Parse(questionAnswer.Split('^')[1]);
-                if (
+                // Ustalenie indeksu poprawnej odpowiedzi dla tego pytania
+                questionAnswerStr = _questionService.GetQuestionEntity(ans.question_id).question_answer;
+                correctAnswer = Int32.Parse(questionAnswerStr.Split('^')[1]);
+
+                // Ustawienie :
+                // - prawidłowości wyniku na liście odpowiedzi użytkownika,
+                // - odpowiedzi dla frontu - użytkownik odpowiedział prawidłowo lub nie.
+                if (ans.answer_id == correctAnswer) {
+                    answeredQuestion.result = true;
+                    ans.answer_id = 1;
+                }
+                else {
+                    answeredQuestion.result = false;
+                    ans.answer_id = 0;
+                }
             }
+
+            _userService.SaveChanges();
+
+            return answersList;
         }
 
 

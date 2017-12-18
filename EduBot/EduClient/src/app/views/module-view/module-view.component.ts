@@ -46,7 +46,7 @@ export class ModuleViewComponent implements OnInit {
   tx: string;
   // **********************************************
 
-  private readonly CONTENT_VIEW = 'content'; 
+  private readonly CONTENT_VIEW = 'content';
   private readonly QUIZ_VIEW = 'quiz';
   private readonly CODE_VIEW = 'code';
 
@@ -76,17 +76,17 @@ export class ModuleViewComponent implements OnInit {
 
   // PUBLIC
   // ==============================================================================================================
-  verifyTest() {
+  verifyClosedTest() {
     let answers: ClosedQuestAnswDTO[] = [];
 
     let q: ClosedQuestion;
     for (var i in this.questions) {
       q = this.questions[i];
-      answers[answers.length] = new ClosedQuestAnswDTO(q[i].id, q.correct_idx);
+      answers[answers.length] = new ClosedQuestAnswDTO(q.id, q.correct_idx);
     }
 
-    this.moduleService.verifyClosedQuestionTest(answers)
-    .subscribe(result => console.log(result));
+    this.moduleService.verifyClosedTest(answers)
+      .subscribe(result => console.log(result));
   }
 
   // --------------------------------------------------------------------------------------------------------------

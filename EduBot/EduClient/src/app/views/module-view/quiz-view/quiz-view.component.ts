@@ -14,7 +14,7 @@ export class QuizViewComponent {
   @Input() readonly: boolean;
 
   // TODO: mock, usunąć ***************************
-  @Input() tx: string;
+  // @Input() tx: string;
   // **********************************************
 
 

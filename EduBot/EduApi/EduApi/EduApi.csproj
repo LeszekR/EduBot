@@ -194,9 +194,12 @@
     <Compile Include="Controllers\ServerController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Dto\Mappers\ModuleMappper.cs" />
+    <Compile Include="Dto\Mappers\UserQuestionMapper.cs" />
     <Compile Include="Dto\Mappers\TestQuestionMapper.cs" />
     <Compile Include="Dto\Mappers\UserMapper.cs" />
     <Compile Include="Dto\TestCodeDTO.cs" />
+    <Compile Include="Dto\TestQuestionAnswDTO.cs" />
+    <Compile Include="Dto\UserQuestionDTO.cs" />
     <Compile Include="Dto\TestQuestionDTO.cs" />
     <Compile Include="Log\GlobalExceptionFilter.cs" />
     <Compile Include="Log\NLogger.cs" />
@@ -217,6 +220,7 @@
     <Compile Include="enum_user_role.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\Interfaces\IUserQuestionRepository.cs" />
     <Compile Include="Repositories\Interfaces\IModuleRepository.cs" />
     <Compile Include="Repositories\Interfaces\ITestQuestionRepository.cs" />
     <Compile Include="Repositories\Interfaces\IUserRepository.cs" />
@@ -236,8 +240,11 @@
       <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
     <Compile Include="Repositories\ModuleRepository.cs" />
+    <Compile Include="Repositories\UserQuestionRepository.cs" />
     <Compile Include="Repositories\TestQuestionRepository.cs" />
+    <Compile Include="Services\Interfaces\IUserQuestionService.cs" />
     <Compile Include="Services\Interfaces\ITestQuestionService.cs" />
+    <Compile Include="Services\UserQuestionService.cs" />
     <Compile Include="Services\TestQuestionService.cs" />
     <Compile Include="test_code.cs">
       <DependentUpon>Model.tt</DependentUpon>

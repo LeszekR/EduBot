@@ -36,7 +36,7 @@ export class ModuleService {
 
     // PUBLIC
     // ==============================================================================================================
-    verifyClosedQuestionTest(answers: ClosedQuestAnswDTO[]): Observable<ClosedQuestAnswDTO[]> {
+    verifyClosedTest(answers: ClosedQuestAnswDTO[]): Observable<ClosedQuestAnswDTO[]> {
         return this.http.post<ClosedQuestAnswDTO[]>(
             this.moduleUrl + '/verifyclosedtest', answers);
     }

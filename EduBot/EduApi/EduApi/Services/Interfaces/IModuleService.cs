@@ -14,7 +14,7 @@ namespace EduApi.Services.Interfaces {
          *     0 : odpowiedź nieprawidłowa,
          *     1 : odpowiedź prawidłowa.
          */
-        TestQuestionAnswDTO[] VerifyClosedTest(TestQuestionAnswDTO[] answers, int userId);
+        List<TestQuestionAnswDTO> VerifyClosedTest(TestQuestionAnswDTO[] answers, int userId);
 
         /* Wysyła moduły łatwiejsze składające się na wskazany moduł trudniejszy.
          * Front wywołuje ten endpoint tylko gdy oglądany moduł nie jest na najłatwiejszym poziomie

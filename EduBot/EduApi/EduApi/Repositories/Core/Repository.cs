@@ -33,6 +33,7 @@ namespace EduApi.DAL.Core {
                 _context.SaveChanges();
             }
             catch (System.Data.Entity.Validation.DbEntityValidationException dbEx) {
+
                 Exception raise = dbEx;
 
                 foreach (var validationErrors in dbEx.EntityValidationErrors) {
@@ -48,9 +49,6 @@ namespace EduApi.DAL.Core {
                 }
                 throw raise;
             }
-
-            //DbSet.Add(entity);
-            //_context.SaveChanges();
 
             return entity;
         }

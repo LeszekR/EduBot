@@ -1,6 +1,5 @@
 ﻿using EduApi.Dto;
 using EduApi.Dto.Mappers;
-using EduApi.DTO;
 using EduApi.Repositories.Interfaces;
 using EduApi.Services.Interfaces;
 using System.Collections.Generic;
@@ -56,7 +55,7 @@ namespace EduApi.Services {
 
 
         // ---------------------------------------------------------------------------------------------
-        test_question GetQuestionEntity(int id) {
+        public test_question GetQuestionEntity(int id) {
             return _questionRepository.Get(id);
         }
     }

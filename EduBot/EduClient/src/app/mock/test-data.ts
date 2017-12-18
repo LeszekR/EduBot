@@ -29,7 +29,7 @@ export class MockData {
         },
         <ClosedQuestion>{
             question: "Wór kostek małych to w podstawowej wersji jest:",
-            correct_idx: 4,
+            correct_idx: 3,
             answers: ["żywnośc dla kota", "żywność dla marynarzy na morzu", "chrzęszcząca trzęsawka akustyczna", "masażer de luxe bez intsrukcji"]
         }
     ];

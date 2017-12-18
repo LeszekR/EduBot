@@ -53,5 +53,11 @@ namespace EduApi.Services {
         public List<test_question> SelectQuestionsForModule(int module_id) {
             return _questionRepository.SelectQuestionsForModule(module_id);
         }
+
+
+        // ---------------------------------------------------------------------------------------------
+        test_question GetQuestionEntity(int id) {
+            return _questionRepository.Get(id);
+        }
     }
 }

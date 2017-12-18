@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TestType } from '../../models/enum-test-type';
 import { DiffLevel } from '../../models/enum-diff-level';
 import { Module } from '../../models/module';
+import { ClosedQuestAnswDTO } from '../../models/closed-question-answ-DTO';
 
 //Services
 import { ModuleService } from '../../services/module.service';
@@ -45,7 +46,7 @@ export class ModuleViewComponent implements OnInit {
   tx: string;
   // **********************************************
 
-  private readonly CONTENT_VIEW = 'content';
+  private readonly CONTENT_VIEW = 'content'; 
   private readonly QUIZ_VIEW = 'quiz';
   private readonly CODE_VIEW = 'code';
 
@@ -57,9 +58,7 @@ export class ModuleViewComponent implements OnInit {
     private moduleService: ModuleService,
     private context: ContextService) { }
 
-
-  // PUBLIC
-  // ==============================================================================================================
+  // --------------------------------------------------------------------------------------------------------------
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.module = data.module;
@@ -70,22 +69,24 @@ export class ModuleViewComponent implements OnInit {
       // TODO: mock, usunąć ***************************
       // if (this.questions.length == 0) this.questions = new MockData().mockQuestions;
       // **********************************************
-
-      // this.questions = questions;
-
-      // TODO: mock, usunąć ***************************
-      this.tx = '';
-      for (var i in this.questions) {
-        this.tx += this.questions[i].question + '\n';
-        for (var j in this.questions[i].answers)
-          this.tx += '  - ' + this.questions[i].answers[j] + '\n';
-        this.tx += '\n\n';
-      }
-      // **********************************************
-
       this.viewType = this.CONTENT_VIEW;
+    });
+  }
+
+
+  // PUBLIC
+  // ==============================================================================================================
+  verifyTest() {
+    let answers: ClosedQuestAnswDTO[] = [];
+
+    let q: ClosedQuestion;
+    for (var i in this.questions) {
+      q = this.questions[i];
+      answers[answers.length] = new ClosedQuestAnswDTO(q[i].id, q.correct_idx);
     }
-    );
+
+    this.moduleService.verifyClosedQuestionTest(answers)
+    .subscribe(result => console.log(result));
   }
 
   // --------------------------------------------------------------------------------------------------------------

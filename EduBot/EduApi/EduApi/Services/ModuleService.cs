@@ -60,19 +60,30 @@ namespace EduApi.Services {
 
         // PUBLIC
         // =============================================================================================
+        public TestQuestionAnswDTO[] VerifyClosedTest(TestQuestionAnswDTO[] answers, int userId) {
+
+            var answersList = answers.ToList();
+            var user = _userService.GetUserEntity(userId);
+
+            int correctAnswer;
+            string questionAnswer;
+            user_question userQuestion;
+            test_question question;
+
+            foreach (var ans in answersList) {
+
+                question = _questionService.GetQuestionEntity(ans.answer_id);
+                userQuestion = question.user_question.ToList().Find(q => q.question_id = ;
+
+                questionAnswer = question.question_answer;
+                correctAnswer = Int32.Parse(questionAnswer.Split('^')[1]);
+                if (
+            }
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
         public List<ModuleDTO> ExplainModule(int userId, int moduleId) {
-
-            //var children = _moduleRepository.SelectChildren(moduleId);
-            //var user = _userService.GetUserEntity(userId);
-            //var prevModules = user.edumodule.ToList();
-            //var newModules = new List<edumodule>();
-
-            //// Zapamiętanie nowych modułów na liście odwiedzonych przez użytkownika
-            //foreach (var child in children)
-            //    if (!prevModules.Contains(child)) {
-            //        newModules.Add(child);
-            //        child.user.Add(user);
-            //    }
 
             var user = _userService.GetUserEntity(userId);
             var children = _moduleRepository.SelectChildren(moduleId);

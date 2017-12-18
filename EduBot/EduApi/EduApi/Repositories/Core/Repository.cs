@@ -5,18 +5,27 @@ using System.Linq;
 
 namespace EduApi.DAL.Core {
 
+
+    // =================================================================================================
     public class Repository<T> : IRepository<T> where T : class {
 
         private edumaticEntities _context;
 
+
+        // CONSTRUCTOR
+        // =============================================================================================
         public Repository(edumaticEntities context) {
             _context = context;
         }
 
+        // ---------------------------------------------------------------------------------------------
         private IDbSet<T> DbSet {
             get { return _context.Set<T>(); }
         }
 
+
+        // PUBLIC
+        // =============================================================================================
         public T Add(T entity) {
 
             try {
@@ -46,24 +55,29 @@ namespace EduApi.DAL.Core {
             return entity;
         }
 
+        // ---------------------------------------------------------------------------------------------
         public List<T> All() {
             return DbSet.AsQueryable().ToList();
         }
 
+        // ---------------------------------------------------------------------------------------------
         public void Delete(int Id) {
             DbSet.Remove(DbSet.Find(Id));
             _context.SaveChanges();
         }
 
+        // ---------------------------------------------------------------------------------------------
         public T Get(int Id) {
             return DbSet.Find(Id);
         }
 
+        // ---------------------------------------------------------------------------------------------
         public void Update(T entity) {
             DbSet.Attach(entity);
             _context.SaveChanges();
         }
 
+        // ---------------------------------------------------------------------------------------------
         public void SaveChanges() {
             _context.SaveChanges();
         }

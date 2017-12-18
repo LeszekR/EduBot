@@ -11,6 +11,9 @@ import { HttpService } from './http.service';
 import { Module } from '../models/module'
 import { ClosedQuestion } from '../models/closed-question';
 import { ClosedQuestionDTO } from '../models/closed-question-DTO';
+import { ClosedQuestAnswDTO } from '../models/closed-question-answ-DTO';
+
+// Components
 import { QuizViewComponent } from '../views/module-view/quiz-view/quiz-view.component';
 
 
@@ -33,6 +36,11 @@ export class ModuleService {
 
     // PUBLIC
     // ==============================================================================================================
+    verifyClosedQuestionTest(answers: ClosedQuestAnswDTO[]): Observable<ClosedQuestAnswDTO[]> {
+        return this.http.post<ClosedQuestAnswDTO[]>(
+            this.moduleUrl + '/verifyclosedtest', answers);
+    }
+
     explainModule(moduleId: number): Observable<Module[]> {
         return this.http.get<Module[]>(this.moduleUrl + '/explainmodule/' + moduleId);
     }
@@ -45,13 +53,11 @@ export class ModuleService {
 
     // --------------------------------------------------------------------------------------------------------------
     prevModule(currentModuleId: number): Observable<Module> {
-        // TODO: zdecydować jak przysyłać kolejny moduł - tylko id, czy cały, czy wiele modułów
         return this.http.get<Module>(this.moduleUrl + '/getprevmodule/' + currentModuleId);
     }
 
     // --------------------------------------------------------------------------------------------------------------
     nextModule(currentModuleId: number): Observable<Module> {
-        // TODO: zdecydować jak przysyłać kolejny moduł - tylko id, czy cały, czy wiele modułów
         let moduleId = currentModuleId == undefined ? 0 : currentModuleId;
         return this.http.get<Module>(this.moduleUrl + '/getnextmodule/' + moduleId);
     }

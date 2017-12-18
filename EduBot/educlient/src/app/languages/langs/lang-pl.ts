@@ -47,5 +47,6 @@ export const LANG_PL_TRANS = {
 
     'learn.next_module': 'Dalej',
     'learn.prev_module': 'Wstecz',
-    'learn.explain': 'Wyjaśnij dokładniej'
+    'learn.explain': 'Wyjaśnij dokładniej',
+    'learn.verify-test': 'Sprawdź test'
 };

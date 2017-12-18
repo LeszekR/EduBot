@@ -1,4 +1,5 @@
-﻿using EduApi.DTO;
+﻿using EduApi.Dto;
+using EduApi.DTO;
 using System.Collections.Generic;
 
 
@@ -6,6 +7,14 @@ namespace EduApi.Services.Interfaces {
 
     // =================================================================================================
     public interface IModuleService {
+
+        /* 1. Sprawdza odpowiedzi udzielone przez użytkownika w teście.
+         * 2. Zapisuje wyniki tych pytań dla tego użytkownika w bazie.
+         * 3. Odsyła tablicę tych samych pytań, w zmiennej answer_id umieszczając
+         *     0 : odpowiedź nieprawidłowa,
+         *     1 : odpowiedź prawidłowa.
+         */
+        TestQuestionAnswDTO[] VerifyClosedTest(TestQuestionAnswDTO[] answers, int userId);
 
         /* Wysyła moduły łatwiejsze składające się na wskazany moduł trudniejszy.
          * Front wywołuje ten endpoint tylko gdy oglądany moduł nie jest na najłatwiejszym poziomie

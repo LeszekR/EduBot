@@ -34,7 +34,7 @@
 
     <!-- kontrolki -->
     <div class="row col-12" style="margin-right:0; margin-left:0; padding-left:0;">
-        <div class="col-8 h-100" style="margin-left:0; padding-left:0;">
+        <div class="col-7 h-100" style="margin-left:0; padding-left:0;">
 
             <!-- kontrolki edycji -->
             <div class="row col-12 h-100 ml-3 pl-0" *ngIf="context.editModuleId">
@@ -48,8 +48,11 @@
             </div>
         </div>
 
-        <!-- przycisk 'wyjaśnij' -->
-
+        <!-- przycisk 'sprawdź test' -->
+        <div class="col-1 h-100 m-0 p-0 pull-right">
+            <button (click)="verifyTest()" *ngIf="viewType==QUIZ_VIEW" class="btn btn-primary pull-right ml-1">{{ 'learn.verify-test' | translate }}</button>
+        </div>
+    
         <!-- przyciski widoku -->
         <div class="col-4 h-100 m-0 p-0 pull-right">
             <button (click)="viewType=CODE_VIEW" *ngIf="viewType!==CODE_VIEW" class="btn btn-primary pull-right ml-1">{{ 'common.code' | translate }}</button>

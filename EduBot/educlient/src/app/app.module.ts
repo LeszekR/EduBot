@@ -37,6 +37,7 @@ import { MessageService } from './shared/components/message/message.service';
 //Modules
 import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
+import { QuestionViewComponent } from './views/module-view/question-view.component';
 
 export function httpServiceFactory(backend: XHRBackend, options: RequestOptions, router: Router) {
   return new HttpService(backend, options, router);
@@ -60,7 +61,8 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     ModuleListComponent,
     GameProgressComponent,
     SelectLanguageComponent,
-    MessageComponent
+    MessageComponent,
+    QuestionViewComponent
   ],
   imports: [
     SharedModule,

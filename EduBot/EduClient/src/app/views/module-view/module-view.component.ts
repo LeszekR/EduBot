@@ -65,20 +65,20 @@ export class ModuleViewComponent implements OnInit {
       this.module = data.module;
       this.context.currentModule = data.module;
 
-      let questions = this.moduleService.UnpackClosedQuestions(this.module.test_question);
+      this.questions = this.moduleService.UnpackClosedQuestions(this.module.test_question);
 
       // TODO: mock, usunąć ***************************
-      // if (questions.length == 0) questions = new MockData().mockQuestions;
+      // if (this.questions.length == 0) this.questions = new MockData().mockQuestions;
       // **********************************************
 
-      this.questions = questions;
+      // this.questions = questions;
 
       // TODO: mock, usunąć ***************************
       this.tx = '';
-      for (var i in questions) {
-        this.tx += questions[i].question + '\n';
-        for (var j in questions[i].answers)
-          this.tx += '  - ' + questions[i].answers[j] + '\n';
+      for (var i in this.questions) {
+        this.tx += this.questions[i].question + '\n';
+        for (var j in this.questions[i].answers)
+          this.tx += '  - ' + this.questions[i].answers[j] + '\n';
         this.tx += '\n\n';
       }
       // **********************************************

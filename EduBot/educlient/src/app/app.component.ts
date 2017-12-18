@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
   @ViewChild('loginModal')
   loginModal: ModalDirective;
 
-  @ViewChild(ModuleListComponent) 
+  @ViewChild(ModuleListComponent)
   moduleListComponent: ModuleListComponent;
 
 
@@ -38,20 +38,17 @@ export class AppComponent implements OnInit {
   // ==============================================================================================================
   setEmoState(state: number) {
     this.http.post<string>('http://localhost:64365/api/emoservice/setemostate', state)
-      .subscribe(res => console.log(res));
-    if (state == 2)
-      this.moduleListComponent.clearModules();
+      .subscribe(res => {
+        if (state == 2)
+          this.moduleListComponent.clearModules();
+        console.log(res)
+      });
   }
 
 
   // PUBLIC
   // ==============================================================================================================
   ngOnInit() { }
-
-  // // --------------------------------------------------------------------------------------------------------------
-  // explain() {
-  //   this.moduleListComponent.explain();
-  // }
 
   // --------------------------------------------------------------------------------------------------------------
   openLoginWindow() {

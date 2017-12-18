@@ -175,7 +175,24 @@ namespace EduApi.Services {
         // ---------------------------------------------------------------------------------------------
         public List<ModuleDTO> GetSimpleModules(int userId) {
             List<edumodule> modules = _moduleRepository.ModulesOfUser(userId);
-            SortGroupPosition(ref modules);
+
+            // Jeżeli użytkownik jeszcze nie pobrał żadnych modułów - otrzyma pierwszy
+            // w którym powinien byc wstęp - instrukcja używania programu.
+            if (modules.Count() == 0) {
+
+                var introductionModule = _moduleRepository.Get(1);
+                modules.Add(introductionModule);
+                
+                // zapisanie modułu na liście modułów użytkownika
+                var user = _userService.GetUserEntity(userId);
+                user.edumodule.Add(introductionModule);
+                _userService.SaveChanges();
+            }
+
+            // Jeżeli użytkownik już otrzymał jakieś moduły - sortujemy ich kolejność
+            else
+                SortGroupPosition(ref modules);
+
             return modules.GetSimpleDTOList();
         }
 

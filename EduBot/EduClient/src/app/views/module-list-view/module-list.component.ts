@@ -58,6 +58,11 @@ export class ModuleListComponent implements OnInit {
                     let newId = this.insertNewModules(newModules, currentModule);
                     this.router.navigate(['module/' + newId]);
                 }
+                else {
+                    let index = this.modules.findIndex(m => m.id == currentModuleId);
+                    if (this.modules.length > index + 1)
+                    this.router.navigate(['module/' + this.modules[index + 1].id]);
+                }
             });
     }
 
@@ -66,34 +71,45 @@ export class ModuleListComponent implements OnInit {
         if (this.context.isEditMode)
             this.moduleService.getSimpleModules()
                 .subscribe(newModules => {
-                    this.modules = newModules;
-                    this.modules.forEach(m => m.isSelected = false);
+                    this.setNewModules(newModules);
                 });
         else
             this.moduleService.getSimpleModulesOfUser()
                 .subscribe(newModules => {
-                    this.modules = newModules;
-                    this.modules.forEach(m => m.isSelected = false);
+                    this.setNewModules(newModules);
                 });
     }
 
     // --------------------------------------------------------------------------------------------------------------
     public clearModules() {
         this.modules = [];
+        this.context.isEditMode = false;
+        this.getModules();
+        this.router.navigate(['']);
     }
 
 
     // PRIVATE
     // ==============================================================================================================
+    private setNewModules(newModules: Module[]) {
+        this.modules = newModules;
+        this.modules.forEach(m => m.isSelected = false);
+        this.router.navigate(['module/' + this.modules[this.modules.length - 1].id]);
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
     private insertNewModules(newModules: Module[], currentModule: Module): number {
         let index = this.modules.findIndex(mod => mod.id == currentModule.id);
-        let tail = null;
         let newMod = this.modules;
+
+        let tail = null;
         if (index < newMod.length - 1)
             tail = newMod.splice(index + 1);
+
         newMod = newMod.concat(newModules);
         if (tail != null)
             newMod = newMod.concat(tail);
+
         this.modules = newMod;
         return newModules[0].id;
     }

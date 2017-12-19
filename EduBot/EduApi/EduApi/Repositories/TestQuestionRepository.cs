@@ -10,13 +10,13 @@ namespace EduApi.Repositories {
     // =================================================================================================
     public class TestQuestionRepository : Repository<test_question>, ITestQuestionRepository  {
 
-        private edumaticEntities _context;
+        //private edumaticEntities _context;
 
 
         // CONSTRUCTOR
         // =============================================================================================
         public TestQuestionRepository(edumaticEntities context) : base(context) {
-            _context = context;
+            //_context = context;
         }
 
 

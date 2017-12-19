@@ -236,15 +236,24 @@
     </Compile>
     <Compile Include="Repositories\Core\IRepository.cs" />
     <Compile Include="Repositories\Core\Repository.cs" />
+    <Compile Include="Repositories\Interfaces\IUserQuestionRepository.cs" />
     <Compile Include="Repositories\Interfaces\IModuleRepository.cs" />
     <Compile Include="Repositories\Interfaces\ITestQuestionRepository.cs" />
     <Compile Include="Repositories\Interfaces\IUserRepository.cs" />
     <Compile Include="Repositories\ModuleRepository.cs" />
+    <Compile Include="Repositories\UserQuestionRepository.cs" />
     <Compile Include="Repositories\TestQuestionRepository.cs" />
+<<<<<<< HEAD
     <Compile Include="Services\AffitsApi.cs" />
+=======
+    <Compile Include="Services\Interfaces\IUserQuestionService.cs" />
+>>>>>>> next_module
     <Compile Include="Services\Interfaces\ITestQuestionService.cs" />
+    <Compile Include="Services\UserQuestionService.cs" />
     <Compile Include="Services\TestQuestionService.cs" />
+<<<<<<< HEAD
     <Compile Include="Services\AffitsApiAdapter.cs" />
+=======
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Dto\Credentials.cs" />
     <Compile Include="Dto\ModuleDTO.cs" />
@@ -259,6 +268,7 @@
     <Compile Include="Services\Interfaces\IUserService.cs" />
     <Compile Include="Services\ModuleService.cs" />
     <Compile Include="Services\UserService.cs" />
+>>>>>>> next_module
     <Compile Include="test_code.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

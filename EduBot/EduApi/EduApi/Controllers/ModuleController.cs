@@ -2,6 +2,7 @@
 using System.Web.Http;
 using System.Web.Http.Cors;
 using EduApi.Services.Interfaces;
+using EduApi.Dto;
 
 namespace EduApi.Controllers {
 
@@ -30,6 +31,12 @@ namespace EduApi.Controllers {
             return Ok("Odnowiono sekwencję modułów");
         }
 
+        // ---------------------------------------------------------------------------------------------
+        [HttpPost]
+        public IHttpActionResult VerifyClosedTest([FromBody]TestQuestionAnswDTO[] answers) {
+            int userId = 1;
+            return Ok(_moduleService.VerifyClosedTest(answers, userId));
+        }
 
         // ---------------------------------------------------------------------------------------------
         [HttpGet]
@@ -37,7 +44,6 @@ namespace EduApi.Controllers {
             int userId = 1;
             return Ok(_moduleService.ExplainModule(userId, id));
         }
-
 
         // ---------------------------------------------------------------------------------------------
         public IHttpActionResult GetPrevModule(int id) {

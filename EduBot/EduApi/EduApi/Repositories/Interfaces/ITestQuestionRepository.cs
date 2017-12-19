@@ -1,6 +1,5 @@
 ﻿using EduApi.DAL.Core;
 using EduApi.Dto;
-using EduApi.DTO;
 using System.Collections.Generic;
 
 namespace EduApi.Repositories.Interfaces {

@@ -16,6 +16,7 @@ namespace EduApi
     {
         public int user_id { get; set; }
         public int question_id { get; set; }
+        public bool first_result { get; set; }
         public bool result { get; set; }
     
         public virtual test_question test_question { get; set; }

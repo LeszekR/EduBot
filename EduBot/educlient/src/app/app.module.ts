@@ -22,6 +22,8 @@ import { GameProgressComponent } from './components/game-progress/game-progress.
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { SelectLanguageComponent } from './components/select-language/select-language.component';
 import { MessageComponent } from './shared/components/message/message.component';
+import { QuestionViewComponent } from './views/module-view/quiz-view/question-view/question-view.component';
+import { QuestionAnswerViewComponent } from './views/module-view/quiz-view/question-answer-view/question-answer-view.component';
 
 //Services
 import { TestService } from './mock/test.service';
@@ -60,7 +62,9 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     ModuleListComponent,
     GameProgressComponent,
     SelectLanguageComponent,
-    MessageComponent
+    MessageComponent,
+    QuestionViewComponent,
+    QuestionAnswerViewComponent
   ],
   imports: [
     SharedModule,

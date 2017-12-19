@@ -1,0 +1,13 @@
+<div class="mb-3">
+
+  <p>
+    {{questionData.question}}
+  </p>
+
+  <ul *ngFor="let ans of questionData.answers; let i=index" [attr.data-index]="i">
+    <li>
+      <question-answer-view [answer]="ans" [parentQuestion]="this" [id]="i"></question-answer-view>
+    </li>
+  </ul>
+
+</div>

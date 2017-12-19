@@ -34,6 +34,11 @@ namespace EduApi.Services {
 
         // PUBLIC
         // =============================================================================================
+        //public List<user_question> GetQuestionsOfUser(int userId) {
+        //    return _userRepository.Get(userId).user_question.ToList();
+        //}
+
+        // ---------------------------------------------------------------------------------------------
         public void SaveChanges() {
             _userRepository.SaveChanges();
         }

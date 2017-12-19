@@ -1,7 +1,6 @@
 ﻿using EduApi.DAL.Core;
 using EduApi.DAL.Interfaces;
 using EduApi.DTO;
-using EduApi.Services;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,13 +10,13 @@ namespace EduApi.DAL {
     // =================================================================================================
     public class ModuleRepository : Repository<edumodule>, IModuleRepository {
 
-        private edumaticEntities _context;
+        //private edumaticEntities _context;
 
 
         // CONSTRUCTOR
         // =============================================================================================
         public ModuleRepository(edumaticEntities context) : base(context) {
-            _context = context;
+            //_context = context;
         }
 
 

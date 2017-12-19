@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TestType } from '../../models/enum-test-type';
 import { DiffLevel } from '../../models/enum-diff-level';
 import { Module } from '../../models/module';
+import { ClosedQuestAnswDTO } from '../../models/closed-question-answ-DTO';
 
 //Services
 import { ModuleService } from '../../services/module.service';
@@ -41,10 +42,6 @@ export class ModuleViewComponent implements OnInit {
   viewType: string;
   appComp: AppComponent;
 
-  // TODO: mock, usunąć ***************************
-  tx: string;
-  // **********************************************
-
   private readonly CONTENT_VIEW = 'content';
   private readonly QUIZ_VIEW = 'quiz';
   private readonly CODE_VIEW = 'code';
@@ -57,35 +54,35 @@ export class ModuleViewComponent implements OnInit {
     private moduleService: ModuleService,
     private context: ContextService) { }
 
-
-  // PUBLIC
-  // ==============================================================================================================
+  // --------------------------------------------------------------------------------------------------------------
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.module = data.module;
       this.context.currentModule = data.module;
 
-      let questions = this.moduleService.UnpackClosedQuestions(this.module.test_question);
+      this.questions = this.moduleService.UnpackClosedQuestions(this.module.test_question);
 
       // TODO: mock, usunąć ***************************
-      // if (questions.length == 0) questions = new MockData().mockQuestions;
+      // if (this.questions.length == 0) this.questions = new MockData().mockQuestions;
       // **********************************************
-
-      this.questions = questions;
-
-      // TODO: mock, usunąć ***************************
-      this.tx = '';
-      for (var i in questions) {
-        this.tx += questions[i].question + '\n';
-        for (var j in questions[i].answers)
-          this.tx += '  - ' + questions[i].answers[j] + '\n';
-        this.tx += '\n\n';
-      }
-      // **********************************************
-
       this.viewType = this.CONTENT_VIEW;
+    });
+  }
+
+
+  // PUBLIC
+  // ==============================================================================================================
+  verifyClosedTest() {
+    let answers: ClosedQuestAnswDTO[] = [];
+
+    let q: ClosedQuestion;
+    for (var i in this.questions) {
+      q = this.questions[i];
+      answers[answers.length] = new ClosedQuestAnswDTO(q.id, q.correct_idx);
     }
-    );
+
+    this.moduleService.verifyClosedTest(answers)
+      .subscribe(result => console.log(result));
   }
 
   // --------------------------------------------------------------------------------------------------------------

@@ -74,16 +74,14 @@
           <Property Name="score" Type="int4" />
           <Property Name="last_module" Type="int4" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'edumatic.public.user_code' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="user_code">
           <Key>
             <PropertyRef Name="user_id" />
             <PropertyRef Name="code_id" />
-            <PropertyRef Name="result" />
           </Key>
           <Property Name="user_id" Type="int4" Nullable="false" />
           <Property Name="code_id" Type="int4" Nullable="false" />
+          <Property Name="first_result" Type="bool" Nullable="false" />
           <Property Name="result" Type="bool" Nullable="false" />
         </EntityType>
         <EntityType Name="user_distractor">
@@ -103,16 +101,14 @@ warning 6002: The table/view 'edumatic.public.user_code' does not have a primary
           <Property Name="user_id" Type="int4" Nullable="false" />
           <Property Name="edumodule_id" Type="int4" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'edumatic.public.user_question' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="user_question">
           <Key>
             <PropertyRef Name="user_id" />
             <PropertyRef Name="question_id" />
-            <PropertyRef Name="result" />
           </Key>
           <Property Name="user_id" Type="int4" Nullable="false" />
           <Property Name="question_id" Type="int4" Nullable="false" />
+          <Property Name="first_result" Type="bool" Nullable="false" />
           <Property Name="result" Type="bool" Nullable="false" />
         </EntityType>
         <Association Name="edumodule_difficulty_fkey">
@@ -280,14 +276,10 @@ warning 6002: The table/view 'edumatic.public.user_question' does not have a pri
           <EntitySet Name="test_code" EntityType="Self.test_code" Schema="public" store:Type="Tables" />
           <EntitySet Name="test_question" EntityType="Self.test_question" Schema="public" store:Type="Tables" />
           <EntitySet Name="user" EntityType="Self.user" Schema="public" store:Type="Tables" />
+          <EntitySet Name="user_code" EntityType="Self.user_code" Schema="public" store:Type="Tables" />
           <EntitySet Name="user_distractor" EntityType="Self.user_distractor" Schema="public" store:Type="Tables" />
           <EntitySet Name="user_edumodule" EntityType="Self.user_edumodule" Schema="public" store:Type="Tables" />
-          <EntitySet Name="user_code" EntityType="Self.user_code" store:Type="Tables" store:Schema="public">
-            <DefiningQuery>SELECT "user_code"."user_id", "user_code"."code_id", "user_code"."result" FROM "public"."user_code" AS "user_code"</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="user_question" EntityType="Self.user_question" store:Type="Tables" store:Schema="public">
-            <DefiningQuery>SELECT "user_question"."user_id", "user_question"."question_id", "user_question"."result" FROM "public"."user_question" AS "user_question"</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="user_question" EntityType="Self.user_question" Schema="public" store:Type="Tables" />
           <AssociationSet Name="edumodule_difficulty_fkey" Association="Self.edumodule_difficulty_fkey">
             <End Role="enum_diff_level" EntitySet="enum_diff_level" />
             <End Role="edumodule" EntitySet="edumodule" />
@@ -433,6 +425,18 @@ warning 6002: The table/view 'edumatic.public.user_question' does not have a pri
           <NavigationProperty Name="user_question" Relationship="Self.user_question_user_id_fkey" FromRole="user" ToRole="user_question" />
           <NavigationProperty Name="edumodule" Relationship="Self.user_edumodule" FromRole="user" ToRole="edumodule" />
         </EntityType>
+        <EntityType Name="user_code">
+          <Key>
+            <PropertyRef Name="user_id" />
+            <PropertyRef Name="code_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="code_id" Type="Int32" Nullable="false" />
+          <Property Name="first_result" Type="Boolean" Nullable="false" />
+          <Property Name="result" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="test_code" Relationship="Self.user_code_code_id_fkey" FromRole="user_code" ToRole="test_code" />
+          <NavigationProperty Name="user" Relationship="Self.user_code_user_id_fkey" FromRole="user_code" ToRole="user" />
+        </EntityType>
         <EntityType Name="user_distractor">
           <Key>
             <PropertyRef Name="user_id" />
@@ -444,26 +448,14 @@ warning 6002: The table/view 'edumatic.public.user_question' does not have a pri
           <NavigationProperty Name="distractor" Relationship="Self.user_distractor_distractor_id_fkey" FromRole="user_distractor" ToRole="distractor" />
           <NavigationProperty Name="user" Relationship="Self.user_distractor_user_id_fkey" FromRole="user_distractor" ToRole="user" />
         </EntityType>
-        <EntityType Name="user_code">
-          <Key>
-            <PropertyRef Name="user_id" />
-            <PropertyRef Name="code_id" />
-            <PropertyRef Name="result" />
-          </Key>
-          <Property Name="user_id" Type="Int32" Nullable="false" />
-          <Property Name="code_id" Type="Int32" Nullable="false" />
-          <Property Name="result" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="test_code" Relationship="Self.user_code_code_id_fkey" FromRole="user_code" ToRole="test_code" />
-          <NavigationProperty Name="user" Relationship="Self.user_code_user_id_fkey" FromRole="user_code" ToRole="user" />
-        </EntityType>
         <EntityType Name="user_question">
           <Key>
             <PropertyRef Name="user_id" />
             <PropertyRef Name="question_id" />
-            <PropertyRef Name="result" />
           </Key>
           <Property Name="user_id" Type="Int32" Nullable="false" />
           <Property Name="question_id" Type="Int32" Nullable="false" />
+          <Property Name="first_result" Type="Boolean" Nullable="false" />
           <Property Name="result" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="test_question" Relationship="Self.user_question_question_id_fkey" FromRole="user_question" ToRole="test_question" />
           <NavigationProperty Name="user" Relationship="Self.user_question_user_id_fkey" FromRole="user_question" ToRole="user" />
@@ -613,8 +605,8 @@ warning 6002: The table/view 'edumatic.public.user_question' does not have a pri
           <EntitySet Name="test_code" EntityType="Self.test_code" />
           <EntitySet Name="test_question" EntityType="Self.test_question" />
           <EntitySet Name="user" EntityType="Self.user" />
-          <EntitySet Name="user_distractor" EntityType="Self.user_distractor" />
           <EntitySet Name="user_code" EntityType="Self.user_code" />
+          <EntitySet Name="user_distractor" EntityType="Self.user_distractor" />
           <EntitySet Name="user_question" EntityType="Self.user_question" />
           <AssociationSet Name="user_distractor_distractor_id_fkey" Association="Self.user_distractor_distractor_id_fkey">
             <End Role="distractor" EntitySet="distractor" />
@@ -748,6 +740,16 @@ warning 6002: The table/view 'edumatic.public.user_question' does not have a pri
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="user_code">
+            <EntityTypeMapping TypeName="edumaticModel.user_code">
+              <MappingFragment StoreEntitySet="user_code">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="code_id" ColumnName="code_id" />
+                <ScalarProperty Name="first_result" ColumnName="first_result" />
+                <ScalarProperty Name="result" ColumnName="result" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="user_distractor">
             <EntityTypeMapping TypeName="edumaticModel.user_distractor">
               <MappingFragment StoreEntitySet="user_distractor">
@@ -757,20 +759,12 @@ warning 6002: The table/view 'edumatic.public.user_question' does not have a pri
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="user_code">
-            <EntityTypeMapping TypeName="edumaticModel.user_code">
-              <MappingFragment StoreEntitySet="user_code">
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="code_id" ColumnName="code_id" />
-                <ScalarProperty Name="result" ColumnName="result" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="user_question">
             <EntityTypeMapping TypeName="edumaticModel.user_question">
               <MappingFragment StoreEntitySet="user_question">
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
                 <ScalarProperty Name="question_id" ColumnName="question_id" />
+                <ScalarProperty Name="first_result" ColumnName="first_result" />
                 <ScalarProperty Name="result" ColumnName="result" />
               </MappingFragment>
             </EntityTypeMapping>

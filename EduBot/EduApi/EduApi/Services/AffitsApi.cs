@@ -2,9 +2,10 @@
 using NLog;
 using System.Net.Http;
 
-namespace EduApi.Services
-{
+namespace EduApi.Services {
 
+
+    // =================================================================================================
     public class AffitsApi {
 
         private readonly string apiHost = "http://153.19.52.107/AffitsServer";
@@ -16,16 +17,20 @@ namespace EduApi.Services
         private HttpClient _httpClient;
         private Logger _logger;
 
+
+        // CONSTRUCTOR
+        // =============================================================================================
         #region Constructor
-        public AffitsApi()
-        {
+        public AffitsApi() {
             _httpClient = new HttpClient();
             _logger = LogManager.GetCurrentClassLogger();
         }
         #endregion
 
-        public string sendImage(string image, string sessionId, string milisecondsTimestamp)
-        {
+
+        // PUBLIC
+        // =============================================================================================
+        public string sendImage(string image, string sessionId, string milisecondsTimestamp) {
             dynamic payload = new JObject();
             payload.image = image;
             StringContent content = new StringContent(payload.ToString());
@@ -41,8 +46,9 @@ namespace EduApi.Services
             return responseString;
         }
 
-        public string initSession()
-        {
+
+        // ---------------------------------------------------------------------------------------------
+        public string initSession() {
             HttpResponseMessage response = _httpClient.GetAsync(apiHost + initEndpoint).Result;
             response.EnsureSuccessStatusCode();
 
@@ -53,8 +59,9 @@ namespace EduApi.Services
             return responseString;
         }
 
-        public string getResults(string sessionId, string milisecondsTimestamp)
-        {
+
+        // ---------------------------------------------------------------------------------------------
+        public string getResults(string sessionId, string milisecondsTimestamp) {
             string url = parseUrl(resultsEndpoint, sessionId, milisecondsTimestamp);
 
             HttpResponseMessage response = _httpClient.GetAsync(url).Result;
@@ -67,16 +74,19 @@ namespace EduApi.Services
             return responseString;
         }
 
-        private string parseUrl(string path, string sessionId, string milisecondsTimestamp)
-        {
+
+        // PUBLIC
+        // =============================================================================================
+        private string parseUrl(string path, string sessionId, string milisecondsTimestamp) {
             path = path.Replace("{session_id}", sessionId);
             path = path.Replace("{timestamp}", milisecondsTimestamp);
 
             return apiHost + path;
         }
 
-        private void log(string url, string response)
-        {
+
+        // ---------------------------------------------------------------------------------------------
+        private void log(string url, string response) {
             _logger.Debug(url + " request with response: \"" + response + "\"");
         }
     }

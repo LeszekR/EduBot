@@ -25,7 +25,7 @@ namespace EduApi.Services {
 
         // PUBLIC
         // =============================================================================================
-        public user_question UpsertUserQuestion(user_question newUserQuestion) {
+        public user_question Add(user_question newUserQuestion) {
             return _userQuestionRepository.Add(newUserQuestion);
         }
     }

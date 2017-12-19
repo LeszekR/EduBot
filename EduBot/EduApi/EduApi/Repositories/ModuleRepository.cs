@@ -10,13 +10,13 @@ namespace EduApi.DAL {
     // =================================================================================================
     public class ModuleRepository : Repository<edumodule>, IModuleRepository {
 
-        private edumaticEntities _context;
+        //private edumaticEntities _context;
 
 
         // CONSTRUCTOR
         // =============================================================================================
         public ModuleRepository(edumaticEntities context) : base(context) {
-            _context = context;
+            //_context = context;
         }
 
 

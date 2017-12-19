@@ -68,11 +68,29 @@ namespace EduApi.Services {
             var answersList = answers.ToList();
             var user = _userService.GetUserEntity(userId);
 
-            string questionAnswerStr;
+            string questionDataStr;
             int correctAnswer;
 
             foreach (var ans in answersList) {
-                
+
+                // Ustalenie indeksu poprawnej odpowiedzi dla tego pytania
+                test_question question = _questionService.GetQuestionEntity(ans.question_id);
+                questionDataStr = question.question_answer;
+                correctAnswer = Int32.Parse(questionDataStr.Split('^')[1]);
+
+                // Ustawienie :
+                // - prawidłowości wyniku na liście odpowiedzi użytkownika,
+                // - odpowiedzi dla frontu - użytkownik odpowiedział prawidłowo lub nie.
+                bool result;
+                if (ans.answer_id == correctAnswer) {
+                    result = true;
+                    ans.answer_id = 1;
+                }
+                else {
+                    result = false;
+                    ans.answer_id = 0;
+                }
+
                 // Pobranie lub dodanie pytania do listy pytań, na które użytkownik odpowiedział
                 user_question answeredQuestion = user.user_question.ToList()
                     .Where(q => q.question_id == ans.question_id)
@@ -82,28 +100,12 @@ namespace EduApi.Services {
                     answeredQuestion = new user_question() {
                         question_id = ans.question_id,
                         user_id = userId,
-                        user = user,
-                        test_question = _questionService.GetQuestionEntity(ans.question_id),
-                        result = false                    
+                        result = result,
+                        //user = user,
+                        //test_question = question
                     };
-                    answeredQuestion = _userQuestionService.UpsertUserQuestion(answeredQuestion);
+                    answeredQuestion = _userQuestionService.Add(answeredQuestion);
                     //user.user_question.Add(answeredQuestion);
-                }
-
-                // Ustalenie indeksu poprawnej odpowiedzi dla tego pytania
-                questionAnswerStr = _questionService.GetQuestionEntity(ans.question_id).question_answer;
-                correctAnswer = Int32.Parse(questionAnswerStr.Split('^')[1]);
-
-                // Ustawienie :
-                // - prawidłowości wyniku na liście odpowiedzi użytkownika,
-                // - odpowiedzi dla frontu - użytkownik odpowiedział prawidłowo lub nie.
-                if (ans.answer_id == correctAnswer) {
-                    answeredQuestion.result = true;
-                    ans.answer_id = 1;
-                }
-                else {
-                    answeredQuestion.result = false;
-                    ans.answer_id = 0;
                 }
             }
 

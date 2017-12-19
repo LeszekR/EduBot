@@ -10,13 +10,13 @@ namespace EduApi.DAL {
     // =================================================================================================
     public class UserRepository : Repository<user>, IUserRepository {
 
-        private edumaticEntities _context;
+        //private edumaticEntities _context;
 
 
         // CONSTRUCTOR
         // =============================================================================================
         public UserRepository(edumaticEntities context) : base(context) {
-            _context = context;
+            //_context = context;
         }
 
 

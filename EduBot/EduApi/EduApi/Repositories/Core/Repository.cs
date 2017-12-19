@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 
 namespace EduApi.DAL.Core {
@@ -9,13 +10,20 @@ namespace EduApi.DAL.Core {
     // =================================================================================================
     public class Repository<T> : IRepository<T> where T : class {
 
-        private edumaticEntities _context;
+        //private edumaticEntities _context;
+        protected edumaticEntities _context;
 
 
         // CONSTRUCTOR
         // =============================================================================================
         public Repository(edumaticEntities context) {
             _context = context;
+            _context.Database.Log = LogAll;
+        }
+
+        // ---------------------------------------------------------------------------------------------
+        private void LogAll(string s) {
+            System.Diagnostics.Debug.WriteLine(s);
         }
 
         // ---------------------------------------------------------------------------------------------
@@ -32,7 +40,13 @@ namespace EduApi.DAL.Core {
                 DbSet.Add(entity);
                 _context.SaveChanges();
             }
-            catch (System.Data.Entity.Validation.DbEntityValidationException dbEx) {
+            catch (System.Data.Entity.Infrastructure.DbUpdateException updEx) {
+                string message = string.Format("Update exception: {0}, {1}",
+                    updEx.Data.ToString(),
+                    updEx.Message);
+                LogAll(message);
+            }
+            catch (DbEntityValidationException dbEx) {
 
                 Exception raise = dbEx;
 

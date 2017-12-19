@@ -33,8 +33,8 @@ namespace EduApi
         public virtual DbSet<test_code> test_code { get; set; }
         public virtual DbSet<test_question> test_question { get; set; }
         public virtual DbSet<user> user { get; set; }
-        public virtual DbSet<user_distractor> user_distractor { get; set; }
         public virtual DbSet<user_code> user_code { get; set; }
+        public virtual DbSet<user_distractor> user_distractor { get; set; }
         public virtual DbSet<user_question> user_question { get; set; }
     }
 }

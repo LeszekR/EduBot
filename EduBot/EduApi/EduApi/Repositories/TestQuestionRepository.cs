@@ -1,6 +1,5 @@
 ﻿using EduApi.DAL.Core;
 using EduApi.Dto;
-using EduApi.Dto.Mappers;
 using EduApi.Repositories.Interfaces;
 using System.Collections.Generic;
 using System.Linq;

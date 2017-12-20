@@ -18,11 +18,11 @@ namespace EduApi.DAL {
 
         // PUBLIC
         // =============================================================================================
-        public List<edumodule> ModulesOfUser(int userId) {
-            return (from mod in _context.edumodule
-                    where (mod.user.Where(us => us.id == userId).Count() > 0)
-                    select mod).ToList();
-        }
+        //public List<edumodule> ModulesOfUser(int userId) {
+        //    return (from mod in _context.edumodule
+        //            where (mod.user.Where(us => us.id == userId).Count() > 0)
+        //            select mod).ToList();
+        //}
 
         // ---------------------------------------------------------------------------------------------
         public List<edumodule> SelectChildren(int? id_grupy) {

@@ -5,7 +5,6 @@ using EduApi.Dto;
 using EduApi.Dto.Mappers;
 using EduApi.DTO;
 using EduApi.Services.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -35,9 +34,10 @@ namespace EduApi.Services {
     // =================================================================================================
     public class ModuleService : IModuleService {
 
-        private readonly IUserService _userService;
         private readonly IModuleRepository _moduleRepository;
+        private readonly IUserService _userService;
         private readonly ITestQuestionService _questionService;
+        private readonly IDistractorRepository _distractorRepository;
 
         public enum ChangeDifficulty { UP, NO_CHANGE, DOWN };
 
@@ -46,14 +46,16 @@ namespace EduApi.Services {
         // =============================================================================================
         #region Constructor
         public ModuleService(
-            IUserService userService,
             IModuleRepository moduleRepository,
-            ITestQuestionService questionService
+            IUserService userService,
+            ITestQuestionService questionService,
+            IDistractorRepository distractorRepository
             ) {
 
-            _userService = userService;
             _moduleRepository = moduleRepository;
+            _userService = userService;
             _questionService = questionService;
+            _distractorRepository = distractorRepository;
         }
         #endregion
 
@@ -80,9 +82,10 @@ namespace EduApi.Services {
 
 
         // ---------------------------------------------------------------------------------------------
-        public ModuleDTO PrevModule(int userId, int currentModuleId) {
+        public ModuleAndDistractorDTO PrevModule(int userId, int currentModuleId) {
 
             user user = _userService.GetUserEntity(userId);
+            distractor newDistractor = null;
 
             // pobranie listy modułów dotychczas wysłanych do tego użytkownika
             List<edumodule> prevModules = user.edumodule.ToList();
@@ -92,16 +95,20 @@ namespace EduApi.Services {
             int idx = prevModules.FindIndex(mod => mod.id == currentModuleId);
 
             if (idx > 0)
-                return ModuleMapper.GetDTO(prevModules[idx - 1]);
+                return new ModuleAndDistractorDTO() {
+                    module = ModuleMapper.GetDTO(prevModules[idx - 1]),
+                    distractor = newDistractor == null ? null : DistractorMapper.GetDTO(newDistractor)
+                };
 
             return null;
         }
 
 
         // ---------------------------------------------------------------------------------------------
-        public ModuleDTO NextModule(int userId, int currentModuleId) {
+        public ModuleAndDistractorDTO NextModule(int userId, int currentModuleId) {
 
             edumodule newModule;
+            distractor newDistractor = null;
             user user = _userService.GetUserEntity(userId);
 
 
@@ -156,13 +163,20 @@ namespace EduApi.Services {
             if (newModule == null)
                 return null;
 
-            return ModuleMapper.GetDTO(newModule);
+
+            return new ModuleAndDistractorDTO() {
+                module = newModule == null ? null : ModuleMapper.GetDTO(newModule),
+                distractor = newDistractor == null ? null : DistractorMapper.GetDTO(newDistractor)
+            };
         }
 
 
         // ---------------------------------------------------------------------------------------------
         public List<ModuleDTO> GetSimpleModules(int userId) {
-            List<edumodule> modules = _moduleRepository.ModulesOfUser(userId);
+
+            //List<edumodule> modules = _moduleRepository.ModulesOfUser(userId);
+            var user = _userService.GetUserEntity(userId);
+            List<edumodule> modules = user.edumodule.ToList();
 
             // Jeżeli użytkownik jeszcze nie pobrał żadnych modułów - otrzyma pierwszy
             // w którym powinien byc wstęp - instrukcja używania programu.
@@ -172,7 +186,7 @@ namespace EduApi.Services {
                 modules.Add(introductionModule);
 
                 // zapisanie modułu na liście modułów użytkownika
-                var user = _userService.GetUserEntity(userId);
+                //var user = _userService.GetUserEntity(userId);
                 user.edumodule.Add(introductionModule);
                 _userService.SaveChanges();
             }

@@ -30,14 +30,14 @@ namespace EduApi.Services.Interfaces {
          *    po aktualnie wyświetlanym
          * 4. Wysyła wybrany moduł do frontu
          */
-        ModuleDTO NextModule(int userId, int currentModuleId);
+        ModuleAndDistractorDTO NextModule(int userId, int currentModuleId);
 
         // ---------------------------------------------------------------------------------------------
         /* Wysyła do frontu poprzedni moduł oglądany przez użytkownika przed
          * modułem oglądanym w tej chwili.
          * Jeśli użytkownik jeszcze nie otrzymał żadnych modułów - wysyła null.
          */
-        ModuleDTO PrevModule(int userId, int currentModuleId);
+        ModuleAndDistractorDTO PrevModule(int userId, int currentModuleId);
 
         // ---------------------------------------------------------------------------------------------
         /* Pobiera z bazy moduły wcześniej już wysłane do danego użytkownika

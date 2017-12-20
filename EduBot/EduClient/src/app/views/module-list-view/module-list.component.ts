@@ -6,10 +6,13 @@ import { Module } from '../../models/module';
 
 //Services
 import { ModuleResolver } from '../../resolvers/module.resolver';
+import { TranslatePipe } from '../../languages/translate.pipe';
+
 import { ModuleService } from '../../services/module.service';
+import { DistractorService } from '../../services/distractor.service';
 import { ContextService } from '../../services/context.service';
 import { MessageService } from '../../shared/components/message/message.service';
-import { TranslatePipe } from '../../languages/translate.pipe';
+import { ModulDistracDTO } from '../../models/module-and-distractor-DTO';
 
 
 // ==================================================================================================================
@@ -24,19 +27,19 @@ export class ModuleListComponent implements OnInit {
     selectedModuleId: number;
     selectedModules: Module[] = [];
 
+
     // CONSTRUCTOR
     // ==============================================================================================================
     constructor(
         private moduleService: ModuleService,
+        private distractorService: DistractorService,
         private context: ContextService,
         private messageService: MessageService,
         private router: Router,
         private route: ActivatedRoute
     ) { }
 
-
-    // ON-NG-INIT
-    // ==============================================================================================================
+    // --------------------------------------------------------------------------------------------------------------
     ngOnInit() {
         this.getModules();
         this.moduleService.moduleAdded
@@ -46,6 +49,30 @@ export class ModuleListComponent implements OnInit {
             });
     }
 
+
+    // MOCK
+    // ==============================================================================================================
+    // TODO: usunąc po testach
+    private mockAddMetaModule(): void {
+        
+                let group: Module[] = [];
+        
+                let moduleIds: number[] = [47, 39];
+        
+                let modules = this.modules;
+                let modServ: ModuleService = this.moduleService;
+                var callback = function (moduleGroup: Module[]) {
+                    modServ.saveMetaModule(moduleGroup).subscribe(res => modules.push(res));
+                }
+        
+                for (var i in moduleIds)
+                    this.moduleService.getModuleById(moduleIds[i]).subscribe(m => {
+                        group[group.length] = m;
+                        if (group.length == moduleIds.length)
+                            callback(group);
+                    });
+            }
+        
 
     // PUBLIC
     // ==============================================================================================================
@@ -61,7 +88,7 @@ export class ModuleListComponent implements OnInit {
                 else {
                     let index = this.modules.findIndex(m => m.id == currentModuleId);
                     if (this.modules.length > index + 1)
-                    this.router.navigate(['module/' + this.modules[index + 1].id]);
+                        this.router.navigate(['module/' + this.modules[index + 1].id]);
                 }
             });
     }
@@ -124,16 +151,16 @@ export class ModuleListComponent implements OnInit {
 
     // --------------------------------------------------------------------------------------------------------------
     private prevModule() {
+
         // jeśli jeszcze nie zaznaczono żadnego modułu to serwer otrzymawszy currModuleId = -1
         // zareaguje tak samo jak na żądanie nowego modułu - kolejnego, który jeszcze nie był oglądany
         let currModuleId = this.context.currentModule.id;
         if (currModuleId == undefined) currModuleId = -1;
 
         this.moduleService.prevModule(currModuleId)
-            .subscribe(newModule => {
-                if (newModule != undefined && newModule != null) {
-                    this.router.navigate(['module/' + newModule.id]);
-                }
+            .subscribe(moduleDistr => {
+                if (moduleDistr != undefined && moduleDistr != null)
+                    this.showDistractorandModule(moduleDistr);
             });
     }
 
@@ -145,13 +172,24 @@ export class ModuleListComponent implements OnInit {
         let currModuleId = currModule == undefined ? -1 : currModule.id;
 
         this.moduleService.nextModule(currModuleId)
-            .subscribe(newModule => {
-                if (newModule != undefined && newModule != null) {
-                    if (this.modules.filter(m => { return m.id == newModule.id; }).length == 0)
-                        this.modules[this.modules.length] = newModule;
-                    this.router.navigate(['module/' + newModule.id]);
+            .subscribe(moduleDistr => {
+                if (moduleDistr != undefined && moduleDistr != null) {
+
+                    if (this.modules.filter(m => { return m.id == moduleDistr.module.id; }).length == 0)
+                        this.modules[this.modules.length] = moduleDistr.module;
+
+                    this.showDistractorandModule(moduleDistr);
                 }
             });
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
+    private showDistractorandModule(moduleDistr: ModulDistracDTO) {
+
+        if (moduleDistr.distractor != null)
+            this.distractorService.show(moduleDistr.distractor);
+
+            this.router.navigate(['module/' + moduleDistr.module.id]);
     }
 
     // --------------------------------------------------------------------------------------------------------------
@@ -193,31 +231,6 @@ export class ModuleListComponent implements OnInit {
                 this.context.editModuleId = null;
                 this.router.navigate(['']);
                 this.modules = newModules;
-            });
-    }
-
-
-
-    // MOCK
-    // ==============================================================================================================
-    // TODO: usunąc po testach
-    private mockAddMetaModule(): void {
-
-        let group: Module[] = [];
-
-        let moduleIds: number[] = [47, 39];
-
-        let modules = this.modules;
-        let modServ: ModuleService = this.moduleService;
-        var callback = function (moduleGroup: Module[]) {
-            modServ.saveMetaModule(moduleGroup).subscribe(res => modules.push(res));
-        }
-
-        for (var i in moduleIds)
-            this.moduleService.getModuleById(moduleIds[i]).subscribe(m => {
-                group[group.length] = m;
-                if (group.length == moduleIds.length)
-                    callback(group);
             });
     }
 }

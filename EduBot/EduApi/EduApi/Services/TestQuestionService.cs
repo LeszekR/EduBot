@@ -1,5 +1,4 @@
-﻿using EduApi.DAL.Interfaces;
-using EduApi.Dto;
+﻿using EduApi.Dto;
 using EduApi.Dto.Mappers;
 using EduApi.Repositories.Interfaces;
 using EduApi.Services.Interfaces;

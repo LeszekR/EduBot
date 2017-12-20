@@ -8,9 +8,9 @@ namespace EduApi.DAL.Interfaces
     // =================================================================================================
         public interface IModuleRepository : IRepository<edumodule>
     {
-        // ---------------------------------------------------------------------------------------------
-        /* Pobiera moduły wysłane dotychczas danemu użytkownikowi. */
-        List<edumodule> ModulesOfUser(int userId);
+        //// ---------------------------------------------------------------------------------------------
+        ///* Pobiera moduły wysłane dotychczas danemu użytkownikowi. */
+        //List<edumodule> ModulesOfUser(int userId);
 
         // ---------------------------------------------------------------------------------------------
         /* 1. Pobiera wszystkie moduły, które należą do grupy o podanym id_grupy 

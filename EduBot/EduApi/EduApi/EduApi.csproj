@@ -198,10 +198,13 @@
     <Compile Include="distractor.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Dto\DistractorDTO.cs" />
+    <Compile Include="Dto\Mappers\DistractorMapper.cs" />
     <Compile Include="Dto\Mappers\ModuleMappper.cs" />
     <Compile Include="Dto\Mappers\UserQuestionMapper.cs" />
     <Compile Include="Dto\Mappers\TestQuestionMapper.cs" />
     <Compile Include="Dto\Mappers\UserMapper.cs" />
+    <Compile Include="Dto\ModuleAndDistractorDTO.cs" />
     <Compile Include="Dto\TestCodeDTO.cs" />
     <Compile Include="Dto\TestQuestionAnswDTO.cs" />
     <Compile Include="Dto\UserQuestionDTO.cs" />
@@ -237,9 +240,11 @@
     </Compile>
     <Compile Include="Repositories\Core\IRepository.cs" />
     <Compile Include="Repositories\Core\Repository.cs" />
+    <Compile Include="Repositories\Interfaces\IDistractorRepository.cs" />
     <Compile Include="Repositories\Interfaces\IModuleRepository.cs" />
     <Compile Include="Repositories\Interfaces\ITestQuestionRepository.cs" />
     <Compile Include="Repositories\Interfaces\IUserRepository.cs" />
+    <Compile Include="Repositories\DistractorRepository.cs" />
     <Compile Include="Repositories\ModuleRepository.cs" />
     <Compile Include="Repositories\TestQuestionRepository.cs" />
     <Compile Include="Services\AffitsApi.cs" />

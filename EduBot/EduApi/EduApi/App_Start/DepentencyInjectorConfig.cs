@@ -30,6 +30,8 @@ namespace EduApi.App_Start {
             container.Register<ITestQuestionRepository, TestQuestionRepository>(Lifestyle.Scoped);
             container.Register<ITestQuestionService, TestQuestionService>(Lifestyle.Scoped);
 
+            container.Register<IDistractorRepository, DistractorRepository>(Lifestyle.Scoped);
+
             // This is an extension method from the integration package.
             container.RegisterWebApiControllers(config);
 

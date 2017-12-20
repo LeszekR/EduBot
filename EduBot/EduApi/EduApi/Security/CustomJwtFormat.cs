@@ -26,15 +26,23 @@ namespace EduApi.Security {
         // PUBLIC
         // =============================================================================================
         public string Protect(AuthenticationTicket data) {
-            if (data == null) {
+
+            if (data == null)
                 throw new ArgumentNullException();
-            }
 
             var signingKey = new HmacSigningCredentials(_secret);
             var issued = data.Properties.IssuedUtc;
             var expires = data.Properties.ExpiresUtc;
 
-            return new JwtSecurityTokenHandler().WriteToken(new JwtSecurityToken(_issuer, "Any", data.Identity.Claims, issued.Value.UtcDateTime, expires.Value.UtcDateTime, signingKey));
+            return new JwtSecurityTokenHandler()
+                .WriteToken(
+                new JwtSecurityToken(
+                    _issuer,
+                    "Any",
+                    data.Identity.Claims,
+                    issued.Value.UtcDateTime,
+                    expires.Value.UtcDateTime,
+                    signingKey));
         }
 
 

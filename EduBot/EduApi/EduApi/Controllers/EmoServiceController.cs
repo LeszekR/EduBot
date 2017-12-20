@@ -13,13 +13,15 @@ namespace EduApi.Controllers {
         public static EmoState _emoState = EmoState.OK;
 
         private readonly IUserService _userService;
+        //private readonly ITestQuestionService _questionService;
 
 
         // CONSTRUCTOR
         // =============================================================================================
         #region Constructor
-        public EmoServiceController(IUserService userService) {
+        public EmoServiceController(IUserService userService/*, ITestQuestionService questionService*/) {
             _userService = userService;
+            //_questionService = questionService;
         }
         #endregion
 
@@ -29,17 +31,24 @@ namespace EduApi.Controllers {
         [HttpPost]
         public IHttpActionResult SetEmoState([FromBody]int emoState) {
 
-
             if (emoState == -1)
                 _emoState = EmoState.BORED;
+
             else if (emoState == 0)
                 _emoState = EmoState.OK;
+
             else if (emoState == 1)
                 _emoState = EmoState.FRUSTRATED;
+
             else if (emoState == 2) {
                 int userId = 1;
                 _userService.ClearModuleHistory(userId);
                 return Ok("Wyczyszczono historię modułów");
+            }
+            else if (emoState == 3) {
+                int userId = 1;
+                _userService.ClearQuestionHistory(userId);
+                return Ok("Wyczyszczono historię pytań");
             }
 
             return Ok("Ustawiono emostan: " + _emoState.ToString());

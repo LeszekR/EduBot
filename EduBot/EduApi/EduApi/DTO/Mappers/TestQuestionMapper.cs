@@ -19,7 +19,7 @@ namespace EduApi.Dto.Mappers {
         }
 
         // ---------------------------------------------------------------------------------------------
-        public static List<TestQuestionDTO> GetListDTO(this IEnumerable<test_question> questions) {
+        public static List<TestQuestionDTO> GetQuestionListDTO(this IEnumerable<test_question> questions) {
             return questions.Select(q => GetDTO(q)).ToList();
         }
 

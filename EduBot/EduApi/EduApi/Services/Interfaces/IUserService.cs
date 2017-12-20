@@ -8,12 +8,12 @@ namespace EduApi.Services.Interfaces {
         // =============================================================================================
         // TODO: po testach usunąc - MOCK
         void ClearModuleHistory(int userId);
+        void ClearQuestionHistory(int userId);
         // =============================================================================================
 
         //List<user_question> GetQuestionsOfUser(int userId);
         void SaveChanges();
         user GetUserEntity(int id);
-        //int? GetLastModuleId(int userId);
         IList<UserDTO> GetUsers();
         int SaveUser(UserDTO user);
         bool DeleteUser(int id);

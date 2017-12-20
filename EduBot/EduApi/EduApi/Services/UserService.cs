@@ -25,6 +25,13 @@ namespace EduApi.Services {
 
         // MOCK
         // =============================================================================================
+        public void ClearQuestionHistory(int userId) {
+            var questions = _userRepository.Get(userId).user_question;
+            questions.Clear();
+            _userRepository.SaveChanges();
+        }
+
+        // ---------------------------------------------------------------------------------------------
         public void ClearModuleHistory(int userId) {
             var modules = _userRepository.Get(userId).edumodule;
             modules.Clear();

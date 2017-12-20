@@ -1,5 +1,6 @@
 ﻿using EduApi.DAL.Core;
 using EduApi.Dto;
+using EduApi.Dto.Mappers;
 using EduApi.Repositories.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,20 +9,23 @@ namespace EduApi.Repositories {
 
 
     // =================================================================================================
-    public class TestQuestionRepository : Repository<test_question>, ITestQuestionRepository  {
-
-        //private edumaticEntities _context;
+    public class TestQuestionRepository : Repository<test_question>, ITestQuestionRepository {
 
 
         // CONSTRUCTOR
         // =============================================================================================
-        public TestQuestionRepository(edumaticEntities context) : base(context) {
-            //_context = context;
-        }
+        public TestQuestionRepository(edumaticEntities context) : base(context) { }
 
 
         // PUBLIC
         // =============================================================================================
+        //public List<TestQuestionDTO> GetQuestionsOfUser(int userId) {
+        //    return _context.test_question
+        //        .Where(q => q.user_question.FirstOrDefault(uq => uq.user_id == userId) != null)
+        //        .GetQuestionListDTO();
+        //}
+
+        // ---------------------------------------------------------------------------------------------
         /* Kopiuje dane z TestQuestionDTO do edumodule pobranego z bazy i zapisuje zmiany w bazie. */
         public void SetNewValues(TestQuestionDTO source, test_question result) {
             _context.Entry(result).CurrentValues.SetValues(source);

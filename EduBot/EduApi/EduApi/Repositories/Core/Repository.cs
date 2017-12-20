@@ -10,7 +10,6 @@ namespace EduApi.DAL.Core {
     // =================================================================================================
     public class Repository<T> : IRepository<T> where T : class {
 
-        //private edumaticEntities _context;
         protected edumaticEntities _context;
 
 
@@ -18,7 +17,7 @@ namespace EduApi.DAL.Core {
         // =============================================================================================
         public Repository(edumaticEntities context) {
             _context = context;
-            _context.Database.Log = LogAll;
+            //_context.Database.Log = LogAll;
         }
 
         // ---------------------------------------------------------------------------------------------

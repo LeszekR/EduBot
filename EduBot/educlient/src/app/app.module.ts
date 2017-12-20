@@ -31,6 +31,7 @@ import { HttpService } from './services/http.service';
 import { UserService } from './services/user.service'
 import { LoginService } from './services/login.service'
 import { ModuleService } from './services/module.service';
+import { TestQuestionService } from './services/test-question.service';
 import { ContextService } from './services/context.service';
 import { TranslateService, TRANSLATION_PROVIDERS } from './languages';
 import { TranslatePipe } from './languages/translate.pipe';
@@ -82,6 +83,7 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     TestService,
     LoginService,
     ModuleService,
+    TestQuestionService,
     ContextService,
     MessageService,
     TranslateService,

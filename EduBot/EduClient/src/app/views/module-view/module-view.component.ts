@@ -8,6 +8,7 @@ import { Module } from '../../models/module';
 import { ClosedQuestAnswDTO } from '../../models/closed-question-answ-DTO';
 
 //Services
+import { TestQuestionService } from '../../services/test-question.service';
 import { ModuleService } from '../../services/module.service';
 import { ContextService } from '../../services/context.service';
 
@@ -52,7 +53,8 @@ export class ModuleViewComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private moduleService: ModuleService,
-    private context: ContextService) { }
+    private context: ContextService,
+    private questionService: TestQuestionService) { }
 
   // --------------------------------------------------------------------------------------------------------------
   ngOnInit() {
@@ -60,7 +62,7 @@ export class ModuleViewComponent implements OnInit {
       this.module = data.module;
       this.context.currentModule = data.module;
 
-      this.questions = this.moduleService.UnpackClosedQuestions(this.module.test_question);
+      this.questions = this.questionService.UnpackClosedQuestions(this.module.test_question);
 
       // TODO: mock, usunąć ***************************
       // if (this.questions.length == 0) this.questions = new MockData().mockQuestions;
@@ -81,13 +83,13 @@ export class ModuleViewComponent implements OnInit {
       answers[answers.length] = new ClosedQuestAnswDTO(q.id, q.correct_idx);
     }
 
-    this.moduleService.verifyClosedTest(answers)
+    this.questionService.verifyClosedTest(answers)
       .subscribe(result => console.log(result));
   }
 
   // --------------------------------------------------------------------------------------------------------------
   save() {
-    this.module.test_question = this.moduleService
+    this.module.test_question = this.questionService
       .StringifyClosedQuestions(this.questions, this.context.editModuleId);
 
     this.moduleService.saveModule(this.module).subscribe(res => this.module = res);

@@ -48,7 +48,7 @@ namespace EduApi.Security {
             identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
             identity.AddClaim(new Claim("sub", context.UserName));
             identity.AddClaim(new Claim(ClaimTypes.Role, user.role));
-            //identity.AddClaim(new Claim(ClaimTypes.i, user.role));
+            //identity.AddClaim(new Claim("userId", user.id.ToString()));
             return identity;
         }
     }

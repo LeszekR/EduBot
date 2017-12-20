@@ -193,6 +193,7 @@
     <Compile Include="Controllers\EmoServiceController.cs" />
     <Compile Include="Controllers\ModuleController.cs" />
     <Compile Include="Controllers\ServerController.cs" />
+    <Compile Include="Controllers\TestQuestionController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="distractor.cs">
       <DependentUpon>Model.tt</DependentUpon>

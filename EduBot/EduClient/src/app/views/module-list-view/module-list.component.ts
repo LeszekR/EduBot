@@ -219,13 +219,16 @@ export class ModuleListComponent implements OnInit {
     }
 
     // --------------------------------------------------------------------------------------------------------------
+    deleteModuleConfirm() {
+        if(this.selectedModuleId!=null){
+            this.messageService
+                .confirm('edit.del_module_decision', 'edit.del_module_title')
+                .then(confirmed => { if (confirmed) this.deleteModule(); });
+        }
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
     private deleteModule() {
-
-        // TODO: dodać do projektu msgbox z opcją 'Yes-No' i wykorzystać tu dla decyzji użytkownika        
-        // let continue: boolean = this.messageService.question(
-        //     'edit.del_module_title' , 'edit.del_module_decision');
-        // if (!continue) return;
-
         this.moduleService.deleteModule(this.selectedModuleId)
             .subscribe(newModules => {
                 this.context.editModuleId = null;

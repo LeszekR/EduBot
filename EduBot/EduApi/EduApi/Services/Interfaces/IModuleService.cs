@@ -9,13 +9,6 @@ namespace EduApi.Services.Interfaces {
     public interface IModuleService {
 
         // ---------------------------------------------------------------------------------------------
-        /* Wysyła moduły łatwiejsze składające się na wskazany moduł trudniejszy.
-         * Front wywołuje ten endpoint pod warunkiem, że oglądany moduł nie jest  
-         * modułem o najniższym poziomie trudności (difficulty != 'easy').
-         */
-        List<ModuleDTO> ExplainModule(int userId, int moduleId);
-
-        // ---------------------------------------------------------------------------------------------
         /* Wywoływana po każdym zamknięciu trybu edycji modułów.
          * Ustawia wszystkie moduły w prawidłowe drzewo i numeruje (nadaje im kolejne 'group_position').
          * Dzięki temu przy dalszym korzystaniu można sortować moduły:
@@ -25,21 +18,10 @@ namespace EduApi.Services.Interfaces {
         void CreateModuleSequence();
 
         // ---------------------------------------------------------------------------------------------
-        /* 1. Na podstawie postępów użytkownika decyduje który moduł powinien zostać teraz podany
-         * 2. Jeżeli aktualnie oglądany to najnowszy z pokazanych użytkownikowi - określa jaki przysłać 
-         *    na podstawie stanu emocjonalnego oraz wyników ucznia
-         * 3. Jeżeli wcześniej użytkownik wcisnął 'wstecz' - wysyła ten, który przedtem podano jako następny
-         *    po aktualnie wyświetlanym
-         * 4. Wysyła wybrany moduł do frontu
+        /* 1. Pobiera wszystkie moduły, które należą do grupy o podanym id_grupy 
+         * 2. sortuje wg pozycji w grupie (kolejności)
          */
-        ModuleAndDistractorDTO NextModule(int userId, int currentModuleId);
-
-        // ---------------------------------------------------------------------------------------------
-        /* Wysyła do frontu moduł znajdujący się w kolejności przed
-         * modułem oglądanym w tej chwili.
-         * Jeśli użytkownik jeszcze nie otrzymał żadnych modułów - wysyła null.
-         */
-        ModuleAndDistractorDTO PrevModule(int userId, int currentModuleId);
+        List<edumodule> SelectChildren(int? id_grupy);
 
         // ---------------------------------------------------------------------------------------------
         /* Pobiera z bazy moduły wcześniej już wysłane do danego użytkownika

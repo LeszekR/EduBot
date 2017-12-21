@@ -10,6 +10,7 @@ import { TranslatePipe } from '../../languages/translate.pipe';
 
 import { ModuleService } from '../../services/module.service';
 import { DistractorService } from '../../services/distractor.service';
+import { EduService } from '../../services/edu.service';
 import { ContextService } from '../../services/context.service';
 import { MessageService } from '../../shared/components/message/message.service';
 import { ModulDistracDTO } from '../../models/module-and-distractor-DTO';
@@ -33,6 +34,7 @@ export class ModuleListComponent implements OnInit {
     constructor(
         private moduleService: ModuleService,
         private distractorService: DistractorService,
+        private eduService: EduService,
         private context: ContextService,
         private messageService: MessageService,
         private router: Router,
@@ -79,7 +81,7 @@ export class ModuleListComponent implements OnInit {
     explain() {
         let currentModule = this.context.currentModule;
         let currentModuleId = currentModule.id;
-        this.moduleService.explainModule(currentModuleId)
+        this.eduService.explainModule(currentModuleId)
             .subscribe(newModules => {
                 if (newModules != null) {
                     let newId = this.insertNewModules(newModules, currentModule);
@@ -157,10 +159,10 @@ export class ModuleListComponent implements OnInit {
         let currModuleId = this.context.currentModule.id;
         if (currModuleId == undefined) currModuleId = -1;
 
-        this.moduleService.prevModule(currModuleId)
+        this.eduService.prevModule(currModuleId)
             .subscribe(moduleDistr => {
                 if (moduleDistr != undefined && moduleDistr != null)
-                    this.showDistractorandModule(moduleDistr);
+                    this.showDistractorAndModule(moduleDistr);
             });
     }
 
@@ -171,20 +173,20 @@ export class ModuleListComponent implements OnInit {
         let currModule = this.context.currentModule;
         let currModuleId = currModule == undefined ? -1 : currModule.id;
 
-        this.moduleService.nextModule(currModuleId)
+        this.eduService.nextModule(currModuleId)
             .subscribe(moduleDistr => {
                 if (moduleDistr != undefined && moduleDistr != null) {
 
                     if (this.modules.filter(m => { return m.id == moduleDistr.module.id; }).length == 0)
                         this.modules[this.modules.length] = moduleDistr.module;
 
-                    this.showDistractorandModule(moduleDistr);
+                    this.showDistractorAndModule(moduleDistr);
                 }
             });
     }
 
     // --------------------------------------------------------------------------------------------------------------
-    private showDistractorandModule(moduleDistr: ModulDistracDTO) {
+    private showDistractorAndModule(moduleDistr: ModulDistracDTO) {
 
         if (moduleDistr.distractor != null)
             this.distractorService.show(moduleDistr.distractor);

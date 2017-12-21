@@ -1,12 +1,18 @@
-﻿using EduApi.Services.Interfaces;
+﻿using System;
 using System.Linq;
+using System.Configuration;
+using System.Collections.Generic;
+using EduApi.Services.Interfaces;
 using EduApi.Controllers;
 using EduApi.DAL.Interfaces;
-using System.Configuration;
-using System;
+using EduApi.DTO;
+using EduApi.Dto;
+using EduApi.Dto.Mappers;
 
 namespace EduApi.Services {
 
+
+    // =================================================================================================
     public enum ChangeDifficulty { UP, NO_CHANGE, DOWN };
     public enum DistractorType { NO_DISTRACTOR, KICK, REWARD };
 
@@ -15,8 +21,8 @@ namespace EduApi.Services {
     public class EduAlgorithmService : IEduAlgorithmService {
 
         private readonly IModuleRepository _moduleRepository;
-        //private readonly IModuleService _moduleService;
-        //private readonly IUserService _userService;
+        private readonly IModuleService _moduleService;
+        private readonly IUserService _userService;
         private readonly ITestQuestionService _questionService;
         private readonly IDistractorService _distractorService;
 
@@ -26,15 +32,15 @@ namespace EduApi.Services {
         #region Constructor
         public EduAlgorithmService(
             IModuleRepository moduleRepository,
-            //IModuleService moduleService,
-            //IUserService userService,
+            IModuleService moduleService,
+            IUserService userService,
             ITestQuestionService questionService,
             IDistractorService distractorService
             ) {
 
             _moduleRepository = moduleRepository;
-            //_moduleService = moduleService;
-            //_userService = userService;
+            _moduleService = moduleService;
+            _userService = userService;
             _questionService = questionService;
             _distractorService = distractorService;
         }
@@ -43,7 +49,131 @@ namespace EduApi.Services {
 
         // PUBLIC
         // =============================================================================================
-        public Tuple<ChangeDifficulty, DistractorType> PickNextDiffAndDistract(int userId) { 
+        public List<ModuleDTO> ExplainModule(int userId, int moduleId) {
+
+            var user = _userService.GetUserEntity(userId);
+            var children = _moduleService.SelectChildren(moduleId);
+            List<edumodule> newModules = children.Where(child => !user.edumodule.Contains(child)).ToList();
+
+            if (newModules.Count() == 0)
+                return null;
+
+            // Zapamiętanie nowych modułów na liście odwiedzonych przez użytkownika
+            foreach (var child in newModules)
+                child.user.Add(user);
+            _moduleRepository.SaveChanges();
+
+            // Przekazanie listy modułów wyjaśniających moduł nadrzędny
+            return newModules.GetSimpleDTOList();
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
+        public ModuleAndDistractorDTO PrevModule(int userId, int currentModuleId) {
+
+            user user = _userService.GetUserEntity(userId);
+            distractor newDistractor = null;
+
+            // pobranie listy modułów dotychczas wysłanych do tego użytkownika
+            List<edumodule> prevModules = user.edumodule.ToList();
+            ModuleService.SortGroupPosition(ref prevModules);
+
+            // ustalenie pozycji aktualnego modułu na liście obejrzanych modułów
+            int idx = prevModules.FindIndex(mod => mod.id == currentModuleId);
+
+            if (idx > 0)
+                return new ModuleAndDistractorDTO() {
+                    module = ModuleMapper.GetDTO(prevModules[idx - 1]),
+                    distractor = newDistractor == null ? null : DistractorMapper.GetDTO(newDistractor)
+                };
+
+            return null;
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
+        public ModuleAndDistractorDTO NextModule(int userId, int currentModuleId) {
+
+            edumodule newModule;
+            distractor newDistractor = null;
+            user user = _userService.GetUserEntity(userId);
+
+
+            // pobranie listy modułów dotychczas wysłanych do tego użytkownika
+            List<edumodule> prevModules = user.edumodule.ToList();
+            ModuleService.SortGroupPosition(ref prevModules);
+
+
+            // jeśli kolejny moduł będzie wysłany po raz pierwszy - zostanie 
+            // dopisany do modułów tego użytkownika
+            var addToUserModules = true;
+
+
+            // To jest PIERWSZY moduł pobierany przez tego użytkownika
+            if (prevModules.Count() == 0)
+                newModule = _moduleRepository.Get(1);
+
+
+            // To już nie pierwszy lecz KOLEJNY moduł
+            else {
+
+                var difficultyAndDistractor = PickNextDiffAndDistract(userId);
+
+                // ustalenie pozycji aktualnego modułu na liście obejrzanych modułów
+                int idx = prevModules.FindIndex(mod => mod.id == currentModuleId);
+
+
+                // aktualnie użytkownik ogląda któryś z wczesniej pobranych 
+                // => pobranie następnego, który oglądał po aktualnym
+                if (idx < prevModules.Count() - 1 && idx > -1) {
+                    newModule = prevModules[idx + 1];
+                    addToUserModules = false;
+                }
+
+                // aktualnie użytkownik ogląda ostatni z pobranych =>
+                // dostosowanie trudności do stanu emocjonalnego i dotychczasowych wyników użytkownika
+                else {
+                    var nextDifficulty = difficultyAndDistractor.Item1;
+                    var lastModuleId = prevModules[prevModules.Count() - 1].id;
+                    newModule = PickNextModule(lastModuleId, nextDifficulty);
+                }
+
+                // pobranie następnego dystraktora (distractorService sprawdzi czy już można)
+                newDistractor = _distractorService.NextDistractor(userId, difficultyAndDistractor.Item2);
+
+
+                // TODO: zaktualizowanie stanu gry, itd
+            }
+
+            // zapisanie kolejnego modułu na liście wysłanych użytkownikowi
+            // oraz zapamiętanie nowego ostatniego modułu użytkownika
+            if (addToUserModules && newModule != null) {
+                user.edumodule.Add(newModule);
+                user.last_module = newModule.id;
+                _userService.SaveChanges();
+            }
+
+            // Dopisanie kolejnego dystraktora na liście wysłanych użytkownikowi
+            // lub zaktualizowanie timestamp z chwili jego wysłania, jesli jest wysyłany
+            // po raz kolejny.
+            if (newDistractor != null)
+                _distractorService.UpsertUserDistractor(user, newDistractor);
+
+
+            return new ModuleAndDistractorDTO() {
+                module = newModule == null ? null : ModuleMapper.GetDTO(newModule),
+                distractor = newDistractor == null ? null : DistractorMapper.GetDTO(newDistractor)
+            };
+        }
+
+
+        // PRIVATE
+        // =============================================================================================
+        /* 1. sprawdzenie stanu emocjonalnego i dotychczasowych wyników użytkownika
+         * 2. sprawdzenie dotychczasowych yników 
+         * 3. decyzja czy następny moduł ma być łatwiejszy, trudniejszy, czy taki sam
+         */
+        private Tuple<ChangeDifficulty, DistractorType> PickNextDiffAndDistract(int userId) {
 
             // TODO: sprawdzenie stanu emocjonalnego
             var emoState = EmoServiceController._emoState;
@@ -63,7 +193,7 @@ namespace EduApi.Services {
             DistractorType distractorType;
 
 
-            
+
             // OPTYMALNY stan emocjonalny ...............................................
             changeDifficulty = ChangeDifficulty.NO_CHANGE;
             distractorType = DistractorType.NO_DISTRACTOR;
@@ -107,7 +237,11 @@ namespace EduApi.Services {
 
 
         // ---------------------------------------------------------------------------------------------
-        public edumodule PickNextModule(int lastModuleId, ChangeDifficulty change) {
+        /* Pobranie następnego modułu o wymaganym poziomie trudności (ten sam | up | down).
+         * Jeżeli nie da się zmienić poziomu w żądanym kierunku - na tym samym poziomie.
+         * Jeżeli to ostatni moduł materiału - zwraca null.
+         */
+        private edumodule PickNextModule(int lastModuleId, ChangeDifficulty change) {
 
             edumodule newModule = null;
             edumodule lastModule = _moduleRepository.Get(lastModuleId);
@@ -127,7 +261,7 @@ namespace EduApi.Services {
             // TODO: uporządkować przypadek group_id == null - nie może występować
             // pobranie rodzeństwa bieżącego modułu
             int? parentId = lastModule.group_id;
-            var siblings = _moduleRepository.SelectChildren(parentId);
+            var siblings = _moduleService.SelectChildren(parentId);
 
 
             // wykluczenie modułów nie przypisanych do żadnego nadrzędnego, 
@@ -165,7 +299,7 @@ namespace EduApi.Services {
                 // to jeszcze nie ostatnie dziecko - podanie pierwszego dziecka następnego brata
                 if (!lastChild) {
                     var brother = siblings[idxChild + 1];
-                    newModule = _moduleRepository.SelectChildren(brother.id)[0];
+                    newModule = _moduleService.SelectChildren(brother.id)[0];
                 }
 
                 // nie ma więcej modułów - ten był ostatni
@@ -176,7 +310,7 @@ namespace EduApi.Services {
                 // pobranie dziecka najbliższego kuzyna
                 else {
                     var cousin = PickNextModule(parentId ?? 0, ChangeDifficulty.DOWN);
-                    newModule = (cousin == null) ? null : _moduleRepository.SelectChildren(cousin.id)[0];
+                    newModule = (cousin == null) ? null : _moduleService.SelectChildren(cousin.id)[0];
                 }
             }
 

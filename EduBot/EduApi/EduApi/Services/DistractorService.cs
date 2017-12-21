@@ -33,7 +33,27 @@ namespace EduApi.Services {
 
         // PUBLIC
         // =============================================================================================
-        public DistractorDTO NextDistractor(int userId, DistractorType type) {
+        public void UpsertUserDistractor(user user, distractor distractor) {
+
+            user_distractor nextUserDistract = user.user_distractor
+                .FirstOrDefault(ud => ud.distractor_id == distractor.id);
+
+            if (nextUserDistract == null) {
+                nextUserDistract = new user_distractor() {
+                    user_id = user.id,
+                    distractor_id = distractor.id
+                };
+                user.user_distractor.Add(nextUserDistract);
+            }
+
+            nextUserDistract.time_last_used = DateTime.Now;
+
+            _userService.SaveChanges();
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
+        public distractor NextDistractor(int userId, DistractorType type) {
 
             user user = _userService.GetUserEntity(userId);
             List<user_distractor> userToDistracts = user.user_distractor.ToList();
@@ -44,7 +64,7 @@ namespace EduApi.Services {
                 return null;
 
 
-            // ostatni dystraktor był wysłany zbyt niedawno
+            // ostatni dystraktor był wysłany zbyt niedawno, trzeba jeszcze poczekać z następnym
             if (!TimeForDistractor(ref userToDistracts))
                 return null;
 
@@ -75,12 +95,13 @@ namespace EduApi.Services {
                 newDistractors = userToDistracts.Take(nDistractors / 2).Select(ud => ud.distractor).ToList();
             }
 
-            // losowanie jednego z grupy wybranej z bazy
+            // w bazie nie ma jeszcze dystraktorów
             if (nDistractors == 0)
                 return null;
 
-            var index = new Random().Next() * (nDistractors - 1);
-            return DistractorMapper.GetDTO(newDistractors[index]);
+            // losowanie jednego dystraktora
+            var index = (Int32)(new Random().Next() * (nDistractors - 1));
+            return newDistractors[index];
         }
 
 
@@ -102,6 +123,7 @@ namespace EduApi.Services {
                 return DateTime.Compare(DateTime.Now, last_time.Add(timeBetweenDistr)) > 0;
             }
         }
+
 
         //// ---------------------------------------------------------------------------------------------
         //public distractor GetDistractorEntity(int id) {

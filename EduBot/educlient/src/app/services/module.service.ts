@@ -8,10 +8,10 @@ import { HttpService } from './http.service';
 // Model
 import { Module } from '../models/module'
 import { Distractor } from '../models/distractor'
-import { ModulDistracDTO } from '../models/module-and-distractor-DTO'
+// import { ModulDistracDTO } from '../models/module-and-distractor-DTO'
 
-// Components
-import { QuizViewComponent } from '../views/module-view/quiz-view/quiz-view.component';
+// // Components
+// import { QuizViewComponent } from '../views/module-view/quiz-view/quiz-view.component';
 
 
 // ==================================================================================================================
@@ -33,25 +33,25 @@ export class ModuleService {
 
     // PUBLIC
     // ==============================================================================================================
-    explainModule(moduleId: number): Observable<Module[]> {
-        return this.http.get<Module[]>(this.moduleUrl + '/explainmodule/' + moduleId);
-    }
+    // explainModule(moduleId: number): Observable<Module[]> {
+    //     return this.http.get<Module[]>(this.moduleUrl + '/explainmodule/' + moduleId);
+    // }
+
+    // // --------------------------------------------------------------------------------------------------------------
+    // prevModule(currentModuleId: number): Observable<ModulDistracDTO> {
+    //     return this.http.get<ModulDistracDTO>(this.moduleUrl + '/getprevmodule/' + currentModuleId);
+    // }
+
+    // // --------------------------------------------------------------------------------------------------------------
+    // nextModule(currentModuleId: number): Observable<ModulDistracDTO> {
+    //     let moduleId = currentModuleId == undefined ? 0 : currentModuleId;
+    //     return this.http.get<ModulDistracDTO>(this.moduleUrl + '/getnextmodule/' + moduleId);
+    // }
 
     // --------------------------------------------------------------------------------------------------------------
     CreateModuleSequence() {
         this.http.get<string>(this.moduleUrl + '/createmodulesequence')
             .subscribe(res => console.log(res));
-    }
-
-    // --------------------------------------------------------------------------------------------------------------
-    prevModule(currentModuleId: number): Observable<ModulDistracDTO> {
-        return this.http.get<ModulDistracDTO>(this.moduleUrl + '/getprevmodule/' + currentModuleId);
-    }
-
-    // --------------------------------------------------------------------------------------------------------------
-    nextModule(currentModuleId: number): Observable<ModulDistracDTO> {
-        let moduleId = currentModuleId == undefined ? 0 : currentModuleId;
-        return this.http.get<ModulDistracDTO>(this.moduleUrl + '/getnextmodule/' + moduleId);
     }
 
     // --------------------------------------------------------------------------------------------------------------

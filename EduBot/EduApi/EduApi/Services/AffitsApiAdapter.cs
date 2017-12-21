@@ -12,6 +12,7 @@ namespace EduApi.Services {
     public class AffitsApiAdapter {
 
         private readonly AffitsApi _affitsApi;
+        private readonly EmotionalStateInterpreter _emotionalStateInterpreter;
         private HttpSessionState _session;
         private Logger _logger;
 
@@ -25,8 +26,9 @@ namespace EduApi.Services {
         // CONSTRUCTOR
         // =============================================================================================
         #region Constructor
-        public AffitsApiAdapter(AffitsApi affitsApi) {
+        public AffitsApiAdapter(AffitsApi affitsApi, EmotionalStateInterpreter emotionalStateInterpreter) {
             _affitsApi = affitsApi;
+            _emotionalStateInterpreter = emotionalStateInterpreter;
             _session = System.Web.HttpContext.Current.Session;
             _logger = LogManager.GetCurrentClassLogger();
         }
@@ -90,21 +92,7 @@ namespace EduApi.Services {
         // ---------------------------------------------------------------------------------------------
         // TODO process actual answear when it works
         private EmoState? processPad(string pad) {
-            return stubAnswear();
-        }
-
-
-        // ---------------------------------------------------------------------------------------------
-        private EmoState stubAnswear() {
-            Random rnd = new Random();
-
-            if (_session[emoStates] == null | rnd.Next(0, 100) % 3 == 0) {
-                return (EmoState)rnd.Next(0, 3);
-            }
-            else {
-                List<Pad> pads = _session[emoStates] as List<Pad>;
-                return pads[pads.Count - 1].state;
-            }
+            return _emotionalStateInterpreter.interpret(pad);
         }
 
 

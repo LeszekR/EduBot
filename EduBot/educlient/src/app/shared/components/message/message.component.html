@@ -1,27 +1,32 @@
-<div #staticModal="bs-modal" bsModal class="modal" tabindex="-1" role="dialog"  >
-    <div class="modal-dialog">
+<div bsModal #lgModal="bs-modal" class="modal" tabindex="-1" role="dialog" #thisModal>
+    <div class="modal-dialog message-dialog">
         <div class="modal-content">
-            <div class="modal-header p-0">
-                <div class="modal-title alert w-100" [ngClass]="getAlertClass()" >
+            <div class="modal-header">
+                <div class="modal-title">
                     <span class="icon-"></span>
-                    <strong>{{ message?.title | translate }}</strong>
+                    <span>{{ config.title | translate }}</span>
                 </div>
             </div>
 
             <div class="modal-body">
-             
-                {{ message?.msg | translate }}
+                
+                {{ config.message | translate }}
 
             </div>
             <div class="modal-footer">
                 <div class="form-inline">
-                    <button
-                        (click)="closeModal()"
+                    <button 
                         tabindex="0"
                         id="okButton" 
-                        class="btn-form btn btn-sm rounded" >
-                        {{ 'common.ok' | translate }}
-                    </button>
+                        class="btn-form btn btn-sm rounded" 
+                        title="Enter" 
+                        [hidden]="!config.okButtonVisible">{{ 'common.ok' | translate }}</button>
+                    <button
+                        tabindex="0"
+                        id="cancelButton" 
+                        class="btn-form btn btn-sm rounded" 
+                        title="Esc" 
+                        [hidden]="!config.cancelButtonVisible">{{ 'common.cancel' | translate }}</button>
                 </div>
             </div>
         </div>

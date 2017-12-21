@@ -1,5 +1,4 @@
-﻿using EduApi.Controllers;
-using EduApi.DAL;
+﻿using EduApi.DAL;
 using EduApi.DAL.Interfaces;
 using EduApi.Dto;
 using EduApi.Dto.Mappers;
@@ -37,9 +36,8 @@ namespace EduApi.Services {
         private readonly IModuleRepository _moduleRepository;
         private readonly IUserService _userService;
         private readonly ITestQuestionService _questionService;
-        private readonly IDistractorRepository _distractorRepository;
-
-        public enum ChangeDifficulty { UP, NO_CHANGE, DOWN };
+        private readonly IDistractorService _distractorService;
+        private readonly IEduAlgorithmService _eduAlgorithmService;
 
 
         // CONSTRUCTOR
@@ -49,13 +47,15 @@ namespace EduApi.Services {
             IModuleRepository moduleRepository,
             IUserService userService,
             ITestQuestionService questionService,
-            IDistractorRepository distractorRepository
+            IDistractorService distractorService,
+            IEduAlgorithmService eduAlgorithmService
             ) {
 
             _moduleRepository = moduleRepository;
             _userService = userService;
             _questionService = questionService;
-            _distractorRepository = distractorRepository;
+            _distractorService = distractorService;
+            _eduAlgorithmService = eduAlgorithmService;
         }
         #endregion
 
@@ -127,6 +127,8 @@ namespace EduApi.Services {
             // To już nie pierwszy lecz KOLEJNY moduł
             else {
 
+                var difficultyAndDistractor = _eduAlgorithmService.PickNextDiffAndDistract(userId);
+
                 // ustalenie pozycji aktualnego modułu na liście obejrzanych modułów
                 int idx = prevModules.FindIndex(mod => mod.id == currentModuleId);
 
@@ -142,12 +144,14 @@ namespace EduApi.Services {
                 // aktualnie użytkownik ogląda ostatni z pobranych =>
                 // dostosowanie trudności do stanu emocjonalnego i dotychczasowych wyników użytkownika
                 else {
-                    var nextDifficulty = PickNextDifficulty(userId);
+                    var nextDifficulty = difficultyAndDistractor.Item1;
                     var lastModuleId = prevModules[prevModules.Count() - 1].id;
-                    newModule = PickNextModule(lastModuleId, nextDifficulty);
+                    newModule = _eduAlgorithmService.PickNextModule(lastModuleId, nextDifficulty);
                 }
 
-                // TODO: sprawdzenie czy należy wysłać dystraktor
+                // pobranie następnego dystraktora - distractorService sprawdzi czy już można
+                var distractor = _distractorService.NextDistractor(userId, difficultyAndDistractor.Item2);
+
                 // TODO: wysłanie dystraktora
                 // TODO: zaktualizowanie stanu gry, itd
             }
@@ -328,128 +332,143 @@ namespace EduApi.Services {
         }
 
 
+        // ---------------------------------------------------------------------------------------------
+        /* Sortuje moduły wg
+         * 1. group_position
+         * 2. jeżeli group_position == null - wówczas wg id
+         * Atrybut group_position jest ustawiany w metodzie ModuleService.CreateModuleSequence po 
+         * każdym zakończeniu edycji modułów.
+         */
+        public static void SortGroupPosition(ref List<edumodule> modules) {
+            modules.Sort((a, b) => a.group_position > b.group_position ? 1 : -1);
+        }
+
+
         // PRIVATE
         // =============================================================================================
-        /* 1. sprawdzenie stanu emocjonalnego i dotychczasowych wyników użytkownika
-         * 2. sprawdzenie dotychczasowych yników 
-         * 3. decyzja czy następny moduł ma być łatwiejszy, trudniejszy, czy taki sam
-         */
-        private ChangeDifficulty PickNextDifficulty(int userId) {
+        ///* 1. sprawdzenie stanu emocjonalnego i dotychczasowych wyników użytkownika
+        // * 2. sprawdzenie dotychczasowych yników 
+        // * 3. decyzja czy następny moduł ma być łatwiejszy, trudniejszy, czy taki sam
+        // */
+        //private ChangeDifficulty PickNextDifficulty(int userId) {
 
-            // TODO: sprawdzenie stanu emocjonalnego i dotychczasowych wyników użytkownika
-            // TODO: sprawdzenie dotychczasowych yników 
-            // TODO: dostosowanie trudności modułu do emocji i wyników
+        //    // TODO: sprawdzenie stanu emocjonalnego
+        //    var emoState = EmoServiceController._emoState;
 
-            var emoState = EmoServiceController._emoState;
+        //    // sprawdzenie ostatnich wyników testów
+        //    var recentTestScore = _questionService.GetRecentResults(userId);
 
-            ChangeDifficulty change = ChangeDifficulty.NO_CHANGE;
-
-            if (emoState == EmoServiceController.EmoState.BORED)
-                change = ChangeDifficulty.UP;
-            else if (emoState == EmoServiceController.EmoState.FRUSTRATED)
-                change = ChangeDifficulty.DOWN;
-
-            return change;
-        }
+        //    // TODO: dostosowanie trudności modułu do emocji i wyników
 
 
-        // ---------------------------------------------------------------------------------------------
-        /* Pobranie następnego modułu o wymaganym poziomie trudności (ten sam | up | down).
-         * Jeżeli nie da się zmienić poziomu w żądanym kierunku - na tym samym poziomie.
-         * Jeżeli to ostatni moduł materiału - zwraca null.
-         */
-        private edumodule PickNextModule(int lastModuleId, ModuleService.ChangeDifficulty change) {
+        //    ChangeDifficulty change = ChangeDifficulty.NO_CHANGE;
 
-            edumodule newModule = null;
-            edumodule lastModule = _moduleRepository.Get(lastModuleId);
+        //    if (emoState == EmoServiceController.EmoState.BORED)
+        //        change = ChangeDifficulty.UP;
+        //    else if (emoState == EmoServiceController.EmoState.FRUSTRATED)
+        //        change = ChangeDifficulty.DOWN;
 
-            // ustalenie aktualnego poziomu trudności
-            var difficultyNow = lastModule.difficulty;
+        //    return change;
+        //}
 
 
-            // ustalenie czy można poziom zmienić
-            bool noWayUp = (change == ChangeDifficulty.UP && difficultyNow == "hard");
-            bool noWayDown = (change == ChangeDifficulty.DOWN && difficultyNow == "easy");
+        //// ---------------------------------------------------------------------------------------------
+        ///* Pobranie następnego modułu o wymaganym poziomie trudności (ten sam | up | down).
+        // * Jeżeli nie da się zmienić poziomu w żądanym kierunku - na tym samym poziomie.
+        // * Jeżeli to ostatni moduł materiału - zwraca null.
+        // */
+        //private edumodule PickNextModule(int lastModuleId, ModuleService.ChangeDifficulty change) {
 
-            if (noWayUp || noWayDown)
-                change = ChangeDifficulty.NO_CHANGE;
+        //    edumodule newModule = null;
+        //    edumodule lastModule = _moduleRepository.Get(lastModuleId);
 
-
-            // TODO: uporządkować przypadek group_id == null - nie może występować
-            // pobranie rodzeństwa bieżącego modułu
-            int? parentId = lastModule.group_id;
-            var siblings = _moduleRepository.SelectChildren(parentId);
-
-
-            // wykluczenie modułów nie przypisanych do żadnego nadrzędnego, 
-            // które powinny mieć rodzica (czyli na poziomie niższym niz "hard")
-            siblings = siblings.Where(s => (s.group_id != null || s.difficulty == "hard")).ToList();
-            SortGroupPosition(ref siblings);
+        //    // ustalenie aktualnego poziomu trudności
+        //    var difficultyNow = lastModule.difficulty;
 
 
-            // ustalenie czy to ostatnie dziecko
-            int idxChild = siblings.FindIndex(mod => mod.id == lastModuleId);
-            bool lastChild = (idxChild == siblings.Count() - 1);
+        //    // ustalenie czy można poziom zmienić
+        //    bool noWayUp = (change == ChangeDifficulty.UP && difficultyNow == "hard");
+        //    bool noWayDown = (change == ChangeDifficulty.DOWN && difficultyNow == "easy");
+
+        //    if (noWayUp || noWayDown)
+        //        change = ChangeDifficulty.NO_CHANGE;
 
 
-            // NIE ZMIENIAMY POZIOMU TRUDNOŚCI
-            if (change == ChangeDifficulty.NO_CHANGE) {
-
-                // to jeszcze nie ostatnie dziecko - podanie następnego brata
-                if (!lastChild)
-                    newModule = siblings[idxChild + 1];
-
-                // TODO: wyeliminować przypadek gdy nie mamy id rodzica 
-                else if (parentId == null || parentId == 0)
-                    newModule = null;
-
-                // to ostatnie dziecko - podanie pierwszego kuzyna
-                else
-                    newModule = PickNextModule(parentId ?? 0, ChangeDifficulty.DOWN);
-            }
+        //    // TODO: uporządkować przypadek group_id == null - nie może występować
+        //    // pobranie rodzeństwa bieżącego modułu
+        //    int? parentId = lastModule.group_id;
+        //    var siblings = _moduleRepository.SelectChildren(parentId);
 
 
-            // OBNIŻENIE POZIOMU TRUDNOŚCI - podanie pierwszego dziecka najbliższego brata
-            else if (change == ChangeDifficulty.DOWN) {
-
-                // to jeszcze nie ostatnie dziecko - podanie pierwszego dziecka następnego brata
-                if (!lastChild) {
-                    var brother = siblings[idxChild + 1];
-                    newModule = _moduleRepository.SelectChildren(brother.id)[0];
-                }
-
-                // nie ma więcej modułów - ten był ostatni
-                else if (lastModule.difficulty == "hard" || parentId == null || parentId == 0)
-                    newModule = null;
+        //    // wykluczenie modułów nie przypisanych do żadnego nadrzędnego, 
+        //    // które powinny mieć rodzica (czyli na poziomie niższym niz "hard")
+        //    siblings = siblings.Where(s => (s.group_id != null || s.difficulty == "hard")).ToList();
+        //    SortGroupPosition(ref siblings);
 
 
-                // pobranie dziecka najbliższego kuzyna
-                else {
-                    var cousin = PickNextModule(parentId ?? 0, ChangeDifficulty.DOWN);
-                    newModule = (cousin == null) ? null : _moduleRepository.SelectChildren(cousin.id)[0];
-                }
-            }
+        //    // ustalenie czy to ostatnie dziecko
+        //    int idxChild = siblings.FindIndex(mod => mod.id == lastModuleId);
+        //    bool lastChild = (idxChild == siblings.Count() - 1);
 
 
-            // PODNIESIENIE POZIOMU TRUDNOŚCI - podanie kolejnego modułu w wersji trudniejszej
-            // pod warunkiem, że aktualny moduł był ostatnim dzieckiem swojego rodzica
-            else {
+        //    // NIE ZMIENIAMY POZIOMU TRUDNOŚCI
+        //    if (change == ChangeDifficulty.NO_CHANGE) {
 
-                // to nie jest ostatnie dziecko - podanie następnego brata bez zmiany trudności
-                if (!lastChild)
-                    newModule = siblings[idxChild + 1];
+        //        // to jeszcze nie ostatnie dziecko - podanie następnego brata
+        //        if (!lastChild)
+        //            newModule = siblings[idxChild + 1];
 
-                // moduł bez rodzica - nie można podnieśc poziomu trudności
-                else if (parentId == null || parentId == 0)
-                    newModule = null;
+        //        // TODO: wyeliminować przypadek gdy nie mamy id rodzica 
+        //        else if (parentId == null || parentId == 0)
+        //            newModule = null;
 
-                // to jest ostatnie dziecko - podanie następnego trudniejszego
-                else
-                    newModule = PickNextModule(parentId ?? 0, ChangeDifficulty.NO_CHANGE);
-            }
+        //        // to ostatnie dziecko - podanie pierwszego kuzyna
+        //        else
+        //            newModule = PickNextModule(parentId ?? 0, ChangeDifficulty.DOWN);
+        //    }
 
-            return newModule;
-        }
+
+        //    // OBNIŻENIE POZIOMU TRUDNOŚCI - podanie pierwszego dziecka najbliższego brata
+        //    else if (change == ChangeDifficulty.DOWN) {
+
+        //        // to jeszcze nie ostatnie dziecko - podanie pierwszego dziecka następnego brata
+        //        if (!lastChild) {
+        //            var brother = siblings[idxChild + 1];
+        //            newModule = _moduleRepository.SelectChildren(brother.id)[0];
+        //        }
+
+        //        // nie ma więcej modułów - ten był ostatni
+        //        else if (lastModule.difficulty == "hard" || parentId == null || parentId == 0)
+        //            newModule = null;
+
+
+        //        // pobranie dziecka najbliższego kuzyna
+        //        else {
+        //            var cousin = PickNextModule(parentId ?? 0, ChangeDifficulty.DOWN);
+        //            newModule = (cousin == null) ? null : _moduleRepository.SelectChildren(cousin.id)[0];
+        //        }
+        //    }
+
+
+        //    // PODNIESIENIE POZIOMU TRUDNOŚCI - podanie kolejnego modułu w wersji trudniejszej
+        //    // pod warunkiem, że aktualny moduł był ostatnim dzieckiem swojego rodzica
+        //    else {
+
+        //        // to nie jest ostatnie dziecko - podanie następnego brata bez zmiany trudności
+        //        if (!lastChild)
+        //            newModule = siblings[idxChild + 1];
+
+        //        // moduł bez rodzica - nie można podnieśc poziomu trudności
+        //        else if (parentId == null || parentId == 0)
+        //            newModule = null;
+
+        //        // to jest ostatnie dziecko - podanie następnego trudniejszego
+        //        else
+        //            newModule = PickNextModule(parentId ?? 0, ChangeDifficulty.NO_CHANGE);
+        //    }
+
+        //    return newModule;
+        //}
 
 
         // ---------------------------------------------------------------------------------------------
@@ -481,12 +500,6 @@ namespace EduApi.Services {
             if (a.group_position != b.group_position)
                 return a.group_position > b.group_position ? 1 : -1;
             return a.id > b.id ? 1 : -1;
-        }
-
-
-        // ---------------------------------------------------------------------------------------------
-        private void SortGroupPosition(ref List<edumodule> modules) {
-            modules.Sort((a, b) => a.group_position > b.group_position ? 1 : -1);
         }
 
 

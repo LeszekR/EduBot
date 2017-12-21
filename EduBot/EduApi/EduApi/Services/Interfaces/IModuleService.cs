@@ -8,14 +8,16 @@ namespace EduApi.Services.Interfaces {
     // =================================================================================================
     public interface IModuleService {
 
+        // ---------------------------------------------------------------------------------------------
         /* Wysyła moduły łatwiejsze składające się na wskazany moduł trudniejszy.
-         * Front wywołuje ten endpoint tylko gdy oglądany moduł nie jest na najłatwiejszym poziomie
-         * trudności (difficulty != 'easy').
+         * Front wywołuje ten endpoint pod warunkiem, że oglądany moduł nie jest  
+         * modułem o najniższym poziomie trudności (difficulty != 'easy').
          */
         List<ModuleDTO> ExplainModule(int userId, int moduleId);
 
-        /* Wywoływana po każdym zamknięciu trygu edycji modułów.
-         * Ustawia wszystkie moduły w prawidłowe drzewo i numeruje: nadaje kolejne 'group_position'.
+        // ---------------------------------------------------------------------------------------------
+        /* Wywoływana po każdym zamknięciu trybu edycji modułów.
+         * Ustawia wszystkie moduły w prawidłowe drzewo i numeruje (nadaje im kolejne 'group_position').
          * Dzięki temu przy dalszym korzystaniu można sortować moduły:
          * - szybko
          * - również gdy lista jest niekompletna (nieznani są rodzice) 
@@ -26,14 +28,14 @@ namespace EduApi.Services.Interfaces {
         /* 1. Na podstawie postępów użytkownika decyduje który moduł powinien zostać teraz podany
          * 2. Jeżeli aktualnie oglądany to najnowszy z pokazanych użytkownikowi - określa jaki przysłać 
          *    na podstawie stanu emocjonalnego oraz wyników ucznia
-         * 3. Jeżeli wcześniej użytkownik wcisnął 'wstecz' - wysyła ten, który przedtem podanoo jako następny
+         * 3. Jeżeli wcześniej użytkownik wcisnął 'wstecz' - wysyła ten, który przedtem podano jako następny
          *    po aktualnie wyświetlanym
          * 4. Wysyła wybrany moduł do frontu
          */
         ModuleAndDistractorDTO NextModule(int userId, int currentModuleId);
 
         // ---------------------------------------------------------------------------------------------
-        /* Wysyła do frontu poprzedni moduł oglądany przez użytkownika przed
+        /* Wysyła do frontu moduł znajdujący się w kolejności przed
          * modułem oglądanym w tej chwili.
          * Jeśli użytkownik jeszcze nie otrzymał żadnych modułów - wysyła null.
          */
@@ -72,7 +74,7 @@ namespace EduApi.Services.Interfaces {
          * jak moduły niższego poziomu. Użytkownik odpowiada za spójność treści meta-modułu
          * uzyskanego tą metodą z zawartością modułów podrzędnych.
          * 2. Pytania zamknięte meta-modułu są pobierane z bazy poprzez pobranie
-         * pytań wszystkich modułów podrzędnych i łączone w jedną serię pytań. Pytania
+         * pytań wszystkich modułów podrzędnych i połączenie w jedną serię pytań. Pytania
          * zamknięte można edytować tylko na poziomie modułów podstawowych.
          */
         ModuleDTO NewMetaModule(ModuleDTO[] moduleGroup);
@@ -82,5 +84,14 @@ namespace EduApi.Services.Interfaces {
          * 2. Jeżeli to był moduł nadrzędny - usuwa id_grupy z dla wszystkich modułów podrzędnych
          */
         List<ModuleDTO> DeleteModule(int id);
+
+        //// ---------------------------------------------------------------------------------------------
+        ///* Sortuje moduły wg
+        // * 1. group_position
+        // * 2. jeżeli group_position == null - wówczas wg id
+        // * Atrybut group_position jest ustawiany w metodzie ModuleService.CreateModuleSequence po 
+        // * każdym zakończeniu edycji modułów.
+        // */
+        //void SortGroupPosition(ref List<edumodule> modules);
     }
 }

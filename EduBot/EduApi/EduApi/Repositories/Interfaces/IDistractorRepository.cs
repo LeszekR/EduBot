@@ -1,6 +1,4 @@
 ﻿using EduApi.DAL.Core;
-using EduApi.DTO;
-using System.Collections.Generic;
 
 namespace EduApi.DAL.Interfaces {
 

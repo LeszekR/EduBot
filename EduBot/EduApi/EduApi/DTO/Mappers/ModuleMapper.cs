@@ -36,9 +36,6 @@ namespace EduApi.Dto.Mappers {
                 difficulty = entity.difficulty,
                 content = entity.content,
                 example = entity.example
-                //,
-                //test_question = entity.test_question.Cast<TestQuestionDTO>().ToList(),
-                //test_code = entity.test_question.Cast<TestCodeDTO>().ToList()
             };
         }
 

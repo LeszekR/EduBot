@@ -4,6 +4,7 @@ using EduApi.Repositories.Interfaces;
 using EduApi.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 
 namespace EduApi.Services {
@@ -30,6 +31,58 @@ namespace EduApi.Services {
 
         // PUBLIC
         // =============================================================================================
+        public int GetRecentResults(int userId) {
+
+            // Assumptions:
+            // 1.the app serves consequent modules in pre-planned order
+            // 2.user will not get next module until they answer current module's test 
+            //
+            // This way latest modules are also the ones answered most recently, therefore
+            // counting correct answers backwards from the last answered will give picture
+            // of the most recent results of the user in their tests.
+
+
+            // pobranie parametrów sterujących obliczeniem średnich wyników
+            var nLastAnswersStr = ConfigurationManager.AppSettings["nLastAnswersForDiffTreshold"];
+            var nLastAnswers = Int32.Parse(nLastAnswersStr);
+
+            
+            // pobranie i posortowanie modułów użytkownika
+            var modulesOfUser = _userService.GetUserEntity(userId).edumodule.ToList();
+            ModuleService.SortGroupPosition(ref modulesOfUser);
+
+
+            // pobieranie odpowiedzi do modułów zaczynając od końca 
+            // dopóki nie zostanie osiągnięta wymagana liczba pytań
+            // i obliczanie średniej trafności pierwszej odpowiedzi na pytanie
+            int nAnswers = 0;
+            int nGoodAnswers = 0;
+            int i = modulesOfUser.Count();
+            user_question user_question;
+
+            while (i > 0 && nAnswers < nLastAnswers) {
+                i--;
+                foreach (var q in modulesOfUser[i].test_question.ToList()) {
+                    nAnswers++;
+                    user_question = q.user_question.FirstOrDefault();
+                    if (user_question != null)
+                        nGoodAnswers += (user_question.first_result == true) ? 1 : 0;
+                }
+            }
+
+
+            // Jeżeli użytkownik nie odpowiedział jeszcze na wymaganą tu liczbę pytań - metoda zwraca -1 
+            // i wynik jest pomijany przy decyzji o poziomie trudności kolejnego modułu.
+            if (nAnswers < nLastAnswers)
+                return -1;
+
+            // Użytkownik odpowiedział na wystarczającą liczbe pytań.
+            else
+                return (nGoodAnswers / nAnswers) * 100;
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
         public List<TestQuestionAnswDTO> VerifyClosedTest(TestQuestionAnswDTO[] answers, int userId) {
 
             var answersList = answers.ToList();

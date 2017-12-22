@@ -1,13 +1,14 @@
-<div class="mb-3">
+<div class="card-block">
 
-  <p>
-    {{questionData.question}}
-  </p>
+  <h5 class="card-title">{{ questionData.question }}</h5>
 
-  <ul *ngFor="let ans of questionData.answers; let i=index" [attr.data-index]="i">
-    <li>
-      <question-answer-view [answer]="ans" [parentQuestion]="this" [id]="i"></question-answer-view>
-    </li>
-  </ul>
+  <div *ngFor="let answer of questionData.answers; let i=index" [attr.data-index]="i">
+    <div class="form-check card-text" (click)="questionData.correct_idx=i">
+      <label class="form-check-label">
+        <div [ngClass]="questionData.correct_idx==i ? 'fa fa-check-square-o' : 'fa fa-square-o'" ></div>
+        {{ answer }}
+      </label>
+    </div>
+  </div>
 
 </div>

@@ -1,9 +1,12 @@
 <div class="mt-2 p-3 h-100">
-        <ul *ngFor="let q of questions; let i=index" [attr.data-index]="i">
-                <li>
-                        <question-view [questionData]=q></question-view>
-                </li>
-        </ul>
+        <div *ngFor="let q of questions; let i=index" [attr.data-index]="i">
+                <div class="pb-2">
+                        <question-view 
+                                [questionData]=q
+                                class="card">
+                        </question-view>
+                </div>
+        </div>
 </div>
 
 <!-- <textarea class="form-control w-100 h-100" [readonly]="true">{{tx}}</textarea> -->

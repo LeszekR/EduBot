@@ -26,8 +26,7 @@ export class ModuleListComponent implements OnInit {
 
     modules: Module[];
     selectedModuleId: number;
-    selectedModules: Module[] = [];
-
+    anyModulesSelected: boolean;
 
     // CONSTRUCTOR
     // ==============================================================================================================
@@ -209,13 +208,13 @@ export class ModuleListComponent implements OnInit {
 
     // --------------------------------------------------------------------------------------------------------------
     private addMetaModule() {
-        // TODO: pobrać grupę modułów zaznaczonych przez użytkownika dla utworzenia modułu nadrzędnego
-        let moduleGroup = this.selectedModules;
-        this.moduleService.saveMetaModule(moduleGroup)
+        let selectedModules = this.modules.filter(m => m.isSelected == true);
+        this.moduleService.saveMetaModule(selectedModules)
             .subscribe(res => {
-                moduleGroup.forEach(m => { m.isSelected = false; m.group_id = res.id })
-                let idx = this.modules.indexOf(moduleGroup[0]);
+                selectedModules.forEach(m => { m.isSelected = false; m.group_id = res.id })
+                let idx = this.modules.indexOf(selectedModules[0]);
                 this.modules.splice(idx, 0, res);
+                this.anyModulesSelected = !this.modules.every(m => m.isSelected == false);
                 this.router.navigate(['module', res.id], { relativeTo: this.route });
             });
     }
@@ -237,5 +236,10 @@ export class ModuleListComponent implements OnInit {
                 this.router.navigate(['']);
                 this.modules = newModules;
             });
+    }
+
+    selectModule(mod: Module){
+        mod.isSelected=!mod.isSelected;
+        this.anyModulesSelected = !this.modules.every(m => m.isSelected == false);
     }
 }

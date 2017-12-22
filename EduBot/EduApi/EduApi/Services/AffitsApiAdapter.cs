@@ -89,7 +89,8 @@ namespace EduApi.Services {
         }
 
 
-        // ---------------------------------------------------------------------------------------------
+        // PRIVATE
+        // =============================================================================================
         // TODO process actual answear when it works
         private EmoState? processPad(string pad) {
             return _emotionalStateInterpreter.interpret(pad);

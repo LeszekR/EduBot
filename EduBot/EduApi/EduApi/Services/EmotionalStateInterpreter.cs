@@ -5,6 +5,7 @@ using Newtonsoft.Json.Linq;
 
 namespace EduApi.Services {
 
+
     // =================================================================================================
     public class EmotionalStateInterpreter {
 
@@ -150,11 +151,14 @@ namespace EduApi.Services {
         }
     }
 
+
+    // =================================================================================================
     public class AffitsPad
     {
         public double pleasure;
         public double arousal;
         public double dominance;
+
 
         // CONSTRUCTOR
         // =============================================================================================
@@ -174,7 +178,8 @@ namespace EduApi.Services {
         public int min;
         public int max;
 
-        // CONSTRUCTOR
+
+        // PUBLIC
         // =============================================================================================
         public PadRange(int extreme) {
             if (extreme == EmotionalStateInterpreter.factorLow) {

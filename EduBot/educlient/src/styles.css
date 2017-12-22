@@ -28,6 +28,10 @@ a.disabled {
     background-color: white !important;
 }
 
+.bg-primary2{
+    background-color: #B5CCF6 !important;
+}
+
 .of-auto {
     overflow-y: auto;
 }

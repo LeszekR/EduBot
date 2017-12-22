@@ -42,39 +42,40 @@
         </div>
     </div>
 
-
-    <ng-template ngFor let-module [ngForOf]="modules">
-        
-        <div class="d-flex" 
-            [class.justify-content-end]="module.difficulty=='easy'" 
-            [class.justify-content-center]="module.difficulty=='medium'"
-            [class.justify-content-start]="module.difficulty=='hard'">
+    <div class="of-auto">
+        <ng-template ngFor let-module [ngForOf]="modules">
             
-            <a 
-                class="btn-menu list-group-item p-0 col-10"
-                [class.lvl-easy]="module.difficulty=='easy'" 
-                [class.lvl-medium]="module.difficulty=='medium'" 
-                [class.lvl-hard]="module.difficulty=='hard'"
-                [routerLink]="['module/', module.id]" 
-                routerLinkActive="active"
-                [ngClass]="context.editModuleId==null ? '' : (context.editModuleId==module.id ? '' : 'disabled')" 
-                (click)="selectedModuleId=module.id" 
-                >
+            <div class="d-flex" 
+                [class.justify-content-end]="module.difficulty=='easy'" 
+                [class.justify-content-center]="module.difficulty=='medium'"
+                [class.justify-content-start]="module.difficulty=='hard'">
                 
-                <div class="pl-2 p-3">
-                    <div class="ml-3">
-                        <span class="w-100">{{ module.title }}</span>
+                <a 
+                    class="btn-menu list-group-item p-0 col-10"
+                    [class.lvl-easy]="module.difficulty=='easy'" 
+                    [class.lvl-medium]="module.difficulty=='medium'" 
+                    [class.lvl-hard]="module.difficulty=='hard'"
+                    [routerLink]="['module/', module.id]" 
+                    routerLinkActive="active"
+                    [ngClass]="context.editModuleId==null ? '' : (context.editModuleId==module.id ? '' : 'disabled')" 
+                    (click)="selectedModuleId=module.id" 
+                    >
+                    
+                    <div class="pl-2 p-3">
+                        <div class="ml-3">
+                            <span class="w-100">{{ module.title }}</span>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="ml-auto pr-1" 
-                    (click)="selectModule(module);$event.stopPropagation();$event.preventDefault();"
-                    *ngIf="context.isEditMode && module.difficulty!='hard' && !module.group_id && !context.editModuleId">
-                    <div [ngClass]="module.isSelected ? 'fa fa-check-square-o' : 'fa fa-square-o'" ></div>
-                </div>
-            </a>
-        </div>
-    </ng-template>
+                    
+                    <div class="ml-auto pr-1" 
+                        (click)="selectModule(module);$event.stopPropagation();$event.preventDefault();"
+                        *ngIf="context.isEditMode && module.difficulty!='hard' && !module.group_id && !context.editModuleId">
+                        <div [ngClass]="module.isSelected ? 'fa fa-check-square-o' : 'fa fa-square-o'" ></div>
+                    </div>
+                </a>
+            </div>
+        </ng-template>
+    </div>
 </div>
 
 <!-- <div class="align-items-center d-inline-flex fa-div" (click)="nextModule()" >

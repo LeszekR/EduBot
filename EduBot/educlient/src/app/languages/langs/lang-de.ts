@@ -13,10 +13,14 @@ export const LANG_DE_TRANS = {
     
     'edit.add_module': 'Modul hinzufügen',
     'edit.add_meta_module': 'Fater Modul',
+    'edit.del_answer_title': '<brak tłumaczenia>',
+    'edit.del_answer_decision': '<brak tłumaczenia>',
     'edit.del_module': '<brak tłumaczenia>',
     'edit.del_module_title': '<brak tłumaczenia>',
     'edit.del_module_decision': '<brak tłumaczenia>',
     'edit.del_module_failed': '<brak tłumaczenia>',
+    'edit.del_question_title': '<brak tłumaczenia>',
+    'edit.del_question_decision': '<brak tłumaczenia>',
     'edit.enter_edit_mode': '<brak tłumaczenia>',
     'edit.exit_edit_mode': '<brak tłumaczenia>',
 

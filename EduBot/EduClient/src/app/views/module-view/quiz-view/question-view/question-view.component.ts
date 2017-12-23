@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { ClosedQuestion } from '../../../../models/closed-question'
+import { MessageService } from '../../../../shared/components/message/message.service';
 
 // ==================================================================================================================
 @Component({
@@ -19,7 +20,7 @@ export class QuestionViewComponent implements OnInit {
 
   // CONSTRUCTOR
   // ==============================================================================================================
-  constructor() { }
+  constructor(private messageService: MessageService) { }
 
   // --------------------------------------------------------------------------------------------------------------
   ngOnInit() {
@@ -50,12 +51,20 @@ export class QuestionViewComponent implements OnInit {
   }
 
   private deleteAnswer(idx: number){
-    this.questionData.answers.splice(idx,1);
-    this.updateSource();
+    this.messageService
+      .confirm('edit.del_answer_decision', 'edit.del_answer_title')
+      .then(confirmed => { 
+        if (confirmed){
+            this.questionData.answers.splice(idx,1);
+            this.updateSource();
+        } 
+      });
   }
 
   private deleteQuestion(){
-    this.onUpdateQuestion.emit(null);
+    this.messageService
+      .confirm('edit.del_question_decision', 'edit.del_question_title')
+      .then(confirmed => { if (confirmed) this.onUpdateQuestion.emit(null); });
   }
 
   private updateSource(){

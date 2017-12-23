@@ -1,7 +1,5 @@
-<div class="card-block">
-
+<div *ngIf="!editMode" class="card-block">
   <h6 class="card-title"><strong>{{ questionData.question }}</strong></h6>
-
   <div *ngFor="let answer of questionData.answers; let i=index" [attr.data-index]="i">
     <div class="form-check card-text" (click)="questionData.correct_idx=i">
       <label class="form-check-label">
@@ -10,5 +8,23 @@
       </label>
     </div>
   </div>
+</div>
 
+
+<div *ngIf="editMode" class="card-block">
+  <h6 class="card-title"><strong>
+    {{ questionData.question }}
+    <i class="fa fa-pencil fa-lighter pl-1" aria-hidden="true"></i>
+  </strong></h6>
+  <div *ngFor="let answer of questionData.answers; let i=index" [attr.data-index]="i">
+      <div class="form-check card-text">
+          <label class="form-check-label">
+            <div (click)="questionData.correct_idx=i"
+              [ngClass]="questionData.correct_idx==i ? 'fa fa-check-square-o' : 'fa fa-square-o'" >
+            </div>
+            {{ answer }}
+            <i class="fa fa-pencil fa-lighter pl-1" aria-hidden="true"></i>
+          </label>
+      </div>
+  </div>
 </div>

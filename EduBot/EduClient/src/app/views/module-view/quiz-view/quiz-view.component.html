@@ -3,7 +3,7 @@
                 <legend>
                         <div class="font-weight-bold">
                                 <i class="fa fa-pencil-square-o fa-2x"></i>
-                                Sprawdzian
+                                Quiz
                         </div>
                 </legend>
                 <div class="card bg-card border-0">
@@ -11,10 +11,12 @@
                                 <div class="mb-2">
                                         <question-view 
                                                 [questionData]=q
+                                                [editMode]="context.editModuleId"
                                                 class="card">
                                         </question-view>
                                 </div>
                         </div>
+                        <div *ngIf="context.editModuleId" class="fa fa-plus fa-2x ml-2" ></div>
                 </div>
         </fieldset>
 </div>

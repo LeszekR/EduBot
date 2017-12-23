@@ -3,8 +3,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div class="modal-title">
-                    <span class="icon-"></span>
-                    <span>{{ config.title | translate }}</span>
+                    <span class="fa fa-info-circle"></span>
+                    <strong>{{ config.title | translate }}</strong>
                 </div>
             </div>
 
@@ -18,13 +18,13 @@
                     <button 
                         tabindex="0"
                         id="okButton" 
-                        class="btn-form btn btn-sm rounded" 
+                        class="btn-form btn btn-success btn-sm rounded mr-2" 
                         title="Enter" 
                         [hidden]="!config.okButtonVisible">{{ 'common.ok' | translate }}</button>
                     <button
                         tabindex="0"
                         id="cancelButton" 
-                        class="btn-form btn btn-sm rounded" 
+                        class="btn-form btn btn-danger btn-sm rounded" 
                         title="Esc" 
                         [hidden]="!config.cancelButtonVisible">{{ 'common.cancel' | translate }}</button>
                 </div>

@@ -40,7 +40,6 @@ export class MessageComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log("Ng on init");
         this._cancelButton = document.getElementById('cancelButton');
         this._okButton = document.getElementById('okButton');
     }

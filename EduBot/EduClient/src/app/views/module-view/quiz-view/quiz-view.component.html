@@ -1,9 +1,24 @@
-<div class="mt-2 p-3 h-100">
-        <ul *ngFor="let q of questions; let i=index" [attr.data-index]="i">
-                <li>
-                        <question-view [questionData]=q></question-view>
-                </li>
-        </ul>
+<div class="container-fluid p-2">
+        <fieldset>
+                <legend>
+                        <div class="font-weight-bold">
+                                <i class="fa fa-pencil-square-o fa-2x"></i>
+                                Quiz
+                        </div>
+                </legend>
+                <div class="card bg-card border-0">
+                        <div *ngFor="let q of questions; let i=index" [attr.data-index]="i">
+                                <div class="mb-2">
+                                        <question-view 
+                                                [questionData]=q
+                                                [editMode]="context.editModuleId"
+                                                class="card">
+                                        </question-view>
+                                </div>
+                        </div>
+                        <div *ngIf="context.editModuleId" class="fa fa-plus fa-2x ml-2" ></div>
+                </div>
+        </fieldset>
 </div>
 
 <!-- <textarea class="form-control w-100 h-100" [readonly]="true">{{tx}}</textarea> -->

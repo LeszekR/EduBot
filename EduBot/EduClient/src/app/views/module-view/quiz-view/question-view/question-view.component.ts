@@ -11,6 +11,7 @@ import { ClosedQuestion } from '../../../../models/closed-question'
 export class QuestionViewComponent implements OnInit {
 
   @Input() questionData: ClosedQuestion;
+  @Input() editMode: boolean;
 
 
   // CONSTRUCTOR

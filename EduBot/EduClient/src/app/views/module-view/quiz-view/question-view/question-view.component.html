@@ -1,4 +1,7 @@
 <div *ngIf="!editMode" class="card-block">
+  <div *ngIf="questionData.status!=0" class="q-status" > 
+    <i [ngClass]="getClass()" ></i> 
+  </div>
   <h6 class="card-title"><strong>{{ questionData.question }}</strong></h6>
   <div *ngFor="let answer of questionData.answers; let i=index" [attr.data-index]="i">
     <div class="form-check card-text" (click)="questionData.correct_idx=i">

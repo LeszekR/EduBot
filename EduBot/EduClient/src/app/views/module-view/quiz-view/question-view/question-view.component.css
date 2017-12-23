@@ -44,3 +44,17 @@ input {
     top: 10px;
     right: 10px;
 }
+
+.q-status{
+    position: absolute;
+    left: 50%;
+    top: 40%;
+}
+
+.fa-check{
+    color: green;
+}
+
+.fa-times{
+    color: red;
+}

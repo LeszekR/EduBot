@@ -19,7 +19,7 @@ import { ExampleViewComponent } from './example-view/example-view.component';
 import { QuizViewComponent } from './quiz-view/quiz-view.component';
 
 import { MockData } from '../../mock/test-data'
-import { ClosedQuestion } from '../../models/closed-question';
+import { ClosedQuestion, QuestionStatus } from '../../models/closed-question';
 // import { EventEmitter } from 'events';
 
 
@@ -84,7 +84,13 @@ export class ModuleViewComponent implements OnInit {
     }
 
     this.questionService.verifyClosedTest(answers)
-      .subscribe(result => console.log(result));
+      .subscribe(res => {
+        let multiplier = 1;
+        res.forEach( result => {
+          let question = this.questions.find(q => q.id == result.question_id) ;
+          setTimeout(()=>{ question.status = result.answer_id == 0 ? QuestionStatus.Incorrect : QuestionStatus.Correct; }, 1000*multiplier++);
+        })
+      });
   }
 
   // --------------------------------------------------------------------------------------------------------------

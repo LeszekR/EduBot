@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { ClosedQuestion } from '../../../../models/closed-question'
+import { ClosedQuestion, QuestionStatus } from '../../../../models/closed-question'
 import { MessageService } from '../../../../shared/components/message/message.service';
 
 // ==================================================================================================================
@@ -24,7 +24,7 @@ export class QuestionViewComponent implements OnInit {
 
   // --------------------------------------------------------------------------------------------------------------
   ngOnInit() {
-    this.questionData.correct_idx = -1;
+      this.questionData.correct_idx = -1;
   }
 
   // PUBLIC
@@ -35,19 +35,16 @@ export class QuestionViewComponent implements OnInit {
 
   private addAnswerToQuestion(){
     this.questionData.answers.push("Nowa odpowiedź");
-    this.updateSource();
   }
 
   private updateQuestionValue(value: string){
     this.questionData.question = value;
     this.editQuestionText = false;
-    this.updateSource();
   }
 
   private updateAnswerValue(value: string){
     this.questionData.answers[this.editedAnswerIdx] = value;
     this.editedAnswerIdx = null;
-    this.updateSource();
   }
 
   private deleteAnswer(idx: number){
@@ -56,7 +53,6 @@ export class QuestionViewComponent implements OnInit {
       .then(confirmed => { 
         if (confirmed){
             this.questionData.answers.splice(idx,1);
-            this.updateSource();
         } 
       });
   }
@@ -67,9 +63,14 @@ export class QuestionViewComponent implements OnInit {
       .then(confirmed => { if (confirmed) this.onUpdateQuestion.emit(null); });
   }
 
-  private updateSource(){
-    this.onUpdateQuestion.emit(this.questionData);
+  private getClass(): string{
+    if(this.questionData.status == QuestionStatus.Correct)
+      return "fa fa-check fa-3x";
+    else if(this.questionData.status == QuestionStatus.Incorrect)
+      return "fa fa-times fa-3x";
+    return "";
   }
+
 }
 
 

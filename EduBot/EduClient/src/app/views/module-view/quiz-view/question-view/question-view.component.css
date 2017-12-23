@@ -1,8 +1,20 @@
 .edit-title{
     font-weight: bolder;
-    color: #017EB5 !important;
+    
 }
 
 .fa-lighter{
-    color: #017EB5B3 !important;
+    color: #017EB580 !important;
+}
+
+.fa-lighter:hover{
+    color: #017EB5 !important;
+}
+
+input {
+    color: #017EB5 !important;
+}
+
+.w-80 {
+    width: 80% !important;
 }

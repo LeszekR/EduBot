@@ -12,19 +12,33 @@
 
 
 <div *ngIf="editMode" class="card-block">
-  <h6 class="card-title"><strong>
+  <h6 *ngIf="!editQuestionText" class="card-title"><strong>
     {{ questionData.question }}
-    <i class="fa fa-pencil fa-lighter pl-1" aria-hidden="true"></i>
+    <i class="fa fa-pencil fa-lighter pl-1" aria-hidden="true" (click)="editQuestionText=true" ></i>
   </strong></h6>
+  <input *ngIf="editQuestionText" 
+    type="text" 
+    [ngModel]="questionData.question"
+    autofocus
+    (focusout)="updateQuestionValue($event.target.value)" 
+    class="form-control-sm w-100 edit-title" 
+    />
   <div *ngFor="let answer of questionData.answers; let i=index" [attr.data-index]="i">
       <div class="form-check card-text">
-          <label class="form-check-label">
+          <label class="form-check-label w-100">
             <div (click)="questionData.correct_idx=i"
               [ngClass]="questionData.correct_idx==i ? 'fa fa-check-square-o' : 'fa fa-square-o'" >
             </div>
-            {{ answer }}
-            <i class="fa fa-pencil fa-lighter pl-1" aria-hidden="true"></i>
+            <span *ngIf="editedAnswerIdx!=i" >{{ answer }}</span>
+            <input *ngIf="editedAnswerIdx==i" 
+              type="text" 
+              autofocus
+              [ngModel]="questionData.answers[i]" 
+              (focusout)="updateAnswerValue($event.target.value)" 
+              class="form-control-sm w-80" />
+            <i class="fa fa-pencil fa-lighter pl-1" (click)="editedAnswerIdx=i" aria-hidden="true"></i>
           </label>
       </div>
   </div>
+  <div class="fa fa-plus form-check-label" (click)="addAnswerToQuestion()" ></div>
 </div>

@@ -34,8 +34,10 @@ export class QuizViewComponent {
   }
 
   private updateQuestion(question: ClosedQuestion, idx: number){
-    this.questions[idx] = question;
+    if(question)
+      this.questions[idx] = question;
+    else
+      this.questions.splice(idx,1);
   }
-
 
 }

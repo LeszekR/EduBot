@@ -25,20 +25,20 @@
     />
   <div *ngFor="let answer of questionData.answers; let i=index" [attr.data-index]="i">
       <div class="form-check card-text">
-          <label class="form-check-label w-100">
-            <div (click)="questionData.correct_idx=i"
-              [ngClass]="questionData.correct_idx==i ? 'fa fa-check-square-o' : 'fa fa-square-o'" >
-            </div>
-            <span *ngIf="editedAnswerIdx!=i" >{{ answer }}</span>
-            <input *ngIf="editedAnswerIdx==i" 
-              type="text" 
-              autofocus
-              [ngModel]="questionData.answers[i]" 
-              (focusout)="updateAnswerValue($event.target.value)" 
-              class="form-control-sm w-80" />
-            <i class="fa fa-pencil fa-lighter pl-1" (click)="editedAnswerIdx=i" aria-hidden="true"></i>
-          </label>
+          <div (click)="questionData.correct_idx=i"
+            [ngClass]="questionData.correct_idx==i ? 'fa fa-check-square-o' : 'fa fa-square-o'" >
+          </div>
+          <span *ngIf="editedAnswerIdx!=i" >{{ answer }}</span>
+          <input *ngIf="editedAnswerIdx==i" 
+            type="text" 
+            autofocus
+            [ngModel]="questionData.answers[i]" 
+            (focusout)="updateAnswerValue($event.target.value)" 
+            class="form-control-sm w-80" />
+            <i *ngIf="editedAnswerIdx!=i" class="fa fa-pencil fa-lighter pl-1" (click)="editedAnswerIdx=i" aria-hidden="true"></i>
+            <div *ngIf="editedAnswerIdx!=i" class="fa fa-minus fa-red pl-1" (click)="deleteAnswer(i)" ></div>
       </div>
   </div>
   <div class="fa fa-plus form-check-label" (click)="addAnswerToQuestion()" ></div>
+  <div class="fa fa-minus fa-red fa-top-right" (click)="deleteQuestion()" ></div>
 </div>

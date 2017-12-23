@@ -49,6 +49,15 @@ export class QuestionViewComponent implements OnInit {
     this.updateSource();
   }
 
+  private deleteAnswer(idx: number){
+    this.questionData.answers.splice(idx,1);
+    this.updateSource();
+  }
+
+  private deleteQuestion(){
+    this.onUpdateQuestion.emit(null);
+  }
+
   private updateSource(){
     this.onUpdateQuestion.emit(this.questionData);
   }

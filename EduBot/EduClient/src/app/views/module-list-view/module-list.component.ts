@@ -24,7 +24,7 @@ import { ModulDistracDTO } from '../../models/module-and-distractor-DTO';
 })
 export class ModuleListComponent implements OnInit {
 
-    modules: Module[];
+    modules: Module[] = [];
     selectedModuleId: number;
     anyModulesSelected: boolean;
 
@@ -55,25 +55,25 @@ export class ModuleListComponent implements OnInit {
     // ==============================================================================================================
     // TODO: usunąc po testach
     private mockAddMetaModule(): void {
-        
-                let group: Module[] = [];
-        
-                let moduleIds: number[] = [47, 39];
-        
-                let modules = this.modules;
-                let modServ: ModuleService = this.moduleService;
-                var callback = function (moduleGroup: Module[]) {
-                    modServ.saveMetaModule(moduleGroup).subscribe(res => modules.push(res));
-                }
-        
-                for (var i in moduleIds)
-                    this.moduleService.getModuleById(moduleIds[i]).subscribe(m => {
-                        group[group.length] = m;
-                        if (group.length == moduleIds.length)
-                            callback(group);
-                    });
-            }
-        
+
+        let group: Module[] = [];
+
+        let moduleIds: number[] = [47, 39];
+
+        let modules = this.modules;
+        let modServ: ModuleService = this.moduleService;
+        var callback = function (moduleGroup: Module[]) {
+            modServ.saveMetaModule(moduleGroup).subscribe(res => modules.push(res));
+        }
+
+        for (var i in moduleIds)
+            this.moduleService.getModuleById(moduleIds[i]).subscribe(m => {
+                group[group.length] = m;
+                if (group.length == moduleIds.length)
+                    callback(group);
+            });
+    }
+
 
     // PUBLIC
     // ==============================================================================================================
@@ -176,8 +176,9 @@ export class ModuleListComponent implements OnInit {
             .subscribe(moduleDistr => {
                 if (moduleDistr != undefined && moduleDistr != null) {
 
-                    if (this.modules.filter(m => { return m.id == moduleDistr.module.id; }).length == 0)
-                        this.modules[this.modules.length] = moduleDistr.module;
+                    if (this.modules != undefined)
+                        if (this.modules.filter(m => { return m.id == moduleDistr.module.id; }).length == 0)
+                            this.modules[this.modules.length] = moduleDistr.module;
 
                     this.showDistractorAndModule(moduleDistr);
                 }
@@ -187,10 +188,11 @@ export class ModuleListComponent implements OnInit {
     // --------------------------------------------------------------------------------------------------------------
     private showDistractorAndModule(moduleDistr: ModulDistracDTO) {
 
+        // TODO: wyświetlić otrzymany dystraktor użytkownikowi
         if (moduleDistr.distractor != null)
             this.distractorService.show(moduleDistr.distractor);
 
-            this.router.navigate(['module/' + moduleDistr.module.id]);
+        this.router.navigate(['module/' + moduleDistr.module.id]);
     }
 
     // --------------------------------------------------------------------------------------------------------------
@@ -221,7 +223,7 @@ export class ModuleListComponent implements OnInit {
 
     // --------------------------------------------------------------------------------------------------------------
     deleteModuleConfirm() {
-        if(this.selectedModuleId!=null){
+        if (this.selectedModuleId != null) {
             this.messageService
                 .confirm('edit.del_module_decision', 'edit.del_module_title')
                 .then(confirmed => { if (confirmed) this.deleteModule(); });
@@ -238,8 +240,8 @@ export class ModuleListComponent implements OnInit {
             });
     }
 
-    selectModule(mod: Module){
-        mod.isSelected=!mod.isSelected;
+    selectModule(mod: Module) {
+        mod.isSelected = !mod.isSelected;
         this.anyModulesSelected = !this.modules.every(m => m.isSelected == false);
     }
 }

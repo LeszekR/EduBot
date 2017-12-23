@@ -92,7 +92,8 @@ namespace EduApi.Services {
             if (nDistractors == 0) {
                 userToDistracts.Sort((a, b) => DateTime.Compare(a.time_last_used, b.time_last_used));
                 nDistractors = userToDistracts.Count();
-                newDistractors = userToDistracts.Take(nDistractors / 2).Select(ud => ud.distractor).ToList();
+                int nHalf = nDistractors == 1 ? 1 : nDistractors / 2;
+                newDistractors = userToDistracts.Take(nHalf).Select(ud => ud.distractor).ToList();
             }
 
             // w bazie nie ma jeszcze dystraktorów
@@ -116,7 +117,7 @@ namespace EduApi.Services {
                 return true;
 
             else {
-                string timeBetweenDistrStr = ConfigurationManager.AppSettings["timeBetweenUsers"];
+                string timeBetweenDistrStr = ConfigurationManager.AppSettings["timeBetweenDistractors"];
                 TimeSpan timeBetweenDistr = TimeSpan.FromSeconds(Int32.Parse(timeBetweenDistrStr));
                 DateTime last_time = userDistractors.Max(d => d.time_last_used);
 

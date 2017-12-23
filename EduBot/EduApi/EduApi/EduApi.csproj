@@ -250,6 +250,7 @@
     <Compile Include="Repositories\TestQuestionRepository.cs" />
     <Compile Include="Services\AffitsApi.cs" />
     <Compile Include="Services\EduAlgorithmService.cs" />
+    <Compile Include="Services\FileSender.cs" />
     <Compile Include="Services\Interfaces\IDistractorService.cs" />
     <Compile Include="Services\EmotionalStateInterpreter.cs" />
     <Compile Include="Services\Interfaces\ITestQuestionService.cs" />

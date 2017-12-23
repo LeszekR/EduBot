@@ -34,8 +34,10 @@ namespace EduApi.Services {
 
         // ---------------------------------------------------------------------------------------------
         public void ClearModuleHistory(int userId) {
-            var modules = _userRepository.Get(userId).edumodule;
-            modules.Clear();
+            var user = _userRepository.Get(userId);
+            user.edumodule.Clear();
+            user.user_question.Clear();
+            user.user_distractor.Clear();
             _userRepository.SaveChanges();
         }
 

@@ -35,6 +35,8 @@ namespace EduApi.App_Start {
 
             container.Register<IEduAlgorithmService, EduAlgorithmService>(Lifestyle.Scoped);
 
+
+
             // This is an extension method from the integration package.
             container.RegisterWebApiControllers(config);
 

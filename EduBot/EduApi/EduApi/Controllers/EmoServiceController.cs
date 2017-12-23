@@ -43,13 +43,13 @@ namespace EduApi.Controllers {
             else if (emoState == 2) {
                 int userId = 1;
                 _userService.ClearModuleHistory(userId);
-                return Ok("Wyczyszczono historię modułów");
+                return Ok("Wyczyszczono historię modułów, pytań i dystraktorów");
             }
-            else if (emoState == 3) {
-                int userId = 1;
-                _userService.ClearQuestionHistory(userId);
-                return Ok("Wyczyszczono historię pytań");
-            }
+            //else if (emoState == 3) {
+            //    int userId = 1;
+            //    _userService.ClearQuestionHistory(userId);
+            //    return Ok("Wyczyszczono historię pytań");
+            //}
 
             return Ok("Ustawiono emostan: " + _emoState.ToString());
         }

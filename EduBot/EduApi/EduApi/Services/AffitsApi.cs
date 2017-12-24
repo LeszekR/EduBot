@@ -75,7 +75,7 @@ namespace EduApi.Services {
         }
 
 
-        // PUBLIC
+        // PRIVATE
         // =============================================================================================
         private string parseUrl(string path, string sessionId, string milisecondsTimestamp) {
             path = path.Replace("{session_id}", sessionId);

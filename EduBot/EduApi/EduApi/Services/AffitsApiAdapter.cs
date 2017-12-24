@@ -69,10 +69,10 @@ namespace EduApi.Services {
                 if (!pads.Exists(p => p.timestamp == _session[lastTimestamp] as string)) {
 
                     string pad = _affitsApi.getResults(_session[affitsSession] as string, _session[lastTimestamp] as string);
-                    EmoState? processedPad = processPad(pad);
+                    EmoState? emoState = processPad(pad);
 
-                    if (processedPad != null) {
-                        pads.Add(new Pad(_session[lastTimestamp] as string, (EmoState)processedPad));
+                    if (emoState != null) {
+                        pads.Add(new Pad(_session[lastTimestamp] as string, (EmoState)emoState));
 
                         if (pads.Count > maxResultsAmount) 
                             pads.Remove(pads[0]);
@@ -139,6 +139,7 @@ namespace EduApi.Services {
     }
 
 
+    // =================================================================================================
     // =================================================================================================
     public class Pad {
         public string timestamp;

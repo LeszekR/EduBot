@@ -192,7 +192,9 @@ export class ModuleListComponent implements OnInit {
         if (moduleDistr.distractor != null)
             this.distractorService.show(moduleDistr.distractor);
 
-        this.router.navigate(['module/' + moduleDistr.module.id]);
+        let module = moduleDistr.module;
+        if (module != undefined && module != null)
+            this.router.navigate(['module/' + moduleDistr.module.id]);
     }
 
     // --------------------------------------------------------------------------------------------------------------

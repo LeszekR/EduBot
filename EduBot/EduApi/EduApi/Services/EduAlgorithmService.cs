@@ -170,8 +170,9 @@ namespace EduApi.Services {
         // PRIVATE
         // =============================================================================================
         /* 1. sprawdzenie stanu emocjonalnego i dotychczasowych wyników użytkownika
-         * 2. sprawdzenie dotychczasowych yników 
+         * 2. sprawdzenie dotychczasowych wyników 
          * 3. decyzja czy następny moduł ma być łatwiejszy, trudniejszy, czy taki sam
+         *    plus typ dystraktora do wysłania, jeżeli ma być wysłany
          */
         private Tuple<ChangeDifficulty, DistractorType> PickNextDiffAndDistract(int userId) {
 

@@ -76,9 +76,11 @@ namespace EduApi.Services {
             else if (type == DistractorType.REWARD)
                 typeStr = "reward";
 
+
             // pobranie wszystkich dystraktorów wymaganego typu
             var distractsAll = _distractorRepository.All().ToList();
             var distractsOfType = distractsAll.Where(d => d.type == typeStr).ToList();
+
 
             // wybranie tylko tych, których użytkownik jeszcze nie widział
             var userDistractors = userToDistracts
@@ -86,6 +88,7 @@ namespace EduApi.Services {
                 .Where(d => d.type == typeStr)
                 .ToList();
             var newDistractors = distractsOfType.Except(userDistractors).ToList();
+
 
             // jeżeli widział już wszystkie - pobranie najstarszej połowy
             int nDistractors = newDistractors.Count();

@@ -34,6 +34,8 @@ import { ModuleService } from './services/module.service';
 import { DistractorService } from './services/distractor.service';
 import { TestQuestionService } from './services/test-question.service';
 import { EduService } from './services/edu.service';
+import { EmoService } from './services/emo.service';
+import { CameraService } from './services/camera.service';
 import { ContextService } from './services/context.service';
 import { TranslateService, TRANSLATION_PROVIDERS } from './languages';
 import { TranslatePipe } from './languages/translate.pipe';
@@ -88,6 +90,8 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     DistractorService,
     TestQuestionService,
     EduService,
+    EmoService,
+    CameraService,
     ContextService,
     MessageService,
     TranslateService,

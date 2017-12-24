@@ -1,4 +1,5 @@
-﻿using EduApi.Services;
+﻿using EduApi.Dto;
+using EduApi.Services;
 using EduApi.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace EduApi.Controllers {
 
         private readonly IUserService _userService;
         private readonly AffitsApiAdapter _affitsApiAdapter;
+        private readonly IEduAlgorithmService _eduService;
 
         public int FromBody { get; private set; }
 
@@ -19,9 +21,14 @@ namespace EduApi.Controllers {
         // CONSTRUCTOR
         // =============================================================================================
         #region Constructor
-        public ImageController(IUserService userService, AffitsApiAdapter affitsApiAdapter) {
+        public ImageController(
+            IUserService userService, 
+            AffitsApiAdapter affitsApiAdapter,
+            IEduAlgorithmService eduAlgorithmService
+            ) {
             _userService = userService;
             _affitsApiAdapter = affitsApiAdapter;
+            _eduService = eduAlgorithmService;
         }
         #endregion
 
@@ -33,7 +40,9 @@ namespace EduApi.Controllers {
         public IHttpActionResult sendImage([FromBody]string image) {
             try {
                 if (_affitsApiAdapter.processImage(image)) {
-                    return Ok("success");
+                    List<Pad> lastEmoStates = _affitsApiAdapter.getResults();
+                    DistractorDTO distractor = _eduService.KickTheStudent(lastEmoStates);
+                    return Ok(distractor);
                 }
 
                 return BadRequest("unprocessed");

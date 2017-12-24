@@ -8,6 +8,7 @@ import { HttpService } from './http.service';
 import { Module } from '../models/module'
 // import { Distractor } from '../models/distractor'
 import { ModulDistracDTO } from '../models/module-and-distractor-DTO'
+import { Distractor } from '../models/distractor';
 
 
 // ==================================================================================================================
@@ -24,6 +25,15 @@ export class EduService {
 
     // PUBLIC
     // ==============================================================================================================
+    /* Shows distractor sent from server in reaction to unwanted emo-state of the student.
+     * Before doing so picks appropriate moment, so as not to get in the way of whatever the 
+     * student is actually dealing with.
+     */
+    serverWantsToDistract(distractor: Distractor) {
+        // TODO pokazać od razu lub w odpowiedniej chwili dystraktor przysłany przez serwer
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
     explainModule(moduleId: number): Observable<Module[]> {
         return this.http.get<Module[]>(this.eduUrl + '/explainmodule/' + moduleId);
     }

@@ -49,6 +49,13 @@ namespace EduApi.Services {
 
         // PUBLIC
         // =============================================================================================
+        public DistractorDTO KickTheStudent(List<Pad> lastEmoStates) {
+            // TODO : zaimplementować zamiast mock
+            return new DistractorDTO() { distr_content = "dystraktorek na próbę" };
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
         public List<ModuleDTO> ExplainModule(int userId, int moduleId) {
 
             var user = _userService.GetUserEntity(userId);
@@ -133,13 +140,14 @@ namespace EduApi.Services {
                 // aktualnie użytkownik ogląda ostatni z pobranych =>
                 // dostosowanie trudności do stanu emocjonalnego i dotychczasowych wyników użytkownika
                 else {
-                    var nextDifficulty = difficultyAndDistractor.Item1;
                     var lastModuleId = prevModules[prevModules.Count() - 1].id;
+                    var nextDifficulty = difficultyAndDistractor.Item1;
                     newModule = PickNextModule(lastModuleId, nextDifficulty);
                 }
 
                 // pobranie następnego dystraktora (distractorService sprawdzi czy już można)
-                newDistractor = _distractorService.NextDistractor(userId, difficultyAndDistractor.Item2);
+                var nextDistractorType = difficultyAndDistractor.Item2;
+                newDistractor = _distractorService.NextDistractor(userId, nextDistractorType);
 
 
                 // TODO: zaktualizowanie stanu gry, itd

@@ -9,6 +9,15 @@ namespace EduApi.Services.Interfaces {
     public interface IEduAlgorithmService {
 
         // ---------------------------------------------------------------------------------------------
+        /* 1. Interpretuje ostatnie emostany - na tej podst. ustala aktualny stan ucznia
+         * 2. Określa czy emostan wymaga dystraktora
+         * 3. Jesli tak - sprawdza kiedy wysłano ostatni dystraktor
+         * 4. Jeśli dystraktor jest wymagany i już czas na nowy - wybiera dystraktor z bazy
+         * 5. Wysyła dystraktor (jeśli potrzebny) lub null
+         */
+        DistractorDTO KickTheStudent(List<Pad> lastEmoStates);
+
+        // ---------------------------------------------------------------------------------------------
         /* Wysyła moduły łatwiejsze składające się na wskazany moduł trudniejszy.
          * Front wywołuje ten endpoint pod warunkiem, że oglądany moduł nie jest  
          * modułem o najniższym poziomie trudności (difficulty != 'easy').

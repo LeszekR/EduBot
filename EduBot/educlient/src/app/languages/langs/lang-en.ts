@@ -13,10 +13,14 @@ export const LANG_EN_TRANS = {
     
     'edit.add_module': 'Add module',
     'edit.add_meta_module': 'Parent module',
+    'edit.del_answer_title': 'Deleting answer',
+    'edit.del_answer_decision': 'Are you sure you want to delete this answer?',
     'edit.del_module': 'Delete module',
     'edit.del_module_title': 'Deleting module',
     'edit.del_module_decision': 'Are you sure you want to delete this module?',
     'edit.del_module_failed': 'Failure - the module has not been deleted.',
+    'edit.del_question_title': 'Deleting question',
+    'edit.del_question_decision': 'Are you sure you want to delete this question?',
     'edit.enter_edit_mode': 'Enter edit mode',
     'edit.exit_edit_mode': 'Exit edit mode',
 

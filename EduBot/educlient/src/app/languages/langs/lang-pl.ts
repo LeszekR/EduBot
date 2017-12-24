@@ -13,10 +13,14 @@ export const LANG_PL_TRANS = {
     
     'edit.add_module': 'Dodaj moduł',
     'edit.add_meta_module': 'Moduł nadrzędny',
+    'edit.del_answer_title': 'Usuwanie odpowiedzi',
+    'edit.del_answer_decision': 'Czy na pewno chcesz usunąć tę odpowiedź?',
     'edit.del_module': 'Usuń moduł',
     'edit.del_module_title': 'Usuwanie modułu',
     'edit.del_module_decision': 'Czy na pewno chcesz usunąć ten moduł?',
     'edit.del_module_failed': 'Nie udało się usunąć modułu.',
+    'edit.del_question_title': 'Usuwanie pytania',
+    'edit.del_question_decision': 'Czy na pewno chcesz usunąć to pytanie?',
     'edit.enter_edit_mode': 'Włącz tryb edycji',
     'edit.exit_edit_mode': 'Wyłącz tryb edycji',
     

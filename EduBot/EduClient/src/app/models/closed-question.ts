@@ -1,4 +1,10 @@
 
+
+export enum QuestionStatus {
+    None,
+    Correct,
+    Incorrect
+}
 // ==================================================================================================================
 export class ClosedQuestion {
 
@@ -6,6 +12,7 @@ export class ClosedQuestion {
     question: string;
     correct_idx: number;
     answers: string[];
+    status: QuestionStatus;
 
 
     // CONSTRUCTOR
@@ -14,5 +21,6 @@ export class ClosedQuestion {
         this.question = "";
         this.correct_idx = -1;
         this.answers = [];
+        this.status = QuestionStatus.None;
     }
 }

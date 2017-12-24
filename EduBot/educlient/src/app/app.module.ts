@@ -23,7 +23,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { SelectLanguageComponent } from './components/select-language/select-language.component';
 import { MessageComponent } from './shared/components/message/message.component';
 import { QuestionViewComponent } from './views/module-view/quiz-view/question-view/question-view.component';
-import { QuestionAnswerViewComponent } from './views/module-view/quiz-view/question-answer-view/question-answer-view.component';
+import { Autofocus } from './shared/directives/autofocus.directive';
 
 //Services
 import { TestService } from './mock/test.service';
@@ -51,6 +51,7 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
 // ==================================================================================================================
 @NgModule({
   declarations: [
+    Autofocus,
     TranslatePipe,
     AppComponent,
     FormFieldComponent,
@@ -67,7 +68,6 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     SelectLanguageComponent,
     MessageComponent,
     QuestionViewComponent,
-    QuestionAnswerViewComponent
   ],
   imports: [
     SharedModule,

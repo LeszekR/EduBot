@@ -1,4 +1,4 @@
-<div class="container-fluid p-2">
+<div class="container-fluid p-2 of-auto">
         <fieldset>
                 <legend>
                         <div class="font-weight-bold">
@@ -9,14 +9,15 @@
                 <div class="card bg-card border-0">
                         <div *ngFor="let q of questions; let i=index" [attr.data-index]="i">
                                 <div class="mb-2">
-                                        <question-view 
+                                        <question-view
+                                                class="card"
+                                                [editMode]="!readonly"
                                                 [questionData]=q
-                                                [editMode]="context.editModuleId"
-                                                class="card">
+                                                (onUpdateQuestion)="updateQuestion($event, i)">
                                         </question-view>
                                 </div>
                         </div>
-                        <div *ngIf="context.editModuleId" class="fa fa-plus fa-2x ml-2" ></div>
+                        <div *ngIf="!readonly" class="fa fa-plus fa-2x ml-2 w-0" (click)="addQuestion()" ></div>
                 </div>
         </fieldset>
 </div>

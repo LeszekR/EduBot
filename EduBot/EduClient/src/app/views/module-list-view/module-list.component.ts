@@ -116,6 +116,15 @@ export class ModuleListComponent implements OnInit {
         this.router.navigate(['']);
     }
 
+    // --------------------------------------------------------------------------------------------------------------
+    deleteModuleConfirm() {
+        if (this.selectedModuleId != null) {
+            this.messageService
+                .confirm('edit.del_module_decision', 'edit.del_module_title')
+                .then(confirmed => { if (confirmed) this.deleteModule(); });
+        }
+    }
+
 
     // PRIVATE
     // ==============================================================================================================
@@ -224,15 +233,6 @@ export class ModuleListComponent implements OnInit {
     }
 
     // --------------------------------------------------------------------------------------------------------------
-    deleteModuleConfirm() {
-        if (this.selectedModuleId != null) {
-            this.messageService
-                .confirm('edit.del_module_decision', 'edit.del_module_title')
-                .then(confirmed => { if (confirmed) this.deleteModule(); });
-        }
-    }
-
-    // --------------------------------------------------------------------------------------------------------------
     private deleteModule() {
         this.moduleService.deleteModule(this.selectedModuleId)
             .subscribe(newModules => {
@@ -242,6 +242,7 @@ export class ModuleListComponent implements OnInit {
             });
     }
 
+    // --------------------------------------------------------------------------------------------------------------
     selectModule(mod: Module) {
         mod.isSelected = !mod.isSelected;
         this.anyModulesSelected = !this.modules.every(m => m.isSelected == false);

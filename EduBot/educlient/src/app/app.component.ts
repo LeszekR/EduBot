@@ -1,8 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
 import { ContextService } from './services/context.service';
 import { ModuleService } from './services/module.service';
+import { EmoService } from './services/emo.service';
+import { MessageService } from './shared/components/message/message.service';
 import { ModuleListComponent } from './views/module-list-view/module-list.component'
 
 
@@ -17,7 +19,7 @@ import { HttpService } from './services/http.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
 
   @ViewChild('loginModal')
   loginModal: ModalDirective;
@@ -25,32 +27,59 @@ export class AppComponent implements OnInit {
   @ViewChild(ModuleListComponent)
   moduleListComponent: ModuleListComponent;
 
+  pixTimer: any;
+
 
   // CONSTRUCTOR
   // ==============================================================================================================
   constructor(
     private context: ContextService,
     private http: HttpService,
-    private moduleService: ModuleService) { }
+    private moduleService: ModuleService,
+    private emoService: EmoService,
+    private messageService: MessageService) { }
+
+  // --------------------------------------------------------------------------------------------------------------
+  ngOnInit() {
+    // // start of the pic-taking loop
+    this.emoService.start();
+
+    // MOCK
+    this.mockPausePix();
+  }
+
+  // --------------------------------------------------------------------------------------------------------------
+  ngOnDestroy() {
+    // this.emoService.stop(this.pixTimer);
+    this.emoService.stop();
+  }
 
 
   // MOCK
   // ==============================================================================================================
+  private mockPausePix() {
+    let that = this;
+    let loopTime = function () {
+      that.pausePix();
+      setTimeout(loopTime, 15000);
+    }
+    loopTime();
+  }
+
+  // --------------------------------------------------------------------------------------------------------------
   setEmoState(state: number) {
-    this.http.post<string>('http://localhost:64365/api/emoservice/setemostate', state)
-      .subscribe(res => {
-        if (state == 2)
-          this.moduleListComponent.clearModules();
-        console.log(res)
-      });
+    if (state != undefined)
+      this.http.post<string>('http://localhost:64365/api/emoservice/setemostate', state)
+        .subscribe(res => {
+          if (state == 2)
+            this.moduleListComponent.clearModules();
+          console.log(res)
+        });
   }
 
 
   // PUBLIC
   // ==============================================================================================================
-  ngOnInit() { }
-
-  // --------------------------------------------------------------------------------------------------------------
   openLoginWindow() {
     this.loginModal.show();
   }
@@ -58,6 +87,20 @@ export class AppComponent implements OnInit {
 
   // PRIVATE
   // ==============================================================================================================
+  private pausePix() {
+
+    this.emoService.stop();
+
+    this.messageService
+      .info('learn.keep-working', 'learn.empty')
+      .then(confirmed => {
+        if (confirmed)
+
+          this.emoService.start();
+      });
+  }
+
+  // --------------------------------------------------------------------------------------------------------------
   toggleEditMode() {
     if (this.context.isEditMode)
       this.moduleService.CreateModuleSequence();

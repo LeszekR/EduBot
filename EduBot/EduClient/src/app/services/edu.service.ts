@@ -9,6 +9,7 @@ import { Module } from '../models/module'
 // import { Distractor } from '../models/distractor'
 import { ModulDistracDTO } from '../models/module-and-distractor-DTO'
 import { Distractor } from '../models/distractor';
+import { dictionary } from '../languages/index';
 
 
 // ==================================================================================================================
@@ -30,7 +31,12 @@ export class EduService {
      * student is actually dealing with.
      */
     serverWantsToDistract(distractor: Distractor) {
+
         // TODO pokazać od razu lub w odpowiedniej chwili dystraktor przysłany przez serwer
+        // decide wheteher to show the distractor now
+
+        // show the distractor when the appropriate moment comes
+        console.log(distractor);
     }
 
     // --------------------------------------------------------------------------------------------------------------

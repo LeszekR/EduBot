@@ -50,7 +50,7 @@ namespace EduApi.Services {
         // PUBLIC
         // =============================================================================================
         public DistractorDTO KickTheStudent(List<Pad> lastEmoStates) {
-            // TODO : zaimplementować zamiast mock
+            // TODO : zaimplementować zamiast mock'a
             return new DistractorDTO() { distr_content = "dystraktorek na próbę" };
         }
 

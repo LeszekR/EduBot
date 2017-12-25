@@ -1,6 +1,7 @@
 <div bsModal #lgModal="bs-modal" class="modal" tabindex="-1" role="dialog" #thisModal>
     <div class="modal-dialog message-dialog">
         <div class="modal-content">
+            
             <div class="modal-header">
                 <div class="modal-title">
                     <span class="fa fa-info-circle"></span>
@@ -8,11 +9,10 @@
                 </div>
             </div>
 
-            <div class="modal-body">
-                
+            <div class="modal-body">               
                 {{ config.message | translate }}
-
             </div>
+
             <div class="modal-footer">
                 <div class="form-inline">
                     <button 
@@ -27,8 +27,9 @@
                         class="btn-form btn btn-danger btn-sm rounded" 
                         title="Esc" 
                         [hidden]="!config.cancelButtonVisible">{{ 'common.cancel' | translate }}</button>
-                </div>
+                </div>            
             </div>
+
         </div>
     </div>
 </div>

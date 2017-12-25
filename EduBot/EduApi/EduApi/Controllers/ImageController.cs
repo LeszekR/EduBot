@@ -4,11 +4,13 @@ using EduApi.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace EduApi.Controllers {
 
 
     // =================================================================================================
+    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*", SupportsCredentials = true)]
     public class ImageController : ApiController {
 
         private readonly IUserService _userService;
@@ -22,7 +24,7 @@ namespace EduApi.Controllers {
         // =============================================================================================
         #region Constructor
         public ImageController(
-            IUserService userService, 
+            IUserService userService,
             AffitsApiAdapter affitsApiAdapter,
             IEduAlgorithmService eduAlgorithmService
             ) {

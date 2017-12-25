@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 
+import { Observable } from 'rxjs/observable'
+import { IntervalObservable } from 'rxjs/observable/IntervalObservable'
+import 'rxjs/add/operator/takeWhile';
+
 // Models
 import { Distractor } from '../models/distractor';
 
@@ -13,34 +17,40 @@ import { EduService } from './edu.service'
 @Injectable()
 export class EmoService {
 
-    private emoUrl = 'http://localhost:64365/api//image/send';
-    private pixTimer;
+    private emoUrl = 'http://localhost:64365/api/image/send';
+    private pixTimer: any;
 
     // TODO - przestawić krótk  mock picInterval na normalny - długi
-    // private picInterval = 30000;
-    private picInterval = 5000;
-    
+    //  this.picInterval = 30000;
+    private readonly picInterval = 3000;
+    private alive: boolean;
+
 
     // CONSTRUCTOR
     // ==============================================================================================================
     constructor(
         private http: HttpService,
         private edu: EduService,
-        private camera: CameraService) {
-
-        this.start();
-    }
+        private camera: CameraService
+    ) { }
 
 
     // PUBLIC
     // ==============================================================================================================
+    intOs: Observable<number>[] = [];
     start() {
-        this.pixTimer = setTimeout(this.takeSendPicture, this.picInterval);
+        this.alive = true;
+        let t = IntervalObservable.create(this.picInterval);
+        this.intOs[this.intOs.length] = t;
+        t.takeWhile(() => this.alive)
+            .subscribe(() =>
+                this.takeSendPicture()
+            );
     }
 
     // --------------------------------------------------------------------------------------------------------------
     stop() {
-        this.pixTimer.stop();
+        this.alive = false;
     }
 
 

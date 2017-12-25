@@ -52,5 +52,8 @@ export const LANG_DE_TRANS = {
     'learn.next_module': '<Next>',
     'learn.prev_module': '<Back>',
     'learn.explain': '<Explain in detail>',
-    'learn.verify-test': '<Verify test>'    
+    'learn.verify-test': '<Verify test>',
+    'learn.keep-working': '<Click "Ok" to continue>',
+    'learn.empty': ''    
+    
 };

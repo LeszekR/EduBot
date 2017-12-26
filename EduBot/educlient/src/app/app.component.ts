@@ -27,8 +27,6 @@ export class AppComponent implements OnInit, OnDestroy {
   @ViewChild(ModuleListComponent)
   moduleListComponent: ModuleListComponent;
 
-  pixTimer: any;
-
 
   // CONSTRUCTOR
   // ==============================================================================================================
@@ -40,31 +38,32 @@ export class AppComponent implements OnInit, OnDestroy {
     private messageService: MessageService) {
 
     // start of the pic-taking loop
+    // TODO odblokować po testach
     this.emoService.start();
-
   }
 
   // --------------------------------------------------------------------------------------------------------------
   ngOnInit() {
     // MOCK
     this.mockPausePix();
-
   }
 
   // --------------------------------------------------------------------------------------------------------------
   ngOnDestroy() {
-    // this.emoService.stop(this.pixTimer);
     this.emoService.stop();
   }
 
 
   // MOCK
   // ==============================================================================================================
+  private mockSendPic() {
+    this.emoService.mockSendPic();    
+  }
+  // --------------------------------------------------------------------------------------------------------------
   private mockPausePix() {
     let that = this;
     setInterval(function () { that.pausePix(); }, 15000);
   }
-
   // --------------------------------------------------------------------------------------------------------------
   setEmoState(state: number) {
     if (state != undefined)

@@ -15,7 +15,7 @@ namespace EduApi.Services.Interfaces {
          * 4. Jeśli dystraktor jest wymagany i już czas na nowy - wybiera dystraktor z bazy
          * 5. Wysyła dystraktor (jeśli potrzebny) lub null
          */
-        DistractorDTO KickTheStudent(List<Pad> lastEmoStates);
+        DistractorDTO KickTheStudent(int userId, List<Pad> lastEmoStates);
 
         // ---------------------------------------------------------------------------------------------
         /* Wysyła moduły łatwiejsze składające się na wskazany moduł trudniejszy.

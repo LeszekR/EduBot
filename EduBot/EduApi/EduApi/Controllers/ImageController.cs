@@ -40,10 +40,11 @@ namespace EduApi.Controllers {
         [Route("api/image/send")]
         [HttpPost]
         public IHttpActionResult sendImage([FromBody]string image) {
+            var userId = 1;
             try {
                 if (_affitsApiAdapter.processImage(image)) {
                     List<Pad> lastEmoStates = _affitsApiAdapter.getResults();
-                    DistractorDTO distractor = _eduService.KickTheStudent(lastEmoStates);
+                    DistractorDTO distractor = _eduService.KickTheStudent(userId, lastEmoStates);
                     return Ok(distractor);
                 }
 

@@ -50,11 +50,30 @@ namespace EduApi.Services {
 
         // PUBLIC
         // =============================================================================================
-        public DistractorDTO KickTheStudent(List<Pad> lastEmoStates) {
+        public DistractorDTO KickTheStudent(int userId, List<Pad> lastEmoStates) {
+
+
+            // TODO usunąć mock ***************************************************
+            Random rnd = new Random();
+            Func<EmoState> losuj = () => {
+                var los = rnd.Next(1, 4);
+                if (los == 1) return EmoState.BORED;
+                if (los == 2) return EmoState.OK;
+                if (los == 3) return EmoState.FRUSTRATED;
+                return EmoState.UNDEFINED;
+            };
+            List<Pad> mockEmoStates = new List<Pad>(5);
+            string mocki = "";
+            for (int i = 0; i < 5; i++) {
+                mockEmoStates.Add(new Pad("", losuj()));
+                mocki += " " + i + ". " + mockEmoStates[mockEmoStates.Count() - 1].state.ToString();
+            }
+            lastEmoStates = mockEmoStates;
+            // ********************************************************************
+
 
             if (lastEmoStates.Count() < 5)
                 return null;
-
 
 
             // ustalenie STANU EMOCJONALNEGO ..........................................
@@ -97,23 +116,40 @@ namespace EduApi.Services {
             // jesli emostany 4 i 2 są takie same - ustaw taki stan
             // (przyjmujemy dwukrotne wystąpienie w ostatnich trzech jako potwierdzenie stanu)
             if (keepLooking) {
+                var ok4 = lastEmoStates[4].state;
                 var ok2 = lastEmoStates[2].state;
-                var ok3 = lastEmoStates[3].state;
 
-                if (ok2 == ok3) {
+                if (ok4 == ok2) {
                     emoStateNow = ok2;
                     keepLooking = false;
                 }
             }
 
-            // jeśli max 2 emostany są pozytywne - ustaw 'frustrację' 
-            // (to da dystraktor 'reward', który jest bezpieczny również przy znudzeniu)
+
             if (keepLooking) {
                 var nOk = 0;
-                foreach (var emo in lastEmoStates)
-                    if (emo.state == EmoState.OK)
-                        nOk++;
-                if (nOk <= 2) {
+                var nBored = 0;
+                var nFrust = 0;
+                foreach (var emo in lastEmoStates) {
+                    if (emo.state == EmoState.OK) nOk++;
+                    if (emo.state == EmoState.BORED) nBored++;
+                    if (emo.state == EmoState.FRUSTRATED) nFrust++;
+                }
+
+                // jeśli jeden negatywny stan występuje min 3 razy a drugi max 1 - 
+                // - ustaw najczęściej występujący negatywny
+                if ((nBored >= 3 && nFrust <=1)) {
+                    emoStateNow = EmoState.BORED;
+                    keepLooking = false;
+                }
+                else if ((nFrust >= 3 && nBored <= 1)) {
+                    emoStateNow = EmoState.FRUSTRATED;
+                    keepLooking = false;
+                }
+
+                // jeśli jest mniej pozytywnych niż 3 - ustaw 'frustrację' 
+                // (to da dystraktor 'reward', który jest bezpieczny również przy znudzeniu)
+                else if (nOk < 3) {
                     emoStateNow = EmoState.FRUSTRATED;
                     keepLooking = false;
                 }
@@ -127,18 +163,17 @@ namespace EduApi.Services {
 
 
             // wybór DYSTRAKTORA ......................................................
-
-            // jeżeli emostan jest 'ok' - zwróc null
             if (emoStateNow == EmoState.UNDEFINED || emoStateNow == EmoState.OK)
                 return null;
 
-            // wybierz dystraktor odpowiedni do emostanu
+            DistractorType distrType;
+            if (emoStateNow == EmoState.BORED)
+                distrType = DistractorType.KICK;
             else
-                return _distractorService.NextDistractor(userId, e)
+                distrType = DistractorType.REWARD;
 
-
-            // TODO : zaimplementować zamiast mock'a
-            return new DistractorDTO() { distr_content = "dystraktorek na próbę" };
+            var distractor = _distractorService.NextDistractor(userId, distrType);
+            return DistractorMapper.GetDTO(distractor);
         }
 
 

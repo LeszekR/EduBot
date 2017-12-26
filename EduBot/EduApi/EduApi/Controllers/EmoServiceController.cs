@@ -1,4 +1,5 @@
-﻿using EduApi.Services.Interfaces;
+﻿using EduApi.Services;
+using EduApi.Services.Interfaces;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -9,11 +10,8 @@ namespace EduApi.Controllers {
     [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*", SupportsCredentials = true)]
     public class EmoServiceController : ApiController {
 
-        //public enum EmoState { BORED, FRUSTRATED, OK }
-        public static EmoState _emoState = EmoState.OK;
-
+        public static EmoState _emoState = EmoState.UNDEFINED;
         private readonly IUserService _userService;
-        //private readonly ITestQuestionService _questionService;
 
 
         // CONSTRUCTOR
@@ -21,7 +19,6 @@ namespace EduApi.Controllers {
         #region Constructor
         public EmoServiceController(IUserService userService/*, ITestQuestionService questionService*/) {
             _userService = userService;
-            //_questionService = questionService;
         }
         #endregion
 
@@ -45,11 +42,6 @@ namespace EduApi.Controllers {
                 _userService.ClearModuleHistory(userId);
                 return Ok("Wyczyszczono historię modułów, pytań i dystraktorów");
             }
-            //else if (emoState == 3) {
-            //    int userId = 1;
-            //    _userService.ClearQuestionHistory(userId);
-            //    return Ok("Wyczyszczono historię pytań");
-            //}
 
             return Ok("Ustawiono emostan: " + _emoState.ToString());
         }

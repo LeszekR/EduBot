@@ -31,19 +31,23 @@ export class EmoService {
     ) { }
 
 
+    // MOCK
+    // ==============================================================================================================
+    mockSendPic() {
+        this.takeSendPicture();
+    }
+
+
     // PUBLIC
     // ==============================================================================================================
     start() {
-        // console.log('start');
         this.alive = true;
         let that = this;
         this.pixTimer = setInterval(function () { that.takeSendPicture(); }, this.timeBetweenPix);
     }
 
-
     // --------------------------------------------------------------------------------------------------------------
     stop() {
-        // console.log('pauza');
         this.alive = false;
         clearInterval(this.pixTimer);
     }

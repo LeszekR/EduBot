@@ -1,5 +1,4 @@
-﻿using EmoState = EduApi.Controllers.EmoServiceController.EmoState;
-using NLog;
+﻿using NLog;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;

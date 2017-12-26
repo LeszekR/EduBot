@@ -1,14 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs/observable'
-import { IntervalObservable } from 'rxjs/observable/IntervalObservable'
-import 'rxjs/add/operator/takeWhile';
-
 // Models
-import { Distractor } from '../models/distractor';
+import { Distractor } from '../models/distractor'
 
 //Services
-import { HttpService } from './http.service';
+import { HttpService } from './http.service'
 import { CameraService } from './camera.service'
 import { EduService } from './edu.service'
 
@@ -22,8 +18,8 @@ export class EmoService {
 
     // TODO - przestawić krótk  mock picInterval na normalny - długi
     //  this.picInterval = 30000;
-    private readonly picInterval = 3000;
-    private alive: boolean;
+    private readonly timeBetweenPix = 3000;
+    public alive: boolean = false;
 
 
     // CONSTRUCTOR
@@ -37,20 +33,19 @@ export class EmoService {
 
     // PUBLIC
     // ==============================================================================================================
-    intOs: Observable<number>[] = [];
     start() {
+        // console.log('start');
         this.alive = true;
-        let t = IntervalObservable.create(this.picInterval);
-        this.intOs[this.intOs.length] = t;
-        t.takeWhile(() => this.alive)
-            .subscribe(() =>
-                this.takeSendPicture()
-            );
+        let that = this;
+        this.pixTimer = setInterval(function () { that.takeSendPicture(); }, this.timeBetweenPix);
     }
+
 
     // --------------------------------------------------------------------------------------------------------------
     stop() {
+        // console.log('pauza');
         this.alive = false;
+        clearInterval(this.pixTimer);
     }
 
 

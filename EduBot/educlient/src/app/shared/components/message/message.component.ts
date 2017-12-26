@@ -80,20 +80,17 @@ export class MessageComponent implements OnInit {
         return this.activate(message, title);
     }
 
-    // --------------------------------------------------------------------------------------------------------------
-    activate(message: string, title: string) {
+
+    // PRIVATE
+    // ==============================================================================================================
+    private activate(message: string, title: string) {
         this.config.title = title;
         this.config.message = message;
 
-        let promise = new Promise<any>(resolve => {
-            this._show(resolve);
-        });
-        return promise;
+        return new Promise<any>(resolve => this._show(resolve));
     }
 
-
-    // PUBLIC
-    // ==============================================================================================================
+    // --------------------------------------------------------------------------------------------------------------
     private _show(resolve: (res: any) => any) {
         console.log("Show");
 
@@ -104,7 +101,7 @@ export class MessageComponent implements OnInit {
         this._cancelButton.onclick = ((e: any) => {
             e.preventDefault();
             if (!negativeOnClick(e)) this._hideDialog();
-        })
+        });
 
         // if (this._okButton != undefined)
         this._okButton.onclick = ((e: any) => {
@@ -120,7 +117,6 @@ export class MessageComponent implements OnInit {
     private _hideDialog() {
         this.lgModal.hide();
     }
-
 }
 
 

@@ -127,11 +127,5 @@ namespace EduApi.Services {
                 return DateTime.Compare(DateTime.Now, last_time.Add(timeBetweenDistr)) > 0;
             }
         }
-
-
-        //// ---------------------------------------------------------------------------------------------
-        //public distractor GetDistractorEntity(int id) {
-        //    return _distractorRepository.Get(id);
-        //}
     }
 }

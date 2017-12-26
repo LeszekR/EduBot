@@ -9,7 +9,7 @@ namespace EduApi.Controllers {
     [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*", SupportsCredentials = true)]
     public class EmoServiceController : ApiController {
 
-        public enum EmoState { BORED, FRUSTRATED, OK }
+        //public enum EmoState { BORED, FRUSTRATED, OK }
         public static EmoState _emoState = EmoState.OK;
 
         private readonly IUserService _userService;

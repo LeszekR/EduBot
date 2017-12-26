@@ -37,15 +37,18 @@ export class AppComponent implements OnInit, OnDestroy {
     private http: HttpService,
     private moduleService: ModuleService,
     private emoService: EmoService,
-    private messageService: MessageService) { }
+    private messageService: MessageService) {
+
+    // start of the pic-taking loop
+    this.emoService.start();
+
+  }
 
   // --------------------------------------------------------------------------------------------------------------
   ngOnInit() {
-    // // start of the pic-taking loop
-    this.emoService.start();
-
     // MOCK
     this.mockPausePix();
+
   }
 
   // --------------------------------------------------------------------------------------------------------------
@@ -59,11 +62,7 @@ export class AppComponent implements OnInit, OnDestroy {
   // ==============================================================================================================
   private mockPausePix() {
     let that = this;
-    let loopTime = function () {
-      that.pausePix();
-      setTimeout(loopTime, 15000);
-    }
-    loopTime();
+    setInterval(function () { that.pausePix(); }, 15000);
   }
 
   // --------------------------------------------------------------------------------------------------------------
@@ -88,6 +87,9 @@ export class AppComponent implements OnInit, OnDestroy {
   // PRIVATE
   // ==============================================================================================================
   private pausePix() {
+
+    if (!this.emoService.alive)
+      return;
 
     this.emoService.stop();
 

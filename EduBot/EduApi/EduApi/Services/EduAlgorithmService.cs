@@ -13,6 +13,7 @@ namespace EduApi.Services {
 
 
     // =================================================================================================
+    public enum EmoState { BORED, FRUSTRATED, OK, UNDEFINED };
     public enum ChangeDifficulty { UP, NO_CHANGE, DOWN };
     public enum DistractorType { NO_DISTRACTOR, KICK, REWARD };
 
@@ -50,6 +51,92 @@ namespace EduApi.Services {
         // PUBLIC
         // =============================================================================================
         public DistractorDTO KickTheStudent(List<Pad> lastEmoStates) {
+
+            if (lastEmoStates.Count() < 5)
+                return null;
+
+
+
+            // ustalenie STANU EMOCJONALNEGO ..........................................
+            // (stan 4 - ostatni, stan 0 - najstarszy)
+            EmoState emoStateNow = EmoState.UNDEFINED;
+            var keepLooking = true;
+
+
+            // jesli emostan 4 jest pozytywny - ustaw 'ok'
+            // (jesli przedtem był negatywny - czekamy aż się potwierdzi)
+            if (lastEmoStates[4].state == EmoState.OK) {
+                emoStateNow = EmoState.OK;
+                keepLooking = false;
+            }
+
+            // jeśli 2 przedostatnie są pozytywne - ustaw 'ok'
+            // (czekamy na potwierdzenie ostatniego negatywnego stanu odczytanego po raz pierwszy)
+            if (keepLooking) {
+                var ok3 = lastEmoStates[3].state == EmoState.OK;
+                var ok2 = lastEmoStates[2].state == EmoState.OK;
+
+                if (ok3 && ok2) {
+                    emoStateNow = EmoState.OK;
+                    keepLooking = false;
+                }
+            }
+
+            // jesli 2 ostatnie emostany są takie same - ustaw taki stan
+            // (przyjmujemy dwukrotne wystąpienie na końcu jako potwierdzenie stanu)
+            if (keepLooking) {
+                var ok4 = lastEmoStates[4].state;
+                var ok3 = lastEmoStates[3].state;
+
+                if (ok4 == ok3) {
+                    emoStateNow = ok4;
+                    keepLooking = false;
+                }
+            }
+
+            // jesli emostany 4 i 2 są takie same - ustaw taki stan
+            // (przyjmujemy dwukrotne wystąpienie w ostatnich trzech jako potwierdzenie stanu)
+            if (keepLooking) {
+                var ok2 = lastEmoStates[2].state;
+                var ok3 = lastEmoStates[3].state;
+
+                if (ok2 == ok3) {
+                    emoStateNow = ok2;
+                    keepLooking = false;
+                }
+            }
+
+            // jeśli max 2 emostany są pozytywne - ustaw 'frustrację' 
+            // (to da dystraktor 'reward', który jest bezpieczny również przy znudzeniu)
+            if (keepLooking) {
+                var nOk = 0;
+                foreach (var emo in lastEmoStates)
+                    if (emo.state == EmoState.OK)
+                        nOk++;
+                if (nOk <= 2) {
+                    emoStateNow = EmoState.FRUSTRATED;
+                    keepLooking = false;
+                }
+            }
+
+            // w innych przypadkach - ustaw 'ok', ponieważ stan jest nieustalony
+            // (to spowoduje, że nie zostanie wysłany dystraktor, bo nie wiadomo jaki ma być)
+            if (keepLooking)
+                emoStateNow = EmoState.UNDEFINED;
+
+
+
+            // wybór DYSTRAKTORA ......................................................
+
+            // jeżeli emostan jest 'ok' - zwróc null
+            if (emoStateNow == EmoState.UNDEFINED || emoStateNow == EmoState.OK)
+                return null;
+
+            // wybierz dystraktor odpowiedni do emostanu
+            else
+                return _distractorService.NextDistractor(userId, e)
+
+
             // TODO : zaimplementować zamiast mock'a
             return new DistractorDTO() { distr_content = "dystraktorek na próbę" };
         }
@@ -209,7 +296,7 @@ namespace EduApi.Services {
 
 
             // ZNUDZONY stan emocjonalny ................................................
-            if (emoState == EmoServiceController.EmoState.BORED) {
+            if (emoState == EmoState.BORED) {
 
                 // wyniki były wysokie
                 if (highResults || noResults) {
@@ -226,7 +313,7 @@ namespace EduApi.Services {
 
 
             // SFRUSTROWANY stan emocjonalny ............................................
-            else if (emoState == EmoServiceController.EmoState.FRUSTRATED) {
+            else if (emoState == EmoState.FRUSTRATED) {
 
                 // wyniki były niskie
                 if (!highResults || noResults)

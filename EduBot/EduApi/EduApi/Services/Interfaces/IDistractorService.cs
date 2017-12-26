@@ -1,4 +1,5 @@
 ﻿using EduApi.Dto;
+using System.Collections.Generic;
 
 namespace EduApi.Services {
 
@@ -23,6 +24,5 @@ namespace EduApi.Services {
          *    go z najstarszej połowy.
          */
         distractor NextDistractor(int userId, DistractorType type);
-
+        }
     }
-}

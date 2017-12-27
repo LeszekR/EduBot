@@ -5,10 +5,10 @@
     <!-- content i example -->
     <div class="row d-flex m-0 p-0" *ngIf="viewType==CONTENT_VIEW" style="height: calc(100% - 50px)">
         <div class="col-6 h-100 m-0 p-0">
-            <content-view [module]="module" [readonly]="!context.editModuleId"></content-view>
+            <content-view [module]="module" [readonly]="!context.isEditMode"></content-view>
         </div>
         <div class="col-6 h-100 m-0 p-0">
-            <example-view [module]="module" [readonly]="!context.editModuleId"></example-view>
+            <example-view [module]="module" [readonly]="!context.isEditMode"></example-view>
         </div>
     </div>
 
@@ -16,7 +16,7 @@
     <!-- test - pytania otwarte -->
     <div class="row d-flex m-0 p-0" *ngIf="viewType==QUIZ_VIEW" style="height: calc(100% - 50px)">
         <div class="col-12 h-100 m-0 p-0 of-auto">
-            <quiz-view [questions]="questions" [readonly]="!context.editModuleId||module.difficulty!='easy'"></quiz-view>
+            <quiz-view [questions]="questions" [readonly]="!context.isEditMode||module.difficulty!='easy'"></quiz-view>
         </div>
     </div>
 
@@ -37,7 +37,7 @@
         <div class="col-7 h-100" style="margin-left:0; padding-left:0;">
 
             <!-- kontrolki edycji -->
-            <div class="row col-12 h-100 ml-3 pl-0" *ngIf="context.editModuleId">
+            <div class="row col-12 h-100 ml-3 pl-0" *ngIf="context.isEditMode">
                 <div class="col-7 pl-0">
                     <input type="text" class="col-md-12 form-control" [(ngModel)]="module.title" />
                 </div>

@@ -20,7 +20,8 @@
     <i class="fa fa-pencil fa-lighter pl-1" aria-hidden="true" (click)="editQuestionText=true" ></i>
   </strong></h6>
   <input *ngIf="editQuestionText" 
-    type="text" 
+    type="text"
+    placeholder="Nowe pytanie"
     [ngModel]="questionData.question"
     autofocus
     (focusout)="updateQuestionValue($event.target.value)" 
@@ -34,8 +35,9 @@
           <span *ngIf="editedAnswerIdx!=i" >{{ answer }}</span>
           <input *ngIf="editedAnswerIdx==i" 
             type="text" 
+            placeholder="Nowa odpowiedź"
             autofocus
-            [ngModel]="questionData.answers[i]" 
+            [ngModel]="questionData.answers[i]"
             (focusout)="updateAnswerValue($event.target.value)" 
             class="form-control-sm w-80" />
             <i *ngIf="editedAnswerIdx!=i" class="fa fa-pencil fa-lighter pl-1" (click)="editedAnswerIdx=i" aria-hidden="true"></i>

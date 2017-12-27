@@ -12,7 +12,6 @@ import { Module } from '../models/module'
 export class ContextService {
 
     userRole: Role;
-    editModuleId: number;
     isEditMode: boolean = false;
     currentModuleId: number;
     currentModule: Module;

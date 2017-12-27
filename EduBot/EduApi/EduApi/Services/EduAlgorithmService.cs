@@ -13,8 +13,8 @@ namespace EduApi.Services {
 
 
     // =================================================================================================
-    public enum EmoState { BORED, FRUSTRATED, OK, UNDEFINED };
-    public enum ChangeDifficulty { UP, NO_CHANGE, DOWN };
+    public enum EmoState { UNDEFINED, BORED, FRUSTRATED, OK };
+    public enum ChangeDifficulty { NO_CHANGE, UP, DOWN };
     public enum DistractorType { NO_DISTRACTOR, KICK, REWARD };
 
 
@@ -77,6 +77,7 @@ namespace EduApi.Services {
 
 
             // ustalenie STANU EMOCJONALNEGO ..........................................
+            // na podstawie zapamiętanych ostanich pięciu
             // (stan 4 - ostatni, stan 0 - najstarszy)
             EmoState emoStateNow = EmoState.UNDEFINED;
             var keepLooking = true;
@@ -155,7 +156,7 @@ namespace EduApi.Services {
                 }
             }
 
-            // w innych przypadkach - ustaw 'ok', ponieważ stan jest nieustalony
+            // w innych przypadkach - stan jest nieustalony
             // (to spowoduje, że nie zostanie wysłany dystraktor, bo nie wiadomo jaki ma być)
             if (keepLooking)
                 emoStateNow = EmoState.UNDEFINED;

@@ -10,6 +10,7 @@ export const LANG_DE_TRANS = {
     'common.content': '<brak tłuamcz>',
     'common.quiz': '<brak tłuamcz>',
     'common.code': '<brak tłuamcz>',
+    'common.empty': '',    
     
     'edit.add_module': 'Modul hinzufügen',
     'edit.add_meta_module': 'Fater Modul',
@@ -54,6 +55,6 @@ export const LANG_DE_TRANS = {
     'learn.explain': '<Explain in detail>',
     'learn.verify-test': '<Verify test>',
     'learn.keep-working': '<Click "Ok" to continue>',
-    'learn.empty': ''    
+    'learn.unfinished-test': '<You need to answer all questions in order to verify the test.>',
     
 };

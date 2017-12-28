@@ -11,6 +11,7 @@ import { ClosedQuestAnswDTO } from '../../models/closed-question-answ-DTO';
 import { TestQuestionService } from '../../services/test-question.service';
 import { ModuleService } from '../../services/module.service';
 import { ContextService } from '../../services/context.service';
+import { MessageService } from '../../shared/components/message/message.service'
 
 //Components
 import { AppComponent } from '../../app.component'
@@ -54,7 +55,8 @@ export class ModuleViewComponent implements OnInit {
     private route: ActivatedRoute,
     private moduleService: ModuleService,
     private context: ContextService,
-    private questionService: TestQuestionService) { }
+    private questionService: TestQuestionService,
+    private messageService: MessageService) { }
 
   // --------------------------------------------------------------------------------------------------------------
   ngOnInit() {
@@ -78,17 +80,36 @@ export class ModuleViewComponent implements OnInit {
     let answers: ClosedQuestAnswDTO[] = [];
 
     let q: ClosedQuestion;
+    let answ: number;
+    let allAreAnswered = true;
+
     for (var i in this.questions) {
+
       q = this.questions[i];
-      answers[answers.length] = new ClosedQuestAnswDTO(q.id, q.correct_idx);
+      
+      // stop if the question has not been answered
+      answ = q.correct_idx;
+      if (answ == -1) {
+        allAreAnswered = false;
+        break;
+      }
+
+      answers[answers.length] = new ClosedQuestAnswDTO(q.id, answ);
     }
 
+    // stop if unanswered question has been left out
+    if (!allAreAnswered) {
+      this.messageService.info('learn.unfinished-test', 'common.empty');
+      return;
+    }
+
+    // all questions have been answered
     this.questionService.verifyClosedTest(answers)
       .subscribe(res => {
         let multiplier = 1;
-        res.forEach( result => {
-          let question = this.questions.find(q => q.id == result.question_id) ;
-          setTimeout(()=>{ question.status = result.answer_id == 0 ? QuestionStatus.Incorrect : QuestionStatus.Correct; }, 1000*multiplier++);
+        res.forEach(result => {
+          let question = this.questions.find(q => q.id == result.question_id);
+          setTimeout(() => { question.status = result.answer_id == 0 ? QuestionStatus.Incorrect : QuestionStatus.Correct; }, 1000 * multiplier++);
         })
       });
   }

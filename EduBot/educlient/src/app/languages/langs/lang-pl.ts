@@ -10,6 +10,7 @@ export const LANG_PL_TRANS = {
     'common.content': 'Treść',
     'common.quiz': 'Pytania',
     'common.code': 'Koduj',
+    'common.empty': ' ',
     
     'edit.add_module': 'Dodaj moduł',
     'edit.add_meta_module': 'Moduł nadrzędny',
@@ -54,5 +55,5 @@ export const LANG_PL_TRANS = {
     'learn.explain': 'Wyjaśnij dokładniej',
     'learn.verify-test': 'Sprawdź test',
     'learn.keep-working': 'Naciśnij "Ok" aby wznowić pracę',
-    'learn.empty': ''
+    'learn.unfinished-test': 'Aby sprawdzić test musisz odpowiedzieć na wszystkie pytania.'
 };

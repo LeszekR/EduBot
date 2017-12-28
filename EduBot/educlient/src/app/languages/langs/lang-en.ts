@@ -10,6 +10,7 @@ export const LANG_EN_TRANS = {
     'common.content': 'Content',
     'common.quiz': 'Questions',
     'common.code': 'Code task',
+    'common.empty': ' ',
     
     'edit.add_module': 'Add module',
     'edit.add_meta_module': 'Parent module',
@@ -54,5 +55,5 @@ export const LANG_EN_TRANS = {
     'learn.explain': 'Explain in detail',
     'learn.verify-test': 'Verify test',
     'learn.keep-working': 'Click "Ok" to continue',
-    'learn.empty': ''
+    'learn.unfinished-test': 'You need to answer all questions in order to verify the test.',
 };

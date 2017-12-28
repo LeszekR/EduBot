@@ -1,8 +1,11 @@
 <div *ngIf="!editMode" class="card-block">
+ 
   <div *ngIf="questionData.status!=0" class="q-status" > 
     <i [ngClass]="getClass()" ></i> 
   </div>
+ 
   <h6 class="card-title"><strong>{{ questionData.question }}</strong></h6>
+ 
   <div *ngFor="let answer of questionData.answers; let i=index" [attr.data-index]="i">
     <div class="form-check card-text" (click)="questionData.correct_idx=i">
       <label class="form-check-label">
@@ -11,14 +14,17 @@
       </label>
     </div>
   </div>
+
 </div>
 
 
 <div *ngIf="editMode" class="card-block">
+
   <h6 *ngIf="!editQuestionText" class="card-title"><strong>
     {{ questionData.question }}
     <i class="fa fa-pencil fa-lighter pl-1" aria-hidden="true" (click)="editQuestionText=true" ></i>
   </strong></h6>
+
   <input *ngIf="editQuestionText" 
     type="text" 
     [ngModel]="questionData.question"
@@ -26,7 +32,8 @@
     (focusout)="updateQuestionValue($event.target.value)" 
     class="form-control-sm w-100 edit-title" 
     />
-  <div *ngFor="let answer of questionData.answers; let i=index" [attr.data-index]="i">
+
+    <div *ngFor="let answer of questionData.answers; let i=index" [attr.data-index]="i">
       <div class="form-check card-text">
           <div (click)="questionData.correct_idx=i"
             [ngClass]="questionData.correct_idx==i ? 'fa fa-check-square-o' : 'fa fa-square-o'" >
@@ -42,6 +49,7 @@
             <div *ngIf="editedAnswerIdx!=i" class="fa fa-minus fa-red pl-1" (click)="deleteAnswer(i)" ></div>
       </div>
   </div>
+
   <div class="fa fa-plus form-check-label" (click)="addAnswerToQuestion()" ></div>
   <div class="fa fa-minus fa-red fa-top-right" (click)="deleteQuestion()" ></div>
 </div>

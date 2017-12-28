@@ -39,13 +39,13 @@ export class AppComponent implements OnInit, OnDestroy {
 
     // start of the pic-taking loop
     // TODO odblokować po testach
-    this.emoService.start();
+    // this.emoService.start();
   }
 
   // --------------------------------------------------------------------------------------------------------------
   ngOnInit() {
     // TODO - usunąc (MOCK)
-    this.mockPausePix();
+    // this.mockPausePix();
   }
 
   // --------------------------------------------------------------------------------------------------------------
@@ -93,7 +93,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.emoService.stop();
 
     this.messageService
-      .info('learn.keep-working', 'learn.empty')
+      .info('learn.keep-working', 'common.empty')
       .then(confirmed => {
         if (confirmed)
 

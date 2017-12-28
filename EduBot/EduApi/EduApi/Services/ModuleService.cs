@@ -114,21 +114,13 @@ namespace EduApi.Services {
 
 
         // ---------------------------------------------------------------------------------------------
-        public void CreateModuleSequence() {
-            List<edumodule> modules = TreeModules(_moduleRepository.All());
-            for (var i = 0; i < modules.Count(); i++)
-                modules[i].group_position = i;
-            _moduleRepository.SaveChanges();
-        }
-
-
-        // ---------------------------------------------------------------------------------------------
         public ModuleDTO UpsertModule(ModuleDTO moduleReceived) {
 
             var id = moduleReceived.id;
             edumodule module;
+            List<test_question> oldQuestions = null;
 
-            // zapisanie nowego modułu lub zmian istniejącego
+            // utworzenie nowego modułu lub pobranie istniejącego
             if (id == 0) {
                 module = new edumodule();
                 ModuleMapper.CopyValues(moduleReceived, module);
@@ -137,18 +129,22 @@ namespace EduApi.Services {
             else {
                 module = _moduleRepository.Get(id);
                 _moduleRepository.SetNewValues(moduleReceived, module);
+                oldQuestions = module.test_question.ToList();
             }
 
-            // zapisanie lub odświeżenie pytań przypisanych do modułu
-            if (moduleReceived.test_question != null)
+            // usunięcie pytań, których nie ma w tablicy z nowymi pytaniami
+            var newQuestions = moduleReceived.test_question;
+
+            foreach (var oldQ in oldQuestions)
+                if (newQuestions == null)
+                    _questionService.DeleteQuestion(oldQ.id);
+                else if (!newQuestions.Exists(newQ => newQ.id == oldQ.id))
+                    _questionService.DeleteQuestion(oldQ.id);
+
+            // zapisanie nowych i odświeżenie starych pytań przypisanych do modułu
+            if (moduleReceived.test_question != null && moduleReceived.difficulty == "easy")
                 foreach (var new_question in moduleReceived.test_question)
                     _questionService.UpsertQuestion(new_question);
-
-
-            // usunięcie pytań przysłanych w tablicy 'remove_question'
-            if (moduleReceived.remove_question != null)
-                foreach (var rm_question_id in moduleReceived.remove_question)
-                    _questionService.DeleteQuestion(rm_question_id);
 
 
             return ModuleMapper.GetDTO(module);
@@ -156,11 +152,12 @@ namespace EduApi.Services {
 
 
         // ---------------------------------------------------------------------------------------------
-        public ModuleDTO NewMetaModule(ModuleDTO[] moduleGroup) {
+        public List<ModuleDTO> NewMetaModule(ModuleDTO[] moduleGroup) {
 
             // sortowanie otrzymanych modułów w kolejności id
             List<ModuleDTO> moduleList = new List<ModuleDTO>(moduleGroup);
             moduleList.Sort((a, b) => (a.id > b.id ? 1 : -1));
+            //moduleList.Sort(SortModules);
 
 
             // połączenie treści, przykładów i - jeżeli jest - testów z kodu modułów podrzędnych
@@ -168,32 +165,36 @@ namespace EduApi.Services {
             string content = "";
             string example = "";
 
-            ModuleDTO moduleDTO;
+            edumodule child;
+            var children = new List<edumodule>();
             for (var i = 0; i < moduleList.Count; i++) {
-                moduleDTO = moduleList[i];
-                content += "\n\n" + moduleDTO.content;
-                example += "\n\n" + moduleDTO.example;
+                child = _moduleRepository.Get(moduleList[i].id);
+                content += "\n\n" + child.content;
+                example += "\n\n" + child.example;
+                children.Add(child);
             }
-            newModule.content = content.Substring(2);
-            newModule.example = example.Substring(2);
-
-            newModule.difficulty = moduleGroup[0].difficulty == "easy" ? "medium" : "hard";
-            newModule.title = "<podaj tytuł>";
-
 
             // zapisanie nowego nadrzędnego modułu w bazie danych
+            newModule.content = content.Substring(2);
+            newModule.example = example.Substring(2);
+            newModule.difficulty = moduleGroup[0].difficulty == "easy" ? "medium" : "hard";
+            newModule.title = "<podaj tytuł>";
+            newModule.group_position = 2000000000;
             _moduleRepository.Add(newModule);
 
+
             // zmiana id_grupy wszystkich modułów podrzędnych na id nowo utworzonego modułu
-            edumodule childModule;
-            foreach (var child in moduleGroup) {
-                childModule = _moduleRepository.Get(child.id);
-                childModule.group_id = newModule.id;
-                _moduleRepository.SaveChanges();
-            }
+            foreach (var childReady in children)
+                childReady.group_id = newModule.id;
+            _moduleRepository.SaveChanges();
+
+
+            // odświeżenie sekwencji modułów
+            CreateModuleSequence();
 
             // wysłanie do frontu nowo utworzonego modułu
-            return ModuleMapper.GetDTO(newModule);
+            //return ModuleMapper.GetDTO(newModule);
+            return GetSimpleModules();
         }
 
 
@@ -220,6 +221,10 @@ namespace EduApi.Services {
 
             // usunięcie modułu
             _moduleRepository.Delete(id);
+
+
+            // odświeżenie sekwencji modułów
+            CreateModuleSequence();
 
             return GetSimpleModules();
         }
@@ -269,12 +274,27 @@ namespace EduApi.Services {
             return a.id > b.id ? 1 : -1;
         }
 
-        
+
         // ---------------------------------------------------------------------------------------------
         public static int SortModules(edumodule a, edumodule b) {
             if (a.group_position != b.group_position)
                 return a.group_position > b.group_position ? 1 : -1;
             return a.id > b.id ? 1 : -1;
+        }
+
+
+        // PRIVATE
+        // =============================================================================================
+        /* Ustawia wszystkie moduły w prawidłowe drzewo i numeruje (nadaje im kolejne 'group_position').
+         * Dzięki temu przy dalszym korzystaniu można sortować moduły:
+         * - szybko
+         * - również gdy lista jest niekompletna (nieznani są rodzice) 
+         */
+        private void CreateModuleSequence() {
+            List<edumodule> modules = TreeModules(_moduleRepository.All());
+            for (var i = 0; i < modules.Count(); i++)
+                modules[i].group_position = i;
+            _moduleRepository.SaveChanges();
         }
 
 
@@ -293,8 +313,12 @@ namespace EduApi.Services {
             }
             CreateModuleTree(foundModules, ref modules, ref sortedModules);
 
-            // dodanie modułów nie przypisanych do żadnego nadrzędnego
-            sortedModules.AddRange(modules.Except(sortedModules));
+            // posortowanie i dodanie pozostałych modułów - które nie zostały
+            // przypisanych do żadnego nadrzędnego, ponieważ nie mają rodzica, lub 
+            // ich rodzic jest na niższym poziomie trudności niż poziom ustaloony powyżej w foundModules
+            var leftModules = modules.Except(sortedModules).ToList();
+            if (leftModules.Count() > 0)
+                sortedModules.AddRange(TreeModules(leftModules));
 
             return sortedModules;
         }
@@ -302,8 +326,8 @@ namespace EduApi.Services {
 
         // ---------------------------------------------------------------------------------------------
         private void CreateModuleTree(
-            List<edumodule> foundModules, 
-            ref List<edumodule> modules, 
+            List<edumodule> foundModules,
+            ref List<edumodule> modules,
             ref List<edumodule> sortedModules) {
 
             foundModules.Sort((a, b) => SortModules(a, b));

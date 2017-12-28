@@ -26,17 +26,18 @@ export class QuestionViewComponent implements OnInit {
 
   // --------------------------------------------------------------------------------------------------------------
   ngOnInit() {
-    if(!this.questionData.question)
+    if (!this.questionData.question) {
       this.editQuestionText = true;
-    this.questionData.correct_idx = -1;
+      this.questionData.correct_idx = -1;
+    }
   }
 
-  
+
   // PRIVATE
   // ==============================================================================================================
   private addAnswerToQuestion() {
     let idx = this.questionData.answers.push("");
-    this.editedAnswerIdx = idx-1;
+    this.editedAnswerIdx = idx - 1;
   }
 
   // --------------------------------------------------------------------------------------------------------------

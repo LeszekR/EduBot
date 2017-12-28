@@ -12,7 +12,7 @@
             ],
             "sourceMaps": true,
             "trace": true,
-            "webRoot": "${workspaceRoot}/src",
+            "webRoot": "${workspaceRoot}",
             "userDataDir": "${workspaceRoot}/out/chrome"
         },
         {

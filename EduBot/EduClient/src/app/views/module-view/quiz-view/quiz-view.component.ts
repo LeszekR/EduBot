@@ -14,16 +14,18 @@ export class QuizViewComponent {
   @Input() questions: ClosedQuestion[];
   @Input() readonly: boolean;
 
-  
-  private addQuestion(){
+
+  // PUBLIC
+  // ==============================================================================================================
+  private addQuestion() {
     this.questions.push(new ClosedQuestion());
   }
 
-  private updateQuestion(question: ClosedQuestion, idx: number){
-    if(question)
+  // --------------------------------------------------------------------------------------------------------------
+  private updateQuestion(question: ClosedQuestion, idx: number) {
+    if (question)
       this.questions[idx] = question;
     else
-      this.questions.splice(idx,1);
+      this.questions.splice(idx, 1);
   }
-
 }

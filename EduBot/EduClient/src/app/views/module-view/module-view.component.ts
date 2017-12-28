@@ -77,33 +77,21 @@ export class ModuleViewComponent implements OnInit {
   // PUBLIC
   // ==============================================================================================================
   verifyClosedTest() {
-    let answers: ClosedQuestAnswDTO[] = [];
 
-    let q: ClosedQuestion;
-    let answ: number;
-    let allAreAnswered = true;
-
-    for (var i in this.questions) {
-
-      q = this.questions[i];
-      
-      // stop if the question has not been answered
-      answ = q.correct_idx;
-      if (answ == -1) {
-        allAreAnswered = false;
-        break;
-      }
-
-      answers[answers.length] = new ClosedQuestAnswDTO(q.id, answ);
-    }
-
-    // stop if unanswered question has been left out
-    if (!allAreAnswered) {
-      this.messageService.info('learn.unfinished-test', 'common.empty');
+    // check if all answers have been given
+    if (!this.hasAllAnswers(false))
       return;
-    }
+
 
     // all questions have been answered
+    let answers: ClosedQuestAnswDTO[] = [];
+    let q: ClosedQuestion;
+
+    for (var i in this.questions) {
+      q = this.questions[i];
+      answers[answers.length] = new ClosedQuestAnswDTO(q.id, q.correct_idx);
+    }
+
     this.questionService.verifyClosedTest(answers)
       .subscribe(res => {
         let multiplier = 1;
@@ -116,6 +104,11 @@ export class ModuleViewComponent implements OnInit {
 
   // --------------------------------------------------------------------------------------------------------------
   save() {
+
+    // check if every question has been assigned the correct answer
+    if (!this.hasAllAnswers(true))
+      return;
+
     this.module.test_question = this.questionService
       .StringifyClosedQuestions(this.questions, this.module.id);
 
@@ -125,6 +118,22 @@ export class ModuleViewComponent implements OnInit {
 
   // --------------------------------------------------------------------------------------------------------------
   cancel() {
-    
+
+  }
+
+
+  // PRIVATE
+  // ==============================================================================================================
+  private hasAllAnswers(edit: boolean): boolean {
+
+    for (var i in this.questions)
+
+      // stop if unanswered question is foud
+      if (this.questions[i].correct_idx == -1) {
+        let msg = edit ? 'edit.no-correct-answer' : 'learn.unfinished-test';
+        this.messageService.info(msg, 'common.empty');
+        return false;
+      }
+    return true;
   }
 }

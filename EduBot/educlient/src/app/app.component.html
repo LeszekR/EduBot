@@ -35,7 +35,7 @@
 
 <div class="container-fluid main-container d-flex p-0 m-0">
     <div id="module-list-view" class=" col-3 h-100  m-0 p-0 pt-3">
-        <module-list-view></module-list-view>
+        <module-list-view *ngIf="context.userRole"></module-list-view>
     </div>
 
     <div id="module-content-example" class="col-9  m-0 p-0">

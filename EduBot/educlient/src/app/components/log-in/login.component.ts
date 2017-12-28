@@ -1,9 +1,12 @@
-import { Component, Output } from '@angular/core'
+import { Component, Output, EventEmitter } from '@angular/core'
 
 import { LoginService } from '../../services/login.service';
 import { UserService } from '../../services/user.service';
 import { FormField } from '../form-field/form-field';
 import { User } from '../../models/user';
+import { JwtHelper } from '../../shared/utils/jwt-helper';
+import { Role } from '../../models/enum-user-role';
+import { ContextService } from '../../services/context.service';
 
 // import { St}  import żeby mieć dostęp do local storage
 // jesli caisteczka - też tu trzeba import
@@ -25,6 +28,8 @@ import { User } from '../../models/user';
 
 export class LoginComponent {
 
+    @Output() onClose = new EventEmitter();
+
     public loggedIn: boolean = false;
 
     private title: string;
@@ -44,8 +49,7 @@ export class LoginComponent {
 
     // CONSTRUCTOR
     // ==============================================================================================================
-    constructor(private loginService: LoginService, private userService: UserService) { // , private localStor: LocalStorage ... ) {
-        loginService.setLoginComp(this);
+    constructor(private loginService: LoginService, private userService: UserService, private context: ContextService) { // , private localStor: LocalStorage ... ) {
 
         this.action = 'logging-in';
     }
@@ -76,7 +80,20 @@ export class LoginComponent {
         // let loginResult = this.loginService.login(this.fieldLogin.text, this.fieldPassw.text);
         // this.loggedIn = loginResult == 'ok' ? true : false;
         // this.errCredentials = this.loggedIn ? '' : LangDictionaryService.text(loginResult);
-        this.loginService.login(this.fieldLogin.text, this.fieldPassw.text);
+        this.loginService.login(this.fieldLogin.text, this.fieldPassw.text)
+            .subscribe( res => {
+                let token = res.json().access_token;
+                sessionStorage.setItem('access_token', token);
+                let decoded = new JwtHelper().decodeToken(token);
+                sessionStorage.setItem('user_role', decoded.role);
+                this.context.userRole = Role[<string>decoded.role];
+                this.onClose.emit();
+            },
+            err => { 
+                this.setLoginError(err.status < 500 ? 'err_credentials' : 'err_server');
+                console.log(err);
+            }
+    );
 
         // console.log('Logowanie ok?: ', this.loggedIn);
     }

@@ -10,6 +10,7 @@ import { ModuleListComponent } from './views/module-list-view/module-list.compon
 
 // MOCK *******************************************
 import { HttpService } from './services/http.service';
+import { LoginService } from './services/login.service';
 // *******************************************
 
 
@@ -35,7 +36,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private http: HttpService,
     private moduleService: ModuleService,
     private emoService: EmoService,
-    private messageService: MessageService) {
+    private messageService: MessageService,
+    private loginService: LoginService) {
 
     // start of the pic-taking loop
     // TODO odblokować po testach

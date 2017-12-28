@@ -18,7 +18,6 @@ export class HttpService extends Http {
 
     private router: Router;
 
-
     // CONSTRUCTOR
     // ==============================================================================================================
     constructor(backend: XHRBackend, options: RequestOptions, router: Router) {

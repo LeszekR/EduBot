@@ -82,3 +82,12 @@ select option {
 .list-group-sm .list-group-item {
     padding: 0.25rem 1rem;
 }
+
+.pos-absolute-right{
+    position: absolute;
+    right: 10px;
+}
+
+.i-mid{
+    vertical-align: middle ;
+}

@@ -19,7 +19,6 @@ import { ExampleViewComponent } from './views/module-view/example-view/example-v
 import { ContentViewComponent } from './views/module-view/content-view/content-view.component';
 import { ModuleListComponent } from './views/module-list-view/module-list.component';
 import { GameProgressComponent } from './components/game-progress/game-progress.component';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { SelectLanguageComponent } from './components/select-language/select-language.component';
 import { MessageComponent } from './shared/components/message/message.component';
 import { QuestionViewComponent } from './views/module-view/quiz-view/question-view/question-view.component';
@@ -59,7 +58,6 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     FormFieldComponent,
     LoginComponent,
     WelcomeComponent,
-    ToolbarComponent,
     ModuleViewComponent,
     QuizViewComponent,
     ResultViewComponent,

@@ -1,46 +1,31 @@
 import { Injectable } from '@angular/core';
-import { HttpService } from '../services/http.service';
-import { LoginComponent } from '../components/log-in/login.component';
-
+import {Http, Headers} from '@angular/http';
+import { JwtHelper } from '../shared/utils/jwt-helper';
+import { ContextService } from './context.service';
+import { Role } from '../models/enum-user-role';
+import { Observable } from 'rxjs/Observable';
 
 // ==================================================================================================================
 @Injectable()
 export class LoginService {
 
-    url: string = 'http://localhost:64365/api/user/auth';  // adres backend
-    loginComp: LoginComponent;
+    private authUrl = 'http://localhost:64365/oauth2/token';  
+
+    constructor(private http: Http, private context: ContextService) { }
 
 
-    // PUBLIC
-    // ==============================================================================================================
-    constructor(private http: HttpService) { }
+    login(login: string, password: string): Observable<any> {
 
-
-    // PUBLIC
-    // ==============================================================================================================
-    // TODO tu wstawić zapytanie do serwera i przełączenie na GUI lub info że odrzucono logowanie
-    public login(login: string, password: string): void {
-
-        let user = this.http.post(this.url, { login: login, password: password })
-            .subscribe(
-            data => {
-                this.loginComp.loggedIn = true;
-                console.log(data)
-                //  ['data']...;  // status, uprwnienia, login, czy logowanie prawidłowe
-                // zapisać w local storage lub ciasteczku: login, uprawnienia, itd
-                // przestawić localStorage.loggedIn = .... zależnie od wyniku logowania
-                // przestawić this.loggedIn = localStorage.loggedIn 
-            },
-            err => { 
-                this.loginComp.setLoginError(err.status < 500 ? 'err_credentials' : 'err_server');
-                console.log(err);
-            }
-            );
+        var headers = new Headers();
+        var credentials = 'username=' + login + '&password=' + password + '&grant_type=password';
+        
+        return this.http.post(this.authUrl, credentials, {headers: headers})  
     }
 
-
-    // --------------------------------------------------------------------------------------------------------------
-    public setLoginComp(loginComp: LoginComponent) {
-        this.loginComp = loginComp;
+    logout(){
+        sessionStorage.removeItem('user_role');
+        sessionStorage.removeItem('access_token');
+        this.context.userRole = null;
+        this.context.isEditMode = false;
     }
 }

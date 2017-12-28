@@ -117,15 +117,14 @@ export class ModuleViewComponent implements OnInit {
   // --------------------------------------------------------------------------------------------------------------
   save() {
     this.module.test_question = this.questionService
-      .StringifyClosedQuestions(this.questions, this.context.editModuleId);
+      .StringifyClosedQuestions(this.questions, this.module.id);
 
     this.moduleService.saveModule(this.module).subscribe(res => this.module = res);
     this.moduleService.moduleAdded.emit(this.module);
-    this.context.editModuleId = null;
   }
 
   // --------------------------------------------------------------------------------------------------------------
   cancel() {
-    this.context.editModuleId = null;
+    
   }
 }

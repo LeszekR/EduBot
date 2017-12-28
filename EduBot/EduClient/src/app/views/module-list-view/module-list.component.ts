@@ -213,11 +213,7 @@ export class ModuleListComponent implements OnInit {
         else
             this.addMetaModule();
     }
-
-    // --------------------------------------------------------------------------------------------------------------
-    private editModule() {
-        this.context.editModuleId = this.selectedModuleId;
-    }
+   
 
     // --------------------------------------------------------------------------------------------------------------
     private addMetaModule() {
@@ -236,7 +232,6 @@ export class ModuleListComponent implements OnInit {
     private deleteModule() {
         this.moduleService.deleteModule(this.selectedModuleId)
             .subscribe(newModules => {
-                this.context.editModuleId = null;
                 this.router.navigate(['']);
                 this.modules = newModules;
             });

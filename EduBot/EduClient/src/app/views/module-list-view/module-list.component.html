@@ -8,12 +8,6 @@
             </button>
         </div>
         <div class="col-3 mr-2">
-            <button type="button" class="btn btn-primary" (click)="editModule()" 
-                *ngIf="!anyModulesSelected">
-                {{ 'common.edit' | translate }}
-            </button>
-        </div>
-        <div class="col-3 mr-2">
             <button type="button" class="btn btn-danger" (click)="deleteModuleConfirm()" 
                 *ngIf="!anyModulesSelected">
                 {{ 'common.delete' | translate }}
@@ -57,7 +51,6 @@
                     [class.lvl-hard]="module.difficulty=='hard'"
                     [routerLink]="['module/', module.id]" 
                     routerLinkActive="active"
-                    [ngClass]="context.editModuleId==null ? '' : (context.editModuleId==module.id ? '' : 'disabled')" 
                     (click)="selectedModuleId=module.id" 
                     >
                     
@@ -69,7 +62,7 @@
                     
                     <div class="ml-auto pr-1" 
                         (click)="selectModule(module);$event.stopPropagation();$event.preventDefault();"
-                        *ngIf="context.isEditMode && module.difficulty!='hard' && !module.group_id && !context.editModuleId">
+                        *ngIf="context.isEditMode && module.difficulty!='hard' && !module.group_id">
                         <div [ngClass]="module.isSelected ? 'fa fa-check-square-o' : 'fa fa-square-o'" ></div>
                     </div>
                 </a>

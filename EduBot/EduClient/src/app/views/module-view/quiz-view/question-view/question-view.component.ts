@@ -26,6 +26,8 @@ export class QuestionViewComponent implements OnInit {
 
   // --------------------------------------------------------------------------------------------------------------
   ngOnInit() {
+    if(!this.questionData.question)
+      this.editQuestionText = true;
     this.questionData.correct_idx = -1;
   }
 
@@ -33,7 +35,8 @@ export class QuestionViewComponent implements OnInit {
   // PRIVATE
   // ==============================================================================================================
   private addAnswerToQuestion() {
-    this.questionData.answers.push("Nowa odpowiedź");
+    let idx = this.questionData.answers.push("");
+    this.editedAnswerIdx = idx-1;
   }
 
   // --------------------------------------------------------------------------------------------------------------

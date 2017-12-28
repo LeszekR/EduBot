@@ -14,23 +14,9 @@ export class QuizViewComponent {
   @Input() questions: ClosedQuestion[];
   @Input() readonly: boolean;
 
-  constructor(){}
-
   
-  // CONSTRUCTOR
-  // ==============================================================================================================
-
-
-  // PUBLIC
-  // ==============================================================================================================
-
-
-  // PRIVATE
-  // ==============================================================================================================
   private addQuestion(){
-    let question = new ClosedQuestion();
-    question.question = "Nowe pytnie";
-    this.questions.push(question);
+    this.questions.push(new ClosedQuestion());
   }
 
   private updateQuestion(question: ClosedQuestion, idx: number){

@@ -28,7 +28,7 @@
             
         </div>
         <div class="ml-auto">
-            <progress-comp></progress-comp>
+            <progress-comp *ngIf="context.userRole" ></progress-comp>
         </div>
     </div>
 </nav>

@@ -104,7 +104,7 @@ namespace EduApi.Services {
                 return null;
 
             // losowanie jednego dystraktora
-            var index = (Int32)(new Random().Next() * (nDistractors - 1));
+            var index = (Int32)(new Random().Next(0, nDistractors));
             return newDistractors[index];
         }
 

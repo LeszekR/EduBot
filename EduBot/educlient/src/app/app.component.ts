@@ -103,8 +103,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   // --------------------------------------------------------------------------------------------------------------
   toggleEditMode() {
-    if (this.context.isEditMode)
-      this.moduleService.CreateModuleSequence();
+    // if (this.context.isEditMode)
+      // this.moduleService.CreateModuleSequence();
     this.context.isEditMode = !this.context.isEditMode;
     this.moduleListComponent.getModules();
   }

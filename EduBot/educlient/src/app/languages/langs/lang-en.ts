@@ -24,7 +24,8 @@ export const LANG_EN_TRANS = {
     'edit.del_question_decision': 'Are you sure you want to delete this question?',
     'edit.enter_edit_mode': 'Enter edit mode',
     'edit.exit_edit_mode': 'Exit edit mode',
-
+    'edit.no-correct-answer': 'In order to save the questions you must tick the correct answer in all of them.',
+    
     'error.login.credentials': 'Username or password is incorrect',
     'error.login.repeat': 'Passwords are different.',
     'error.server': 'Server error. Check your server state',

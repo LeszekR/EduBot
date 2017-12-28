@@ -17,7 +17,7 @@ namespace EduApi.DTO {
 
         public bool isSelected { get; set; }
 
-        public List<int> remove_question { get; set; }
-        public List<int> remove_code { get; set; }
+        //public List<int> remove_question { get; set; }
+        //public List<int> remove_code { get; set; }
     }
 }

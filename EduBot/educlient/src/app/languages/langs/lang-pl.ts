@@ -24,6 +24,7 @@ export const LANG_PL_TRANS = {
     'edit.del_question_decision': 'Czy na pewno chcesz usunąć to pytanie?',
     'edit.enter_edit_mode': 'Włącz tryb edycji',
     'edit.exit_edit_mode': 'Wyłącz tryb edycji',
+    'edit.no-correct-answer': 'Aby zapisać pytania musisz przy każdym zaznaczyć prawidłową odpowiedź.',
     
     'error.login.credentials': 'Nieprawidłowe dane logowania',
     'error.login.repeat': 'Hasła są różne',

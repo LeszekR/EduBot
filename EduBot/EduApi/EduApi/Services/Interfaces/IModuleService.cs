@@ -8,14 +8,14 @@ namespace EduApi.Services.Interfaces {
     // =================================================================================================
     public interface IModuleService {
 
-        // ---------------------------------------------------------------------------------------------
-        /* Wywoływana po każdym zamknięciu trybu edycji modułów.
-         * Ustawia wszystkie moduły w prawidłowe drzewo i numeruje (nadaje im kolejne 'group_position').
-         * Dzięki temu przy dalszym korzystaniu można sortować moduły:
-         * - szybko
-         * - również gdy lista jest niekompletna (nieznani są rodzice) 
-         */
-        void CreateModuleSequence();
+        //// ---------------------------------------------------------------------------------------------
+        ///* Wywoływana po każdym zamknięciu trybu edycji modułów.
+        // * Ustawia wszystkie moduły w prawidłowe drzewo i numeruje (nadaje im kolejne 'group_position').
+        // * Dzięki temu przy dalszym korzystaniu można sortować moduły:
+        // * - szybko
+        // * - również gdy lista jest niekompletna (nieznani są rodzice) 
+        // */
+        //void CreateModuleSequence();
 
         // ---------------------------------------------------------------------------------------------
         /* 1. Pobiera wszystkie moduły, które należą do grupy o podanym id_grupy 
@@ -59,7 +59,7 @@ namespace EduApi.Services.Interfaces {
          * pytań wszystkich modułów podrzędnych i połączenie w jedną serię pytań. Pytania
          * zamknięte można edytować tylko na poziomie modułów podstawowych.
          */
-        ModuleDTO NewMetaModule(ModuleDTO[] moduleGroup);
+        List<ModuleDTO> NewMetaModule(ModuleDTO[] moduleGroup);
 
         // ---------------------------------------------------------------------------------------------
         /* 1. Usuwa z bazy moduł o podanym id.

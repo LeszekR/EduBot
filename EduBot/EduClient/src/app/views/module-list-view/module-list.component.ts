@@ -28,6 +28,7 @@ export class ModuleListComponent implements OnInit {
     selectedModuleId: number;
     anyModulesSelected: boolean;
 
+
     // CONSTRUCTOR
     // ==============================================================================================================
     constructor(
@@ -53,26 +54,26 @@ export class ModuleListComponent implements OnInit {
 
     // MOCK
     // ==============================================================================================================
-    // TODO: usunąc po testach
-    private mockAddMetaModule(): void {
+    // // TODO: usunąc po testach
+    // private mockAddMetaModule(): void {
 
-        let group: Module[] = [];
+    //     let group: Module[] = [];
 
-        let moduleIds: number[] = [47, 39];
+    //     let moduleIds: number[] = [47, 39];
 
-        let modules = this.modules;
-        let modServ: ModuleService = this.moduleService;
-        var callback = function (moduleGroup: Module[]) {
-            modServ.saveMetaModule(moduleGroup).subscribe(res => modules.push(res));
-        }
+    //     let modules = this.modules;
+    //     let modServ: ModuleService = this.moduleService;
+    //     var callback = function (moduleGroup: Module[]) {
+    //         modServ.saveMetaModule(moduleGroup).subscribe(res => modules.push(res));
+    //     }
 
-        for (var i in moduleIds)
-            this.moduleService.getModuleById(moduleIds[i]).subscribe(m => {
-                group[group.length] = m;
-                if (group.length == moduleIds.length)
-                    callback(group);
-            });
-    }
+    //     for (var i in moduleIds)
+    //         this.moduleService.getModuleById(moduleIds[i]).subscribe(m => {
+    //             group[group.length] = m;
+    //             if (group.length == moduleIds.length)
+    //                 callback(group);
+    //         });
+    // }
 
 
     // PUBLIC
@@ -95,7 +96,7 @@ export class ModuleListComponent implements OnInit {
     }
 
     // --------------------------------------------------------------------------------------------------------------
-    public getModules() {
+    getModules() {
         if (this.context.isEditMode)
             this.moduleService.getSimpleModules()
                 .subscribe(newModules => {
@@ -109,7 +110,7 @@ export class ModuleListComponent implements OnInit {
     }
 
     // --------------------------------------------------------------------------------------------------------------
-    public clearModules() {
+    clearModules() {
         this.modules = [];
         this.context.isEditMode = false;
         this.getModules();
@@ -137,11 +138,22 @@ export class ModuleListComponent implements OnInit {
     // --------------------------------------------------------------------------------------------------------------
     private insertNewModules(newModules: Module[], currentModule: Module): number {
         let index = this.modules.findIndex(mod => mod.id == currentModule.id);
+        let findDifficulty = currentModule.difficulty == 'hard' ? 'medium' : 'easy';
+
         let newMod = this.modules;
+
+        // znalezienie ostatniego dziecka, które już zostało wyświetlone
+        do {
+            if (index == newMod.length - 1)
+                break;
+            index++;
+        }
+        while (newMod[index].difficulty == findDifficulty)
+
 
         let tail = null;
         if (index < newMod.length - 1)
-            tail = newMod.splice(index + 1);
+            tail = newMod.splice(index);
 
         newMod = newMod.concat(newModules);
         if (tail != null)
@@ -176,6 +188,7 @@ export class ModuleListComponent implements OnInit {
 
     // --------------------------------------------------------------------------------------------------------------
     private nextModule() {
+
         // jeśli jeszcze nie zaznaczono żadnego modułu to serwer otrzymawszy currModuleId = -1
         // zareaguje tak samo jak na żądanie nowego modułu - kolejnego, który jeszcze nie był oglądany
         let currModule = this.context.currentModule;
@@ -185,9 +198,11 @@ export class ModuleListComponent implements OnInit {
             .subscribe(moduleDistr => {
                 if (moduleDistr != undefined && moduleDistr != null) {
 
-                    if (this.modules != undefined)
-                        if (this.modules.filter(m => { return m.id == moduleDistr.module.id; }).length == 0)
+                    let newModule = moduleDistr.module;
+                    if (this.modules != undefined && newModule != null && newModule != undefined) {
+                        if (this.modules.filter(m => { return m.id == newModule.id; }).length == 0)
                             this.modules[this.modules.length] = moduleDistr.module;
+                    }
 
                     this.showDistractorAndModule(moduleDistr);
                 }
@@ -213,18 +228,19 @@ export class ModuleListComponent implements OnInit {
         else
             this.addMetaModule();
     }
-   
 
     // --------------------------------------------------------------------------------------------------------------
     private addMetaModule() {
         let selectedModules = this.modules.filter(m => m.isSelected == true);
         this.moduleService.saveMetaModule(selectedModules)
-            .subscribe(res => {
-                selectedModules.forEach(m => { m.isSelected = false; m.group_id = res.id })
-                let idx = this.modules.indexOf(selectedModules[0]);
-                this.modules.splice(idx, 0, res);
-                this.anyModulesSelected = !this.modules.every(m => m.isSelected == false);
-                this.router.navigate(['module', res.id], { relativeTo: this.route });
+            .subscribe(newModules => {
+                let newIdx = -1;
+                for (let i in newModules)
+                    if (newModules[i].id > newIdx)
+                        newIdx = newModules[i].id;
+
+                this.modules = newModules;
+                this.router.navigate([newIdx]);
             });
     }
 
@@ -238,7 +254,7 @@ export class ModuleListComponent implements OnInit {
     }
 
     // --------------------------------------------------------------------------------------------------------------
-    selectModule(mod: Module) {
+    private selectModule(mod: Module) {
         mod.isSelected = !mod.isSelected;
         this.anyModulesSelected = !this.modules.every(m => m.isSelected == false);
     }

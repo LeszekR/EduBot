@@ -24,7 +24,8 @@ export const LANG_DE_TRANS = {
     'edit.del_question_decision': '<brak tłumaczenia>',
     'edit.enter_edit_mode': '<brak tłumaczenia>',
     'edit.exit_edit_mode': '<brak tłumaczenia>',
-
+    'edit.no-correct-answer': '<In order to save the questions you must tick the correct answer in all of them.>',
+    
     'error.login.credentials': 'Benutzername oder Passwort ist falsch',
     'error.login.repeat': 'Passwörter sind anders',
     'error.server': 'Serverfehler. Überprüfen Sie Ihren Serverstatus',

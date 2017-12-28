@@ -24,11 +24,11 @@ namespace EduApi.Controllers {
 
         // PUBLIC
         // =============================================================================================
-        [HttpGet]
-        public IHttpActionResult CreateModuleSequence() {
-            _moduleService.CreateModuleSequence();
-            return Ok("Odnowiono sekwencję modułów");
-        }
+        //[HttpGet]
+        //public IHttpActionResult CreateModuleSequence() {
+        //    _moduleService.CreateModuleSequence();
+        //    return Ok("Odnowiono sekwencję modułów");
+        //}
 
         // ---------------------------------------------------------------------------------------------
         public IHttpActionResult GetSimpleModulesOfUser() {

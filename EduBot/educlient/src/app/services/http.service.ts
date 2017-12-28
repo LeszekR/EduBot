@@ -21,8 +21,6 @@ export class HttpService extends Http {
     // CONSTRUCTOR
     // ==============================================================================================================
     constructor(backend: XHRBackend, options: RequestOptions, router: Router) {
-        //let token = JSON.parse(sessionStorage.getItem('currentUser'));
-
         super(backend, options);
         this.router = router;
     }
@@ -81,12 +79,13 @@ export class HttpService extends Http {
     // ==============================================================================================================
     private setHeaders(headersToSet: Object): RequestOptionsArgs {
         let newHeaders: Headers = new Headers();
+        let token = sessionStorage.getItem('access_token');
 
         let keys = Object.keys(headersToSet);
         for (var i in keys)
             newHeaders.append(keys[i], headersToSet[keys[i]]);
 
-        //newHeaders.append('Authorization', `Bearer ` + token);
+        newHeaders.append('Authorization', `Bearer ` + token);
         newHeaders.append('Cache-Control', 'no-cache');
         newHeaders.append('Pragma', 'no-cache');
 

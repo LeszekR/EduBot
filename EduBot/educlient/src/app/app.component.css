@@ -91,3 +91,15 @@ select option {
 .i-mid{
     vertical-align: middle ;
 }
+
+.btn-xs{
+    padding: .1rem .5rem;
+    font-size: .800rem;
+    border-radius: 0;
+    height: 30px;
+}
+
+.btn-primary{
+    background-color: #017EB5 !important;
+    border-color: #017EB5 !important;
+}

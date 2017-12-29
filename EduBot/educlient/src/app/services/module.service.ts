@@ -44,8 +44,13 @@ export class ModuleService {
     }
 
     // --------------------------------------------------------------------------------------------------------------
-    getModuleById(id: number): Observable<Module> {
-        return this.http.get<Module>(this.moduleUrl + '/getmodule/' + id);
+    getModuleByIdEdit(id: number): Observable<Module> {
+        return this.http.get<Module>(this.moduleUrl + '/getmoduleedit/' + id);
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
+    getModuleByIdLearn(id: number): Observable<Module> {
+        return this.http.get<Module>(this.moduleUrl + '/getmodulelearn/' + id);
     }
 
     // --------------------------------------------------------------------------------------------------------------

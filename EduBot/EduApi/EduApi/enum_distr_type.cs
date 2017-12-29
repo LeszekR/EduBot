@@ -12,15 +12,8 @@ namespace EduApi
     using System;
     using System.Collections.Generic;
     
-    public partial class user_question
+    public partial class enum_distr_type
     {
-        public int user_id { get; set; }
-        public int question_id { get; set; }
-        public bool first_result { get; set; }
-        public bool last_result { get; set; }
-        public int last_answer { get; set; }
-    
-        public virtual test_question test_question { get; set; }
-        public virtual user user { get; set; }
+        public string type { get; set; }
     }
 }

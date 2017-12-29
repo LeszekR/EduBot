@@ -189,10 +189,18 @@ export class ModuleListComponent implements OnInit {
     // --------------------------------------------------------------------------------------------------------------
     private nextModule() {
 
+        let currModule = this.context.currentModule;
+
+        // blokada następnego modułu dopóki użytkownik nie odpowie na wszystkie pytania testu
+        if (currModule != undefined)
+            if (!this.context.moduleViewComponent.hasAllAnswers('learn.test-before-next'))
+                return;
+
+
         // jeśli jeszcze nie zaznaczono żadnego modułu to serwer otrzymawszy currModuleId = -1
         // zareaguje tak samo jak na żądanie nowego modułu - kolejnego, który jeszcze nie był oglądany
-        let currModule = this.context.currentModule;
         let currModuleId = currModule == undefined ? -1 : currModule.id;
+
 
         this.eduService.nextModule(currModuleId)
             .subscribe(moduleDistr => {

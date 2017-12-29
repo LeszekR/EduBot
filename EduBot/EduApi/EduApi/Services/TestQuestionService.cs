@@ -98,11 +98,14 @@ namespace EduApi.Services {
                 questionDataStr = question.question_answer;
                 correctAnswer = Int32.Parse(questionDataStr.Split('^')[1]);
 
+
+
                 // Ustawienie :
                 // - prawidłowości wyniku na liście odpowiedzi użytkownika,
                 // - odpowiedzi dla frontu - użytkownik odpowiedział prawidłowo lub nie.
                 bool result;
-                if (ans.answer_id == correctAnswer) {
+                int lastAnswer = ans.answer_id;
+                if (lastAnswer == correctAnswer) {
                     result = true;
                     ans.answer_id = 1;
                 }
@@ -111,13 +114,14 @@ namespace EduApi.Services {
                     ans.answer_id = 0;
                 }
 
-                // Dodanie pytania do listy pytań, na które użytkownik odpowiedział
+
+
+                // Pobranie pytania z listy pytań, na które użytkownik już odpowiadał ...
                 user_question answeredQuestion = user.user_question.ToList()
                     .Where(q => q.question_id == ans.question_id)
                     .FirstOrDefault();
 
-
-                // Dodanie nowego pytania do listy pytań, na które użytkownik odpowiedział
+                // ... lub dodanie nowego pytania do listy pytań, na które użytkownik odpowiedział
                 if (answeredQuestion == null) {
                     answeredQuestion = new user_question() {
                         question_id = ans.question_id,
@@ -126,7 +130,8 @@ namespace EduApi.Services {
                     };
                     user.user_question.Add(answeredQuestion);
                 }
-                answeredQuestion.result = result;
+                answeredQuestion.last_result = result;
+                answeredQuestion.last_answer = lastAnswer;
             }
 
             _userService.SaveChanges();

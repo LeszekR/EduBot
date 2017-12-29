@@ -56,5 +56,6 @@ export const LANG_PL_TRANS = {
     'learn.explain': 'Wyjaśnij dokładniej',
     'learn.verify-test': 'Sprawdź test',
     'learn.keep-working': 'Naciśnij "Ok" aby wznowić pracę',
-    'learn.unfinished-test': 'Aby sprawdzić test musisz odpowiedzieć na wszystkie pytania.'
+    'learn.unfinished-test': 'Aby sprawdzić test musisz odpowiedzieć na wszystkie pytania.',
+    'learn.test-before-next': 'Aby przejść dalej musisz dać odpowiedź na wszystkie pytania.'
 };

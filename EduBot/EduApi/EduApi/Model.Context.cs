@@ -29,6 +29,7 @@ namespace EduApi
         public virtual DbSet<edumodule> edumodule { get; set; }
         public virtual DbSet<edumodule_gamecontext> edumodule_gamecontext { get; set; }
         public virtual DbSet<enum_diff_level> enum_diff_level { get; set; }
+        public virtual DbSet<enum_distr_type> enum_distr_type { get; set; }
         public virtual DbSet<enum_user_role> enum_user_role { get; set; }
         public virtual DbSet<test_code> test_code { get; set; }
         public virtual DbSet<test_question> test_question { get; set; }

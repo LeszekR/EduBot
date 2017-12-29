@@ -57,5 +57,5 @@ export const LANG_DE_TRANS = {
     'learn.verify-test': '<Verify test>',
     'learn.keep-working': '<Click "Ok" to continue>',
     'learn.unfinished-test': '<You need to answer all questions in order to verify the test.>',
-    
+    'learn.test-before-next': '<You need to try and answer all questions in order to get next module.>'
 };

@@ -16,7 +16,7 @@ namespace EduApi.Services.Interfaces {
         // * - również gdy lista jest niekompletna (nieznani są rodzice) 
         // */
         //void CreateModuleSequence();
-
+        
         // ---------------------------------------------------------------------------------------------
         /* 1. Pobiera wszystkie moduły, które należą do grupy o podanym id_grupy 
          * 2. sortuje wg pozycji w grupie (kolejności)
@@ -35,15 +35,27 @@ namespace EduApi.Services.Interfaces {
         List<ModuleDTO> GetSimpleModules();
 
         // ---------------------------------------------------------------------------------------------
-        /* Pobiera cały moduł wybrany wg jego id. 
-         * ModuleDTO.test_question.correct_answ  : zawiera index ostatniej odpowiedzi udzielonej przez ucznia 
-         * (uczeń może odpowiadać na to samo pytanie wielokrotnie, tu jest ostatnia odpowiedź) */
+        /* Pobiera cały moduł oraz pytania do tego modułu. 
+         * We wszystkich pytaniach 'correct_answ' zawiera index OSTATNIEJ odpowiedzi 
+         * udzielonej przez ucznia (uczeń może odpowiadać na to samo pytanie wielokrotnie, 
+         * tu jest ostatnia odpowiedź) */
         ModuleDTO GetModuleLearn(int id, int userId);
 
         // ---------------------------------------------------------------------------------------------
-        /* Pobiera cały moduł wybrany wg jego id. 
-         * edumodule.correct_answ  : zawiera index prawidłowej odpowiedzi ustawiony przez nauczyciela */
+        /* Pobiera cały moduł oraz pytania do tego modułu. 
+         * We wszystkich pytaniach 'correct_answ' zawiera index PRAWIDŁOWEJ odpowiedzi 
+         * ustawiony przez nauczyciela */
         ModuleDTO GetModuleEdit(int id);
+
+        // ---------------------------------------------------------------------------------------------
+         /* Zamienia moduł w ModuleDTO oraz dodaje do niego jego wszystkie pytania.
+          * Wersje:
+          * 1. @userId < 0 : Pytania będą zawierać indeks prawidłowej odpowiedzi
+          *    (wersja do edycji modułów).
+          * 2. @userId > 0 : pytania będą zawierały indeks ostatniej odpowiedzi
+          *    udzielonej przez użytkownika (wersja wyświetlana studentowi). 
+          */ 
+        ModuleDTO GetDTOWithQuestions(edumodule module, int userId);
 
         // ---------------------------------------------------------------------------------------------
         /* Aktualizuje dane modułu */

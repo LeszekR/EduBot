@@ -69,6 +69,7 @@ namespace EduApi.Services {
             return modules;
         }
 
+
         // ---------------------------------------------------------------------------------------------
         public List<ModuleDTO> GetSimpleModules(int userId) {
 
@@ -107,13 +108,40 @@ namespace EduApi.Services {
 
         // ---------------------------------------------------------------------------------------------
         public ModuleDTO GetModuleLearn(int id, int userId) {
-
             edumodule module = _moduleRepository.Get(id);
+            return GetDTOWithQuestions(module, userId);
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
+        public ModuleDTO GetModuleEdit(int id) {
+            edumodule module = _moduleRepository.Get(id);
+            return GetDTOWithQuestions(module, -1);
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
+        public ModuleDTO GetDTOWithQuestions(edumodule module, int userId) {
+
             ModuleDTO moduleDTO = ModuleMapper.GetDTO(module);
-
-
-            // Zamiana prawidłowych odpowiedzi na odpowiedzi podane przez użytkownika
             List<TestQuestionDTO> questions = GetQuestionsForModule(module);
+
+
+            // Wersja dla EDYCJI MODUŁÓW
+            // .........................................................................
+            // brak id użytkownika - pytania będą zawierać indeks prawidłowej odpowiedzi
+            // - ta wersja potrzebna jest do edycji modułów
+            if (userId < 0) {
+                moduleDTO.test_question = questions;
+                return moduleDTO;
+            }
+
+
+            // Wersja dla STUDENTA
+            // .........................................................................
+            // Jest id uzytkownika - pytania będą zawierały indeks ostatniej odpowiedzi
+            // udzielonej przez użytkownika - zamiana indeksów prawidłowych odpowiedzi na 
+            // ostatnie odpowiedzi podane przez użytkownika.
 
             // rozbicie stringu question_answer na składniki i dodanie do nich 'id' pytania
             List<List<string>> questionsInParts = questions
@@ -126,10 +154,13 @@ namespace EduApi.Services {
                 .ToList();
 
             // wydobycie odpowiedzi, jakie użytkownik już udzielił na te pytania
-            var questionIds = questions.Select(q => q.id);
-            var userQuestAnsw = _userService.GetUserEntity(userId).user_question
-                .ToList()
-                .Where(q => questionIds.Contains(q.question_id));
+            var questionIds = questions.Select(q => q.id).ToList();
+            var userQuestAnswAll = _userService.GetUserEntity(userId).user_question.ToList();
+            var userQuestAnsw = userQuestAnswAll
+                .Where(q =>
+                questionIds.Contains(q.question_id)
+                )
+                .ToList();
 
 
             // ustalenie czy użytkownik już odpowiadał na te pytania
@@ -163,15 +194,6 @@ namespace EduApi.Services {
 
             // moduł gotowy do wysłania studentowi
             moduleDTO.test_question = questions;
-            return moduleDTO;
-        }
-
-
-        // ---------------------------------------------------------------------------------------------
-        public ModuleDTO GetModuleEdit(int id) {
-            edumodule module = _moduleRepository.Get(id);
-            ModuleDTO moduleDTO = ModuleMapper.GetDTO(module);
-            moduleDTO.test_question = GetQuestionsForModule(module);
             return moduleDTO;
         }
 
@@ -305,8 +327,24 @@ namespace EduApi.Services {
         }
 
 
+        // ---------------------------------------------------------------------------------------------
+        public static int SortModules(edumodule a, edumodule b) {
+            if (a.group_position != b.group_position)
+                return a.group_position > b.group_position ? 1 : -1;
+            return a.id > b.id ? 1 : -1;
+        }
+
+
         // PRIVATE
         // =============================================================================================
+        private int SortModules(ModuleDTO a, ModuleDTO b) {
+            if (a.group_position != b.group_position)
+                return a.group_position > b.group_position ? 1 : -1;
+            return a.id > b.id ? 1 : -1;
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
         private List<TestQuestionDTO> GetQuestionsForModule(edumodule module) {
 
             List<TestQuestionDTO> questions = new List<TestQuestionDTO>();
@@ -331,23 +369,6 @@ namespace EduApi.Services {
 
 
         // ---------------------------------------------------------------------------------------------
-        private int SortModules(ModuleDTO a, ModuleDTO b) {
-            if (a.group_position != b.group_position)
-                return a.group_position > b.group_position ? 1 : -1;
-            return a.id > b.id ? 1 : -1;
-        }
-
-
-        // ---------------------------------------------------------------------------------------------
-        public static int SortModules(edumodule a, edumodule b) {
-            if (a.group_position != b.group_position)
-                return a.group_position > b.group_position ? 1 : -1;
-            return a.id > b.id ? 1 : -1;
-        }
-
-
-        // PRIVATE
-        // =============================================================================================
         /* Ustawia wszystkie moduły w prawidłowe drzewo i numeruje (nadaje im kolejne 'group_position').
          * Dzięki temu przy dalszym korzystaniu można sortować moduły:
          * - szybko

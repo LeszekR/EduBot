@@ -213,7 +213,7 @@ namespace EduApi.Services {
 
             if (idx > 0)
                 return new ModuleAndDistractorDTO() {
-                    module = ModuleMapper.GetDTO(prevModules[idx - 1]),
+                    module = _moduleService.GetDTOWithQuestions(prevModules[idx - 1], userId),
                     distractor = newDistractor == null ? null : DistractorMapper.GetDTO(newDistractor)
                 };
 
@@ -292,7 +292,7 @@ namespace EduApi.Services {
 
 
             return new ModuleAndDistractorDTO() {
-                module = newModule == null ? null : ModuleMapper.GetDTO(newModule),
+                module = newModule == null ? null : _moduleService.GetDTOWithQuestions(newModule, userId),
                 distractor = newDistractor == null ? null : DistractorMapper.GetDTO(newDistractor)
             };
         }

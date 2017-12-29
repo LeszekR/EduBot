@@ -14,7 +14,7 @@
             <img src="/assets/img/logo-pg.png" class="nav-img">
             <span style="margin-left: 50px">Edugame</span>
         </a>
-        <div *ngIf="context.userRole == 0 || context.userRole == 1" class="d-flex justify-content-center">
+        <div *ngIf="context.userRole == 1 || context.userRole == 2" class="d-flex justify-content-center">
             <button class="btn btn-primary" (click)="toggleEditMode()">
                 {{ context.isEditMode ? ('edit.exit_edit_mode' | translate) : ('edit.enter_edit_mode' | translate) }}
             </button>
@@ -47,7 +47,7 @@
 <footer class="footer">
     <div class="container-fluid d-flex">
         <div >
-            <a *ngIf="context.userRole == 0" routerLink="/user-management" class="navbar-link pr-2" routerLinkActive="active" title="{{ 'toolbar.manage_users' | translate }}">
+            <a *ngIf="context.userRole == 1" routerLink="/user-management" class="navbar-link pr-2" routerLinkActive="active" title="{{ 'toolbar.manage_users' | translate }}">
                 <i class="fa fa-user-circle-o fa-2x i-mid"></i>
             </a>
         </div>

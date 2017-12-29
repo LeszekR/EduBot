@@ -9,7 +9,6 @@ namespace EduApi.Controllers {
 
     // =================================================================================================
     [RoutePrefix("api/user")]
-    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*", SupportsCredentials = true)]
     public class UserController : ApiController {
 
         private readonly IUserService _userService;

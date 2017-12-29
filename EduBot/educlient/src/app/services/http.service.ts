@@ -84,13 +84,11 @@ export class HttpService extends Http {
         let keys = Object.keys(headersToSet);
         for (var i in keys)
             newHeaders.append(keys[i], headersToSet[keys[i]]);
-
         newHeaders.append('Authorization', `Bearer ` + token);
         newHeaders.append('Cache-Control', 'no-cache');
         newHeaders.append('Pragma', 'no-cache');
 
         let options: RequestOptionsArgs = { 
-            withCredentials: true,
             headers: newHeaders 
         };
         return options;

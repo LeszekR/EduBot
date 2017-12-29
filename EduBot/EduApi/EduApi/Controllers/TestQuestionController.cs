@@ -5,9 +5,6 @@ using System.Web.Http.Cors;
 
 namespace EduApi.Controllers {
 
-
-    // =================================================================================================
-    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*", SupportsCredentials = true)]
     public class TestQuestionController : ApiController {
 
         private readonly ITestQuestionService _questionService;

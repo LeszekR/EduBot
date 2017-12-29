@@ -1,4 +1,5 @@
 ﻿using EduApi.Dto;
+using EduApi.Security;
 using EduApi.Services;
 using EduApi.Services.Interfaces;
 using System;
@@ -8,9 +9,6 @@ using System.Web.Http.Cors;
 
 namespace EduApi.Controllers {
 
-
-    // =================================================================================================
-    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*", SupportsCredentials = true)]
     public class ImageController : ApiController {
 
         private readonly IUserService _userService;
@@ -40,7 +38,7 @@ namespace EduApi.Controllers {
         [Route("api/image/send")]
         [HttpPost]
         public IHttpActionResult sendImage([FromBody]string image) {
-            var userId = 1;
+            int userId = TokenHelper.GetUserId(User.Identity);
             try {
                 if (_affitsApiAdapter.processImage(image)) {
                     List<Pad> lastEmoStates = _affitsApiAdapter.getResults();

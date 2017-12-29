@@ -6,7 +6,14 @@ import { Module } from '../../../models/module'
 @Component({
   selector: 'content-view',
   templateUrl: './content-view.component.html',
-  styles: ['../module-view.component.css']
+  styles: [
+    `
+      fieldset{
+        border-bottom-right-radius: 0px !important;
+        border-top-right-radius: 0px !important;
+      }
+    `
+  ]
 })
 export class ContentViewComponent {
   @Input() readonly: boolean;

@@ -2,12 +2,10 @@
 using System.Web.Http;
 using System.Web.Http.Cors;
 using EduApi.Services.Interfaces;
+using EduApi.Security;
 
 namespace EduApi.Controllers {
 
-
-    // =================================================================================================
-    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*", SupportsCredentials = true)]
     public class ModuleController : ApiController {
 
         private readonly IModuleService _moduleService;
@@ -31,8 +29,9 @@ namespace EduApi.Controllers {
         //}
 
         // ---------------------------------------------------------------------------------------------
+        
         public IHttpActionResult GetSimpleModulesOfUser() {
-            int userId = 1;
+            int userId = TokenHelper.GetUserId(User.Identity);
             return Ok(_moduleService.GetSimpleModules(userId));
         }
 

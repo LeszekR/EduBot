@@ -1,13 +1,11 @@
-﻿using EduApi.Services;
+﻿using EduApi.Security;
+using EduApi.Services;
 using EduApi.Services.Interfaces;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
 namespace EduApi.Controllers {
 
-
-    // =================================================================================================
-    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*", SupportsCredentials = true)]
     public class EmoServiceController : ApiController {
 
         public static EmoState _emoState = EmoState.UNDEFINED;
@@ -38,7 +36,7 @@ namespace EduApi.Controllers {
                 _emoState = EmoState.FRUSTRATED;
 
             else if (emoState == 2) {
-                int userId = 1;
+                int userId = TokenHelper.GetUserId(User.Identity);
                 _userService.ClearModuleHistory(userId);
                 return Ok("Wyczyszczono historię modułów, pytań i dystraktorów");
             }

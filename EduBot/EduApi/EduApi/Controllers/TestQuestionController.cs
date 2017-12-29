@@ -1,13 +1,11 @@
 ﻿using EduApi.Dto;
+using EduApi.Security;
 using EduApi.Services.Interfaces;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
 namespace EduApi.Controllers {
 
-
-    // =================================================================================================
-    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*", SupportsCredentials = true)]
     public class TestQuestionController : ApiController {
 
         private readonly ITestQuestionService _questionService;
@@ -26,7 +24,7 @@ namespace EduApi.Controllers {
         // =============================================================================================
         [HttpPost]
         public IHttpActionResult VerifyClosedTest([FromBody]TestQuestionAnswDTO[] answers) {
-            int userId = 1;
+            int userId = TokenHelper.GetUserId(User.Identity);
             return Ok(_questionService.VerifyClosedTest(answers, userId));
         }
     }

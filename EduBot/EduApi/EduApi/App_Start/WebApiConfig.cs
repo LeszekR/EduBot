@@ -18,32 +18,13 @@ namespace EduApi {
             config.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(DepentencyInjectorConfig.Init(config));
 
             config.Filters.Add(new GlobalExceptionFilter());
-            //config.Filters.Add(new EduAthenticationFilter());
+            config.Filters.Add(new AuthorizeAttribute());
 
             //config.SuppressHostPrincipal();
 
+            config.MapHttpAttributeRoutes();
 
-            var corsOrigins = "http://localhost:4200";
-            var corsHeaders = "*";
-            var corsMethods = "GET, POST, PUT, DELETE, OPTIONS";
-            //var corsHeaders =
-            //    "Accept" +
-            //    ",Accept-Encoding" +
-            //    ",Accept-Language" +
-            //    ",Authtoken" +
-            //    ",Authorisation" +
-            //    ",Cache-Control," +
-            //    ",Content-Type" +
-            //    ",Connection" +
-            //    ",Content-Length" +
-            //    ",Host" +
-            //    ",Origin" +
-            //    ",Pragma" +
-            //    ",Referer" +
-            //    ",User-Agent" +
-            //    ",X-requested-with";
-
-            var corsAttr = new EnableCorsAttribute(corsOrigins, corsHeaders, corsMethods);
+            var corsAttr = new EnableCorsAttribute("*", "Accept,Origin,content-type,authtoken,Authorization,cache-control,x-requested-with,pragma", "*");
             config.EnableCors(corsAttr);
 
             var formatters = config.Formatters;
@@ -54,9 +35,6 @@ namespace EduApi {
 
             formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
-
-
-            config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

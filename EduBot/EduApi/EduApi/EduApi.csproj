@@ -248,6 +248,7 @@
     <Compile Include="Repositories\DistractorRepository.cs" />
     <Compile Include="Repositories\ModuleRepository.cs" />
     <Compile Include="Repositories\TestQuestionRepository.cs" />
+    <Compile Include="Security\TokenHelper.cs" />
     <Compile Include="Services\AffitsApi.cs" />
     <Compile Include="Services\EduAlgorithmService.cs" />
     <Compile Include="Services\FileSender.cs" />

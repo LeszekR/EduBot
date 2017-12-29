@@ -35,8 +35,15 @@ namespace EduApi.Services.Interfaces {
         List<ModuleDTO> GetSimpleModules();
 
         // ---------------------------------------------------------------------------------------------
-        /* Pobiera cały moduł wybrany wg jego id. */
-        ModuleDTO GetModule(int id);
+        /* Pobiera cały moduł wybrany wg jego id. 
+         * ModuleDTO.test_question.correct_answ  : zawiera index ostatniej odpowiedzi udzielonej przez ucznia 
+         * (uczeń może odpowiadać na to samo pytanie wielokrotnie, tu jest ostatnia odpowiedź) */
+        ModuleDTO GetModuleLearn(int id, int userId);
+
+        // ---------------------------------------------------------------------------------------------
+        /* Pobiera cały moduł wybrany wg jego id. 
+         * edumodule.correct_answ  : zawiera index prawidłowej odpowiedzi ustawiony przez nauczyciela */
+        ModuleDTO GetModuleEdit(int id);
 
         // ---------------------------------------------------------------------------------------------
         /* Aktualizuje dane modułu */

@@ -4,6 +4,7 @@ using EduApi.Dto;
 using EduApi.Dto.Mappers;
 using EduApi.DTO;
 using EduApi.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -105,7 +106,69 @@ namespace EduApi.Services {
 
 
         // ---------------------------------------------------------------------------------------------
-        public ModuleDTO GetModule(int id) {
+        public ModuleDTO GetModuleLearn(int id, int userId) {
+
+            edumodule module = _moduleRepository.Get(id);
+            ModuleDTO moduleDTO = ModuleMapper.GetDTO(module);
+
+
+            // Zamiana prawidłowych odpowiedzi na odpowiedzi podane przez użytkownika
+            List<TestQuestionDTO> questions = GetQuestionsForModule(module);
+
+            // rozbicie stringu question_answer na składniki i dodanie do nich 'id' pytania
+            List<List<string>> questionsInParts = questions
+                .Select(q => {
+                    var question = new List<string>();
+                    question.Add(q.id.ToString());
+                    question.AddRange(q.question_answer.Split('^'));
+                    return question;
+                })
+                .ToList();
+
+            // wydobycie odpowiedzi, jakie użytkownik już udzielił na te pytania
+            var questionIds = questions.Select(q => q.id);
+            var userQuestAnsw = _userService.GetUserEntity(userId).user_question
+                .ToList()
+                .Where(q => questionIds.Contains(q.question_id));
+
+
+            // ustalenie czy użytkownik już odpowiadał na te pytania
+            bool answered = userQuestAnsw.Count() > 0;
+
+
+            // zbudowanie z powrotem stringów question_answer zawierających tym razem
+            // już nie index prawidłowej odpowiedzi ale indeks ostatniej odpowiedzi
+            // udzielonej przez użytkownika
+            List<string> parts;
+            string answer;
+
+            foreach (var quest in questions) {
+
+                parts = questionsInParts.First(q => Int32.Parse(q[0]) == quest.id);
+
+                // ten moduł już był zaliczany - są wszystkie odpowiedzi
+                // (choć mogą być błędne - liczy się tu że była próba odpowiedzi i jest jej wynik)
+                if (answered)
+                    answer = userQuestAnsw
+                        .Where(q => q.question_id == quest.id)
+                        .Select(q => q.result)
+                        .ToString();
+
+                // jeżeli te pytanie są nowe dla użytkownika - ustawienie braku odpowiedzi
+                else
+                    answer = "-1";
+
+                quest.question_answer = parts[1] + "^" + answer + "^" + parts[3];
+            }
+
+            // moduł gotowy do wysłania studentowi
+            moduleDTO.test_question = questions;
+            return moduleDTO;
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
+        public ModuleDTO GetModuleEdit(int id) {
             edumodule module = _moduleRepository.Get(id);
             ModuleDTO moduleDTO = ModuleMapper.GetDTO(module);
             moduleDTO.test_question = GetQuestionsForModule(module);

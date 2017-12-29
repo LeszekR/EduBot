@@ -43,8 +43,14 @@ namespace EduApi.Controllers {
         }
 
         // ---------------------------------------------------------------------------------------------
-        public IHttpActionResult GetModule(int id) {
-            return Ok(_moduleService.GetModule(id));
+        public IHttpActionResult GetModuleEdit(int id) {
+            return Ok(_moduleService.GetModuleEdit(id));
+        }
+
+        // ---------------------------------------------------------------------------------------------
+        public IHttpActionResult GetModuleLearn(int id) {
+            var userId = 1;
+            return Ok(_moduleService.GetModuleLearn(id, userId));
         }
 
         // ---------------------------------------------------------------------------------------------

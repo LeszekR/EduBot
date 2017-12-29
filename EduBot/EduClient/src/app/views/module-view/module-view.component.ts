@@ -21,7 +21,6 @@ import { QuizViewComponent } from './quiz-view/quiz-view.component';
 
 import { MockData } from '../../mock/test-data'
 import { ClosedQuestion, QuestionStatus } from '../../models/closed-question';
-// import { EventEmitter } from 'events';
 
 
 // ==================================================================================================================
@@ -63,6 +62,7 @@ export class ModuleViewComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.module = data.module;
       this.context.currentModule = data.module;
+      this.context.moduleViewComponent = this;
 
       this.questions = this.questionService.UnpackClosedQuestions(this.module.test_question);
 
@@ -79,7 +79,7 @@ export class ModuleViewComponent implements OnInit {
   verifyClosedTest() {
 
     // check if all answers have been given
-    if (!this.hasAllAnswers(false))
+    if (!this.hasAllAnswers('learn.unfinished-test'))
       return;
 
 
@@ -106,7 +106,7 @@ export class ModuleViewComponent implements OnInit {
   save() {
 
     // check if every question has been assigned the correct answer
-    if (!this.hasAllAnswers(true))
+    if (!this.hasAllAnswers('edit.no-correct-answer'))
       return;
 
     this.module.test_question = this.questionService
@@ -121,16 +121,13 @@ export class ModuleViewComponent implements OnInit {
 
   }
 
-
-  // PRIVATE
-  // ==============================================================================================================
-  private hasAllAnswers(edit: boolean): boolean {
+  // --------------------------------------------------------------------------------------------------------------
+  hasAllAnswers(msg: string): boolean {
 
     for (var i in this.questions)
 
       // stop if unanswered question is foud
       if (this.questions[i].correct_idx == -1) {
-        let msg = edit ? 'edit.no-correct-answer' : 'learn.unfinished-test';
         this.messageService.info(msg, 'common.empty');
         return false;
       }

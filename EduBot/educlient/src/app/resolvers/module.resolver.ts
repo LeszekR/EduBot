@@ -26,6 +26,9 @@ export class ModuleResolver implements Resolve<any> {
     // ==============================================================================================================
     resolve(route: ActivatedRouteSnapshot): Observable<any> | Promise<any> | any {
         this.context.currentModuleId = +route.params['moduleId'];
-        return this.service.getModuleById(this.context.currentModuleId);
+        if (this.context.isEditMode)
+            return this.service.getModuleByIdEdit(this.context.currentModuleId);
+        else
+            return this.service.getModuleByIdLearn(this.context.currentModuleId);
     }
 }

@@ -53,23 +53,23 @@ namespace EduApi.Services {
         public DistractorDTO KickTheStudent(int userId, List<Pad> lastEmoStates) {
 
 
-            // TODO usunąć mock ***************************************************
-            Random rnd = new Random();
-            Func<EmoState> losuj = () => {
-                var los = rnd.Next(1, 4);
-                if (los == 1) return EmoState.BORED;
-                if (los == 2) return EmoState.OK;
-                if (los == 3) return EmoState.FRUSTRATED;
-                return EmoState.UNDEFINED;
-            };
-            List<Pad> mockEmoStates = new List<Pad>(5);
-            string mocki = "";
-            for (int i = 0; i < 5; i++) {
-                mockEmoStates.Add(new Pad("", losuj()));
-                mocki += " " + i + ". " + mockEmoStates[mockEmoStates.Count() - 1].state.ToString();
-            }
-            lastEmoStates = mockEmoStates;
-            // ********************************************************************
+            //// TODO usunąć mock ***************************************************
+            //Random rnd = new Random();
+            //Func<EmoState> losuj = () => {
+            //    var los = rnd.Next(1, 4);
+            //    if (los == 1) return EmoState.BORED;
+            //    if (los == 2) return EmoState.OK;
+            //    if (los == 3) return EmoState.FRUSTRATED;
+            //    return EmoState.UNDEFINED;
+            //};
+            //List<Pad> mockEmoStates = new List<Pad>(5);
+            //string mocki = "";
+            //for (int i = 0; i < 5; i++) {
+            //    mockEmoStates.Add(new Pad("", losuj()));
+            //    mocki += " " + i + ". " + mockEmoStates[mockEmoStates.Count() - 1].state.ToString();
+            //}
+            //lastEmoStates = mockEmoStates;
+            //// ********************************************************************
 
 
             if (lastEmoStates.Count() < 5)

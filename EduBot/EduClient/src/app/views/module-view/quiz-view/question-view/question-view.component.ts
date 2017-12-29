@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { ClosedQuestion, QuestionStatus } from '../../../../models/closed-question'
 import { MessageService } from '../../../../shared/components/message/message.service';
+import { ContextService } from '../../../../services/context.service'
 
 
 // ==================================================================================================================
@@ -22,7 +23,9 @@ export class QuestionViewComponent implements OnInit {
 
   // CONSTRUCTOR
   // ==============================================================================================================
-  constructor(private messageService: MessageService) { }
+  constructor(
+    private messageService: MessageService,
+    private context: ContextService) { }
 
   // --------------------------------------------------------------------------------------------------------------
   ngOnInit() {

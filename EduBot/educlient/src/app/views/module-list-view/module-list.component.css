@@ -1,6 +1,12 @@
 .list-group-item { 
     line-height: 0.2;
     margin-bottom: 1px;
+    color: #017EB5;
+}
+
+.list-group-item.active {
+    background-color: #017EB5 !important;
+    color: #FFF;
 }
 
 .lvl-easy {

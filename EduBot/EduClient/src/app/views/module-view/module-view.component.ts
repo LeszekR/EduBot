@@ -77,7 +77,7 @@ export class ModuleViewComponent implements OnInit {
   // PUBLIC
   // ==============================================================================================================
   verifyClosedTest() {
-
+    this.questions.forEach( q => q.status = QuestionStatus.None);
     // check if all answers have been given
     if (!this.hasAllAnswers('learn.unfinished-test'))
       return;

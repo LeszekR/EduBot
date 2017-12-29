@@ -1,3 +1,4 @@
+<!-- learnin mode - (student - not editing) -->
 <div *ngIf="!editMode" class="card-block">
  
   <div *ngIf="questionData.status!=0" class="q-status" > 
@@ -18,6 +19,7 @@
 </div>
 
 
+<!-- edit mode (teacher) -->
 <div *ngIf="editMode" class="card-block">
 
   <h6 *ngIf="!editQuestionText" class="card-title"><strong>
@@ -25,6 +27,8 @@
     <i class="fa fa-pencil fa-lighter pl-1" aria-hidden="true" (click)="editQuestionText=true" ></i>
   </strong></h6>
 
+
+  <!-- PYTANIE -->
   <input *ngIf="editQuestionText" 
     type="text"
     placeholder="Nowe pytanie"
@@ -34,15 +38,18 @@
     class="form-control-sm w-100 edit-title" 
     />
 
+    <!-- ODPOWIEDZI -->
     <div *ngFor="let answer of questionData.answers; let i=index" [attr.data-index]="i">
+
       <div class="form-check card-text">
 
         <div (click)="questionData.correct_idx=i"
           [ngClass]="questionData.correct_idx==i ? 'fa fa-check-square-o' : 'fa fa-square-o'" >
         </div>
       
-        <span *ngIf="editedAnswerIdx!=i" >{{ answer }}</span>
-      
+        <span *ngIf="editedAnswerIdx!=i" >
+          {{ answer }}
+        </span>      
         <input *ngIf="editedAnswerIdx==i" 
           type="text" 
           placeholder="Nowa odpowiedź"
@@ -56,7 +63,11 @@
             (click)="editedAnswerIdx=i" 
             aria-hidden="true"></i>
 
-        <div *ngIf="editedAnswerIdx!=i" class="fa fa-minus fa-red pl-1" (click)="deleteAnswer(i)" ></div>
+        <div *ngIf="editedAnswerIdx!=i" 
+              class="fa fa-minus fa-red pl-1" 
+              (click)="deleteAnswer(i)" >
+        </div>
+      
       </div>
   </div>
 

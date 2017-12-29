@@ -155,23 +155,22 @@ namespace EduApi.Services {
 
             // wydobycie odpowiedzi, jakie użytkownik już udzielił na te pytania
             var questionIds = questions.Select(q => q.id).ToList();
-            var userQuestAnswAll = _userService.GetUserEntity(userId).user_question.ToList();
-            var userQuestAnsw = userQuestAnswAll
-                .Where(q =>
-                questionIds.Contains(q.question_id)
-                )
+            var userQuestionAll = _userService.GetUserEntity(userId).user_question.ToList()
+                .Where(q => questionIds.Contains(q.question_id))
                 .ToList();
 
 
             // ustalenie czy użytkownik już odpowiadał na te pytania
-            bool answered = userQuestAnsw.Count() > 0;
+            bool answered = userQuestionAll.Count() > 0;
 
 
             // zbudowanie z powrotem stringów question_answer zawierających tym razem
             // już nie index prawidłowej odpowiedzi ale indeks ostatniej odpowiedzi
             // udzielonej przez użytkownika
             List<string> parts;
-            string answer;
+            string lastAnswer;
+            bool lastResult;
+            user_question userQuestion;
 
             foreach (var quest in questions) {
 
@@ -179,17 +178,20 @@ namespace EduApi.Services {
 
                 // ten moduł już był zaliczany - są wszystkie odpowiedzi
                 // (choć mogą być błędne - liczy się tu że była próba odpowiedzi i jest jej wynik)
-                if (answered)
-                    answer = userQuestAnsw
-                        .Where(q => q.question_id == quest.id)
-                        .Select(q => q.result)
-                        .ToString();
+                if (answered) {
+                    userQuestion = userQuestionAll.First(q => q.question_id == quest.id);
+                    lastAnswer = userQuestion.last_answer.ToString();
+                    lastResult = userQuestion.last_result;
+                }
 
                 // jeżeli te pytanie są nowe dla użytkownika - ustawienie braku odpowiedzi
-                else
-                    answer = "-1";
+                else {
+                    lastAnswer = "-1";
+                    lastResult = false;
+                }
 
-                quest.question_answer = parts[1] + "^" + answer + "^" + parts[3];
+                quest.question_answer = parts[1] + "^" + lastAnswer + "^" + parts[3];
+                quest.last_result = lastResult;
             }
 
             // moduł gotowy do wysłania studentowi

@@ -219,6 +219,9 @@
     <Compile Include="enum_diff_level.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="enum_distr_type.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="enum_user_role.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

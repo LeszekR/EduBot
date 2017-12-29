@@ -202,7 +202,6 @@ export class ModuleListComponent implements OnInit {
         let currModuleId = currModule == undefined ? -1 : currModule.id;
 
 
-
         this.eduService.nextModule(currModuleId)
             .subscribe(moduleDistr => {
                 if (moduleDistr != undefined && moduleDistr != null) {

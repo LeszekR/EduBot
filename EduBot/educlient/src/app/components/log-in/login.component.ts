@@ -7,6 +7,7 @@ import { User } from '../../models/user';
 import { JwtHelper } from '../../shared/utils/jwt-helper';
 import { Role } from '../../models/enum-user-role';
 import { ContextService } from '../../services/context.service';
+import { SpinnerService } from '../../shared/components/spinner/spinner.service';
 
 // import { St}  import żeby mieć dostęp do local storage
 // jesli caisteczka - też tu trzeba import
@@ -50,7 +51,11 @@ export class LoginComponent {
 
     // CONSTRUCTOR
     // ==============================================================================================================
-    constructor(private loginService: LoginService, private userService: UserService, private context: ContextService) { // , private localStor: LocalStorage ... ) {
+    constructor(
+        private loginService: LoginService, 
+        private userService: UserService, 
+        private context: ContextService,
+        private spinner: SpinnerService) { // , private localStor: LocalStorage ... ) {
 
         this.action = 'logging-in';
     }
@@ -81,6 +86,7 @@ export class LoginComponent {
         // let loginResult = this.loginService.login(this.fieldLogin.text, this.fieldPassw.text);
         // this.loggedIn = loginResult == 'ok' ? true : false;
         // this.errCredentials = this.loggedIn ? '' : LangDictionaryService.text(loginResult);
+        this.spinner.start();
         this.loginService.login(this.fieldLogin.text, this.fieldPassw.text)
             .subscribe( res => {
                 let token = res.json().access_token;
@@ -88,11 +94,13 @@ export class LoginComponent {
                 let decoded = new JwtHelper().decodeToken(token);
                 sessionStorage.setItem('user_role', decoded.role);
                 this.context.userRole = Role[<string>decoded.role];
+                this.spinner.stop();
                 this.onClose.emit();
             },
             err => { 
                 this.setLoginError(err.status < 500 ? 'err_credentials' : 'err_server');
                 console.log(err);
+                this.spinner.stop();
             }
     );
 

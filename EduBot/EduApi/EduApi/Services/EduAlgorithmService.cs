@@ -87,14 +87,14 @@ namespace EduApi.Services {
             }
 
             var nTotal = _moduleRepository.All().Count();
-            var progress = 100 * nDone / nTotal;
+            var progress = nTotal == 0? 0 : 100 * nDone / nTotal;
 
 
             // obliczenie aktualnego wyniku = procentu prawidłowych odpowiedzi
             var questions = user.user_question;
             nTotal = questions.Count();
             var nCorrect = questions.Where(q => q.last_result == true).Count();
-            var correctAnswers = 100 * nCorrect / nTotal;
+            var correctAnswers = nTotal == 0 ? 0 : 100 * nCorrect / nTotal;
 
 
             return new GameScoreDTO() {

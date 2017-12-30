@@ -28,6 +28,9 @@ export class AppComponent implements OnInit, OnDestroy {
   @ViewChild(ModuleListComponent)
   moduleListComponent: ModuleListComponent;
 
+  sessionTimeout: number;
+  sessionTimeoutId: any;
+
 
   // CONSTRUCTOR
   // ==============================================================================================================
@@ -38,26 +41,46 @@ export class AppComponent implements OnInit, OnDestroy {
     private emoService: EmoService,
     private messageService: MessageService,
     private loginService: LoginService) {
-
+    this.initializeTimer();
     // start of the pic-taking loop
     // TODO odblokować po testach
     // this.emoService.start();
   }
 
-  @HostListener('document:mousemove.out-zone', [])
-  resetTimer(e: any) {
-      console.log("EVENT");
-  }
-
-  // --------------------------------------------------------------------------------------------------------------
   ngOnInit() {
     // TODO - usunąc (MOCK)
     // this.mockPausePix();
   }
 
+  initializeTimer() {
+    this.sessionTimeout = 300  * 1000; //300sec
+    if (this.sessionTimeout > 0)
+        this.startTimer();
+  }
+
+  startTimer() {
+      this.sessionTimeoutId = window.setTimeout(x => this.pausePix(), this.sessionTimeout);
+  }
+
+  clearTimer() {
+      if (this.sessionTimeoutId) {
+          window.clearTimeout(this.sessionTimeoutId);
+          this.sessionTimeoutId = null;
+      }
+  }
+
+  @HostListener('document:mousemove.out-zone', [])
+  resetTimer(e: any) {
+    if (this.sessionTimeoutId) {
+      this.clearTimer();
+      this.startTimer();
+    }
+  }
+
   // --------------------------------------------------------------------------------------------------------------
   ngOnDestroy() {
     this.emoService.stop();
+    this.clearTimer();
   }
 
 
@@ -66,11 +89,8 @@ export class AppComponent implements OnInit, OnDestroy {
   private mockSendPic() {
     this.emoService.mockSendPic();    
   }
-  // --------------------------------------------------------------------------------------------------------------
-  private mockPausePix() {
-    let that = this;
-    setInterval(function () { that.pausePix(); }, 15000);
-  }
+
+
   // --------------------------------------------------------------------------------------------------------------
   setEmoState(state: number) {
     if (state != undefined)
@@ -93,7 +113,7 @@ export class AppComponent implements OnInit, OnDestroy {
   // PRIVATE
   // ==============================================================================================================
   private pausePix() {
-
+    
     if (!this.emoService.alive)
       return;
 

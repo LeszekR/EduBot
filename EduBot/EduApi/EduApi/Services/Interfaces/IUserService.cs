@@ -17,7 +17,6 @@ namespace EduApi.Services.Interfaces {
         IList<UserDTO> GetUsers();
         int SaveUser(UserDTO user);
         bool DeleteUser(int id);
-        UserDTO Authenticate(string login, string password);
         void UpdateUserRole(UserDTO user);
     }
 }

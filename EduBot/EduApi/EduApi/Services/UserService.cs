@@ -63,10 +63,6 @@ namespace EduApi.Services {
             return _userRepository.All().Select(x => UserMappper.GetSimpleDTO(x)).ToList();
         }
 
-        // ---------------------------------------------------------------------------------------------
-        public UserDTO Authenticate(string login, string password) {
-            return _userRepository.Authenticate(login, password);
-        }
 
         // ---------------------------------------------------------------------------------------------
         public int SaveUser(UserDTO user) {

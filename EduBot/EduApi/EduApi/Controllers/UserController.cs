@@ -22,20 +22,6 @@ namespace EduApi.Controllers {
         }
         #endregion
 
-
-        // PUBLIC
-        // =============================================================================================
-        [Route(template: "auth")]
-        [HttpPost]
-        public IHttpActionResult Authenticate([FromBody]CredentialsDTO cred) {
-
-            UserDTO userLog = _userService.Authenticate(cred.Login, cred.Password);
-            if (userLog == null)
-                return StatusCode(HttpStatusCode.Unauthorized);
-
-            return Ok(userLog);
-        }
-
         // ---------------------------------------------------------------------------------------------
         [Route("")]
         [HttpGet]

@@ -59,6 +59,6 @@ export const LANG_PL_TRANS = {
     'learn.unfinished-test': 'Aby sprawdzić test musisz odpowiedzieć na wszystkie pytania.',
     'learn.test-before-next': 'Aby przejść dalej musisz dać odpowiedź na wszystkie pytania.',
     'learn.progres': 'Wyświetlone moduły',
-    'learn.correct-answers': 'Wynik testów:'
+    'learn.correct-answers': 'Wynik testów'
 
 };

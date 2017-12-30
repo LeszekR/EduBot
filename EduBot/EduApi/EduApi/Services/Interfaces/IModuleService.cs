@@ -26,7 +26,12 @@ namespace EduApi.Services.Interfaces {
         // ---------------------------------------------------------------------------------------------
         /* Pobiera z bazy moduły wcześniej już wysłane do danego użytkownika
          * i zwraca ich uproszczoną postać - tylko te elementy,
-         * które pobierane są w metodzie ModuleMapper.GetSimpleDTO(). */
+         * które pobierane są w metodzie ModuleMapper.GetSimpleDTO(). 
+         * Dołącza informację o tym, czy użytkownik zaliczył: 
+         * - pytania, 
+         * - kod
+         * do każdego modułu (to pozwala je pokolorować na liście we froncie).
+         */
         List<ModuleDTO> GetSimpleModules(int userId);
 
         // ---------------------------------------------------------------------------------------------

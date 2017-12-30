@@ -7,12 +7,13 @@ import { EmoService } from './services/emo.service';
 import { MessageService } from './shared/components/message/message.service';
 import { ModuleListComponent } from './views/module-list-view/module-list.component'
 
-
-// MOCK *******************************************
-import { HttpService } from './services/http.service';
 import { LoginService } from './services/login.service';
 import { GameScore } from './models/game-score';
 import { EduService } from './services/edu.service';
+
+
+// MOCK *******************************************
+import { HttpService } from './services/http.service';
 // *******************************************
 
 
@@ -46,6 +47,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private eduService: EduService) {
 
     this.initializeTimer();
+
     // start of the pic-taking loop
     // TODO odblokować po testach
     // this.emoService.start();
@@ -70,8 +72,6 @@ export class AppComponent implements OnInit, OnDestroy {
   private mockSendPic() {
     this.emoService.mockSendPic();
   }
-
-
   // --------------------------------------------------------------------------------------------------------------
   setEmoState(state: number) {
     if (state != undefined)
@@ -87,7 +87,6 @@ export class AppComponent implements OnInit, OnDestroy {
   // PUBLIC
   // ==============================================================================================================
  showGameScore() {
-    // TODO - wyświetlić porządnie aktualne wyniki na górnym pasku
     this.eduService.getScore()
       .subscribe(score => this.context.gameScore = score);
   }
@@ -147,10 +146,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   // --------------------------------------------------------------------------------------------------------------
   toggleEditMode() {
-    // if (this.context.isEditMode)
-    // this.moduleService.CreateModuleSequence();
     this.context.isEditMode = !this.context.isEditMode;
     this.moduleListComponent.getModules();
   }
-
 }

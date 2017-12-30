@@ -1,41 +1,75 @@
+
+<!-- HEADER -->
+<!-- ........................................................................................... -->
+<!-- <nav class="navbar navbar-default navbar-static-top d-flex pl-1 pr-2 pt-0"> -->
+
 <spinner-component></spinner-component>
-<nav class="navbar navbar-default navbar-static-top d-flex">
+<nav class="navbar navbar-default navbar-static-top d-flex align-items-center">
 
-    <div class="pos-absolute-right">
-        <a *ngIf="!context.userRole" class="nvbar-link pr-2" title="{{ 'toolbar.log_in' | translate }}" (click)="openLoginWindow()" >
-            <i class="fa fa-sign-in fa-2x" ></i>
-        </a>
-        <a *ngIf="context.userRole" class="nvbar-link pr-2" title="{{ 'toolbar.log_out' | translate }}" (click)="loginService.logout()" >
-            <i class="fa fa-sign-out fa-2x" ></i>
-        </a>
-    </div>
+    <div class="container.fluid d-flex flex-row w-100 p-0 m-0">
 
-    <div class="container d-flex">
-        <a class="navbar-brand primary-color" routerLink="/">
+        <!-- POLITECHNIKA GDAŃSKA -->
+        <a class="navbar-brand primary-color pull-left pl-0 ml-0" routerLink="/">
             <img src="/assets/img/logo-pg.png" class="nav-img">
-            <span style="margin-left: 50px">Edugame</span>
+            <span style="margin-left: 65px">Edugame</span>
         </a>
-        <div *ngIf="context.userRole == 1 || context.userRole == 2" class="d-flex align-items-center justify-content-center ml-auto">
-            <button class="btn btn-primary btn-xs" (click)="toggleEditMode()">
+
+
+        
+        <!-- EDIT mode buttons -->
+        <div *ngIf="context.userRole == 1 || context.userRole == 2" 
+             class="ml-auto d-flex justify-content-center align-items-center">
+            
+             <button class="btn btn-primary btn-xs" (click)="toggleEditMode()">
                 {{ context.isEditMode ? ('edit.exit_edit_mode' | translate) : ('edit.enter_edit_mode' | translate) }}
             </button>
-
-            <!-- MOCK -->
             <button class="btn btn-primary btn-xs ml-4" (click)="setEmoState(-1)">Nuda</button>
             <button class="btn btn-primary btn-xs ml-1" (click)="setEmoState(0)">Ok</button>
             <button class="btn btn-primary btn-xs ml-1" (click)="setEmoState(1)">Frustra</button>
-            <button class="btn btn-primary btn-xs ml-4" (click)="setEmoState(2)">Czyść moduły, pytania, dystrakt.</button>
+            <button class="btn btn-primary btn-xs ml-4" (click)="setEmoState(2)">Czyść historie</button>
             <button class="btn btn-primary btn-xs ml-1" (click)="mockSendPic()">Ślij zdjęcie</button>
-            
         </div>
-        <div class="ml-auto">
-            <progress-comp *ngIf="context.userRole" ></progress-comp>
+
+
+        <!-- GAME PROGRESS -->
+        <div *ngIf="context.userRole==0" class="ml-auto">
+            <progress-comp *ngIf="context.userRole" [gameScore]="context.gameScore"></progress-comp>
         </div>
+
+
+        <!-- LANGUAGE CHOOSERS -->
+        <div class="container">
+            <div>
+                <a *ngIf="context.userRole == 1" routerLink="/user-management" class="navbar-link pr-2" routerLinkActive="active" title="{{ 'toolbar.manage_users' | translate }}">
+                    <i class="fa fa-user-circle-o fa-2x i-mid"></i>
+                </a>
+            </div>
+            <div class="ml-auto pull-right">
+                <select-language></select-language>
+            </div>
+        </div>
+
+
+        <!-- LOG IN -->
+        <!-- <div class="pos-absolute-right w-10 p-0"> -->
+        <div class="pull-right w-10 p-0 ml-2">
+            <a *ngIf="!context.userRole" class="nvbar-link pr-2" title="{{ 'toolbar.log_in' | translate }}" (click)="openLoginWindow()">
+                <i class="fa fa-sign-in fa-2x"></i>
+            </a>
+            <a *ngIf="context.userRole" class="nvbar-link pr-2" title="{{ 'toolbar.log_out' | translate }}" (click)="loginService.logout()">
+                <i class="fa fa-sign-out fa-2x"></i>
+            </a>
+        </div>
+
     </div>
 </nav>
 
+
+
+<!-- BODY - module list and module view -->
+<!-- ........................................................................................... -->
 <div class="container-fluid main-container d-flex p-0 m-0">
-    <div id="module-list-view" class=" col-3 h-100  m-0 p-0 pt-3">
+    <div id="module-list-view" class=" col-3 h-100  m-0 p-0 pt-1">
         <module-list-view *ngIf="context.userRole"></module-list-view>
     </div>
 
@@ -45,9 +79,13 @@
     </div>
 </div>
 
-<footer class="footer">
+
+
+<!-- FOOTER -->
+<!-- ........................................................................................... -->
+<!-- <footer class="footer">
     <div class="container-fluid d-flex">
-        <div >
+        <div>
             <a *ngIf="context.userRole == 1" routerLink="/user-management" class="navbar-link pr-2" routerLinkActive="active" title="{{ 'toolbar.manage_users' | translate }}">
                 <i class="fa fa-user-circle-o fa-2x i-mid"></i>
             </a>
@@ -56,8 +94,13 @@
             <select-language></select-language>
         </div>
     </div>
-</footer>
+</footer> -->
 
+
+
+<!-- ........................................................................................... -->
+<!-- LOGIN WINDOW -->
+<!-- ........................................................................................... -->
 <div class="modal fade" bsModal #loginModal="bs-modal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -69,7 +112,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <login (onClose)="loginModal.hide()" ></login>
+                <login (onClose)="loginModal.hide()"></login>
             </div>
         </div>
     </div>

@@ -1,90 +1,65 @@
-<div class="list-group h-100 mt-2 mt-md-0 pb-md-5 pl-md-2" style="width: inherit;">
+<div class="list-group h-100 mt-1 mr-1 mt-md-0 pb-md-1 pl-md-1" style="width: inherit;">
 
-    <div *ngIf="context.isEditMode" class="pb-2 pl-2 d-flex justify-content-center" role="group">
-        <div class="col-3 mr-2">
-            <button type="button" class="btn btn-success" (click)="addModule()"
-                *ngIf="!anyModulesSelected">
+
+    <!-- kontrolki w trybie: EDYCJA -->
+    <!-- ........................................................................................... -->
+    <div *ngIf="context.isEditMode" class="pb-2 pl-0 d-flex" role="group">
+        <div class="col-3 mr-1 p-0">
+            <button type="button" class="col-12 btn btn-success" (click)="addModule()" *ngIf="!anyModulesSelected">
                 {{ 'common.add' | translate }}
             </button>
         </div>
-        <div class="col-3 mr-2">
-            <button type="button" class="btn btn-danger" (click)="deleteModuleConfirm()" 
-                *ngIf="!anyModulesSelected">
+        <div class="col-3 mr-1 p-0">
+            <button type="button" class="col-12 btn btn-danger" (click)="deleteModuleConfirm()" *ngIf="!anyModulesSelected">
                 {{ 'common.delete' | translate }}
             </button>
         </div>
-        <div class="col-3">
-            <button type="button" class="btn btn-success" (click)="addMetaModule()" 
-                *ngIf="anyModulesSelected">
+        <div class="col-6 m-0 p-0">
+            <button type="button" class="col-12 btn btn-success" (click)="addMetaModule()" *ngIf="anyModulesSelected">
                 {{ 'edit.add_meta_module' | translate }}
             </button>
         </div>
     </div>
 
 
-    <div class="mt-1 pb-2 pl-2 d-flex justify-content-center" role="group">
-        <button type="button" class="col-3 btn btn-danger mr-1" (click)="prevModule()">
-            {{ 'learn.prev_module' | translate }}
-        </button>
-        <button type="button" class="col-3 btn btn-success mr-1" (click)="nextModule()">
-            {{ 'learn.next_module' | translate }}
-        </button>
-        <div class="col-6 m-0">
-            <button type="button" *ngIf="explanationExists()" class="btn btn-primary" (click)="explain()">
-                {{ 'learn.explain' | translate }}
-            </button>
-        </div>
-    </div>
-
+    <!-- lista modułów w trybie: EDYCJA -->
+    <!-- ........................................................................................... -->
     <div *ngIf="context.isEditMode" class="of-auto">
         <ng-template ngFor let-module [ngForOf]="modules">
-            
-            <div class="d-flex" 
-                [class.justify-content-end]="module.difficulty=='easy'" 
-                [class.justify-content-center]="module.difficulty=='medium'"
+
+            <div class="d-flex" [class.justify-content-end]="module.difficulty=='easy'" [class.justify-content-center]="module.difficulty=='medium'"
                 [class.justify-content-start]="module.difficulty=='hard'">
-                
-                <a 
-                    class="btn-menu list-group-item p-0 col-10"
-                    [class.lvl-easy]="module.difficulty=='easy'" 
-                    [class.lvl-medium]="module.difficulty=='medium'" 
-                    [class.lvl-hard]="module.difficulty=='hard'"
-                    [routerLink]="['module/', module.id]" 
-                    routerLinkActive="active"
-                    (click)="selectedModuleId=module.id" 
-                    >
-                    
+
+                <a class="btn-menu list-group-item p-0 col-10" [class.lvl-easy]="module.difficulty=='easy'" [class.lvl-medium]="module.difficulty=='medium'"
+                    [class.lvl-hard]="module.difficulty=='hard'" [routerLink]="['module/', module.id]" routerLinkActive="active"
+                    (click)="selectedModuleId=module.id">
+
                     <div class="pl-2 p-3">
                         <div class="ml-3">
                             <span class="w-100">{{ module.title }}</span>
                         </div>
                     </div>
-                    
-                    <div class="ml-auto pr-1" 
-                        (click)="selectModule(module);$event.stopPropagation();$event.preventDefault();"
-                        *ngIf="context.isEditMode && module.difficulty!='hard' && !module.group_id">
-                        <div [ngClass]="module.isSelected ? 'fa fa-check-square-o' : 'fa fa-square-o'" ></div>
+
+                    <div class="ml-auto pr-1" (click)="selectModule(module);$event.stopPropagation();$event.preventDefault();" *ngIf="context.isEditMode && module.difficulty!='hard' && !module.group_id">
+                        <div [ngClass]="module.isSelected ? 'fa fa-check-square-o' : 'fa fa-square-o'"></div>
                     </div>
                 </a>
             </div>
         </ng-template>
     </div>
 
+
+
+    <!-- lista modułów w trybie: NAUKA -->
+    <!-- ........................................................................................... -->
     <div *ngIf="!context.isEditMode" class="of-auto">
         <ng-template ngFor let-module [ngForOf]="modules">
-            
-            <div class="d-flex" 
-                [class.justify-content-end]="module.difficulty=='easy'" 
-                [class.justify-content-center]="module.difficulty=='medium'"
+
+            <div class="d-flex" [class.justify-content-end]="module.difficulty=='easy'" [class.justify-content-center]="module.difficulty=='medium'"
                 [class.justify-content-start]="module.difficulty=='hard'">
-                
-                <a 
-                    class="btn-menu list-group-item p-0 col-10"
-                    [routerLink]="['module/', module.id]" 
-                    routerLinkActive="active"
-                    (click)="selectedModuleId=module.id" 
-                    >
-                    
+
+                <a class="btn-menu list-group-item p-0 col-10" [routerLink]="['module/', module.id]" routerLinkActive="active" (click)="selectedModuleId=module.id">
+
                     <div class="pl-2 p-3">
                         <div class="ml-3">
                             <span class="w-100">{{ module.title }}</span>
@@ -95,8 +70,3 @@
         </ng-template>
     </div>
 </div>
-
-<!-- <div class="align-items-center d-inline-flex fa-div" (click)="nextModule()" >
-        <i class="fa fa-plus fa-2x m-1" aria-hidden="true" ></i>
-        <span style="font-size: 1rem" > {{ 'learn.next_module' | translate }} </span>
-    </div> -->

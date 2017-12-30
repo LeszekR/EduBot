@@ -207,6 +207,7 @@
     <Compile Include="Dto\Mappers\UserMapper.cs" />
     <Compile Include="Dto\ModuleAndDistractorDTO.cs" />
     <Compile Include="Dto\TestCodeDTO.cs" />
+    <Compile Include="Dto\GameScoreDTO.cs" />
     <Compile Include="Dto\TestQuestionAnswDTO.cs" />
     <Compile Include="Dto\UserQuestionDTO.cs" />
     <Compile Include="Dto\TestQuestionDTO.cs" />

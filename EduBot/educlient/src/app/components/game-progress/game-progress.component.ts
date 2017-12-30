@@ -1,5 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { GameScore } from '../../models/game-score';
 
+
+// ==================================================================================================================
 @Component({
   selector: 'progress-comp',
   templateUrl: './game-progress.component.html',
@@ -7,10 +10,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 })
 export class GameProgressComponent implements OnInit {
 
+  @Input() gameScore: GameScore;
+
+
+  // CONSTRUCTOR
+  // ==============================================================================================================
   constructor(){}
 
-  ngOnInit(){
-   
+  // --------------------------------------------------------------------------------------------------------------
+  ngOnInit(){  
   }
-
 }

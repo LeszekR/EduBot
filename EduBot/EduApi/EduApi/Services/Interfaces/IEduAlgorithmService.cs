@@ -9,6 +9,15 @@ namespace EduApi.Services.Interfaces {
     public interface IEduAlgorithmService {
 
         // ---------------------------------------------------------------------------------------------
+        /* Oblicza i wysyła:
+         * 1. progres = procent modułów wyświetlonych do tej pory
+         * 2. correctAnswers = procent prawidłowych wśród wszystkich udzielonych odpowiedzi
+         *    (na podstawie ostatniej odp. do każdego pytania, na które użytkownik już odpowiedział;
+         *    pomija pytania, których na razie nie otrzymał.)
+         */
+        GameScoreDTO GetScore(int userId);
+
+        // ---------------------------------------------------------------------------------------------
         /* 1. Interpretuje ostatnie emostany - na tej podst. ustala aktualny stan ucznia
          * 2. Określa czy emostan wymaga dystraktora
          * 3. Jesli tak - sprawdza kiedy wysłano ostatni dystraktor

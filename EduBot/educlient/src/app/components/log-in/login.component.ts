@@ -9,8 +9,6 @@ import { Role } from '../../models/enum-user-role';
 import { ContextService } from '../../services/context.service';
 import { SpinnerService } from '../../shared/components/spinner/spinner.service';
 
-// import { St}  import żeby mieć dostęp do local storage
-// jesli caisteczka - też tu trzeba import
 
 
 /**
@@ -83,12 +81,10 @@ export class LoginComponent {
      * Tries to log in the user.
      */
     logIn(): void {
-        // let loginResult = this.loginService.login(this.fieldLogin.text, this.fieldPassw.text);
-        // this.loggedIn = loginResult == 'ok' ? true : false;
-        // this.errCredentials = this.loggedIn ? '' : LangDictionaryService.text(loginResult);
         this.spinner.start();
+
         this.loginService.login(this.fieldLogin.text, this.fieldPassw.text)
-            .subscribe( res => {
+            .subscribe(res => {
                 let token = res.json().access_token;
                 sessionStorage.setItem('access_token', token);
                 let decoded = new JwtHelper().decodeToken(token);
@@ -97,14 +93,12 @@ export class LoginComponent {
                 this.spinner.stop();
                 this.onClose.emit();
             },
-            err => { 
+            err => {
                 this.setLoginError(err.status < 500 ? 'err_credentials' : 'err_server');
                 console.log(err);
                 this.spinner.stop();
             }
-    );
-
-        // console.log('Logowanie ok?: ', this.loggedIn);
+            );
     }
 
     // --------------------------------------------------------------------------------------------------------------

@@ -39,7 +39,9 @@ export class ModuleListComponent implements OnInit {
         private messageService: MessageService,
         private router: Router,
         private route: ActivatedRoute
-    ) { }
+    ) {
+        this.context.moduleList = this;
+    }
 
     // --------------------------------------------------------------------------------------------------------------
     ngOnInit() {
@@ -50,30 +52,6 @@ export class ModuleListComponent implements OnInit {
                 this.modules[index] = m;
             });
     }
-
-
-    // MOCK
-    // ==============================================================================================================
-    // // TODO: usunąc po testach
-    // private mockAddMetaModule(): void {
-
-    //     let group: Module[] = [];
-
-    //     let moduleIds: number[] = [47, 39];
-
-    //     let modules = this.modules;
-    //     let modServ: ModuleService = this.moduleService;
-    //     var callback = function (moduleGroup: Module[]) {
-    //         modServ.saveMetaModule(moduleGroup).subscribe(res => modules.push(res));
-    //     }
-
-    //     for (var i in moduleIds)
-    //         this.moduleService.getModuleById(moduleIds[i]).subscribe(m => {
-    //             group[group.length] = m;
-    //             if (group.length == moduleIds.length)
-    //                 callback(group);
-    //         });
-    // }
 
 
     // PUBLIC
@@ -96,17 +74,66 @@ export class ModuleListComponent implements OnInit {
     }
 
     // --------------------------------------------------------------------------------------------------------------
+    prevModule() {
+
+        // jeśli jeszcze nie zaznaczono żadnego modułu to serwer otrzymawszy currModuleId = -1
+        // zareaguje tak samo jak na żądanie nowego modułu - kolejnego, który jeszcze nie był oglądany
+        let currModuleId = this.context.currentModule.id;
+        if (currModuleId == undefined) currModuleId = -1;
+
+        this.eduService.prevModule(currModuleId)
+            .subscribe(moduleDistr => {
+                if (moduleDistr != undefined && moduleDistr != null)
+                    this.showDistractorAndModule(moduleDistr);
+            });
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
+    nextModule() {
+
+        let currModule = this.context.currentModule;
+
+        // blokada następnego modułu dopóki użytkownik nie odpowie na wszystkie pytania testu
+        if (currModule != undefined)
+            if (!this.context.moduleViewComponent.hasAllAnswers('learn.test-before-next'))
+                return;
+
+
+        // jeśli jeszcze nie zaznaczono żadnego modułu to serwer otrzymawszy currModuleId = -1
+        // zareaguje tak samo jak na żądanie nowego modułu - kolejnego, który jeszcze nie był oglądany
+        let currModuleId = currModule == undefined ? -1 : currModule.id;
+
+
+        this.eduService.nextModule(currModuleId)
+            .subscribe(moduleDistr => {
+                if (moduleDistr != undefined && moduleDistr != null) {
+
+                    let newModule = moduleDistr.module;
+                    if (this.modules != undefined && newModule != null && newModule != undefined) {
+                        if (this.modules.filter(m => { return m.id == newModule.id; }).length == 0)
+                            this.modules[this.modules.length] = moduleDistr.module;
+                    }
+
+                    this.showDistractorAndModule(moduleDistr);
+                    this.showGameScore();
+                }
+            });
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
     getModules() {
         if (this.context.isEditMode)
             this.moduleService.getSimpleModules()
                 .subscribe(newModules => {
                     this.setNewModules(newModules);
                 });
-        else
+        else {
             this.moduleService.getSimpleModulesOfUser()
                 .subscribe(newModules => {
                     this.setNewModules(newModules);
                 });
+            this.showGameScore();
+        }
     }
 
     // --------------------------------------------------------------------------------------------------------------
@@ -115,6 +142,7 @@ export class ModuleListComponent implements OnInit {
         this.context.isEditMode = false;
         this.getModules();
         this.router.navigate(['']);
+        this.showGameScore();
     }
 
     // --------------------------------------------------------------------------------------------------------------
@@ -129,6 +157,11 @@ export class ModuleListComponent implements OnInit {
 
     // PRIVATE
     // ==============================================================================================================
+    private showGameScore() {
+        this.context.appComponent.showGameScore();
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
     private setNewModules(newModules: Module[]) {
         this.modules = newModules;
         this.modules.forEach(m => m.isSelected = false);
@@ -161,60 +194,6 @@ export class ModuleListComponent implements OnInit {
 
         this.modules = newMod;
         return newModules[0].id;
-    }
-
-    // --------------------------------------------------------------------------------------------------------------
-    private explanationExists(): boolean {
-        let currentModule = this.context.currentModule;
-        if (currentModule == null)
-            return false;
-        return currentModule.difficulty != 'easy';
-    }
-
-    // --------------------------------------------------------------------------------------------------------------
-    private prevModule() {
-
-        // jeśli jeszcze nie zaznaczono żadnego modułu to serwer otrzymawszy currModuleId = -1
-        // zareaguje tak samo jak na żądanie nowego modułu - kolejnego, który jeszcze nie był oglądany
-        let currModuleId = this.context.currentModule.id;
-        if (currModuleId == undefined) currModuleId = -1;
-
-        this.eduService.prevModule(currModuleId)
-            .subscribe(moduleDistr => {
-                if (moduleDistr != undefined && moduleDistr != null)
-                    this.showDistractorAndModule(moduleDistr);
-            });
-    }
-
-    // --------------------------------------------------------------------------------------------------------------
-    private nextModule() {
-
-        let currModule = this.context.currentModule;
-
-        // blokada następnego modułu dopóki użytkownik nie odpowie na wszystkie pytania testu
-        if (currModule != undefined)
-            if (!this.context.moduleViewComponent.hasAllAnswers('learn.test-before-next'))
-                return;
-
-
-        // jeśli jeszcze nie zaznaczono żadnego modułu to serwer otrzymawszy currModuleId = -1
-        // zareaguje tak samo jak na żądanie nowego modułu - kolejnego, który jeszcze nie był oglądany
-        let currModuleId = currModule == undefined ? -1 : currModule.id;
-
-
-        this.eduService.nextModule(currModuleId)
-            .subscribe(moduleDistr => {
-                if (moduleDistr != undefined && moduleDistr != null) {
-
-                    let newModule = moduleDistr.module;
-                    if (this.modules != undefined && newModule != null && newModule != undefined) {
-                        if (this.modules.filter(m => { return m.id == newModule.id; }).length == 0)
-                            this.modules[this.modules.length] = moduleDistr.module;
-                    }
-
-                    this.showDistractorAndModule(moduleDistr);
-                }
-            });
     }
 
     // --------------------------------------------------------------------------------------------------------------

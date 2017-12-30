@@ -63,12 +63,7 @@ export class ModuleViewComponent implements OnInit {
       this.module = data.module;
       this.context.currentModule = data.module;
       this.context.moduleViewComponent = this;
-
       this.questions = this.questionService.UnpackClosedQuestions(this.module.test_question);
-
-      // TODO: mock, usunąć ***************************
-      // if (this.questions.length == 0) this.questions = new MockData().mockQuestions;
-      // **********************************************
       this.viewType = this.CONTENT_VIEW;
     });
   }
@@ -77,7 +72,8 @@ export class ModuleViewComponent implements OnInit {
   // PUBLIC
   // ==============================================================================================================
   verifyClosedTest() {
-    this.questions.forEach( q => q.status = QuestionStatus.None);
+    this.questions.forEach(q => q.status = QuestionStatus.None);
+
     // check if all answers have been given
     if (!this.hasAllAnswers('learn.unfinished-test'))
       return;
@@ -94,11 +90,16 @@ export class ModuleViewComponent implements OnInit {
 
     this.questionService.verifyClosedTest(answers)
       .subscribe(res => {
+
+        // slow show of the results
         let multiplier = 1;
         res.forEach(result => {
           let question = this.questions.find(q => q.id == result.question_id);
           setTimeout(() => { question.status = result.answer_id == 0 ? QuestionStatus.Incorrect : QuestionStatus.Correct; }, 1000 * multiplier++);
         })
+
+        // showing the updated game score
+        this.context.appComponent.showGameScore();
       });
   }
 
@@ -117,11 +118,6 @@ export class ModuleViewComponent implements OnInit {
   }
 
   // --------------------------------------------------------------------------------------------------------------
-  cancel() {
-
-  }
-
-  // --------------------------------------------------------------------------------------------------------------
   hasAllAnswers(msg: string): boolean {
 
     for (var i in this.questions)
@@ -132,5 +128,15 @@ export class ModuleViewComponent implements OnInit {
         return false;
       }
     return true;
+  }
+
+
+  // PRIVATE
+  // ==============================================================================================================
+  private explanationExists(): boolean {
+    let currentModule = this.context.currentModule;
+    if (currentModule == null)
+      return false;
+    return currentModule.difficulty != 'easy';
   }
 }

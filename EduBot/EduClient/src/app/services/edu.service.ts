@@ -6,9 +6,9 @@ import { HttpService } from './http.service';
 
 // Model
 import { Module } from '../models/module'
-// import { Distractor } from '../models/distractor'
 import { ModulDistracDTO } from '../models/module-and-distractor-DTO'
 import { Distractor } from '../models/distractor';
+import { GameScore } from '../models/game-score';
 import { dictionary } from '../languages/index';
 
 
@@ -26,6 +26,11 @@ export class EduService {
 
     // PUBLIC
     // ==============================================================================================================
+    getScore(): Observable<GameScore> {
+        return this.http.get<GameScore>(this.eduUrl + '/getscore');
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
     /* Shows distractor sent from server in reaction to unwanted emo-state of the student.
      * Before doing so picks appropriate moment, so as not to get in the way of whatever the 
      * student is actually dealing with.

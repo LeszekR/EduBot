@@ -57,5 +57,7 @@ export const LANG_EN_TRANS = {
     'learn.verify-test': 'Verify test',
     'learn.keep-working': 'Click "Ok" to continue',
     'learn.unfinished-test': 'You need to answer all questions in order to verify the test.',
-    'learn.test-before-next': 'You need to try and answer all questions in order to get next module.'
+    'learn.test-before-next': 'You need to try and answer all questions in order to get next module.',
+    'learn.progres': 'Modules shown',
+    'learn.correct-answers': 'Tests\' result:'
 };

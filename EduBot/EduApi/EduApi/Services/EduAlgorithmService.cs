@@ -50,6 +50,61 @@ namespace EduApi.Services {
 
         // PUBLIC
         // =============================================================================================
+        public GameScoreDTO GetScore(int userId) {
+
+            var user = _userService.GetUserEntity(userId);
+
+            // obliczenie aktualnego postępu = procentu przerobionych modułów
+            var userModulesAll = user.edumodule.ToList();
+            int nDone = 0;
+            List<edumodule> children;
+
+            foreach (var m in userModulesAll) {
+
+                // pobranie dzieci modułu
+                children = _moduleService.SelectChildren(m.id);
+
+                // jeżeli nie ma dzieci - dodajemy 1
+                if (children.Count() == 0) {
+                    nDone++;
+                    continue;
+                }
+
+                // jeżeli którekolwiek dziecko też jest na liście - pomijamy ten moduł
+                // a jeśli dzieci nie ma - dodajemy liczbę dzieci modułu, uwzględaniając
+                // ich dzieci - liczymy tylko moduły na poziomie 'easy'
+                if (children.FirstOrDefault(c => userModulesAll.Contains(c)) == null)
+                    foreach (var child in children)
+                        nDone += countEasiestChildren(child);
+
+                //childrenShownToo = false;
+                //foreach (var child in children)
+                //    if (userModulesAll.Contains(child)) {
+                //        childrenShownToo = true;
+                //        break;
+                //    }
+                //childrenShownToo = children.FirstOrDefault(c => userModulesAll.Contains(c)) == null;
+            }
+
+            var nTotal = _moduleRepository.All().Count();
+            var progress = 100 * nDone / nTotal;
+
+
+            // obliczenie aktualnego wyniku = procentu prawidłowych odpowiedzi
+            var questions = user.user_question;
+            nTotal = questions.Count();
+            var nCorrect = questions.Where(q => q.last_result == true).Count();
+            var correctAnswers = 100 * nCorrect / nTotal;
+
+
+            return new GameScoreDTO() {
+                progress = progress,
+                correctAnswers = correctAnswers
+            };
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
         public DistractorDTO KickTheStudent(int userId, List<Pad> lastEmoStates) {
 
 
@@ -139,7 +194,7 @@ namespace EduApi.Services {
 
                 // jeśli jeden negatywny stan występuje min 3 razy a drugi max 1 - 
                 // - ustaw najczęściej występujący negatywny
-                if ((nBored >= 3 && nFrust <=1)) {
+                if ((nBored >= 3 && nFrust <= 1)) {
                     emoStateNow = EmoState.BORED;
                     keepLooking = false;
                 }
@@ -464,6 +519,19 @@ namespace EduApi.Services {
             }
 
             return newModule;
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
+        private int countEasiestChildren(edumodule module) {
+            if (module.difficulty == "easy")
+                return 1;
+            else {
+                int n = 0;
+                foreach (var child in _moduleService.SelectChildren(module.id))
+                    n += countEasiestChildren(child);
+                return n;
+            }
         }
     }
 }

@@ -11,6 +11,8 @@ import { ModuleListComponent } from './views/module-list-view/module-list.compon
 // MOCK *******************************************
 import { HttpService } from './services/http.service';
 import { LoginService } from './services/login.service';
+import { GameScore } from './models/game-score';
+import { EduService } from './services/edu.service';
 // *******************************************
 
 
@@ -37,7 +39,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private moduleService: ModuleService,
     private emoService: EmoService,
     private messageService: MessageService,
-    private loginService: LoginService) {
+    private loginService: LoginService,
+    private eduService: EduService) {
 
     // start of the pic-taking loop
     // TODO odblokować po testach
@@ -46,11 +49,12 @@ export class AppComponent implements OnInit, OnDestroy {
 
   @HostListener('document:mousemove.out-zone', [])
   resetTimer(e: any) {
-      console.log("EVENT");
+    console.log("EVENT");
   }
 
   // --------------------------------------------------------------------------------------------------------------
   ngOnInit() {
+    this.context.appComponent = this;
     // TODO - usunąc (MOCK)
     // this.mockPausePix();
   }
@@ -64,7 +68,7 @@ export class AppComponent implements OnInit, OnDestroy {
   // MOCK
   // ==============================================================================================================
   private mockSendPic() {
-    this.emoService.mockSendPic();    
+    this.emoService.mockSendPic();
   }
   // --------------------------------------------------------------------------------------------------------------
   private mockPausePix() {
@@ -85,6 +89,13 @@ export class AppComponent implements OnInit, OnDestroy {
 
   // PUBLIC
   // ==============================================================================================================
+  showGameScore() {
+    // TODO - wyświetlić porządnie aktualne wyniki na górnym pasku
+    this.eduService.getScore()
+      .subscribe(score => this.context.gameScore = score);
+  }
+
+  // --------------------------------------------------------------------------------------------------------------
   openLoginWindow() {
     this.loginModal.show();
   }
@@ -111,7 +122,7 @@ export class AppComponent implements OnInit, OnDestroy {
   // --------------------------------------------------------------------------------------------------------------
   toggleEditMode() {
     // if (this.context.isEditMode)
-      // this.moduleService.CreateModuleSequence();
+    // this.moduleService.CreateModuleSequence();
     this.context.isEditMode = !this.context.isEditMode;
     this.moduleListComponent.getModules();
   }

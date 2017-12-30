@@ -21,6 +21,12 @@ namespace EduApi.Controllers {
 
         // PUBLIC
         // =============================================================================================
+        public IHttpActionResult GetScore() {
+            int userId = TokenHelper.GetUserId(User.Identity);
+            return Ok(_eduAlgorithmService.GetScore(userId));
+        }
+
+        // ---------------------------------------------------------------------------------------------
         [HttpGet]
         public IHttpActionResult ExplainModule(int id) {
             int userId = TokenHelper.GetUserId(User.Identity);

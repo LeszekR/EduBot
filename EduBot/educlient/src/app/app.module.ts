@@ -23,6 +23,7 @@ import { SelectLanguageComponent } from './components/select-language/select-lan
 import { MessageComponent } from './shared/components/message/message.component';
 import { QuestionViewComponent } from './views/module-view/quiz-view/question-view/question-view.component';
 import { Autofocus } from './shared/directives/autofocus.directive';
+import { SpinnerComponent } from './shared/components/spinner/spinner.component';
 
 //Services
 import { TestService } from './mock/test.service';
@@ -39,11 +40,12 @@ import { ContextService } from './services/context.service';
 import { TranslateService, TRANSLATION_PROVIDERS } from './languages';
 import { TranslatePipe } from './languages/translate.pipe';
 import { MessageService } from './shared/components/message/message.service';
+import { SpinnerService } from './shared/components/spinner/spinner.service';
+import { CustomEventManager } from './shared/components/costum-event-manager.service';
 
 //Modules
 import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
-import { CustomEventManager } from './shared/components/costum-event-manager.service';
 
 export function httpServiceFactory(backend: XHRBackend, options: RequestOptions, router: Router) {
   return new HttpService(backend, options, router);
@@ -69,6 +71,7 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     SelectLanguageComponent,
     MessageComponent,
     QuestionViewComponent,
+    SpinnerComponent
   ],
   imports: [
     SharedModule,
@@ -94,6 +97,7 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     ContextService,
     MessageService,
     TranslateService,
+    SpinnerService,
     TRANSLATION_PROVIDERS,
     {
       provide: HttpService,

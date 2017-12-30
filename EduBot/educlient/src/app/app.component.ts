@@ -30,6 +30,9 @@ export class AppComponent implements OnInit, OnDestroy {
   @ViewChild(ModuleListComponent)
   moduleListComponent: ModuleListComponent;
 
+  sessionTimeout: number;
+  sessionTimeoutId: any;
+
 
   // CONSTRUCTOR
   // ==============================================================================================================
@@ -42,14 +45,10 @@ export class AppComponent implements OnInit, OnDestroy {
     private loginService: LoginService,
     private eduService: EduService) {
 
+    this.initializeTimer();
     // start of the pic-taking loop
     // TODO odblokować po testach
     // this.emoService.start();
-  }
-
-  @HostListener('document:mousemove.out-zone', [])
-  resetTimer(e: any) {
-    console.log("EVENT");
   }
 
   // --------------------------------------------------------------------------------------------------------------
@@ -62,6 +61,7 @@ export class AppComponent implements OnInit, OnDestroy {
   // --------------------------------------------------------------------------------------------------------------
   ngOnDestroy() {
     this.emoService.stop();
+    this.clearTimer();
   }
 
 
@@ -70,11 +70,8 @@ export class AppComponent implements OnInit, OnDestroy {
   private mockSendPic() {
     this.emoService.mockSendPic();
   }
-  // --------------------------------------------------------------------------------------------------------------
-  private mockPausePix() {
-    let that = this;
-    setInterval(function () { that.pausePix(); }, 15000);
-  }
+
+
   // --------------------------------------------------------------------------------------------------------------
   setEmoState(state: number) {
     if (state != undefined)
@@ -89,7 +86,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   // PUBLIC
   // ==============================================================================================================
-  showGameScore() {
+ showGameScore() {
     // TODO - wyświetlić porządnie aktualne wyniki na górnym pasku
     this.eduService.getScore()
       .subscribe(score => this.context.gameScore = score);
@@ -103,7 +100,36 @@ export class AppComponent implements OnInit, OnDestroy {
 
   // PRIVATE
   // ==============================================================================================================
-  private pausePix() {
+  private initializeTimer() {
+    this.sessionTimeout = 300 * 1000; //300sec
+    if (this.sessionTimeout > 0)
+      this.startTimer();
+  }
+
+  // --------------------------------------------------------------------------------------------------------------
+  private startTimer() {
+    this.sessionTimeoutId = window.setTimeout(x => this.pausePix(), this.sessionTimeout);
+  }
+
+  // --------------------------------------------------------------------------------------------------------------
+  private clearTimer() {
+    if (this.sessionTimeoutId) {
+      window.clearTimeout(this.sessionTimeoutId);
+      this.sessionTimeoutId = null;
+    }
+  }
+
+  // --------------------------------------------------------------------------------------------------------------
+  @HostListener('document:mousemove.out-zone', [])
+  private resetTimer(e: any) {
+    if (this.sessionTimeoutId) {
+      this.clearTimer();
+      this.startTimer();
+    }
+  }
+
+  // --------------------------------------------------------------------------------------------------------------
+   private pausePix() {
 
     if (!this.emoService.alive)
       return;

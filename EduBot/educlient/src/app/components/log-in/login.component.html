@@ -1,27 +1,42 @@
-<div class="login_window pl-3 pt-3" *ngIf="!loggedIn">
-    <div *ngIf="action=='logging-in' || action=='passw-change'">
+<div class="pl-3 pt-3 container" *ngIf="!loggedIn">
+    <div *ngIf="action=='logging-in' || action=='passw-change'" >
         <formfield [field]='fieldLogin' class='formfield'></formfield>
         <formfield [field]='fieldPassw' class='formfield'></formfield>
         <div class='text-danger'>
             <p>{{ errCredentials | translate }}</p>
         </div>
     </div>
-    <div *ngIf="action=='register' || action=='passw-change'">
+    <div *ngIf="action=='register' || action=='passw-change'" >
         <formfield [field]='fieldNewLogin' class='formfield'></formfield>
         <formfield [field]='fieldNewPassw' class='formfield'></formfield>
         <formfield [field]='fieldRepPassw' class='formfield'></formfield>
         <div class="text-danger">
             <p>{{ errPasswChange | translate }}</p>
         </div>
-    </div>
-    <div class='login_menu'>
-        <div>
-            <button *ngIf="action!='logging-in'" (click)="setAction('logging-in')">{{ 'login.log_in' | translate }}</button>
-            <button *ngIf="action!='register'" (click)="setAction('register')">{{ 'login.register' | translate }}</button>
-            <button *ngIf="action!='passw-change'" (click)="setAction('passw-change')">{{ 'login.password_change' | translate }}</button>
+        <div class="form-group row">
+            <label class="col-4" tooltip="Wyrażam zgodę na wysyłanie mojej brzydkiej twarzy do internetu" >
+                <strong>
+                    Potwierdzam <br> regulamin &nbsp; <i class="fa fa-info-circle" ></i>
+                </strong>
+            </label>
+            <div class="col-1 d-flex align-items-center">
+                <div (click)="regulationsApproval=!regulationsApproval"
+                    [ngClass]="regulationsApproval ? 'fa fa-check-square-o' : 'fa fa-square-o checkbox-input'" >
+                </div>
+            </div>
         </div>
     </div>
-    <button (click)='submitLogin()'>{{ 'common.ok' | translate }}</button>
+    <div class="row mt-2" >
+        <div>
+            <a *ngIf="action!='logging-in'" class="ml-2" (click)="setAction('logging-in')">{{ 'login.log_in' | translate }}</a>
+            <a *ngIf="action!='register'" class="ml-2" (click)="setAction('register')">{{ 'login.register' | translate }}</a>
+            <span *ngIf="action!='passw-change'" class="v-hr"></span>
+            <a *ngIf="action!='passw-change'" class="ml-2" (click)="setAction('passw-change')">{{ 'login.password_change' | translate }}</a>
+        </div>
+    </div>
+    <div class="row" >
+        <button class="btn btn-primary ml-auto" (click)='submitLogin()'><strong>{{ 'common.ok' | translate }}</strong></button>
+    </div>
 </div>
 <div *ngIf="loggedIn">
     {{ 'login.success' | translate }}

@@ -33,6 +33,7 @@ export class LoginComponent {
     public loggedIn: boolean = false;
 
     private title: string;
+    private regulationsApproval: boolean = false;
 
     private fieldLogin = new FormField('login.login', '', true)
     private fieldPassw = new FormField('login.password', '', true)

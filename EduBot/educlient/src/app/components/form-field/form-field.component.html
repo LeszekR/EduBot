@@ -1,10 +1,11 @@
-<div class="formfield">
-    <label>
-        {{ field.label | translate }}
-        <input 
+<div class="form-group row">
+    <label class="col-4 col-form-label"><strong>{{ field.label | translate }}</strong></label>
+    <div class="col-7">
+        <input
+            class="form-control"
             type="text" 
             [(ngModel)]="field.text"
             [required]="field.required" 
         />
-    </label>
+    </div>
 </div>

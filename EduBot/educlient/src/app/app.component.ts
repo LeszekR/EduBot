@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, HostListener } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
 import { ContextService } from './services/context.service';
@@ -42,6 +42,11 @@ export class AppComponent implements OnInit, OnDestroy {
     // start of the pic-taking loop
     // TODO odblokować po testach
     // this.emoService.start();
+  }
+
+  @HostListener('document:mousemove.out-zone', [])
+  resetTimer(e: any) {
+      console.log("EVENT");
   }
 
   // --------------------------------------------------------------------------------------------------------------
@@ -110,4 +115,5 @@ export class AppComponent implements OnInit, OnDestroy {
     this.context.isEditMode = !this.context.isEditMode;
     this.moduleListComponent.getModules();
   }
+
 }

@@ -5,7 +5,7 @@
 }
 
 .list-group-item.active {
-    background-color: #017EB5 !important;
+    background-color: #017EB5;
     color: #FFF;
 }
 

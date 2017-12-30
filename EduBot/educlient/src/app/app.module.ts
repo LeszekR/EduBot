@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, EventManager } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { FormsModule } from "@angular/forms";
 import { HttpModule, RequestOptions, RequestMethod, XHRBackend } from '@angular/http';
@@ -43,6 +43,7 @@ import { MessageService } from './shared/components/message/message.service';
 //Modules
 import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
+import { CustomEventManager } from './shared/components/costum-event-manager.service';
 
 export function httpServiceFactory(backend: XHRBackend, options: RequestOptions, router: Router) {
   return new HttpService(backend, options, router);
@@ -99,7 +100,8 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
       useFactory: httpServiceFactory,
       deps: [XHRBackend, RequestOptions, Router]
     },
-    { provide: LOCALE_ID, useValue: navigator.language }
+    { provide: LOCALE_ID, useValue: navigator.language },
+    { provide: EventManager, useClass: CustomEventManager }
   ],
   bootstrap: [AppComponent]
 })

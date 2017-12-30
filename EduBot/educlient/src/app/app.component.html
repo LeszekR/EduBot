@@ -4,9 +4,7 @@
 <!-- <nav class="navbar navbar-default navbar-static-top d-flex pl-1 pr-2 pt-0"> -->
 
 <spinner-component></spinner-component>
-<nav class="navbar navbar-default navbar-static-top d-flex">
-
-
+<nav class="navbar navbar-default navbar-static-top d-flex align-items-center">
 
     <div class="container.fluid d-flex flex-row w-100 p-0 m-0">
 
@@ -17,9 +15,12 @@
         </a>
 
 
+        
         <!-- EDIT mode buttons -->
-        <div *ngIf="context.userRole == 1 || context.userRole == 2" class="d-flex align-items-center justify-content-center ml-auto">
-            <button class="btn btn-primary btn-xs" (click)="toggleEditMode()">
+        <div *ngIf="context.userRole == 1 || context.userRole == 2" 
+             class="ml-auto d-flex justify-content-center align-items-center">
+            
+             <button class="btn btn-primary btn-xs" (click)="toggleEditMode()">
                 {{ context.isEditMode ? ('edit.exit_edit_mode' | translate) : ('edit.enter_edit_mode' | translate) }}
             </button>
             <button class="btn btn-primary btn-xs ml-4" (click)="setEmoState(-1)">Nuda</button>

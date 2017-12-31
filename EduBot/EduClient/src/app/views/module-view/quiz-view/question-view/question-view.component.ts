@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { ClosedQuestion, TestResult } from '../../../../models/quiz-model/closed-question'
+import { ClosedQuestion } from '../../../../models/quiz-model/closed-question'
+import { TestResult } from '../../../../models/quiz-model/enum-test-result'
 import { MessageService } from '../../../../shared/components/message/message.service';
 import { ContextService } from '../../../../services/context.service'
 
@@ -82,5 +83,3 @@ export class QuestionViewComponent implements OnInit {
     return "";
   }
 }
-
-

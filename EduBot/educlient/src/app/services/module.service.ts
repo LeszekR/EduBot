@@ -18,7 +18,7 @@ export class ModuleService {
     moduleAdded = new EventEmitter<Module>();
     editedModuleId: number;
 
-    modules: Module[] = [];
+    // modules: Module[] = [];
 
 
     // CONSTRUCTOR

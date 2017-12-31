@@ -1,10 +1,7 @@
 //Models
-import { TestType } from './quiz-model/enum-test-type';
 import { DiffLevel } from './enum-diff-level';
-
-import { QuizTaskDTO } from './quiz-model/test-task-DTO';
-import { CodeTask } from '../services/code-task';
-import { ClosedQuestion } from './quiz-model/closed-question';
+import { ClosedQuestionDTO } from './quiz-model/closed-question';
+import { CodeTaskDTO } from './quiz-model/code-task';
 
 
 // ==================================================================================================================
@@ -17,11 +14,11 @@ export class Module {
     title: string;
     content: string;
     example: string;
-    test_question: ClosedQuestion[];
-    test_code: CodeTask[];
+    test_questions_DTO: ClosedQuestionDTO[];
+    test_codes_DTO: CodeTaskDTO[];
 
     solvedQuestions: boolean;
-    solvedCode: boolean;
+    solvedCodes: boolean;
     
     isSelected: boolean;
 

@@ -5,14 +5,11 @@ import { Observable } from 'rxjs/Observable';
 import { HttpService } from './http.service';
 
 // Model
-import { ClosedQuestion } from '../models/quiz-model/closed-question';
-import { QuizTaskDTO } from '../models/quiz-model/test-task-DTO';
-import { TestTaskAnswDTO } from '../models/quiz-model/test-task-answ-DTO';
+import { ClosedQuestion, ClosedQuestionDTO, ClosedQuestionAnswDTO } from '../models/quiz-model/closed-question';
+import { CodeTask, CodeTaskDTO } from '../models/quiz-model/code-task';
 
 // Components
 import { QuizViewComponent } from '../views/module-view/quiz-view/quiz-view.component';
-import { TestType } from '../models/quiz-model/enum-test-type';
-import { CodeTask } from '../models/quiz-model/code-task';
 
 
 // ==================================================================================================================
@@ -29,100 +26,122 @@ export class TestTaskService {
 
     // PUBLIC
     // ==============================================================================================================
-    verifyClosedTest(answers: TestTaskAnswDTO[]): Observable<TestTaskAnswDTO[]> {
-        return this.http.post<TestTaskAnswDTO[]>(
+    verifyClosedTest(answers: ClosedQuestionAnswDTO[]): Observable<ClosedQuestionAnswDTO[]> {
+        return this.http.post<ClosedQuestionAnswDTO[]>(
             this.moduleUrl + '/verifyclosedtest', answers);
     }
 
     // --------------------------------------------------------------------------------------------------------------
-    public StringifyQuizTasks(testTasks: any[], moduleId: number, type: TestType)
-        : QuizTaskDTO[] {
+    public StringifyClosedQuestions(questions: ClosedQuestion[], moduleId: number): ClosedQuestionDTO[] {
 
-        if (testTasks == undefined)
+        if (questions == undefined)
             return null;
-        if (testTasks.length == 0)
+        if (questions.length == 0)
             return null;
 
 
-        let testTaskArr: QuizTaskDTO[] = [];
+        let questionArr: ClosedQuestionDTO[] = [];
+        let qDTO: ClosedQuestionDTO;
         let q: ClosedQuestion;
-        let c: CodeTask;
-        let qDTO: QuizTaskDTO;
         let answersStr: string;
 
-        for (var i in testTasks) {
-            qDTO = new QuizTaskDTO();
+        for (var i in questions) {
 
-
-            // CLOSED QUESTION ........................................
-            if (type == TestType.Choice) {
-
-                q = testTasks[i];
-
-                answersStr = "";
-                for (var j in q.answers)
-                    answersStr += "*" + q.answers[j];
-                answersStr = answersStr.substr(1);
-
-                qDTO.question_answer = q.question + "^" + q.correct_idx + "^" + answersStr;
-            }
-
-            // CODE TASK ..............................................
-            else if (type == TestType.Code) {
-                c = testTasks[i];
-                qDTO.question_answer = c.question + "^" + c.correct_result + "^" + c.executor_code;
-            }
-
-            // BOTH  ...................................................
+            q = questions[i];
+            
+            answersStr = "";
+            for (var j in q.answers) answersStr += "*" + q.answers[j];
+            
+            qDTO = new ClosedQuestionDTO();
             qDTO.id = q.id;
-            qDTO.position = +i;
             qDTO.module_id = moduleId;
+            qDTO.position = +i;
+            qDTO.question_answer = q.question + "^" + q.correct_idx + "^" + answersStr.substr(1);
 
-            testTaskArr[testTaskArr.length] = qDTO;
+            questionArr[questionArr.length] = qDTO;
         }
 
-        return testTaskArr;
+        return questionArr;
+    }
+
+
+    // --------------------------------------------------------------------------------------------------------------
+    public StringifyCodeTasks(codeTasks: CodeTask[], moduleId: number): CodeTaskDTO[] {
+
+        if (codeTasks == undefined)
+            return null;
+        if (codeTasks.length == 0)
+            return null;
+
+
+        let codeTaskArr: CodeTaskDTO[] = [];
+        let cDTO: CodeTaskDTO;
+        let c: CodeTask;
+
+        for (var i in codeTasks) {
+
+            c = codeTasks[i];
+            cDTO = new CodeTaskDTO();
+            cDTO.id = c.id;
+            cDTO.module_id = moduleId;
+            cDTO.position = +i;
+            cDTO.task_answer = c.question + "^" + c.correct_result + "^" + c.executor_code;
+
+            codeTaskArr[codeTaskArr.length] = cDTO;
+        }
+
+        return codeTaskArr;
     }
 
     // --------------------------------------------------------------------------------------------------------------
-    public UnpackQuizTasks(quizTasks: QuizTaskDTO[]): any {
+    public UnpackClosedQuestions(questions: ClosedQuestionDTO[]): ClosedQuestion[] {
 
-        if (quizTasks == undefined || quizTasks == null)
+        if (questions == undefined || questions == null)
             return;
 
 
         let questionsArr: ClosedQuestion[] = [];
-        let codeTasksArr: CodeTask[] = [];
         let q: ClosedQuestion;
+        let elements: string[];
+
+        for (var i in questions) {
+
+            elements = questions[i].question_answer.split("^");
+
+            q = new ClosedQuestion();
+            q.id = questions[i].id;
+            q.question = elements[0];
+            q.answers = elements[2].split("*");
+
+            questionsArr[questionsArr.length] = q;
+        }
+        return questionsArr;
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
+    public UnpackCodeTasks(codeTasks: CodeTaskDTO[]): CodeTask[] {
+
+        if (codeTasks == undefined || codeTasks == null)
+            return;
+
+
+        let codeTasksArr: CodeTask[] = [];
         let c: CodeTask;
         let elements: string[];
 
-        for (var i in quizTasks) {
+        for (var i in codeTasks) {
 
-            elements = quizTasks[i].question_answer.split("^");
+            elements = codeTasks[i].task_answer.split("^");
 
-            // CLOSED QUESTION ........................................
-            if (quizTasks[i].test_type == TestType.Choice) {
-                q = new ClosedQuestion();
-                q.answers = elements[2].split("*");
-                questionsArr[questionsArr.length] = q;
-            }
+            c = new CodeTask();
+            c.id = codeTasks[i].id;
+            c.question = elements[0];
+            // c.correct_result = elements[1];
+            c.executor_code = elements[2];
 
-            // CODE TASK ..............................................
-            else if (quizTasks[i].test_type == TestType.Code) {
-                c = new CodeTask();
-                c.correct_result = elements[1];
-                c.executor_code = elements[2];
-                codeTasksArr[codeTasksArr.length] = c;
-            }
-
-            codeTasksArr[codeTasksArr.length - 1].id = quizTasks[i].id;
-            codeTasksArr[codeTasksArr.length - 1].question = elements[0];
+            codeTasksArr[codeTasksArr.length] = c;
         }
 
-
-        return {
-            questions: questionsArr, 
-            codeTasks: codeTasksArr};
+        return codeTasksArr;
     }
 }

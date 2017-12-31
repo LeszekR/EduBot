@@ -5,7 +5,7 @@ export class TestTaskAnswDTO {
     // CONSTRUCTOR
     // ==============================================================================================================
     constructor(
-        public tesetTaskId: number, 
-        public answerId: number) {
+        public test_task_id: number, 
+        public answer_id: number) {
     }
 }

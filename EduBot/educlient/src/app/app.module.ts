@@ -32,7 +32,7 @@ import { UserService } from './services/user.service'
 import { LoginService } from './services/login.service'
 import { ModuleService } from './services/module.service';
 import { DistractorService } from './services/distractor.service';
-import { TestQuestionService } from './services/test-question.service';
+import { TestTaskService } from './services/test.service';
 import { CameraService } from './services/camera.service';
 import { EmoService } from './services/emo.service';
 import { EduService } from './services/edu.service';
@@ -90,7 +90,7 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     LoginService,
     ModuleService,
     DistractorService,
-    TestQuestionService,
+    TestTaskService,
     CameraService,
     EmoService,
     EduService,

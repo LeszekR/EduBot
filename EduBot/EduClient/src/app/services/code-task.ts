@@ -1,26 +1,22 @@
+import { TestResult } from './enum-test-result'
 
 
-export enum QuestionStatus {
-    None,
-    Correct,
-    Incorrect
-}
 // ==================================================================================================================
-export class ClosedQuestion {
+export class CodeTask {
 
     id: number;
     question: string;
-    correct_idx: number;
-    answers: string[];
-    status: QuestionStatus;
+    correct_result: any;
+    executor_code: string;
+    status: TestResult;
 
 
     // CONSTRUCTOR
     // ==============================================================================================================
     constructor() {
         this.question = "";
-        this.correct_idx = -1;
-        this.answers = [];
-        this.status = QuestionStatus.None;
+        this.correct_result = "";
+        this.executor_code = "";
+        this.status = TestResult.None;
     }
 }

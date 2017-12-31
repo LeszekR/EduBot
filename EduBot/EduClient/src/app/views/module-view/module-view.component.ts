@@ -2,13 +2,13 @@ import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/cor
 import { ActivatedRoute } from '@angular/router';
 
 //Models
-import { TestType } from '../../models/enum-test-type';
+import { TestType } from '../../models/quiz-model/enum-test-type';
 import { DiffLevel } from '../../models/enum-diff-level';
 import { Module } from '../../models/module';
-import { ClosedQuestAnswDTO } from '../../models/closed-question-answ-DTO';
+import { ClosedQuestAnswDTO } from '../../models/quiz-model/test-task-answ-DTO';
 
 //Services
-import { TestQuestionService } from '../../services/test-question.service';
+import { TestTaskService } from '../../services/test.service';
 import { ModuleService } from '../../services/module.service';
 import { ContextService } from '../../services/context.service';
 import { MessageService } from '../../shared/components/message/message.service'
@@ -20,7 +20,7 @@ import { ExampleViewComponent } from './example-view/example-view.component';
 import { QuizViewComponent } from './quiz-view/quiz-view.component';
 
 import { MockData } from '../../mock/test-data'
-import { ClosedQuestion, QuestionStatus } from '../../models/closed-question';
+import { ClosedQuestion, TestResult } from '../../models/quiz-model/closed-question';
 
 
 // ==================================================================================================================
@@ -54,7 +54,7 @@ export class ModuleViewComponent implements OnInit {
     private route: ActivatedRoute,
     private moduleService: ModuleService,
     private context: ContextService,
-    private questionService: TestQuestionService,
+    private questionService: TestTaskService,
     private messageService: MessageService) { }
 
   // --------------------------------------------------------------------------------------------------------------
@@ -63,7 +63,7 @@ export class ModuleViewComponent implements OnInit {
       this.module = data.module;
       this.context.currentModule = data.module;
       this.context.moduleViewComponent = this;
-      this.questions = this.questionService.UnpackClosedQuestions(this.module.test_question);
+      this.questions = this.questionService.UnpackQuizTasks(this.module.test_question);
       this.viewType = this.CONTENT_VIEW;
     });
   }
@@ -72,7 +72,7 @@ export class ModuleViewComponent implements OnInit {
   // PUBLIC
   // ==============================================================================================================
   verifyClosedTest() {
-    this.questions.forEach(q => q.status = QuestionStatus.None);
+    this.questions.forEach(q => q.status = TestResult.None);
 
     // check if all answers have been given
     if (!this.hasAllAnswers('learn.unfinished-test'))
@@ -95,7 +95,7 @@ export class ModuleViewComponent implements OnInit {
         let multiplier = 1;
         res.forEach(result => {
           let question = this.questions.find(q => q.id == result.question_id);
-          setTimeout(() => { question.status = result.answer_id == 0 ? QuestionStatus.Incorrect : QuestionStatus.Correct; }, 1000 * multiplier++);
+          setTimeout(() => { question.status = result.answer_id == 0 ? TestResult.Incorrect : TestResult.Correct; }, 1000 * multiplier++);
         })
 
         // showing the updated game score

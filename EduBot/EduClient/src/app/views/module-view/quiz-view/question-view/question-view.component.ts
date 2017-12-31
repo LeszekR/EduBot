@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { ClosedQuestion, QuestionStatus } from '../../../../models/closed-question'
+import { ClosedQuestion, TestResult } from '../../../../models/quiz-model/closed-question'
 import { MessageService } from '../../../../shared/components/message/message.service';
 import { ContextService } from '../../../../services/context.service'
 
@@ -75,9 +75,9 @@ export class QuestionViewComponent implements OnInit {
 
   // --------------------------------------------------------------------------------------------------------------
   private getClass(): string {
-    if (this.questionData.status == QuestionStatus.Correct)
+    if (this.questionData.status == TestResult.Correct)
       return "fa fa-check fa-3x";
-    else if (this.questionData.status == QuestionStatus.Incorrect)
+    else if (this.questionData.status == TestResult.Incorrect)
       return "fa fa-times fa-3x";
     return "";
   }

@@ -58,7 +58,7 @@
             <div class="d-flex" [class.justify-content-end]="module.difficulty=='easy'" [class.justify-content-center]="module.difficulty=='medium'"
                 [class.justify-content-start]="module.difficulty=='hard'">
 
-                <a class="btn-menu list-group-item p-0 col-10" [routerLink]="['module/', module.id]" routerLinkActive="active" (click)="selectedModuleId=module.id">
+                <a class="btn-menu list-group-item list-group-item-action p-0 col-10" [routerLink]="['module/', module.id]" routerLinkActive="active" (click)="selectedModuleId=module.id">
 
                     <div class="pl-2 p-3">
                         <div class="ml-3">

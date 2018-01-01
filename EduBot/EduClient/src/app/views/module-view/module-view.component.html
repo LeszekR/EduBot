@@ -1,7 +1,7 @@
 <!-- <div class="container-fluid h-100" *ngIf="module!=undefined"> -->
 <div class="container-fluid h-100 w-100 m-0 p-0">
 
-    <div class="row w-100 m-0 p-0" style="height: calc(100% - 3rem)">
+    <div class="row w-100" style="height: calc(100% - 3rem)">
 
         <!-- content i example -->
         <div *ngIf="viewType==CONTENT_VIEW" class="row col-12 h-100 d-flex m-0 p-0">
@@ -35,59 +35,62 @@
     </div>
 
 
-    <!-- kontrolki NAUKA -->
-    <!-- ........................................................................................... -->
-    <div *ngIf="!context.isEditMode" class="row col-12 mr-0 ml-0 mt-3 p-0;">
+
+    <!-- przyciski -->
+    <div class="row col-12 mr-0 ml-0 mt-1 mr-2 p-0">
 
 
-        <!-- przycisk 'sprawdź test' -->
-        <div class="col-2 h-100 m-0 p-0">
-                <button (click)="verifyClosedTest()" *ngIf="viewType==QUIZ_VIEW" class="btn btn-primary ml-0 pl-0 mr-1">{{ 'learn.verify-test' | translate }}</button>
-                <!-- <button (click)="verifyCode()" *ngIf="viewType==CODE_VIEW" class="btn btn-primary ml-0 pl-0 mr-1">{{ 'learn.verify-test' | translate }}</button> -->
-            </div>
-        
-
-        <!-- przyciski widoku -->
-        <div class="col-3 h-100 m-0 p-0 pull-right">
+        <!-- WIDOK -->
+        <!-- ........................................................................................... -->
+        <div class="col-3 d-flex flex-row h-100 m-0 p-0 b-0 pull-left">
             <button (click)="viewType=CODE_VIEW" *ngIf="viewType!==CODE_VIEW" class="col-4 btn btn-primary pull-right mr-1">{{ 'common.code' | translate }}</button>
             <button (click)="viewType=QUIZ_VIEW" *ngIf="viewType!==QUIZ_VIEW" class="col-4 btn btn-primary pull-right mr-1">{{ 'common.quiz' | translate }}</button>
             <button (click)="viewType=CONTENT_VIEW" *ngIf="viewType!==CONTENT_VIEW" class="col-4 btn btn-primary pull-right mr-1">{{ 'common.content' | translate }}</button>
         </div>
 
 
-        <!-- porzewijanie modułów : następy, poprzedni, wyjaśnij -->
-        <div class="col-7 pl-2 d-flex pull-right" role="group">
-            <div class="col-6 mr-1 ml-0 mt-0 mb-0 p-0">
-                <button *ngIf="explanationExists()" (click)="context.moduleList.explain()" type="button" class="col-8 pull-right btn btn-primary">
-                    {{ 'learn.explain' | translate }}
-                </button>
+
+        <!-- tryb: NAUKA -->
+        <!-- ........................................................................................... -->
+        <div *ngIf="!context.isEditMode" class="row col-9 h-100 m-0 p-0 b-0">
+
+
+            <!-- przycisk 'sprawdź test' -->
+            <div class="col-4 h-100 m-0 p-0 b-0">
+                <button (click)="verifyClosedTest()" *ngIf="viewType==QUIZ_VIEW" class="btn btn-primary ml-0 pl-0 mr-1">{{ 'learn.verify-test' | translate }}</button>
+                <!-- <button (click)="verifyCode()" *ngIf="viewType==CODE_VIEW" class="btn btn-primary ml-0 pl-0 mr-1">{{ 'learn.verify-test' | translate }}</button> -->
             </div>
-            <button (click)="context.moduleList.prevModule()" type="button" class="col-3 mr-1 p-0 btn btn-primary">
-                {{ 'learn.prev_module' | translate }}
-            </button>
-            <button (click)="context.moduleList.nextModule()" type="button" class="col-3 p-0 btn btn-success">
-                {{ 'learn.next_module' | translate }}
-            </button>
+
+
+            <!-- porzewijanie modułów : następy, poprzedni, wyjaśnij -->
+            <div class="col-8 d-flex flex-row-reverse m-0 p-0 b-0" role="group">
+                <button (click)="context.moduleList.nextModule()" type="button" class="col-3 m-0 p-0 btn btn-success">
+                    {{ 'learn.next_module' | translate }}
+                </button>
+                <button (click)="context.moduleList.prevModule()" type="button" class="col-3 mr-1 p-0 btn btn-primary">
+                    {{ 'learn.prev_module' | translate }}
+                </button>
+                <div class="col-5 m-0 p-0">
+                    <button *ngIf="explanationExists()" (click)="context.moduleList.explain()" type="button" class="mr-1 pull-right btn btn-primary">
+                        {{ 'learn.explain' | translate }}
+                    </button>
+                </div>
+            </div>
+
         </div>
 
-    </div>
 
-
-    <!-- kontrolki EDYCJA -->
-    <!-- ........................................................................................... -->
-    <div *ngIf="context.isEditMode" class="row col-12 mr-0 ml-0 mt-1 pl-0;">
-
-        <!-- <div class="col-7 h-100" style="margin-right:0; padding-right:0;"> -->
-
-        <!-- <div *ngIf="context.isEditMode" class="row col-12 h-100 ml-3 pl-0"> -->
-        <div class="row col-7 h-100 ml-3 pl-0">
-            <div class="col-7 pl-0">
-                <input type="text" class="col-md-12 form-control" [(ngModel)]="module.title" />
-            </div>
-            <div class="ml-1">
-                <button (click)="save()" class="btn btn-primary">{{ 'common.save' | translate }}</button>
+        <!-- tryb: EDYCJA -->
+        <!-- ........................................................................................... -->
+        <div *ngIf="context.isEditMode" class="col-9 d-flex flex-row-reverse h-100 m-0 p-0 b-0">
+            <div class="d-flex">
+                <button (click)="save()" class="btn mr-1 btn-primary">{{ 'common.save' | translate }}</button>
                 <button (click)="cancel()" class="btn btn-primary">{{ 'common.cancel' | translate }}</button>
             </div>
+            <div class="col-7 mr-1 p-0">
+                <input type="text" class="col-md-12 form-control" [(ngModel)]="module.title" />
+            </div>
         </div>
+
     </div>
 </div>

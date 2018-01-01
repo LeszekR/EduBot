@@ -18,8 +18,6 @@ export class ModuleService {
     moduleAdded = new EventEmitter<Module>();
     editedModuleId: number;
 
-    modules: Module[] = [];
-
 
     // CONSTRUCTOR
     // ==============================================================================================================
@@ -28,12 +26,6 @@ export class ModuleService {
 
     // PUBLIC
     // ==============================================================================================================
-    // CreateModuleSequence() {
-    //     this.http.get<string>(this.moduleUrl + '/createmodulesequence')
-    //         .subscribe(res => console.log(res));
-    // }
-
-    // --------------------------------------------------------------------------------------------------------------
     getSimpleModulesOfUser(): Observable<Module[]> {
         return this.http.get<Module[]>(this.moduleUrl + '/getsimplemodulesofuser');
     }

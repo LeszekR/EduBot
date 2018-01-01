@@ -2,13 +2,12 @@ import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/cor
 import { ActivatedRoute } from '@angular/router';
 
 //Models
-import { TestType } from '../../models/enum-test-type';
 import { DiffLevel } from '../../models/enum-diff-level';
 import { Module } from '../../models/module';
-import { ClosedQuestAnswDTO } from '../../models/closed-question-answ-DTO';
+import { ClosedQuestionAnswDTO } from '../../models/quiz-model/closed-question';
 
 //Services
-import { TestQuestionService } from '../../services/test-question.service';
+import { TestTaskService } from '../../services/test.service';
 import { ModuleService } from '../../services/module.service';
 import { ContextService } from '../../services/context.service';
 import { MessageService } from '../../shared/components/message/message.service'
@@ -20,7 +19,9 @@ import { ExampleViewComponent } from './example-view/example-view.component';
 import { QuizViewComponent } from './quiz-view/quiz-view.component';
 
 import { MockData } from '../../mock/test-data'
-import { ClosedQuestion, QuestionStatus } from '../../models/closed-question';
+import { ClosedQuestion } from '../../models/quiz-model/closed-question';
+import { TestResult } from '../../models/quiz-model/enum-test-result';
+import { CodeTask } from '../../models/quiz-model/code-task';
 
 
 // ==================================================================================================================
@@ -39,9 +40,11 @@ export class ModuleViewComponent implements OnInit {
   private quizComponent: QuizViewComponent;
 
   module: Module;
-  questions: ClosedQuestion[];
   viewType: string;
   appComp: AppComponent;
+
+  questions: ClosedQuestion[];
+  codes: CodeTask[];
 
   private readonly CONTENT_VIEW = 'content';
   private readonly QUIZ_VIEW = 'quiz';
@@ -54,7 +57,7 @@ export class ModuleViewComponent implements OnInit {
     private route: ActivatedRoute,
     private moduleService: ModuleService,
     private context: ContextService,
-    private questionService: TestQuestionService,
+    private testTaskService: TestTaskService,
     private messageService: MessageService) { }
 
   // --------------------------------------------------------------------------------------------------------------
@@ -63,7 +66,8 @@ export class ModuleViewComponent implements OnInit {
       this.module = data.module;
       this.context.currentModule = data.module;
       this.context.moduleViewComponent = this;
-      this.questions = this.questionService.UnpackClosedQuestions(this.module.test_question);
+      this.questions = this.testTaskService.UnpackClosedQuestions(this.module.test_questions_DTO);
+      this.codes = this.testTaskService.UnpackCodeTasks(this.module.test_codes_DTO);
       this.viewType = this.CONTENT_VIEW;
     });
   }
@@ -72,7 +76,7 @@ export class ModuleViewComponent implements OnInit {
   // PUBLIC
   // ==============================================================================================================
   verifyClosedTest() {
-    this.questions.forEach(q => q.status = QuestionStatus.None);
+    this.questions.forEach(q => q.status = TestResult.None);
 
     // check if all answers have been given
     if (!this.hasAllAnswers('learn.unfinished-test'))
@@ -80,22 +84,22 @@ export class ModuleViewComponent implements OnInit {
 
 
     // all questions have been answered
-    let answers: ClosedQuestAnswDTO[] = [];
+    let answers: ClosedQuestionAnswDTO[] = [];
     let q: ClosedQuestion;
 
     for (var i in this.questions) {
       q = this.questions[i];
-      answers[answers.length] = new ClosedQuestAnswDTO(q.id, q.correct_idx);
+      answers[answers.length] = new ClosedQuestionAnswDTO(q.id, q.correct_idx);
     }
 
-    this.questionService.verifyClosedTest(answers)
+    this.testTaskService.verifyClosedTest(answers)
       .subscribe(res => {
 
         // slow show of the results
         let multiplier = 1;
         res.forEach(result => {
           let question = this.questions.find(q => q.id == result.question_id);
-          setTimeout(() => { question.status = result.answer_id == 0 ? QuestionStatus.Incorrect : QuestionStatus.Correct; }, 1000 * multiplier++);
+          setTimeout(() => { question.status = result.answer_id == 0 ? TestResult.Incorrect : TestResult.Correct; }, 1000 * multiplier++);
         })
 
         // showing the updated game score
@@ -110,8 +114,11 @@ export class ModuleViewComponent implements OnInit {
     if (!this.hasAllAnswers('edit.no-correct-answer'))
       return;
 
-    this.module.test_question = this.questionService
+    this.module.test_questions_DTO = this.testTaskService
       .StringifyClosedQuestions(this.questions, this.module.id);
+
+    this.module.test_codes_DTO = this.testTaskService
+      .StringifyCodeTasks(this.codes, this.module.id);
 
     this.moduleService.saveModule(this.module).subscribe(res => this.module = res);
     this.moduleService.moduleAdded.emit(this.module);

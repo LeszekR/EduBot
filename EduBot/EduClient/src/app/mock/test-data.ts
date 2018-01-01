@@ -1,4 +1,4 @@
-import { ClosedQuestion } from '../models/closed-question';
+import { ClosedQuestion } from '../models/quiz-model/closed-question';
 
 
 export class TestData {

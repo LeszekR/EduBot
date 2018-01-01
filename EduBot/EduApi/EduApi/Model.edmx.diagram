@@ -4,12 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8b175441af6449ed8de049ee08836317" Name="Diagram1">
+      <Diagram DiagramId="1dba2f73a3a142eb8707a9360e2fd186" Name="Diagram1">
         <EntityTypeShape EntityType="edumaticModel.distractor" Width="1.5" PointX="8.25" PointY="13.5" IsExpanded="true" />
         <EntityTypeShape EntityType="edumaticModel.edumodule" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="edumaticModel.edumodule_gamecontext" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="edumaticModel.enum_diff_level" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="edumaticModel.enum_distr_type" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="edumaticModel.enum_distr_type" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="edumaticModel.enum_user_role" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="edumaticModel.test_code" Width="1.5" PointX="5.25" PointY="6.125" IsExpanded="true" />
         <EntityTypeShape EntityType="edumaticModel.test_question" Width="1.5" PointX="5.25" PointY="9.125" IsExpanded="true" />

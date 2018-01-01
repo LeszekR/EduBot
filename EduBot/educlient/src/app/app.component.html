@@ -31,7 +31,7 @@
 
         <!-- GAME PROGRESS -->
         <!-- <div *ngIf="context.userRole==0" class="ml-auto"> -->
-        <div class="ml-auto">
+        <div class="ml-auto ml-4">
             <progress-comp *ngIf="context.userRole" [gameScore]="context.gameScore"></progress-comp>
         </div>
 
@@ -77,23 +77,6 @@
         <message-modal></message-modal>
     </div>
 </div>
-
-
-
-<!-- FOOTER -->
-<!-- ........................................................................................... -->
-<!-- <footer class="footer">
-    <div class="container-fluid d-flex">
-        <div>
-            <a *ngIf="context.userRole == 1" routerLink="/user-management" class="navbar-link pr-2" routerLinkActive="active" title="{{ 'toolbar.manage_users' | translate }}">
-                <i class="fa fa-user-circle-o fa-2x i-mid"></i>
-            </a>
-        </div>
-        <div class="ml-auto">
-            <select-language></select-language>
-        </div>
-    </div>
-</footer> -->
 
 
 

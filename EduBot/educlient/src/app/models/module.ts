@@ -16,7 +16,9 @@ export class Module {
     content: string;
     example: string;
     test_question: ClosedQuestionDTO[];
-    // remove_question: number[];
+
+    solvedQuestions: boolean;
+    solvedCode: boolean;
     
     isSelected: boolean;
 

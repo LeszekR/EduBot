@@ -88,7 +88,8 @@
           <Property Name="user_id" Type="int4" Nullable="false" />
           <Property Name="code_id" Type="int4" Nullable="false" />
           <Property Name="first_result" Type="bool" Nullable="false" />
-          <Property Name="result" Type="bool" Nullable="false" />
+          <Property Name="last_result" Type="bool" Nullable="false" />
+          <Property Name="last_answer" Type="varchar" MaxLength="8000" />
         </EntityType>
         <EntityType Name="user_distractor">
           <Key>
@@ -447,7 +448,8 @@
           <Property Name="user_id" Type="Int32" Nullable="false" />
           <Property Name="code_id" Type="Int32" Nullable="false" />
           <Property Name="first_result" Type="Boolean" Nullable="false" />
-          <Property Name="result" Type="Boolean" Nullable="false" />
+          <Property Name="last_result" Type="Boolean" Nullable="false" />
+          <Property Name="last_answer" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="test_code" Relationship="Self.user_code_code_id_fkey" FromRole="user_code" ToRole="test_code" />
           <NavigationProperty Name="user" Relationship="Self.user_code_user_id_fkey" FromRole="user_code" ToRole="user" />
         </EntityType>
@@ -769,7 +771,8 @@
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
                 <ScalarProperty Name="code_id" ColumnName="code_id" />
                 <ScalarProperty Name="first_result" ColumnName="first_result" />
-                <ScalarProperty Name="result" ColumnName="result" />
+                <ScalarProperty Name="last_result" ColumnName="last_result" />
+                <ScalarProperty Name="last_answer" ColumnName="last_answer" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

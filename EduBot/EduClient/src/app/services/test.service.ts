@@ -96,7 +96,7 @@ export class TestTaskService {
     // --------------------------------------------------------------------------------------------------------------
     public UnpackClosedQuestions(questions: ClosedQuestionDTO[]): ClosedQuestion[] {
 
-        if (questions == undefined || questions == null)
+        if (questions.length == 0)
             return;
 
 
@@ -111,6 +111,7 @@ export class TestTaskService {
             q = new ClosedQuestion();
             q.id = questions[i].id;
             q.question = elements[0];
+            q.correct_idx = +elements[1];
             q.answers = elements[2].split("*");
 
             questionsArr[questionsArr.length] = q;

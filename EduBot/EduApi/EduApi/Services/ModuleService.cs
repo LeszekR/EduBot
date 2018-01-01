@@ -199,7 +199,7 @@ namespace EduApi.Services {
             // brak id użytkownika - pytania będą zawierać indeks prawidłowej odpowiedzi
             // - ta wersja potrzebna jest do edycji modułów
             if (userId < 0) {
-                moduleDTO.test_question = questions;
+                moduleDTO.test_questions = questions;
                 return moduleDTO;
             }
 
@@ -262,7 +262,7 @@ namespace EduApi.Services {
             }
 
             // moduł gotowy do wysłania studentowi
-            moduleDTO.test_question = questions;
+            moduleDTO.test_questions = questions;
             return moduleDTO;
         }
 
@@ -287,7 +287,7 @@ namespace EduApi.Services {
             }
 
             // usunięcie pytań, których nie ma w tablicy z nowymi pytaniami
-            var newQuestions = moduleReceived.test_question;
+            var newQuestions = moduleReceived.test_questions;
 
             foreach (var oldQ in oldQuestions)
                 if (newQuestions == null)
@@ -296,8 +296,8 @@ namespace EduApi.Services {
                     _questionService.DeleteQuestion(oldQ.id);
 
             // zapisanie nowych i odświeżenie starych pytań przypisanych do modułu
-            if (moduleReceived.test_question != null && moduleReceived.difficulty == "easy")
-                foreach (var new_question in moduleReceived.test_question)
+            if (moduleReceived.test_questions != null && moduleReceived.difficulty == "easy")
+                foreach (var new_question in moduleReceived.test_questions)
                     _questionService.UpsertQuestion(new_question);
 
 

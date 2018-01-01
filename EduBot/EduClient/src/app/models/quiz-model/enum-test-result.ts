@@ -1,7 +1,6 @@
-
 // ==================================================================================================================
-export enum TestType {
-    Choice = 0,
-    OpenQuestion = 1,
-    Code = 2
+export enum TestResult {
+    None,
+    Correct,
+    Incorrect
 }

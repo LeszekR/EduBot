@@ -1,10 +1,4 @@
-<div class="bg-faded h-100 pl-4 pr-4 d-flex align-items-center rounded">
-    <div class="d-flex pull-right primary-color">
-        <span>
-            {{ 'learn.progres' | translate}}: {{gameScore.progress}}%
-        </span>
-        <span>
-            {{ 'learn.correct-answers' | translate}}: {{gameScore.correctAnswers}}%
-        </span>
-    </div>
+<div class="bg-faded h-100 pl-4 pr-4 d-flex align-items-center rounded primary-color">
+    <small>{{ 'learn.progres' | translate}}: {{gameScore.progress}}%</small>
+    <small class="ml-2">{{ 'learn.correct-answers' | translate}}: {{gameScore.correctAnswers}}%</small>
 </div>

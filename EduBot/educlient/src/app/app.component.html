@@ -5,17 +5,20 @@
 <spinner-component></spinner-component>
 <nav class="navbar navbar-default navbar-static-top d-flex align-items-center">
 
-    <div class="container.fluid d-flex flex-row w-100 p-0 m-0">
+    <div class="container-fluid d-flex w-100 p-0 m-0">
 
         <!-- POLITECHNIKA GDAŃSKA -->
-        <a class="navbar-brand primary-color pull-left pl-0 ml-0" routerLink="/">
+        <a class="navbar-brand primary-color pl-0 ml-0" routerLink="/">
             <img src="/assets/img/logo-pg.png" class="nav-img">
-            <span style="margin-left: 65px">Edugame</span>
+            <span style="margin-left: 55px">Edugame</span>
         </a>
 
+        <!-- GAME PROGRESS -->
+        <!-- <div *ngIf="context.userRole==0" class="ml-auto"> -->
 
-
-        <!-- EDIT mode buttons -->
+        
+        
+            <!-- EDIT mode buttons -->
         <div *ngIf="context.userRole == 1 || context.userRole == 2" class="ml-auto d-flex justify-content-center align-items-center">
 
             <button class="btn btn-primary btn-xs" (click)="toggleEditMode()">
@@ -28,25 +31,20 @@
             <button class="btn btn-primary btn-xs ml-1" (click)="mockSendPic()">Ślij zdjęcie</button>
         </div>
 
-
-        <!-- GAME PROGRESS -->
-        <!-- <div *ngIf="context.userRole==0" class="ml-auto"> -->
-        <div class="ml-auto ml-4">
+        <div class="h-100 ml-auto">
             <progress-comp *ngIf="context.userRole" [gameScore]="context.gameScore"></progress-comp>
         </div>
 
-
-        <!-- LANGUAGE CHOOSERS -->
-        <div class="container">
-            <div>
-                <a *ngIf="context.userRole == 1" routerLink="/user-management" class="navbar-link pr-2" routerLinkActive="active" title="{{ 'toolbar.manage_users' | translate }}">
-                    <i class="fa fa-user-circle-o fa-2x i-mid"></i>
-                </a>
-            </div>
-            <div class="ml-auto pull-right">
-                <select-language></select-language>
-            </div>
+        <div>
+            <a *ngIf="context.userRole == 1" routerLink="/user-management" class="navbar-link pr-2" routerLinkActive="active" title="{{ 'toolbar.manage_users' | translate }}">
+                <i class="fa fa-user-circle-o fa-2x i-mid"></i>
+            </a>
         </div>
+
+        <div class="ml-auto d-flex align-items-center">
+            <select-language></select-language>
+        </div>
+        
 
 
         <!-- LOG IN -->

@@ -194,7 +194,7 @@
     <Compile Include="Controllers\EmoServiceController.cs" />
     <Compile Include="Controllers\ModuleController.cs" />
     <Compile Include="Controllers\ServerController.cs" />
-    <Compile Include="Controllers\TestQuestionController.cs" />
+    <Compile Include="Controllers\QuizController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="distractor.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -202,14 +202,13 @@
     <Compile Include="Dto\DistractorDTO.cs" />
     <Compile Include="Dto\Mappers\DistractorMapper.cs" />
     <Compile Include="Dto\Mappers\ModuleMapper.cs" />
-    <Compile Include="Dto\Mappers\UserQuestionMapper.cs" />
+    <Compile Include="Dto\Mappers\TestCodeMapper.cs" />
     <Compile Include="Dto\Mappers\TestQuestionMapper.cs" />
     <Compile Include="Dto\Mappers\UserMapper.cs" />
     <Compile Include="Dto\ModuleAndDistractorDTO.cs" />
     <Compile Include="Dto\TestCodeDTO.cs" />
     <Compile Include="Dto\GameScoreDTO.cs" />
     <Compile Include="Dto\TestQuestionAnswDTO.cs" />
-    <Compile Include="Dto\UserQuestionDTO.cs" />
     <Compile Include="Dto\TestQuestionDTO.cs" />
     <Compile Include="edumodule.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -247,19 +246,24 @@
     <Compile Include="Repositories\Core\Repository.cs" />
     <Compile Include="Repositories\Interfaces\IDistractorRepository.cs" />
     <Compile Include="Repositories\Interfaces\IModuleRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ITestCodeRepository.cs" />
     <Compile Include="Repositories\Interfaces\ITestQuestionRepository.cs" />
     <Compile Include="Repositories\Interfaces\IUserRepository.cs" />
     <Compile Include="Repositories\DistractorRepository.cs" />
     <Compile Include="Repositories\ModuleRepository.cs" />
+    <Compile Include="Repositories\TestCodeRepository.cs" />
     <Compile Include="Repositories\TestQuestionRepository.cs" />
     <Compile Include="Security\TokenHelper.cs" />
     <Compile Include="Services\AffitsApi.cs" />
     <Compile Include="Services\EduAlgorithmService.cs" />
-    <Compile Include="Services\FileSender.cs" />
     <Compile Include="Services\Interfaces\IDistractorService.cs" />
     <Compile Include="Services\EmotionalStateInterpreter.cs" />
+    <Compile Include="Services\Interfaces\IQuizService.cs" />
     <Compile Include="Services\Interfaces\ITestQuestionService.cs" />
+    <Compile Include="Services\Interfaces\ITestCodeService.cs" />
     <Compile Include="Services\Interfaces\IEduAlgorithmService.cs" />
+    <Compile Include="Services\QuizService.cs" />
+    <Compile Include="Services\TestCodeService.cs" />
     <Compile Include="Services\TestQuestionService.cs" />
     <Compile Include="Services\AffitsApiAdapter.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
@@ -317,7 +321,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Distractors\" />
-    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

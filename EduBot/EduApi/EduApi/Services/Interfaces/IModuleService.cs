@@ -1,5 +1,4 @@
-﻿using EduApi.Dto;
-using EduApi.DTO;
+﻿using EduApi.DTO;
 using System.Collections.Generic;
 
 

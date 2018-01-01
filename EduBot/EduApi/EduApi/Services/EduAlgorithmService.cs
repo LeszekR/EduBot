@@ -24,7 +24,7 @@ namespace EduApi.Services {
         private readonly IModuleRepository _moduleRepository;
         private readonly IModuleService _moduleService;
         private readonly IUserService _userService;
-        private readonly ITestQuestionService _questionService;
+        private readonly IQuizService _quizService;
         private readonly IDistractorService _distractorService;
 
 
@@ -35,14 +35,14 @@ namespace EduApi.Services {
             IModuleRepository moduleRepository,
             IModuleService moduleService,
             IUserService userService,
-            ITestQuestionService questionService,
+            IQuizService quizService,
             IDistractorService distractorService
             ) {
 
             _moduleRepository = moduleRepository;
             _moduleService = moduleService;
             _userService = userService;
-            _questionService = questionService;
+            _quizService = quizService;
             _distractorService = distractorService;
         }
         #endregion
@@ -370,7 +370,7 @@ namespace EduApi.Services {
             var resultsTreshold = Int32.Parse(resultsTresholdStr);
 
             // sprawdzenie ostatnich wyników testów
-            var recentTestScore = _questionService.GetRecentResults(userId);
+            var recentTestScore = _quizService.GetRecentResults(userId);
             var noResults = recentTestScore == -1;
             var highResults = recentTestScore >= resultsTreshold;
 

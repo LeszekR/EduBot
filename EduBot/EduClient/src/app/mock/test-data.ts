@@ -1,4 +1,5 @@
 import { ClosedQuestion } from '../models/quiz-model/closed-question';
+import { CodeTask } from '../models/quiz-model/code-task';
 
 
 export class TestData {
@@ -9,6 +10,73 @@ export class TestData {
 export class MockData {
 
     constructor() { }
+
+    public mockCodeTasks: CodeTask[] = [
+        <CodeTask>{
+            question: "Napisz program, który włamuje się do serwerwa PG i zalicza dyplom wskazanego studenta.",
+            correct_result: "{'ocena': '5', 'oferty_pracy': '84', 'proponowane_wynagrodzenie': '150.000'}",
+            executor_code: `"<!DOCTYPE html>
+            <html>
+                <head>
+                    <title>TODO supply a title</title>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <script src="saper.js"></script>
+            
+                    <link rel="stylesheet" type="text/css" href="saper.css">
+            
+                </head>
+                <body onload="init()">
+                    <div>
+                        <div id="menu">
+                            <div id="opisy">
+            "`
+        },
+        <CodeTask>{
+            question: "Zaprogramuj wyrzynarkę do marchwi w JavaScript",
+            correct_result: "8 średnich marchwi na minutę | 5 dużych",
+            executor_code: `"    <body onload="init()">
+            <div>
+                <div id="menu">
+                    <div id="opisy">
+                        <div>
+                            <label class="opisPola" for="txRyzyko">Poziom ryzyka</label>
+                        </div>
+                        <div>
+                            <label class="opisPola" for="boardSize">Rozmiar planszy</label>
+                        </div>
+                    </div>
+                    <div id="polaText">
+                        <div>
+                            <input type="text" id="txRyzyko" autofocus>
+                        </div>
+                        <div>
+                            <input type="text" id="boardSize" onchange="generateNewBoard()">
+                        </div>
+                    </div>
+                </div>
+    
+                <div id="gra">
+                    <div><input type="button" value="Generuj planszę" accesskey="g" onclick="generateNewBoard()"></div>
+                    <div id="lewy" style="float:left"></div>
+                    <div id="board"  style="float:left"></div>
+                    <div id="prawy"  style="float:left"></div>
+                </div>
+    
+            </div>
+    "`
+        },
+        <CodeTask>{
+            question: "Napisz przeszukiwanie w głąb planu zajęć PG oparte na kopcu Fibonacciego, nie stosując znaku '=', wykorzystując drzewo binarne czarno-czerowno-seledynowe, zoptymalizowane dla branek OR, XOR i XEROX oraz zwracające wynik w postaci XML w base64 w UTF-51, z ponięciem znaków o indeksach liczb pierwszych.",
+            correct_result: "Łatwizna. Ale dajcie dziennym, połowa popełni samobójstwo zanim skończy czytać polecenie.",
+            executor_code: "Po co. Rzut oka na wynik i będzie przecież widać czy jest ok."
+        },
+        <CodeTask>{
+            question: "Wykorzystując przekazywanie zmiennej przez referencję oraz wielokrotne dziedziczenie diamentowe oblicz sumę.",
+            correct_result: "5",
+            executor_code: "Nie ma sensu bo każdy procesor się na tym spali. Niech się student męczy, przecież tego się nie da, hi, hi..."
+        }
+    ];
 
 
     public mockQuestions: ClosedQuestion[] = [

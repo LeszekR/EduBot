@@ -2,7 +2,6 @@
 using EduApi.Services;
 using EduApi.Services.Interfaces;
 using System.Web.Http;
-using System.Web.Http.Cors;
 
 namespace EduApi.Controllers {
 

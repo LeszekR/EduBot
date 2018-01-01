@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
-using System.Web;
 
-namespace EduApi.Security
-{
+namespace EduApi.Security {
     public static class TokenHelper
     {
         public static int GetUserId(IIdentity identity)

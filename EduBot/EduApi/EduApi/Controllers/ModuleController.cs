@@ -1,6 +1,5 @@
 ﻿using EduApi.DTO;
 using System.Web.Http;
-using System.Web.Http.Cors;
 using EduApi.Services.Interfaces;
 using EduApi.Security;
 

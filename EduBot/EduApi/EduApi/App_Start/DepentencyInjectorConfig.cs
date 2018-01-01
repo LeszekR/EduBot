@@ -30,10 +30,14 @@ namespace EduApi.App_Start {
             container.Register<ITestQuestionRepository, TestQuestionRepository>(Lifestyle.Scoped);
             container.Register<ITestQuestionService, TestQuestionService>(Lifestyle.Scoped);
 
+            container.Register<ITestCodeRepository, TestCodeRepository>(Lifestyle.Scoped);
+            container.Register<ITestCodeService, TestCodeService>(Lifestyle.Scoped);
+
             container.Register<IDistractorRepository, DistractorRepository>(Lifestyle.Scoped);
             container.Register<IDistractorService, DistractorService>(Lifestyle.Scoped);
 
             container.Register<IEduAlgorithmService, EduAlgorithmService>(Lifestyle.Scoped);
+            container.Register<IQuizService, QuizService>(Lifestyle.Scoped);
 
 
 

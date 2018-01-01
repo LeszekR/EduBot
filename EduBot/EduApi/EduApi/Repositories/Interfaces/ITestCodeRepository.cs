@@ -5,14 +5,14 @@ using System.Collections.Generic;
 namespace EduApi.Repositories.Interfaces {
 
     // =================================================================================================
-    public interface ITestQuestionRepository : IRepository<test_question>{
+    public interface ITestCodeRepository : IRepository<test_code>{
 
         // ---------------------------------------------------------------------------------------------
-        /* Kopiuje dane z TestQuestionDTO do edumodule pobranego z bazy i zapisuje zmiany w bazie. */
-        void SetNewValues(TestQuestionDTO source, test_question result);
+        /* Kopiuje dane z TestCodeDTO do edumodule pobranego z bazy i zapisuje zmiany w bazie. */
+        void SetNewValues(TestCodeDTO source, test_code result);
 
         // ---------------------------------------------------------------------------------------------
         /* Pobiera wszystkie pytania przypisane do modułu o wskazanym id */
-        List<test_question> SelectQuestionsForModule(int module_id);
+        List<test_code> SelectCodesForModule(int module_id);
     }
 }

@@ -16,7 +16,7 @@ import { QuizViewComponent } from '../views/module-view/quiz-view/quiz-view.comp
 @Injectable()
 export class TestTaskService {
 
-    private moduleUrl = 'http://localhost:64365/api/testquestion';
+    private moduleUrl = 'http://localhost:64365/api/quiz';
 
 
     // CONSTRUCTOR
@@ -122,7 +122,7 @@ export class TestTaskService {
     // --------------------------------------------------------------------------------------------------------------
     public UnpackCodeTasks(codeTasks: CodeTaskDTO[]): CodeTask[] {
 
-        if (codeTasks == undefined || codeTasks == null)
+        if (codeTasks.length == 0)
             return;
 
 
@@ -137,7 +137,7 @@ export class TestTaskService {
             c = new CodeTask();
             c.id = codeTasks[i].id;
             c.question = elements[0];
-            // c.correct_result = elements[1];
+            c.correct_result = elements[1];
             c.executor_code = elements[2];
 
             codeTasksArr[codeTasksArr.length] = c;

@@ -5,6 +5,9 @@ import { ActivatedRoute } from '@angular/router';
 import { DiffLevel } from '../../models/enum-diff-level';
 import { Module } from '../../models/module';
 import { ClosedQuestionAnswDTO } from '../../models/quiz-model/closed-question';
+import { ClosedQuestion } from '../../models/quiz-model/closed-question';
+import { TestResult } from '../../models/quiz-model/enum-test-result';
+import { CodeTask } from '../../models/quiz-model/code-task';
 
 //Services
 import { TestTaskService } from '../../services/test.service';
@@ -19,9 +22,6 @@ import { ExampleViewComponent } from './example-view/example-view.component';
 import { QuizViewComponent } from './quiz-view/quiz-view.component';
 
 import { MockData } from '../../mock/test-data'
-import { ClosedQuestion } from '../../models/quiz-model/closed-question';
-import { TestResult } from '../../models/quiz-model/enum-test-result';
-import { CodeTask } from '../../models/quiz-model/code-task';
 
 
 // ==================================================================================================================
@@ -44,7 +44,7 @@ export class ModuleViewComponent implements OnInit {
   appComp: AppComponent;
 
   questions: ClosedQuestion[];
-  codes: CodeTask[];
+  codeTasks: CodeTask[];
 
   private readonly CONTENT_VIEW = 'content';
   private readonly QUIZ_VIEW = 'quiz';
@@ -67,11 +67,24 @@ export class ModuleViewComponent implements OnInit {
       this.context.currentModule = data.module;
       this.context.moduleViewComponent = this;
       this.questions = this.testTaskService.UnpackClosedQuestions(this.module.test_questions_DTO);
-      this.codes = this.testTaskService.UnpackCodeTasks(this.module.test_codes_DTO);
+      this.codeTasks = this.testTaskService.UnpackCodeTasks(this.module.test_codes_DTO);
       this.viewType = this.CONTENT_VIEW;
+
+      // // MOCK ************************************************************
+      // this.codeTasks = new MockData().mockCodeTasks;
+      // // *****************************************************************
     });
   }
 
+
+  // MOCK
+  // ==============================================================================================================
+  mockCodeTask(): number {
+    if (this.codeTasks == undefined)
+      return 0;
+    let y = Math.random() * 4;
+    return Math.trunc(y);
+  }
 
   // PUBLIC
   // ==============================================================================================================
@@ -118,7 +131,7 @@ export class ModuleViewComponent implements OnInit {
       .StringifyClosedQuestions(this.questions, this.module.id);
 
     this.module.test_codes_DTO = this.testTaskService
-      .StringifyCodeTasks(this.codes, this.module.id);
+      .StringifyCodeTasks(this.codeTasks, this.module.id);
 
     this.moduleService.saveModule(this.module).subscribe(res => this.module = res);
     this.moduleService.moduleAdded.emit(this.module);

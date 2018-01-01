@@ -1,5 +1,4 @@
-﻿using EduApi.DAL;
-using EduApi.DAL.Interfaces;
+﻿using EduApi.DAL.Interfaces;
 using EduApi.Dto;
 using EduApi.Dto.Mappers;
 using EduApi.DTO;
@@ -7,25 +6,6 @@ using EduApi.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
-
-/* source: 
- * https://stackoverflow.com/questions/10960131/authentication-authorization-and-session-management-in-traditional-web-apps-and
- * 
- * 1. give the client an identifier, be it via a Set-Cookie HTTP response header, 
- * inside the response body (XML/JSON auth response).
- * 
- * 2. have a mechanism to maintain identifier/client association, for example 
- * a database table that associates identifier 00112233445566778899aabbccddeeff 
- * with client/user #1337.
- * 
- * 3. have the client resend the identifier sent to it at (1.) in all subsequent requests, 
- * be it in an HTTP Cookie request header, a ?sid=00112233445566778899aabbccddeeff param(*).
- * 
- * 4. lookup the received identifier, using the mechanism at (2.), check if a valid 
- * authentication, and is authorized to do requested operation, and then proceed 
- * with the operation on behalf on the auth'd user.
- */
 
 
 namespace EduApi.Services {
@@ -37,8 +17,7 @@ namespace EduApi.Services {
         private readonly IModuleRepository _moduleRepository;
         private readonly IUserService _userService;
         private readonly ITestQuestionService _questionService;
-        //private readonly IDistractorService _distractorService;
-        //private readonly IEduAlgorithmService _eduAlgorithmService;
+        private readonly ITestCodeService _codeService;
 
 
         // CONSTRUCTOR
@@ -47,16 +26,14 @@ namespace EduApi.Services {
         public ModuleService(
             IModuleRepository moduleRepository,
             IUserService userService,
-            ITestQuestionService questionService
-            //IDistractorService distractorService,
-            //IEduAlgorithmService eduAlgorithmService
+            ITestQuestionService questionService,
+            ITestCodeService codeService
             ) {
 
             _moduleRepository = moduleRepository;
             _userService = userService;
             _questionService = questionService;
-            //_distractorService = distractorService;
-            //_eduAlgorithmService = eduAlgorithmService;
+            _codeService = codeService;
         }
         #endregion
 
@@ -126,7 +103,7 @@ namespace EduApi.Services {
 
                 dto = ModuleMapper.GetDTO(mod);
 
-                moduleQuests = questionsForModule(mod);
+                moduleQuests = QuestionsForModule(mod);
 
                 // this module has no questions
                 if (moduleQuests.Count() == 0)
@@ -191,7 +168,8 @@ namespace EduApi.Services {
         public ModuleDTO GetDTOWithQuestions(edumodule module, int userId) {
 
             ModuleDTO moduleDTO = ModuleMapper.GetDTO(module);
-            List<TestQuestionDTO> questions = questionDtosForModule(module);
+            List<TestQuestionDTO> questions = QuestionDtosForModule(module);
+            List<TestCodeDTO> codes = CodeDtosForModule(module);
 
 
             // Wersja dla NAUCZYCIELA (do edycji modułów)
@@ -200,15 +178,87 @@ namespace EduApi.Services {
             // - ta wersja potrzebna jest do edycji modułów
             if (userId < 0) {
                 moduleDTO.test_questions_DTO = questions;
+                moduleDTO.test_codes_DTO = codes;
                 return moduleDTO;
             }
 
 
             // Wersja dla STUDENTA
             // .........................................................................
-            // Jest id uzytkownika - pytania będą zawierały indeks ostatniej odpowiedzi
-            // udzielonej przez użytkownika - zamiana indeksów prawidłowych odpowiedzi na 
-            // ostatnie odpowiedzi podane przez użytkownika.
+            // Jest id uzytkownika - 
+            // - pytania będą zawierały indeks ostatniej odpowiedzi udzielonej przez użytkownika 
+            // - kody będą zawierały kody utworzone przez użytkownika 
+            // (zamiana indeksów prawidłowych odpowiedzi na ostatnie odpowiedzi podane przez użytkownika
+            // i prawidłowych wyników kodu na kody utworzone przez użytkownika).
+            moduleDTO.test_questions_DTO = SetStudentAnswers(userId, questions);
+            moduleDTO.test_codes_DTO = SetStudentCodes(userId, codes);
+
+
+            // moduł gotowy do wysłania studentowi
+            return moduleDTO;
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
+        private List<TestCodeDTO> SetStudentCodes(int userId, List<TestCodeDTO> codes) {
+
+            // rozbicie stringu code_answer na składniki i dodanie do nich 'id' pytania
+            List<List<string>> codesInParts = codes
+                .Select(q => {
+                    var code = new List<string>();
+                    code.Add(q.id.ToString());
+                    code.AddRange(q.task_answer.Split('^'));
+                    return code;
+                })
+                .ToList();
+
+            // wydobycie odpowiedzi, jakie użytkownik już udzielił na te pytania
+            var codeIds = codes.Select(q => q.id).ToList();
+            var userCodeAll = _userService.GetUserEntity(userId).user_code.ToList()
+                .Where(q => codeIds.Contains(q.code_id))
+                .ToList();
+
+
+            // ustalenie czy użytkownik już odpowiadał na te pytania
+            bool answered = userCodeAll.Count() > 0;
+
+
+            // zbudowanie z powrotem stringów code_answer zawierających tym razem
+            // już nie index prawidłowej odpowiedzi ale indeks ostatniej odpowiedzi
+            // udzielonej przez użytkownika
+            List<string> parts;
+            string lastAnswer;
+            bool lastResult;
+            user_code userCode;
+
+            foreach (var code in codes) {
+
+                parts = codesInParts.First(q => Int32.Parse(q[0]) == code.id);
+
+                // ten moduł już był zaliczany - są wszystkie odpowiedzi
+                // (choć mogą być błędne - liczy się tu że była próba odpowiedzi i jest jej wynik)
+                if (answered) {
+                    userCode = userCodeAll.First(q => q.code_id == code.id);
+                    lastAnswer = userCode.last_answer.ToString();
+                    lastResult = userCode.last_result;
+                }
+
+                // jeżeli te pytanie są nowe dla użytkownika - ustawienie braku odpowiedzi
+                else {
+                    lastAnswer = "";
+                    lastResult = false;
+                }
+
+                code.task_answer = parts[1] + "^" + lastAnswer + "^" + parts[3];
+                code.last_result = lastResult;
+            }
+
+            return codes;
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
+        private List<TestQuestionDTO> SetStudentAnswers(int userId, List<TestQuestionDTO> questions) {
 
             // rozbicie stringu question_answer na składniki i dodanie do nich 'id' pytania
             List<List<string>> questionsInParts = questions
@@ -261,9 +311,7 @@ namespace EduApi.Services {
                 quest.last_result = lastResult;
             }
 
-            // moduł gotowy do wysłania studentowi
-            moduleDTO.test_questions_DTO = questions;
-            return moduleDTO;
+            return questions;
         }
 
 
@@ -273,7 +321,11 @@ namespace EduApi.Services {
             var id = moduleReceived.id;
             edumodule module;
             List<test_question> oldQuestions = null;
+            List<test_code> oldCodes = null;
 
+
+            // MODUŁ 
+            // ...............................................................
             // utworzenie nowego modułu lub pobranie istniejącego
             if (id == 0) {
                 module = new edumodule();
@@ -284,8 +336,11 @@ namespace EduApi.Services {
                 module = _moduleRepository.Get(id);
                 _moduleRepository.SetNewValues(moduleReceived, module);
                 oldQuestions = module.test_question.ToList();
+                oldCodes = module.test_code.ToList();
             }
 
+            // PYTANIA 
+            // ...............................................................
             // usunięcie pytań, których nie ma w tablicy z nowymi pytaniami
             var newQuestions = moduleReceived.test_questions_DTO;
 
@@ -301,6 +356,26 @@ namespace EduApi.Services {
                     _questionService.UpsertQuestion(new_question);
 
 
+            // CODE TASKS 
+            // ...............................................................
+            // usunięcie zadań z kodu, których nie ma w tablicy z nowymi zadaniami
+            var newCodes = moduleReceived.test_codes_DTO;
+
+            foreach (var oldQ in oldCodes)
+                if (newCodes == null)
+                    _codeService.DeleteCode(oldQ.id);
+                else if (!newCodes.Exists(newQ => newQ.id == oldQ.id))
+                    _codeService.DeleteCode(oldQ.id);
+
+            // zapisanie nowych i odświeżenie starych pytań przypisanych do modułu
+            if (moduleReceived.test_codes_DTO != null && moduleReceived.difficulty == "easy")
+                foreach (var new_code in moduleReceived.test_codes_DTO)
+                    _codeService.UpsertCode(new_code);
+
+
+
+            // RETURN
+            // ...............................................................
             return ModuleMapper.GetDTO(module);
         }
 
@@ -413,63 +488,44 @@ namespace EduApi.Services {
         }
 
 
-        // TODO dokończyć po uzupełnieniu TestCodeMappera
-        //// ---------------------------------------------------------------------------------------------
-        //private List<TestCodeDTO> codeDtosForModule(edumodule module) {
-        //    return TestCodeMapper.GetCodeListDTO(questionsForModule(module));
-        //}
-
-
-        //// ---------------------------------------------------------------------------------------------
-        //private List<test_code> codesForModule(edumodule module) {
-
-        //    List<test_code> questions = new List<test_code>();
-
-        //    // pytania dla modułu 'easy'
-        //    if (module.difficulty == "easy")
-        //        questions = _questionService.SelectCodesForModule(module.id).ToList();
-
-        //    // pytania dla modułów 'medium' i 'hard' - rekurencyjnie
-        //    else {
-        //        var children = SelectChildren(module.id);
-        //        children.ForEach(child => {
-        //            questions.AddRange(codesForModule(child));
-        //        });
-        //    }
-
-        //    return questions;
-        //}
-
-
         // ---------------------------------------------------------------------------------------------
-        private List<TestQuestionDTO> questionDtosForModule(edumodule module) {
-            return TestQuestionMapper.GetQuestionListDTO(questionsForModule(module));
-
-            //List<TestQuestionDTO> questions = new List<TestQuestionDTO>();
-            //IEnumerable<test_question> questionsData = null;
-
-            //// pytania dla modułu 'easy'
-            //if (module.difficulty == "easy") {
-            //    questionsData = _questionService.SelectQuestionsForModule(module.id);
-            //    questions = TestQuestionMapper.GetQuestionListDTO(questionsData);
-            //}
-
-            //// pytania dla modułów 'medium' i 'hard' - rekurencyjnie
-            //else {
-            //    var children = SelectChildren(module.id);
-            //    children.ForEach(child => {
-            //        questions.AddRange(GetQuestionDtosForModule(child));
-            //    });
-            //}
-
-            //return questions;
+        private List<TestCodeDTO> CodeDtosForModule(edumodule module) {
+            return TestCodeMapper.GetCodeListDTO(CodesForModule(module));
         }
 
 
         // ---------------------------------------------------------------------------------------------
-        private List<test_question> questionsForModule(edumodule module) {
+        private List<test_code> CodesForModule(edumodule module) {
 
-            List<test_question> questions = new List<test_question>();
+            List<test_code> codes;
+
+            // pytania dla modułu 'easy'
+            if (module.difficulty == "easy")
+                codes = _codeService.SelectCodesForModule(module.id).ToList();
+
+            // pytania dla modułów 'medium' i 'hard' - rekurencyjnie
+            else {
+                codes = new List<test_code>();
+                var children = SelectChildren(module.id);
+                children.ForEach(child => {
+                    codes.AddRange(CodesForModule(child));
+                });
+            }
+
+            return codes;
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
+        private List<TestQuestionDTO> QuestionDtosForModule(edumodule module) {
+            return TestQuestionMapper.GetQuestionListDTO(QuestionsForModule(module));
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
+        private List<test_question> QuestionsForModule(edumodule module) {
+
+            List<test_question> questions;
 
             // pytania dla modułu 'easy'
             if (module.difficulty == "easy")
@@ -477,9 +533,10 @@ namespace EduApi.Services {
 
             // pytania dla modułów 'medium' i 'hard' - rekurencyjnie
             else {
+                questions = new List<test_question>();
                 var children = SelectChildren(module.id);
                 children.ForEach(child => {
-                    questions.AddRange(questionsForModule(child));
+                    questions.AddRange(QuestionsForModule(child));
                 });
             }
 

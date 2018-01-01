@@ -8,20 +8,20 @@ namespace EduApi.Services {
 
 
     // =================================================================================================
-    public class TestQuestionService : ITestQuestionService {
+    public class TestCodeService : ITestCodeService {
 
-        private readonly ITestQuestionRepository _questionRepository;
+        private readonly ITestCodeRepository _codeRepository;
         private readonly IUserService _userService;
 
 
         // CONSTRUCTOR
         // =============================================================================================
         #region Constructor
-        public TestQuestionService(
-            ITestQuestionRepository questionRepository,
+        public TestCodeService(
+            ITestCodeRepository codeRepository,
             IUserService userService) {
 
-            _questionRepository = questionRepository;
+            _codeRepository = codeRepository;
             _userService = userService;
         }
         #endregion
@@ -29,40 +29,40 @@ namespace EduApi.Services {
 
         // PUBLIC
         // =============================================================================================
-        public TestQuestionDTO UpsertQuestion(TestQuestionDTO questionReceived) {
+        public TestCodeDTO UpsertCode(TestCodeDTO codeReceived) {
 
-            var id = questionReceived.id;
-            test_question question;
+            var id = codeReceived.id;
+            test_code code;
 
             if (id == 0) {
-                question = new test_question();
-                TestQuestionMapper.CopyValues(questionReceived, question);
-                _questionRepository.Add(question);
+                code = new test_code();
+                TestCodeMapper.CopyValues(codeReceived, code);
+                _codeRepository.Add(code);
             }
             else {
-                question = _questionRepository.Get(id);
-                _questionRepository.SetNewValues(questionReceived, question);
+                code = _codeRepository.Get(id);
+                _codeRepository.SetNewValues(codeReceived, code);
             }
 
-            return TestQuestionMapper.GetDTO(question);
+            return TestCodeMapper.GetDTO(code);
         }
 
 
         // ---------------------------------------------------------------------------------------------
-        public void DeleteQuestion(int id) {
-            _questionRepository.Delete(id);
+        public void DeleteCode(int id) {
+            _codeRepository.Delete(id);
         }
 
 
         // ---------------------------------------------------------------------------------------------
-        public List<test_question> SelectQuestionsForModule(int module_id) {
-            return _questionRepository.SelectQuestionsForModule(module_id);
+        public List<test_code> SelectCodesForModule(int module_id) {
+            return _codeRepository.SelectCodesForModule(module_id);
         }
 
 
         // ---------------------------------------------------------------------------------------------
-        public test_question GetQuestionEntity(int id) {
-            return _questionRepository.Get(id);
+        public test_code GetCodeEntity(int id) {
+            return _codeRepository.Get(id);
         }
     }
 }

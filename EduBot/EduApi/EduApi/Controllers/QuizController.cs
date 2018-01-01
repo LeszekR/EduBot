@@ -2,20 +2,19 @@
 using EduApi.Security;
 using EduApi.Services.Interfaces;
 using System.Web.Http;
-using System.Web.Http.Cors;
 
 namespace EduApi.Controllers {
 
-    public class TestQuestionController : ApiController {
+    public class QuizController : ApiController {
 
-        private readonly ITestQuestionService _questionService;
+        private readonly IQuizService _quizService;
 
 
         // CONSTRUCTOR
         // =============================================================================================
         #region Constructor
-        public TestQuestionController(ITestQuestionService questionService) {
-            _questionService = questionService;
+        public QuizController(IQuizService quizService) {
+            _quizService = quizService;
         }
         #endregion
 
@@ -23,9 +22,16 @@ namespace EduApi.Controllers {
         // PUBLIC
         // =============================================================================================
         [HttpPost]
+        public IHttpActionResult VerifyCodeTest([FromBody]TestCodeDTO code) {
+            int userId = TokenHelper.GetUserId(User.Identity);
+            return Ok(_quizService.VerifyCodeTest(code, userId));
+        }
+
+        // ---------------------------------------------------------------------------------------------
+        [HttpPost]
         public IHttpActionResult VerifyClosedTest([FromBody]TestQuestionAnswDTO[] answers) {
             int userId = TokenHelper.GetUserId(User.Identity);
-            return Ok(_questionService.VerifyClosedTest(answers, userId));
+            return Ok(_quizService.VerifyClosedTest(answers, userId));
         }
     }
 }

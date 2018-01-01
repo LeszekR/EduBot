@@ -1,7 +1,6 @@
 ﻿
 using EduApi.Dto;
 using EduApi.DTO;
-using System;
 using System.Collections.Generic;
 
 namespace EduApi.Services.Interfaces {

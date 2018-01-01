@@ -14,6 +14,7 @@ import { AppComponent } from './app.component';
 import { WelcomeComponent } from './components/welcome-comp/welcome.component';
 import { ModuleViewComponent } from './views/module-view/module-view.component';
 import { QuizViewComponent } from './views/module-view/quiz-view/quiz-view.component';
+import { CodeTaskViewComponent } from './views/module-view/code-task-view/code-task-view.component';
 import { ResultViewComponent } from './views/module-view/result-view/result-view.component';
 import { ExampleViewComponent } from './views/module-view/example-view/example-view.component';
 import { ContentViewComponent } from './views/module-view/content-view/content-view.component';
@@ -63,6 +64,8 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     WelcomeComponent,
     ModuleViewComponent,
     QuizViewComponent,
+    SpinnerComponent,
+    CodeTaskViewComponent,
     ResultViewComponent,
     ContentViewComponent,
     ExampleViewComponent,
@@ -70,8 +73,7 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     GameProgressComponent,
     SelectLanguageComponent,
     MessageComponent,
-    QuestionViewComponent,
-    SpinnerComponent
+    QuestionViewComponent
   ],
   imports: [
     SharedModule,

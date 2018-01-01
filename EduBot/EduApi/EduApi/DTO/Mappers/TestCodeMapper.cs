@@ -4,31 +4,31 @@ using System.Linq;
 namespace EduApi.Dto.Mappers {
 
     // =================================================================================================
-    public static class TestCodeMapper {
+    public static class TestQuestionMapper {
 
 
         // PUBLIC
         // =============================================================================================
-        public static TestCodeDTO GetDTO(test_code entity) {
-            return new TestCodeDTO {
+        public static TestQuestionDTO GetDTO(test_question entity) {
+            return new TestQuestionDTO {
                 id = entity.id,
                 module_id = entity.module_id,
                 position = entity.position,
-                task_answer = entity.task_answer
+                question_answer = entity.question_answer
             };
         }
 
         // ---------------------------------------------------------------------------------------------
-        public static List<TestCodeDTO> GetCodeListDTO(this IEnumerable<test_code> questions) {
+        public static List<TestQuestionDTO> GetQuestionListDTO(this IEnumerable<test_question> questions) {
             return questions.Select(q => GetDTO(q)).ToList();
         }
 
         // ---------------------------------------------------------------------------------------------
-        public static void CopyValues(TestCodeDTO source, test_code target) {
+        public static void CopyValues(TestQuestionDTO source, test_question target) {
             target.id = source.id;
             target.module_id = source.module_id;
             target.position = source.position;
-            target.task_answer = source.task_answer;
+            target.question_answer = source.question_answer;
         }
     }
 }

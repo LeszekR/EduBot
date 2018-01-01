@@ -8,26 +8,26 @@ namespace EduApi.Repositories {
 
 
     // =================================================================================================
-    public class TestQuestionRepository : Repository<test_question>, ITestQuestionRepository {
+    public class TestCodeRepository : Repository<test_code>, ITestCodeRepository {
 
 
         // CONSTRUCTOR
         // =============================================================================================
-        public TestQuestionRepository(edumaticEntities context) : base(context) { }
+        public TestCodeRepository(edumaticEntities context) : base(context) { }
 
 
         // PUBLIC
         // =============================================================================================
-        /* Kopiuje dane z TestQuestionDTO do test_question pobranego z bazy i zapisuje zmiany w bazie. */
-        public void SetNewValues(TestQuestionDTO source, test_question result) {
+        /* Kopiuje dane z TestCodeDTO do test_code pobranego z bazy i zapisuje zmiany w bazie. */
+        public void SetNewValues(TestCodeDTO source, test_code result) {
             _context.Entry(result).CurrentValues.SetValues(source);
             _context.SaveChanges();
         }
 
         // ---------------------------------------------------------------------------------------------
         /* Pobiera wszystkie pytania przypisane do modułu o wskazanym id */
-        public List<test_question> SelectQuestionsForModule(int module_id) {
-            return _context.test_question.Where(q => q.module_id == module_id).ToList();
+        public List<test_code> SelectCodesForModule(int module_id) {
+            return _context.test_code.Where(q => q.module_id == module_id).ToList();
         }
     }
 }

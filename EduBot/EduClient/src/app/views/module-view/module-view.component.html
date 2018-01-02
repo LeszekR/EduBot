@@ -16,13 +16,13 @@
             
             
             <!-- test - pytania zamknięte  -->
-            <div *ngIf="viewType==QUIZ_VIEW" class="row col-12 h-100 d-flex m-0 p-0">
+            <div *ngIf="viewType==QUIZ_VIEW" class="row col-12 h-100 d-flex m-0 p-0 of-auto">
                 <quiz-view [module]="module" [readonly]="!context.isEditMode || !module.difficulty=='easy'"></quiz-view>
             </div>
             
             
             <!-- test - pytanie z kodu -->
-            <div *ngIf="viewType==CODE_VIEW" name='moduleCode' class="col-12 h-100 m-0 p-0">
+            <div *ngIf="viewType==CODE_VIEW" name='moduleCode' class="col-12 h-100 m-0 p-0 of-auto">
                 <code-task-view [module]="module" [readonly]="!context.isEditMode || !module.difficulty=='easy'"></code-task-view>
             </div>
             

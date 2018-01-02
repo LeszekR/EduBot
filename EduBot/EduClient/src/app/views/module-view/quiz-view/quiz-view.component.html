@@ -3,7 +3,7 @@
         Quiz
 </div>
 <div class="card bg-card w-100" style="height: calc(100% - 2.5rem); overflow: auto; border: 0;">
-        <div *ngFor="let q of questions; let i=index" [attr.data-index]="i" class="w-100">
+        <div *ngFor="let q of module.questions; let i=index" [attr.data-index]="i" class="w-100">
                 <question-view class="card" [editMode]="!readonly" [questionData]=q (onUpdateQuestion)="updateQuestion($event, i)"></question-view>
         </div>
         <div *ngIf="!readonly" class="fa fa-plus fa-2x ml-2 w-0" (click)="addQuestion()"></div>

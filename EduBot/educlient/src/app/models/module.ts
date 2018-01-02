@@ -1,7 +1,7 @@
 //Models
 import { DiffLevel } from './enum-diff-level';
-import { ClosedQuestionDTO } from './quiz-model/closed-question';
-import { CodeTaskDTO } from './quiz-model/code-task';
+import { ClosedQuestionDTO, ClosedQuestion } from './quiz-model/closed-question';
+import { CodeTaskDTO, CodeTask } from './quiz-model/code-task';
 
 
 // ==================================================================================================================
@@ -16,6 +16,9 @@ export class Module {
     example: string;
     test_questions_DTO: ClosedQuestionDTO[];
     test_codes_DTO: CodeTaskDTO[];
+
+    questions: ClosedQuestion[];
+    codeTasks: CodeTask[];
 
     solvedQuestions: boolean;
     solvedCodes: boolean;

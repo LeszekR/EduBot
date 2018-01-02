@@ -23,14 +23,16 @@
 <!-- EDIT mode (teacher) -->
 <!-- ................................................................................................ -->
 <div *ngIf="editMode" class="card-block w-100">
-
-  <h6 *ngIf="!editQuestionText" class="card-title w-100"><strong>
-    {{ questionData.question }}
-    <i class="fa fa-pencil fa-lighter pl-1" aria-hidden="true" (click)="editQuestionText=true" ></i>
-  </strong></h6>
-
-
+  
+  
   <!-- PYTANIE -->
+  <h6 *ngIf="!editQuestionText" class="card-title w-100">
+    <strong>
+      <i class="fa fa-pencil fa-lighter pr-2 pl-2" aria-hidden="true" (click)="editQuestionText=true" ></i>
+      {{ questionData.question }}
+    </strong>
+  </h6>
+
   <input *ngIf="editQuestionText" 
     type="text"
     placeholder="Nowe pytanie"
@@ -38,42 +40,43 @@
     autofocus
     (focusout)="updateQuestionValue($event.target.value)" 
     class="form-control-sm w-100 edit-title" 
-    />
+  />
+
+  <div class="fa fa-minus fa-red fa-top-right" (click)="deleteQuestion()" ></div>
 
 
-    <!-- ODPOWIEDZI -->
-    <div *ngFor="let answer of questionData.answers; let i=index" [attr.data-index]="i" class="w-100">
+  <!-- ODPOWIEDZI -->
+  <div *ngFor="let answer of questionData.answers; let i=index" [attr.data-index]="i" class="w-100">
 
-      <div class="form-check card-text">
+    <div class="form-check card-text">
 
-        <div (click)="questionData.correct_idx=i"
-          [ngClass]="questionData.correct_idx==i ? 'fa fa-check-square-o' : 'fa fa-square-o'" >
-        </div>
-      
-        <span *ngIf="editedAnswerIdx!=i" >
-          {{ answer }}
-        </span>      
-        <input *ngIf="editedAnswerIdx==i" 
-          type="text" 
-          placeholder="Nowa odpowiedź"
-          autofocus
-          [ngModel]="questionData.answers[i]"
-          (focusout)="updateAnswerValue($event.target.value)" 
-          class="form-control-sm w-80" />
-
-        <i *ngIf="editedAnswerIdx!=i" 
-            class="fa fa-pencil fa-lighter pl-1" 
-            (click)="editedAnswerIdx=i" 
-            aria-hidden="true"></i>
-
-        <div *ngIf="editedAnswerIdx!=i" 
-              class="fa fa-minus fa-red pl-1" 
-              (click)="deleteAnswer(i)" >
-        </div>
-      
+      <div *ngIf="editedAnswerIdx!=i" 
+          class="fa fa-minus fa-red pl-2 pr-2" 
+          (click)="deleteAnswer(i)" >
       </div>
+
+      <i *ngIf="editedAnswerIdx!=i" 
+        class="fa fa-pencil fa-lighter pl-2 pr-2" 
+        (click)="editedAnswerIdx=i" 
+        aria-hidden="true"></i>
+    
+      <div (click)="questionData.correct_idx=i"
+        [ngClass]="questionData.correct_idx==i ? 'fa fa-check-square-o' : 'fa fa-square-o'" >
+      </div>
+    
+      <span *ngIf="editedAnswerIdx!=i" >
+        {{ answer }}
+      </span>      
+      <input *ngIf="editedAnswerIdx==i" 
+        type="text" 
+        placeholder="Nowa odpowiedź"
+        autofocus
+        [ngModel]="questionData.answers[i]"
+        (focusout)="updateAnswerValue($event.target.value)" 
+        class="form-control-sm w-80" />
+
+    </div>
   </div>
 
-  <div class="fa fa-plus form-check-label" (click)="addAnswerToQuestion()" ></div>
-  <div class="fa fa-minus fa-red fa-top-right" (click)="deleteQuestion()" ></div>
+  <div class="fa fa-plus form-check-label ml-2" (click)="addAnswerToQuestion()" ></div>
 </div>

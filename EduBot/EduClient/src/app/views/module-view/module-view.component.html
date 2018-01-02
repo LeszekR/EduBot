@@ -52,8 +52,8 @@
 
             <!-- przycisk 'sprawdź test' -->
             <div class="col-4 d-flex flex-row-reverse h-100 m-0 p-0 b-0">
-                <button (click)="verifyClosedTest()" *ngIf="viewType==QUIZ_VIEW && questions!=undefined" class="btn btn-primary mr-1">{{ 'learn.verify-test' | translate }}</button>
-                <button (click)="verifyCodeTest()" *ngIf="viewType==CODE_VIEW && codeTasks!=undefined" class="btn btn-primary mr-1">{{ 'learn.verify-test' | translate }}</button>
+                <button (click)="verifyClosedTest()" *ngIf="viewType==QUIZ_VIEW && module.questions!=undefined" class="btn btn-primary mr-1">{{ 'learn.verify-test' | translate }}</button>
+                <button (click)="verifyCodeTest()" *ngIf="viewType==CODE_VIEW && module.codeTasks!=undefined" class="btn btn-primary mr-1">{{ 'learn.verify-test' | translate }}</button>
             </div>
 
 

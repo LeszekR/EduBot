@@ -361,11 +361,11 @@ namespace EduApi.Services {
             // usunięcie zadań z kodu, których nie ma w tablicy z nowymi zadaniami
             var newCodes = moduleReceived.test_codes_DTO;
 
-            foreach (var oldQ in oldCodes)
+            foreach (var oldC in oldCodes)
                 if (newCodes == null)
-                    _codeService.DeleteCode(oldQ.id);
-                else if (!newCodes.Exists(newQ => newQ.id == oldQ.id))
-                    _codeService.DeleteCode(oldQ.id);
+                    _codeService.DeleteCode(oldC.id);
+                else if (!newCodes.Exists(newC => newC.id == oldC.id))
+                    _codeService.DeleteCode(oldC.id);
 
             // zapisanie nowych i odświeżenie starych pytań przypisanych do modułu
             if (moduleReceived.test_codes_DTO != null && moduleReceived.difficulty == "easy")

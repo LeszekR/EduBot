@@ -94,8 +94,7 @@ export class TestTaskService {
 
             c = codeTasks[i];
             cDTO = new CodeTaskDTO(c);
-            cDTO.id = c.id;
-            // cDTO.module_id = moduleId;
+            cDTO.module_id = moduleId;
             cDTO.position = +i;
             cDTO.task_answer = c.question + "^" + c.correct_result + "^" + c.executor_code;
 

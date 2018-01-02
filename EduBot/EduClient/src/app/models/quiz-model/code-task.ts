@@ -16,6 +16,7 @@ export class CodeTask {
 export class CodeTaskDTO {
     id: number;
     position: number;
+    module_id: number;
     task_answer: string;
     last_result: boolean;
 

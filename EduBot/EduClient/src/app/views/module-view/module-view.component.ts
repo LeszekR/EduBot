@@ -43,9 +43,6 @@ export class ModuleViewComponent implements OnInit {
   viewType: string;
   appComp: AppComponent;
 
-  // questions: ClosedQuestion[];
-  // codeTasks: CodeTask[];
-
   private readonly CONTENT_VIEW = 'content';
   private readonly QUIZ_VIEW = 'quiz';
   private readonly CODE_VIEW = 'code';

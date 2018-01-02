@@ -96,10 +96,6 @@ input{
     border-color: #16598A !important;
   }
 
-a:hover{
-    color: #16598A !important;
-}
-
 .loading-spinner {
     border: 10px solid #83C8E5;
     border-top: 10px solid #44B2E2;
@@ -134,4 +130,8 @@ a:hover{
 
 html, body, app-root{
     height: 100%;
+}
+
+quiz-view{
+    width: 100%;
 }

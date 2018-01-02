@@ -16,13 +16,13 @@
             
             
             <!-- test - pytania zamknięte  -->
-            <div *ngIf="viewType==QUIZ_VIEW" class="row col-12 h-100 d-flex m-0 p-0">
+            <div *ngIf="viewType==QUIZ_VIEW" class="row col-12 h-100 d-flex m-0 p-0 of-auto">
                 <quiz-view [module]="module" [readonly]="!context.isEditMode || !module.difficulty=='easy'"></quiz-view>
             </div>
             
             
             <!-- test - pytanie z kodu -->
-            <div *ngIf="viewType==CODE_VIEW" name='moduleCode' class="col-12 h-100 m-0 p-0">
+            <div *ngIf="viewType==CODE_VIEW" name='moduleCode' class="col-12 h-100 m-0 p-0 of-auto">
                 <code-task-view [module]="module" [readonly]="!context.isEditMode || !module.difficulty=='easy'"></code-task-view>
             </div>
             
@@ -59,17 +59,15 @@
 
             <!-- porzewijanie modułów : następy, poprzedni, wyjaśnij -->
             <div class="col-8 d-flex flex-row-reverse m-0 p-0 b-0" role="group">
-                <button (click)="context.moduleList.nextModule()" type="button" class="col-3 m-0 p-0 btn btn-success">
+                <button (click)="context.moduleList.nextModule()" type="button" class="col-3 m-0 btn btn-success">
                     {{ 'learn.next_module' | translate }}
                 </button>
-                <button (click)="context.moduleList.prevModule()" type="button" class="col-3 mr-1 p-0 btn btn-primary">
+                <button (click)="context.moduleList.prevModule()" type="button" class="col-3 mr-1 btn btn-primary">
                     {{ 'learn.prev_module' | translate }}
                 </button>
-                <div class="col-5 m-0 p-0">
-                    <button *ngIf="explanationExists()" (click)="context.moduleList.explain()" type="button" class="mr-1 pull-right btn btn-primary">
-                        {{ 'learn.explain' | translate }}
-                    </button>
-                </div>
+                <button *ngIf="explanationExists()" (click)="context.moduleList.explain()" type="button" class="mr-1 btn btn-primary">
+                    {{ 'learn.explain' | translate }}
+                </button>
             </div>
 
         </div>

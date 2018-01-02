@@ -69,21 +69,7 @@ export class ModuleViewComponent implements OnInit {
       this.questions = this.testTaskService.UnpackClosedQuestions(this.module.test_questions_DTO);
       this.codeTasks = this.testTaskService.UnpackCodeTasks(this.module.test_codes_DTO);
       this.viewType = this.CONTENT_VIEW;
-
-      // // MOCK ************************************************************
-      // this.codeTasks = new MockData().mockCodeTasks;
-      // // *****************************************************************
     });
-  }
-
-
-  // MOCK
-  // ==============================================================================================================
-  mockCodeTask(): number {
-    if (this.codeTasks == undefined)
-      return 0;
-    let y = Math.random() * 4;
-    return Math.trunc(y);
   }
 
   // PUBLIC

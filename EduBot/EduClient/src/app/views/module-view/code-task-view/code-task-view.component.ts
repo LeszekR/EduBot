@@ -11,7 +11,7 @@ import { CodeTask } from '../../../models/quiz-model/code-task';
 export class CodeTaskViewComponent implements OnInit {
 
   @Input() readonly: boolean;
-  @Input() codeTask: CodeTask;
+  @Input() codeTasks: CodeTask[];
 
   // CONSTRUCTOR
   // ==============================================================================================================
@@ -19,5 +19,28 @@ export class CodeTaskViewComponent implements OnInit {
 
   // --------------------------------------------------------------------------------------------------------------
   ngOnInit() {
+
+    // MOCK
+    this.mockCodeTask();
+  }
+
+
+  // MOCK
+  // ==============================================================================================================
+  private mockIdx: number;
+  private mockCodeTask() {
+    if (this.codeTasks == undefined)
+      return 0;
+    let y = Math.random() * this.codeTasks.length;
+    this.mockIdx = Math.trunc(y);
+  }
+
+
+  // PRIVATE
+  // ==============================================================================================================
+  private addCodeTask() {
+    if (this.codeTasks == undefined)
+      this.codeTasks = [];
+    this.codeTasks.push(new CodeTask());
   }
 }

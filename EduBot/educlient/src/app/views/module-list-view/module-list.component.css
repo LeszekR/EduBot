@@ -27,6 +27,18 @@
     color: #a94442;
 }
 
+.lvl-easy:hover{
+    background-color: #c3f6ae;
+}
+
+.lvl-medium:hover{
+    background-color: #f8e99f;
+}
+
+.lvl-hard:hover{
+    background-color: #f5c4c4;
+}
+
 .lvl-easy.active {
     background-color: #3c763d;
     border-color: #d0e9c6;

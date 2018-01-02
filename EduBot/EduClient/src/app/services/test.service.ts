@@ -10,25 +10,37 @@ import { CodeTask, CodeTaskDTO } from '../models/quiz-model/code-task';
 
 // Components
 import { QuizViewComponent } from '../views/module-view/quiz-view/quiz-view.component';
+import { TestCodeService } from './test-code.service';
 
 
 // ==================================================================================================================
 @Injectable()
 export class TestTaskService {
 
-    private moduleUrl = 'http://localhost:64365/api/quiz';
+    private quizUrl = 'http://localhost:64365/api/quiz';
 
 
     // CONSTRUCTOR
     // ==============================================================================================================
-    constructor(private http: HttpService) { }
+    constructor(private http: HttpService, private testCodeService: TestCodeService) { }
 
 
     // PUBLIC
     // ==============================================================================================================
+    verifyCodeTest(codeTask: CodeTask): Observable<boolean> {
+        let result = this.testCodeService.executeCode(codeTask);
+
+        let codeTaskDTO = new CodeTaskDTO(codeTask);
+        codeTaskDTO.last_result = result;
+        this.http.post<boolean>(this.quizUrl + '/verifycodetest', codeTaskDTO);
+
+        return null;
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
     verifyClosedTest(answers: ClosedQuestionAnswDTO[]): Observable<ClosedQuestionAnswDTO[]> {
         return this.http.post<ClosedQuestionAnswDTO[]>(
-            this.moduleUrl + '/verifyclosedtest', answers);
+            this.quizUrl + '/verifyclosedtest', answers);
     }
 
     // --------------------------------------------------------------------------------------------------------------
@@ -81,9 +93,9 @@ export class TestTaskService {
         for (var i in codeTasks) {
 
             c = codeTasks[i];
-            cDTO = new CodeTaskDTO();
+            cDTO = new CodeTaskDTO(c);
             cDTO.id = c.id;
-            cDTO.module_id = moduleId;
+            // cDTO.module_id = moduleId;
             cDTO.position = +i;
             cDTO.task_answer = c.question + "^" + c.correct_result + "^" + c.executor_code;
 

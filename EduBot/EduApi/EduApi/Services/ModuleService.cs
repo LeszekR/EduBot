@@ -376,7 +376,7 @@ namespace EduApi.Services {
 
             // RETURN
             // ...............................................................
-            return ModuleMapper.GetDTO(module);
+            return GetDTOWithQuestions(module, -1);
         }
 
 

@@ -1,38 +1,38 @@
-<!-- <div class="container-fluid h-100" *ngIf="module!=undefined"> -->
-<div class="container-fluid h-100 w-100 m-0 p-0">
+<div class="container-fluid align-items-center h-100 w-100 m-0 p-0">
 
     <div class="row w-100 m-0 p-0" style="height: calc(100% - 3rem)">
 
         <!-- content i example -->
-        <div *ngIf="viewType==CONTENT_VIEW" class="row col-12 h-100 d-flex m-0 p-0">
-            <div class="col-6 h-100 m-0 p-0">
-                <content-view [module]="module" [readonly]="!context.isEditMode"></content-view>
-            </div>
-            <div class="col-6 h-100 m-0 p-0">
-                <example-view [module]="module" [readonly]="!context.isEditMode"></example-view>
-            </div>
-        </div>
+        <fieldset class="row col-12 h-100 d-flex m-0 p-1">
 
-
-        <!-- test - pytania otwarte -->
-        <div *ngIf="viewType==QUIZ_VIEW" class="row col-12 h-100 d-flex m-0 p-0">
-            <div class="col-12 h-100 m-0 p-0 of-auto">
+            <div *ngIf="viewType==CONTENT_VIEW" class="d-flex flex-row w-100 h-100 m-0 p-0">
+                <div class="col-6 h-100 pr-1 p-0">
+                    <content-view [module]="module" [readonly]="!context.isEditMode"></content-view>
+                </div>
+                <div class="col-6 h-100 p-0">
+                    <example-view [module]="module" [readonly]="!context.isEditMode"></example-view>
+                </div>
+            </div>
+            
+            
+            <!-- test - pytania otwarte -->
+            <div *ngIf="viewType==QUIZ_VIEW" class="row col-12 h-100 d-flex m-0 p-0">
                 <quiz-view [questions]="questions" [readonly]="!context.isEditMode||module.difficulty!='easy'"></quiz-view>
             </div>
-        </div>
-
-
-        <!-- test - pytanie z kodu -->
-        <div *ngIf="viewType==CODE_VIEW" name='moduleCode' class="col-12 h-100 m-0 p-0">
-            <code-task-view [codeTask]='codeTasks[mockCodeTask()]' [readonly]="!context.isEditMode||module.difficulty!='easy'"></code-task-view>
-        </div>
-
+            
+            
+            <!-- test - pytanie z kodu -->
+            <div *ngIf="viewType==CODE_VIEW" name='moduleCode' class="col-12 h-100 m-0 p-0">
+                <code-task-view [codeTask]='codeTasks[mockCodeTask()]' [readonly]="!context.isEditMode||module.difficulty!='easy'"></code-task-view>
+            </div>
+            
+        </fieldset>
     </div>
 
 
 
     <!-- przyciski -->
-    <div class="row col-12 mr-0 ml-0 mt-3 mr-2 p-0">
+    <div class="d-flex flex-row col-12 p-1">
 
 
         <!-- WIDOK -->
@@ -52,8 +52,8 @@
 
             <!-- przycisk 'sprawdź test' -->
             <div class="col-4 h-100 m-0 p-0 b-0">
-                <button (click)="verifyClosedTest()" *ngIf="viewType==QUIZ_VIEW" class="btn btn-primary ml-0 pl-0 mr-1">{{ 'learn.verify-test' | translate }}</button>
-                <!-- <button (click)="verifyCode()" *ngIf="viewType==CODE_VIEW" class="btn btn-primary ml-0 pl-0 mr-1">{{ 'learn.verify-test' | translate }}</button> -->
+                <button (click)="verifyClosedTest()" *ngIf="viewType==QUIZ_VIEW && questions.length>0" class="btn btn-primary mr-1">{{ 'learn.verify-test' | translate }}</button>
+                <button (click)="verifyCodeTest()" *ngIf="viewType==CODE_VIEW && codeTasks.length>0" class="btn btn-primary mr-1">{{ 'learn.verify-test' | translate }}</button>
             </div>
 
 

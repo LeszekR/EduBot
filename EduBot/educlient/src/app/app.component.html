@@ -1,8 +1,11 @@
+<!-- BUSY SPINNER -->
+<!-- ........................................................................................... -->
+<spinner-component></spinner-component>
+
+
 <!-- HEADER -->
 <!-- ........................................................................................... -->
 <!-- <nav class="navbar navbar-default navbar-static-top d-flex pl-1 pr-2 pt-0"> -->
-
-<spinner-component></spinner-component>
 <nav class="navbar navbar-default navbar-static-top d-flex align-items-center">
 
     <div class="container-fluid d-flex w-100 p-0 m-0">
@@ -13,12 +16,8 @@
             <span style="margin-left: 55px">Edugame</span>
         </a>
 
-        <!-- GAME PROGRESS -->
-        <!-- <div *ngIf="context.userRole==0" class="ml-auto"> -->
 
-        
-        
-            <!-- EDIT mode buttons -->
+        <!-- EDIT mode buttons -->
         <div *ngIf="context.userRole == 1 || context.userRole == 2" class="ml-auto d-flex justify-content-center align-items-center">
 
             <button class="btn btn-primary btn-xs" (click)="toggleEditMode()">
@@ -31,24 +30,28 @@
             <button class="btn btn-primary btn-xs ml-1" (click)="mockSendPic()">Ślij zdjęcie</button>
         </div>
 
+
+        <!-- GAME PROGRESS -->
         <div class="h-100 ml-auto">
             <progress-comp *ngIf="context.userRole" [gameScore]="context.gameScore"></progress-comp>
         </div>
 
+
+        <!-- USER MANAGEMENT -->
         <div>
             <a *ngIf="context.userRole == 1" routerLink="/user-management" class="navbar-link pr-2" routerLinkActive="active" title="{{ 'toolbar.manage_users' | translate }}">
                 <i class="fa fa-user-circle-o fa-2x i-mid"></i>
             </a>
         </div>
 
+
+        <!-- LANGUAGE CHOOSERS -->
         <div class="ml-auto d-flex align-items-center">
             <select-language></select-language>
         </div>
-        
 
 
         <!-- LOG IN -->
-        <!-- <div class="pos-absolute-right w-10 p-0"> -->
         <div class="pull-right w-10 p-0 ml-2">
             <a *ngIf="!context.userRole" class="nvbar-link pr-2" title="{{ 'toolbar.log_in' | translate }}" (click)="openLoginWindow()">
                 <i class="fa fa-sign-in fa-2x"></i>
@@ -66,11 +69,11 @@
 <!-- BODY - module list and module view -->
 <!-- ........................................................................................... -->
 <div class="container-fluid main-container d-flex p-0 m-0">
-    <div id="module-list-view" class=" col-3 h-100  m-0 p-0 pt-1">
+    <div id="module-list-view" class="col-3 h-100  m-0 p-0 pt-1">
         <module-list-view *ngIf="context.userRole"></module-list-view>
     </div>
 
-    <div id="module-content-example" class="col-9  m-0 p-0">
+    <div id="module-content-example" class="col-9 m-0 p-0 pt-1">
         <router-outlet></router-outlet>
         <message-modal></message-modal>
     </div>

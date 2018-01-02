@@ -1,14 +1,15 @@
-<!-- learnin mode - (student - not editing) -->
-<div *ngIf="!editMode" class="card-block">
+<!-- LEARNING mode - (student - not editing) -->
+<!-- ................................................................................................ -->
+<div *ngIf="!editMode" class="card-block w-100">
  
   <div *ngIf="questionData.status!=0" class="q-status" > 
     <i [ngClass]="getClass()" ></i> 
   </div>
  
-  <h6 class="card-title"><strong>{{ questionData.question }}</strong></h6>
+  <h6 class="card-title w-100"><strong>{{ questionData.question }}</strong></h6>
  
-  <div *ngFor="let answer of questionData.answers; let i=index" [attr.data-index]="i">
-    <div class="form-check card-text" (click)="questionData.correct_idx=i">
+  <div *ngFor="let answer of questionData.answers; let i=index" [attr.data-index]="i" class="w-100">
+    <div class="form-check card-text w-100" (click)="questionData.correct_idx=i">
       <label class="form-check-label">
         <div [ngClass]="questionData.correct_idx==i ? 'fa fa-check-square-o' : 'fa fa-square-o'" ></div>
         {{ answer }}
@@ -19,10 +20,11 @@
 </div>
 
 
-<!-- edit mode (teacher) -->
-<div *ngIf="editMode" class="card-block">
+<!-- EDIT mode (teacher) -->
+<!-- ................................................................................................ -->
+<div *ngIf="editMode" class="card-block w-100">
 
-  <h6 *ngIf="!editQuestionText" class="card-title"><strong>
+  <h6 *ngIf="!editQuestionText" class="card-title w-100"><strong>
     {{ questionData.question }}
     <i class="fa fa-pencil fa-lighter pl-1" aria-hidden="true" (click)="editQuestionText=true" ></i>
   </strong></h6>
@@ -38,8 +40,9 @@
     class="form-control-sm w-100 edit-title" 
     />
 
+
     <!-- ODPOWIEDZI -->
-    <div *ngFor="let answer of questionData.answers; let i=index" [attr.data-index]="i">
+    <div *ngFor="let answer of questionData.answers; let i=index" [attr.data-index]="i" class="w-100">
 
       <div class="form-check card-text">
 

@@ -88,39 +88,6 @@ export class ModuleViewComponent implements OnInit {
 
   // PUBLIC
   // ==============================================================================================================
-  verifyClosedTest() {
-    this.questions.forEach(q => q.status = TestResult.None);
-
-    // check if all answers have been given
-    if (!this.hasAllAnswers('learn.unfinished-test'))
-      return;
-
-
-    // all questions have been answered
-    let answers: ClosedQuestionAnswDTO[] = [];
-    let q: ClosedQuestion;
-
-    for (var i in this.questions) {
-      q = this.questions[i];
-      answers[answers.length] = new ClosedQuestionAnswDTO(q.id, q.correct_idx);
-    }
-
-    this.testTaskService.verifyClosedTest(answers)
-      .subscribe(res => {
-
-        // slow show of the results
-        let multiplier = 1;
-        res.forEach(result => {
-          let question = this.questions.find(q => q.id == result.question_id);
-          setTimeout(() => { question.status = result.answer_id == 0 ? TestResult.Incorrect : TestResult.Correct; }, 1000 * multiplier++);
-        })
-
-        // showing the updated game score
-        this.context.appComponent.showGameScore();
-      });
-  }
-
-  // --------------------------------------------------------------------------------------------------------------
   save() {
 
     // check if every question has been assigned the correct answer
@@ -153,6 +120,44 @@ export class ModuleViewComponent implements OnInit {
 
   // PRIVATE
   // ==============================================================================================================
+  private verifyCodeTest() {
+    console.log("verifyCodeTest()");
+  }
+
+  // --------------------------------------------------------------------------------------------------------------
+  private verifyClosedTest() {
+    this.questions.forEach(q => q.status = TestResult.None);
+
+    // check if all answers have been given
+    if (!this.hasAllAnswers('learn.unfinished-test'))
+      return;
+
+
+    // all questions have been answered
+    let answers: ClosedQuestionAnswDTO[] = [];
+    let q: ClosedQuestion;
+
+    for (var i in this.questions) {
+      q = this.questions[i];
+      answers[answers.length] = new ClosedQuestionAnswDTO(q.id, q.correct_idx);
+    }
+
+    this.testTaskService.verifyClosedTest(answers)
+      .subscribe(res => {
+
+        // slow show of the results
+        let multiplier = 1;
+        res.forEach(result => {
+          let question = this.questions.find(q => q.id == result.question_id);
+          setTimeout(() => { question.status = result.answer_id == 0 ? TestResult.Incorrect : TestResult.Correct; }, 1000 * multiplier++);
+        })
+
+        // showing the updated game score
+        this.context.appComponent.showGameScore();
+      });
+  }
+
+  // --------------------------------------------------------------------------------------------------------------
   private explanationExists(): boolean {
     let currentModule = this.context.currentModule;
     if (currentModule == null)

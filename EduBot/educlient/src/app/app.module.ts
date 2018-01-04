@@ -8,8 +8,8 @@ import { AlertModule, TooltipModule } from 'ngx-bootstrap';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
 //Components
-import { FormFieldComponent } from './components/form-field/form-field.component'
-import { LoginComponent } from './views/log-in/login.component'
+import { FormFieldComponent } from './components/form-field/form-field.component';
+import { LoginComponent } from './views/log-in/login.component';
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './views/welcome-comp/welcome.component';
 import { ModuleViewComponent } from './views/module-view/module-view.component';
@@ -23,6 +23,7 @@ import { MessageComponent } from './shared/components/message/message.component'
 import { QuestionViewComponent } from './views/module-view/quiz-view/question-view/question-view.component';
 import { Autofocus } from './shared/directives/autofocus.directive';
 import { SpinnerComponent } from './shared/components/spinner/spinner.component';
+import {AceEditorComponent} from 'ng2-ace-editor';
 
 //Services
 import { TestService } from './mock/test.service';
@@ -70,7 +71,8 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     GameProgressComponent,
     SelectLanguageComponent,
     MessageComponent,
-    QuestionViewComponent
+    QuestionViewComponent,
+    AceEditorComponent
   ],
   imports: [
     SharedModule,

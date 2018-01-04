@@ -11,6 +11,7 @@ export const LANG_PL_TRANS = {
     'common.quiz': 'Pytania',
     'common.code': 'Koduj',
     'common.empty': ' ',
+    'common.error': 'Błąd',
 
     'view.content': 'Materiał',
     'view.example': 'Przykład',

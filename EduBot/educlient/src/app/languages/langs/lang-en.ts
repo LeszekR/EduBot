@@ -11,6 +11,7 @@ export const LANG_EN_TRANS = {
     'common.quiz': 'Questions',
     'common.code': 'Code task',
     'common.empty': ' ',
+    'common.error': 'Error',
     
     'view.content': 'Content',
     'view.example': 'Example',

@@ -7,18 +7,16 @@ import { Module } from '../../models/module';
 import { ClosedQuestionAnswDTO } from '../../models/quiz-model/closed-question';
 import { ClosedQuestion } from '../../models/quiz-model/closed-question';
 import { TestResult } from '../../models/quiz-model/enum-test-result';
-import { CodeTask } from '../../models/quiz-model/code-task';
 
 //Services
 import { TestTaskService } from '../../services/test.service';
+import { TestCodeService } from '../../services/test-code.service';
 import { ModuleService } from '../../services/module.service';
 import { ContextService } from '../../services/context.service';
-import { MessageService } from '../../shared/components/message/message.service'
+import { MessageService } from '../../shared/components/message/message.service';
 
 //Components
 import { AppComponent } from '../../app.component'
-
-// import { MockData } from '../../mock/test-data'
 
 
 // ==================================================================================================================
@@ -46,6 +44,7 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
     private moduleService: ModuleService,
     private context: ContextService,
     private testTaskService: TestTaskService,
+    private testCodeService: TestCodeService,
     private messageService: MessageService) { }
 
   // --------------------------------------------------------------------------------------------------------------

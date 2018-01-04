@@ -1,0 +1,30 @@
+.tabview, .tabview-sm-tabs {
+    display: flex; }
+    .tabview .tabitem, .tabview-sm-tabs .tabitem {
+      display: inline-block;
+      cursor: pointer;
+      color: #017EB5 !important;
+      background: #f7f7f7;
+      border: 1px solid #f7f7f7;
+      border-bottom: 0px;
+      text-align: center;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      text-decoration: none;
+      font-size: 16px;
+      transition: all 0.2s ease-in-out; }
+      .tabview .tabitem:not(:last-child), .tabview-sm-tabs .tabitem:not(:last-child) {
+        margin-right: 3px; }
+      .tabview .tabitem:hover, .tabview .tabitem.active:hover.btn-primary {
+        color: #F0F6F9 !important;
+        background: #44B2E2; } 
+      .tabview .tabitem.active, .tabview-sm-tabs .tabitem.active {
+        color: #F0F6F9 !important;
+        background: #017EB5; }
+  
+  .tabview {
+    background-color: #B5CCF6;
+    padding: 0rem 0rem 0rem 0.5rem;
+    border-bottom: 1px solid #f7f7f7; }
+    .tabview .tabitem {
+      padding: 0.25rem 1.5rem; }

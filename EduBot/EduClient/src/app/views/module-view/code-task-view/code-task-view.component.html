@@ -1,23 +1,27 @@
-<!-- POLA - pytanie, kod, wynik -->
-<div *ngFor="let c of module.codeTasks; let i=index" [attr.data-index]="i" class="w-100 m-0" style="height:95%">
 
-  <textarea [(ngModel)]="c.question" class="w-100 p-1" style="height:10%;" [readonly]="readonly || module.difficulty!='easy'"></textarea>
-
-  <div class="d-flex w-100 pb-1" style="height: 90%">
-
-  
-    <!-- EDYTOR KODU -->
-    <!-- TODO  zastąpić pole tekstowe edytorem -->
-    <textarea [(ngModel)]="c.exec_output" class="w-50 h-100 p-1 mr-1" [readonly]="context.isEditMode && module.difficulty!='easy'"></textarea>
-
-
-    <!-- WYŚWIETLENIE WYNIKU DZIAŁANIA KODU UCZNIA -->
-    <!-- TODO  zastąpić pole tekstowe wynikiem kodu -->
-    <textarea [(ngModel)]="c.executor_code" class="w-50 h-100 p-1" [readonly]="context.isEditMode && module.difficulty!='easy'"></textarea>
-  
-  </div>
-
+<div class="tabview">
+    <a *ngFor="let c of module.codeTasks;let i = index" class="tabitem"
+      [class.active]="activeTab==i"
+      (click)="activeTab=i">Zadanie {{i+1}}</a>
 </div>
+
+<div *ngIf="module.codeTasks" class="pt-2" style="height: calc(100% - 40px)">
+    <textarea [(ngModel)]="module.codeTasks[activeTab].question" class="w-100 p-1" style="height:10%;" [readonly]="readonly || module.difficulty!='easy'"></textarea>
+
+    <div class="d-flex w-100 pb-1" style="height: 90%">
+  
+    
+      <!-- EDYTOR KODU -->
+      <!-- TODO  zastąpić pole tekstowe edytorem -->
+        <textarea [(ngModel)]="module.codeTasks[activeTab].exec_output" class="w-50 h-100 p-1 mr-1" [readonly]="context.isEditMode && module.difficulty!='easy'"></textarea>
+    
+    
+        <!-- WYŚWIETLENIE WYNIKU DZIAŁANIA KODU UCZNIA -->
+        <!-- TODO  zastąpić pole tekstowe wynikiem kodu -->
+        <textarea [(ngModel)]="module.codeTasks[activeTab].executor_code" class="w-50 h-100 p-1" [readonly]="context.isEditMode && module.difficulty!='easy'"></textarea>
+      </div>
+</div>
+
 
 <!-- przyciski DODAJ USUŃ -->
 <div class="d-flex flex-row pt-1 m-0">

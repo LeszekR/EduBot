@@ -17,6 +17,7 @@ export class CodeTaskViewComponent {
   @Input() readonly: boolean;
   @Input() module: Module;
 
+  activeTab: number = 0;
 
   // CONSTRUCTOR
   // ==============================================================================================================

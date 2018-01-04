@@ -8,9 +8,7 @@ export class CameraService {
 
     // CONSTRUCTOR
     // ==============================================================================================================
-    constructor() {
-        let k = 0;
-     }
+    constructor() {}
 
 
     // PUBLIC

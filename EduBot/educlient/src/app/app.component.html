@@ -18,23 +18,21 @@
 
 
         <!-- EDIT mode buttons -->
-        <div *ngIf="context.userRole == 1 || context.userRole == 2" class="ml-auto d-flex justify-content-center align-items-center">
+        <div *ngIf="context.userRole == 1 || context.userRole == 2" class="ml-auto d-flex justify-content-center align-items-center p-0">
 
-            <button class="btn btn-primary btn-xs" (click)="toggleEditMode()">
+            <button class="btn btn-primary btn-xs h-100" (click)="toggleEditMode()">
                 {{ context.isEditMode ? ('edit.exit_edit_mode' | translate) : ('edit.enter_edit_mode' | translate) }}
             </button>
-            <button class="btn btn-primary btn-xs ml-4" (click)="setEmoState(-1)">Nuda</button>
-            <button class="btn btn-primary btn-xs ml-1" (click)="setEmoState(0)">Ok</button>
-            <button class="btn btn-primary btn-xs ml-1" (click)="setEmoState(1)">Frustra</button>
-            <button class="btn btn-primary btn-xs ml-4" (click)="setEmoState(2)">Czyść historie</button>
-            <button class="btn btn-primary btn-xs ml-1" (click)="mockSendPic()">Ślij zdjęcie</button>
+            <button class="btn btn-primary btn-xs h-100 ml-4" (click)="setEmoState(-1)">Nuda</button>
+            <button class="btn btn-primary btn-xs h-100 ml-1" (click)="setEmoState(0)">Ok</button>
+            <button class="btn btn-primary btn-xs h-100 ml-1" (click)="setEmoState(1)">Frustra</button>
+            <button class="btn btn-primary btn-xs h-100 ml-4" (click)="setEmoState(2)">Czyść historie</button>
+            <button class="btn btn-primary btn-xs h-100 ml-1" (click)="mockSendPic()">Ślij zdjęcie</button>
         </div>
 
 
         <!-- GAME PROGRESS -->
-        <div class="h-100 ml-auto">
-            <progress-comp *ngIf="context.userRole" [gameScore]="context.gameScore"></progress-comp>
-        </div>
+        <progress-comp *ngIf="context.userRole" [gameScore]="context.gameScore"></progress-comp>
 
 
         <!-- USER MANAGEMENT -->

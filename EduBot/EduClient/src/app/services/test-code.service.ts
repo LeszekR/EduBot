@@ -24,11 +24,12 @@ export class TestCodeService {
     // ==============================================================================================================
     executeCode(codeTask: CodeTask): boolean {
 
+        // TODO: wykonać kod studenta, zwrócić true | false zaleznie od prawidłowości wyniku
+
         // MOCK ***************************************************
         console.log("verifyCodeTest(): " + codeTask.exec_output);
         // ********************************************************
 
-        // TODO: wykonać kod studenta, zwrócić true | false zaleznie od prawidłowości wyniku
         return false;
     }
 }

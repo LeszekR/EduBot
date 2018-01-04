@@ -17,6 +17,7 @@ export class ModuleService {
     private moduleUrl = 'http://localhost:64365/api/module';
 
     moduleAdded = new EventEmitter<Module>();
+    refreshModule = new EventEmitter<Module>();
     editedModuleId: number;
 
 

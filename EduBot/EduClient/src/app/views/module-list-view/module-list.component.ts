@@ -180,6 +180,14 @@ export class ModuleListComponent implements OnInit {
         let index = this.modules.findIndex(m => m.id == this.context.currentModuleId);
 
         if (index > -1) {
+
+            if (this.context.isEditMode)
+                this.moduleService.getModuleByIdEdit(this.context.currentModuleId)
+                    .subscribe( m => this.moduleService.refreshModule.emit(m));
+            else
+                this.moduleService.getModuleByIdLearn(this.context.currentModuleId)
+                    .subscribe( m => this.moduleService.refreshModule.emit(m));
+
             // TODO - usunąć lub poprawić tak, żeby po zmianie trybu zmieniła się też treść
             // odpowiedzi na pytania i kod (w edycji: odpowiedzi prawidłowe, w learn: odpowiedzi ucznia )
             // this.moduleService.getModuleInProperMode()
@@ -188,7 +196,6 @@ export class ModuleListComponent implements OnInit {
             //         this.router.navigate(['module/' + this.context.currentModuleId]);
             //     });
         }
-
         // ... a jeśli już go nie ma w tablicy modułów - wyświetlenie ostatniego z tablicy
         else
             this.router.navigate(['module/' + this.modules[this.modules.length - 1].id]);

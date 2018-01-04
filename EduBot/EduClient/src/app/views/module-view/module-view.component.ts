@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 //Models
@@ -27,11 +27,12 @@ import { AppComponent } from '../../app.component'
   templateUrl: './module-view.component.html',
   styles: ['./module-view.component.css']
 })
-export class ModuleViewComponent implements OnInit {
+export class ModuleViewComponent implements OnInit, OnDestroy {
 
   module: Module;
   viewType: string;
   appComp: AppComponent;
+  sub: any;
 
   private readonly CONTENT_VIEW = 'content';
   private readonly QUIZ_VIEW = 'quiz';
@@ -50,13 +51,25 @@ export class ModuleViewComponent implements OnInit {
   // --------------------------------------------------------------------------------------------------------------
   ngOnInit() {
     this.route.data.subscribe(data => {
-      this.module = data.module;
-      this.context.currentModule = data.module;
-      this.context.moduleViewComponent = this;
-      this.module.questions = this.testTaskService.UnpackClosedQuestions(this.module.test_questions_DTO);
-      this.module.codeTasks = this.testTaskService.UnpackCodeTasks(this.module.test_codes_DTO);
+      this.init(data.module);
       this.viewType = this.CONTENT_VIEW;
     });
+
+    this.sub = this.moduleService.refreshModule.subscribe( m => {
+      this.init(m);
+    });
+  }
+
+  ngOnDestroy(){
+    if(this.sub) this.sub.unsubscribe();
+  }
+
+  init(mod :Module){
+    this.module = mod;
+    this.context.currentModule = mod;
+    this.context.moduleViewComponent = this;
+    this.module.questions = this.testTaskService.UnpackClosedQuestions(this.module.test_questions_DTO);
+    this.module.codeTasks = this.testTaskService.UnpackCodeTasks(this.module.test_codes_DTO);
   }
 
   // PUBLIC

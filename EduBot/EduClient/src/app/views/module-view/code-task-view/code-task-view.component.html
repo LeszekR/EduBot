@@ -11,12 +11,12 @@
     <div class="d-flex w-100 pb-1" style="height: 90%">
   
     
-        <ace-editor [(text)]="c.exec_output"
+        <ace-editor [(text)]="module.codeTasks[activeTab].exec_output"
                     [mode]="'javascript'"
                     [theme]="'eclipse'"
                     [readOnly]="context.isEditMode && module.difficulty!='easy'"
                     class="w-50 h-100 p-1"
-                    id="ae{{c.id}}"
+                    id="ae{{module.codeTasks[activeTab].id}}"
                     style="min-height: 100%">
         </ace-editor>
     

@@ -86,7 +86,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   // PUBLIC
   // ==============================================================================================================
- showGameScore() {
+  showGameScore() {
     this.eduService.getScore()
       .subscribe(score => this.context.gameScore = score);
   }
@@ -128,7 +128,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   // --------------------------------------------------------------------------------------------------------------
-   private pausePix() {
+  private pausePix() {
 
     if (!this.emoService.alive)
       return;

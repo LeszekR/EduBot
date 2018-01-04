@@ -51,11 +51,21 @@ export class ModuleListComponent implements OnInit {
                 let index = this.modules.findIndex(x => x.id == m.id);
                 this.modules[index] = m;
             });
+        // this.router.navigate(['module/' + this.modules[this.modules.length - 1].id]);
     }
 
 
     // PUBLIC
     // ==============================================================================================================
+    // navigateToLastVisited() {
+    //     let index = this.modules.findIndex(m => m.id == +this.route.params[0]);
+    //     if (index > -1)
+    //         this.router.navigate(['module/' + index])
+    //     else
+    //         this.router.navigate(['module/' + this.modules[this.modules.length - 1].id]);
+    // }
+
+    // --------------------------------------------------------------------------------------------------------------
     explain() {
         let currentModule = this.context.currentModule;
         let currentModuleId = currentModule.id;
@@ -164,8 +174,18 @@ export class ModuleListComponent implements OnInit {
     // --------------------------------------------------------------------------------------------------------------
     private setNewModules(newModules: Module[]) {
         this.modules = newModules;
-        this.modules.forEach(m => m.isSelected = false);
-        this.router.navigate(['module/' + this.modules[this.modules.length - 1].id]);
+
+        let index = this.modules.findIndex(m => m.id == this.context.currentModuleId);
+        if (index > -1)
+            this.router.navigate(['module/' + this.context.currentModuleId])
+        else
+            this.router.navigate(['module/' + this.modules[this.modules.length - 1].id]);
+
+        // this.navigateToLastVisited();    
+
+        // this.modules.forEach(m => m.isSelected = false);
+        // if (navigateToLast)
+        //     this.router.navigate(['module/' + this.modules[this.modules.length - 1].id]);
     }
 
     // --------------------------------------------------------------------------------------------------------------

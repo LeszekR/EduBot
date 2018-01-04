@@ -32,5 +32,6 @@ export class Module {
         this.difficulty = "easy";
         this.title = "<podaj tytuł>";
         this.content = "";
+        this.isSelected = false;
     }
 }

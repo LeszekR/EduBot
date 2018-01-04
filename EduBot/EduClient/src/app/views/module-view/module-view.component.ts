@@ -85,7 +85,6 @@ export class ModuleViewComponent implements OnInit {
 
     this.moduleService.saveModule(this.module).subscribe(res => {
       this.module = res;
-      // this.context.currentModule = res;
       this.module.questions = this.testTaskService.UnpackClosedQuestions(this.module.test_questions_DTO);
       this.module.codeTasks = this.testTaskService.UnpackCodeTasks(this.module.test_codes_DTO);
     });

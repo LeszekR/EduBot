@@ -11,9 +11,14 @@
     <div class="d-flex w-100 pb-1" style="height: 90%">
   
     
-      <!-- EDYTOR KODU -->
-      <!-- TODO  zastąpić pole tekstowe edytorem -->
-        <textarea [(ngModel)]="module.codeTasks[activeTab].exec_output" class="w-50 h-100 p-1 mr-1" [readonly]="context.isEditMode && module.difficulty!='easy'"></textarea>
+        <ace-editor [(text)]="c.exec_output"
+                    [mode]="'javascript'"
+                    [theme]="'eclipse'"
+                    [readOnly]="context.isEditMode && module.difficulty!='easy'"
+                    class="w-50 h-100 p-1"
+                    id="ae{{c.id}}"
+                    style="min-height: 100%">
+        </ace-editor>
     
     
         <!-- WYŚWIETLENIE WYNIKU DZIAŁANIA KODU UCZNIA -->

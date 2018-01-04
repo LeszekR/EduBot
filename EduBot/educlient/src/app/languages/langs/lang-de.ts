@@ -10,7 +10,8 @@ export const LANG_DE_TRANS = {
     'common.content': '<brak tłuamcz>',
     'common.quiz': '<brak tłuamcz>',
     'common.code': '<brak tłuamcz>',
-    'common.empty': '',    
+    'common.empty': '',
+    'common.error': 'Fehler',
         
     'view.content': '<Content>',
     'view.example': '<Example>',

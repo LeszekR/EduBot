@@ -1,5 +1,6 @@
 // ==================================================================================================================
 export class GameScore {
     progress: number;
-    correctAnswers: number;
+    correctQuestions: number;
+    correctCodes: number;
 }

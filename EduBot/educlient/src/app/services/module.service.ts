@@ -7,6 +7,7 @@ import { HttpService } from './http.service';
 // Model
 import { Module } from '../models/module'
 import { Distractor } from '../models/distractor'
+import { ContextService } from './context.service';
 
 
 // ==================================================================================================================
@@ -21,7 +22,8 @@ export class ModuleService {
 
     // CONSTRUCTOR
     // ==============================================================================================================
-    constructor(private http: HttpService) { }
+    constructor(private http: HttpService,
+        private context: ContextService) { }
 
 
     // PUBLIC
@@ -33,6 +35,14 @@ export class ModuleService {
     // --------------------------------------------------------------------------------------------------------------
     getSimpleModules(): Observable<Module[]> {
         return this.http.get<Module[]>(this.moduleUrl + '/getsimplemodules');
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
+    getModuleInProperMode(): Observable<Module> {
+        if (this.context.isEditMode)
+            return this.getModuleByIdEdit(this.context.currentModuleId);
+        else
+            return this.getModuleByIdLearn(this.context.currentModuleId);
     }
 
     // --------------------------------------------------------------------------------------------------------------

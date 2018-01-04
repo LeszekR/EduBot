@@ -7,7 +7,7 @@ import { TestCodeService } from './test-code.service';
 
 // Model
 import { ClosedQuestion, ClosedQuestionDTO, ClosedQuestionAnswDTO } from '../models/quiz-model/closed-question';
-import { CodeTask, CodeTaskDTO } from '../models/quiz-model/code-task';
+import { CodeTask, CodeTaskDTO, CodeTaskAnswDTO } from '../models/quiz-model/code-task';
 
 // Components
 import { QuizViewComponent } from '../views/module-view/quiz-view/quiz-view.component';
@@ -30,9 +30,8 @@ export class TestTaskService {
     verifyCodeTest(codeTask: CodeTask): Observable<boolean> {
         let result = this.testCodeService.executeCode(codeTask);
 
-        let codeTaskDTO = new CodeTaskDTO(codeTask);
-        codeTaskDTO.last_result = result;
-        return this.http.post<boolean>(this.quizUrl + '/verifycodetest', codeTaskDTO);
+        let codeTaskAnswDTO = new CodeTaskAnswDTO(codeTask.id, codeTask.exec_output, result);
+        return this.http.post<boolean>(this.quizUrl + '/verifycodetest', codeTaskAnswDTO);
     }
 
     // --------------------------------------------------------------------------------------------------------------
@@ -94,7 +93,7 @@ export class TestTaskService {
             cDTO = new CodeTaskDTO(c);
             cDTO.module_id = moduleId;
             cDTO.position = +i;
-            cDTO.task_answer = c.question + "^" + c.correct_result + "^" + c.executor_code;
+            cDTO.task_answer = c.question + "^" + c.exec_output + "^" + c.executor_code;
 
             codeTaskArr[codeTaskArr.length] = cDTO;
         }
@@ -146,7 +145,7 @@ export class TestTaskService {
             c = new CodeTask();
             c.id = codeTasks[i].id;
             c.question = elements[0];
-            c.correct_result = elements[1];
+            c.exec_output = elements[1];
             c.executor_code = elements[2];
 
             codeTasksArr[codeTasksArr.length] = c;

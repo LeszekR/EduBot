@@ -23,11 +23,5 @@ namespace EduApi.Repositories {
             _context.Entry(result).CurrentValues.SetValues(source);
             _context.SaveChanges();
         }
-
-        // ---------------------------------------------------------------------------------------------
-        /* Pobiera wszystkie pytania przypisane do modułu o wskazanym id */
-        public List<test_question> SelectQuestionsForModule(int module_id) {
-            return _context.test_question.Where(q => q.module_id == module_id).ToList();
-        }
     }
 }

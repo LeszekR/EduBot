@@ -25,7 +25,7 @@ export class TestCodeService {
     executeCode(codeTask: CodeTask): boolean {
 
         // MOCK ***************************************************
-        console.log("verifyCodeTest(): " + codeTask.correct_result);
+        console.log("verifyCodeTest(): " + codeTask.exec_output);
         // ********************************************************
 
         // TODO: wykonać kod studenta, zwrócić true | false zaleznie od prawidłowości wyniku

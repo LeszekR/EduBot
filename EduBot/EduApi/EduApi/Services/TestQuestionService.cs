@@ -3,6 +3,7 @@ using EduApi.Dto.Mappers;
 using EduApi.Repositories.Interfaces;
 using EduApi.Services.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EduApi.Services {
 
@@ -51,12 +52,6 @@ namespace EduApi.Services {
         // ---------------------------------------------------------------------------------------------
         public void DeleteQuestion(int id) {
             _questionRepository.Delete(id);
-        }
-
-
-        // ---------------------------------------------------------------------------------------------
-        public List<test_question> SelectQuestionsForModule(int module_id) {
-            return _questionRepository.SelectQuestionsForModule(module_id);
         }
 
 

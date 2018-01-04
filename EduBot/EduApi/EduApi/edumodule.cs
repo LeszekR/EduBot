@@ -17,13 +17,14 @@ namespace EduApi
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public edumodule()
         {
+            this.edumodule1 = new HashSet<edumodule>();
             this.test_code = new HashSet<test_code>();
             this.test_question = new HashSet<test_question>();
             this.user = new HashSet<user>();
         }
     
         public int id { get; set; }
-        public Nullable<int> group_id { get; set; }
+        public Nullable<int> parent { get; set; }
         public string difficulty { get; set; }
         public string title { get; set; }
         public string content { get; set; }
@@ -32,6 +33,9 @@ namespace EduApi
     
         public virtual enum_diff_level enum_diff_level { get; set; }
         public virtual edumodule_gamecontext edumodule_gamecontext { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<edumodule> edumodule1 { get; set; }
+        public virtual edumodule edumodule2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<test_code> test_code { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

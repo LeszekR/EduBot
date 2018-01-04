@@ -22,7 +22,7 @@ namespace EduApi.Controllers {
         // PUBLIC
         // =============================================================================================
         [HttpPost]
-        public IHttpActionResult VerifyCodeTest([FromBody]TestCodeDTO code) {
+        public IHttpActionResult VerifyCodeTest([FromBody]TestCodeAnswDTO code) {
             int userId = TokenHelper.GetUserId(User.Identity);
             return Ok(_quizService.VerifyCodeTest(code, userId));
         }

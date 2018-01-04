@@ -10,15 +10,21 @@ import { ModuleViewComponent } from './views/module-view/module-view.component';
 import { ModuleResolver } from './resolvers/module.resolver';
 
 const routes: Routes = [
-    { path: '', component: WelcomeComponent },
+    {
+        path: '', component: WelcomeComponent
+    },
+
     //Lazy loading module, only when needed
-    { path: 'user-management', loadChildren: 'app/views/user-management/user-management.module#UserManagementModule' },
-    {   path: 'module/:moduleId', 
+    {
+        path: 'user-management',
+        loadChildren: 'app/views/user-management/user-management.module#UserManagementModule'
+    },
+
+    {
+        path: 'module/:moduleId',
         component: ModuleViewComponent,
         data: {},
-        resolve: {
-            module: ModuleResolver
-        },
+        resolve: { module: ModuleResolver },
     }
 ];
 

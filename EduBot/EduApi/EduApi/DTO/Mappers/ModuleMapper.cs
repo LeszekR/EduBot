@@ -14,7 +14,7 @@ namespace EduApi.Dto.Mappers {
         public static ModuleDTO GetSimpleDTO(edumodule entity) {
             return new ModuleDTO {
                 id = entity.id,
-                group_id = entity.group_id,
+                parent = entity.parent,
                 group_position = entity.group_position,
                 title = entity.title,
                 difficulty = entity.difficulty
@@ -30,7 +30,7 @@ namespace EduApi.Dto.Mappers {
         public static ModuleDTO GetDTO(edumodule entity) {
             return new ModuleDTO {
                 id = entity.id,
-                group_id = entity.group_id,
+                parent = entity.parent,
                 group_position = entity.group_position,
                 title = entity.title,
                 difficulty = entity.difficulty,
@@ -42,7 +42,7 @@ namespace EduApi.Dto.Mappers {
         // ---------------------------------------------------------------------------------------------
         public static void CopyValues(ModuleDTO source, edumodule target) {
             target.id = source.id;
-            target.group_id = source.group_id;
+            target.parent = source.parent;
             target.group_position = source.group_position;
             target.title = source.title;
             target.difficulty = source.difficulty;

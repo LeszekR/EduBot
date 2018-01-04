@@ -24,10 +24,10 @@ namespace EduApi.Repositories {
             _context.SaveChanges();
         }
 
-        // ---------------------------------------------------------------------------------------------
-        /* Pobiera wszystkie pytania przypisane do modułu o wskazanym id */
-        public List<test_code> SelectCodesForModule(int module_id) {
-            return _context.test_code.Where(q => q.module_id == module_id).ToList();
-        }
+        //// ---------------------------------------------------------------------------------------------
+        ///* Pobiera wszystkie pytania przypisane do modułu o wskazanym id */
+        //public List<test_code> SelectCodesForModule(int module_id) {
+        //    return _context.test_code.Where(q => q.module_id == module_id).ToList();
+        //}
     }
 }

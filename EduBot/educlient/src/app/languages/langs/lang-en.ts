@@ -68,5 +68,6 @@ export const LANG_EN_TRANS = {
     'learn.test-before-next': 'You need to try and answer all questions in order to get next module.',
     'learn.code-before-next': 'You need to try and solve all code tasks in order to get next module.',
     'learn.progres': 'Modules shown',
-    'learn.correct-answers': 'Tests\' result:'
+    'learn.correct-questions': 'Tests\' result:',
+    'learn.correct-codes': 'Code tasks\' result'
 };

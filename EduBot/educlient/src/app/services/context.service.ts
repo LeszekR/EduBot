@@ -40,6 +40,7 @@ export class ContextService {
 
         this.gameScore = new GameScore();
         this.gameScore.progress = 0;
-        this.gameScore.correctAnswers = 0;
+        this.gameScore.correctQuestions = 0;
+        this.gameScore.correctCodes = 0;
     }
 }

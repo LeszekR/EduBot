@@ -67,6 +67,7 @@ export const LANG_PL_TRANS = {
     'learn.test-before-next': 'Aby przejść dalej musisz dać odpowiedź na wszystkie pytania.',
     'learn.code-before-next': 'Aby przejść dalej musisz rozwiązć wszystkie zadania z kodu.',
     'learn.progres': 'Wyświetlone moduły',
-    'learn.correct-answers': 'Wynik testów'
+    'learn.correct-questions': 'Wynik pytań',
+    'learn.correct-codes': 'Wynik kodów'
 
 };

@@ -10,9 +10,5 @@ namespace EduApi.Repositories.Interfaces {
         // ---------------------------------------------------------------------------------------------
         /* Kopiuje dane z TestCodeDTO do edumodule pobranego z bazy i zapisuje zmiany w bazie. */
         void SetNewValues(TestCodeDTO source, test_code result);
-
-        // ---------------------------------------------------------------------------------------------
-        /* Pobiera wszystkie pytania przypisane do modułu o wskazanym id */
-        List<test_code> SelectCodesForModule(int module_id);
     }
 }

@@ -92,7 +92,7 @@ export class ModuleViewComponent implements OnInit {
     for (var i in tasks)
 
       // stop if unsolved code task is fonud
-      if (tasks[i].correct_result.replace(" ", '').length < 7) {
+      if (tasks[i].exec_output.replace(" ", '').length < 7) {
         this.messageService.info(msg, 'common.empty');
         return false;
       }

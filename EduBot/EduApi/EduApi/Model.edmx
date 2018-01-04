@@ -18,7 +18,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="group_id" Type="int4" />
+          <Property Name="parent" Type="int4" />
           <Property Name="difficulty" Type="varchar" MaxLength="8000" Nullable="false" />
           <Property Name="title" Type="varchar" MaxLength="8000" Nullable="false" />
           <Property Name="content" Type="varchar" MaxLength="8000" Nullable="false" />
@@ -140,6 +140,18 @@
             </Principal>
             <Dependent Role="edumodule_gamecontext">
               <PropertyRef Name="edumodule_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="edumodule_parent_fk">
+          <End Role="edumodule" Type="Self.edumodule" Multiplicity="0..1" />
+          <End Role="edumodule1" Type="Self.edumodule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="edumodule">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="edumodule1">
+              <PropertyRef Name="parent" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -297,6 +309,10 @@
             <End Role="edumodule" EntitySet="edumodule" />
             <End Role="edumodule_gamecontext" EntitySet="edumodule_gamecontext" />
           </AssociationSet>
+          <AssociationSet Name="edumodule_parent_fk" Association="Self.edumodule_parent_fk">
+            <End Role="edumodule" EntitySet="edumodule" />
+            <End Role="edumodule1" EntitySet="edumodule" />
+          </AssociationSet>
           <AssociationSet Name="test_code_module_id_fkey" Association="Self.test_code_module_id_fkey">
             <End Role="edumodule" EntitySet="edumodule" />
             <End Role="test_code" EntitySet="test_code" />
@@ -361,7 +377,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="group_id" Type="Int32" />
+          <Property Name="parent" Type="Int32" />
           <Property Name="difficulty" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="title" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="content" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" Nullable="false" />
@@ -369,6 +385,8 @@
           <Property Name="group_position" Type="Int32" Nullable="false" />
           <NavigationProperty Name="enum_diff_level" Relationship="Self.edumodule_difficulty_fkey" FromRole="edumodule" ToRole="enum_diff_level" />
           <NavigationProperty Name="edumodule_gamecontext" Relationship="Self.edumodule_gamecontext_edumodule_id_fkey" FromRole="edumodule" ToRole="edumodule_gamecontext" />
+          <NavigationProperty Name="edumodule1" Relationship="Self.edumodule_parent_fk" FromRole="edumodule" ToRole="edumodule1" />
+          <NavigationProperty Name="edumodule2" Relationship="Self.edumodule_parent_fk" FromRole="edumodule1" ToRole="edumodule" />
           <NavigationProperty Name="test_code" Relationship="Self.test_code_module_id_fkey" FromRole="edumodule" ToRole="test_code" />
           <NavigationProperty Name="test_question" Relationship="Self.test_question_module_id_fkey" FromRole="edumodule" ToRole="test_question" />
           <NavigationProperty Name="user" Relationship="Self.user_edumodule" FromRole="edumodule" ToRole="user" />
@@ -513,6 +531,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="edumodule_parent_fk">
+          <End Role="edumodule" Type="Self.edumodule" Multiplicity="0..1" />
+          <End Role="edumodule1" Type="Self.edumodule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="edumodule">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="edumodule1">
+              <PropertyRef Name="parent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="test_code_module_id_fkey">
           <End Role="edumodule" Type="Self.edumodule" Multiplicity="1" />
           <End Role="test_code" Type="Self.test_code" Multiplicity="*" />
@@ -638,6 +668,10 @@
             <End Role="edumodule" EntitySet="edumodule" />
             <End Role="edumodule_gamecontext" EntitySet="edumodule_gamecontext" />
           </AssociationSet>
+          <AssociationSet Name="edumodule_parent_fk" Association="Self.edumodule_parent_fk">
+            <End Role="edumodule" EntitySet="edumodule" />
+            <End Role="edumodule1" EntitySet="edumodule" />
+          </AssociationSet>
           <AssociationSet Name="test_code_module_id_fkey" Association="Self.test_code_module_id_fkey">
             <End Role="edumodule" EntitySet="edumodule" />
             <End Role="test_code" EntitySet="test_code" />
@@ -694,7 +728,7 @@
             <EntityTypeMapping TypeName="edumaticModel.edumodule">
               <MappingFragment StoreEntitySet="edumodule">
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="group_id" ColumnName="group_id" />
+                <ScalarProperty Name="parent" ColumnName="parent" />
                 <ScalarProperty Name="difficulty" ColumnName="difficulty" />
                 <ScalarProperty Name="title" ColumnName="title" />
                 <ScalarProperty Name="content" ColumnName="content" />

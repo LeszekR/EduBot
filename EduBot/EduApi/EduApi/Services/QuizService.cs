@@ -84,29 +84,30 @@ namespace EduApi.Services {
 
 
         // ---------------------------------------------------------------------------------------------
-        public bool VerifyCodeTest(TestCodeDTO code, int userId) {
+        public bool VerifyCodeTest(TestCodeAnswDTO code, int userId) {
 
             var user = _userService.GetUserEntity(userId);
 
             // Pobranie kodu z listy kodów, na które użytkownik już odpowiadał ...
             user_code solvedCode = user.user_code.ToList()
-                .Where(c => c.code_id == code.id)
+                .Where(c => c.code_id == code.codeTaskId)
                 .FirstOrDefault();
 
             // ... lub dodanie nowego kodu do listy kodów, na które użytkownik odpowiedział
             if (solvedCode == null) {
                 solvedCode = new user_code() {
                     user_id = userId,
-                    first_result = code.last_result
+                    code_id = code.codeTaskId,
+                    first_result = code.lastResult
                 };
                 user.user_code.Add(solvedCode);
             }
-            solvedCode.last_result = code.last_result;
-            solvedCode.last_answer = code.task_answer;
+            solvedCode.last_answer = code.answer;
+            solvedCode.last_result = code.lastResult;
 
             _userService.SaveChanges();
 
-            return code.last_result;
+            return code.lastResult;
         }
 
 
@@ -151,8 +152,8 @@ namespace EduApi.Services {
                 // ... lub dodanie nowego pytania do listy pytań, na które użytkownik odpowiedział
                 if (answeredQuestion == null) {
                     answeredQuestion = new user_question() {
-                        question_id = ans.question_id,
                         user_id = userId,
+                        question_id = ans.question_id,
                         first_result = result
                     };
                     user.user_question.Add(answeredQuestion);
@@ -190,12 +191,6 @@ namespace EduApi.Services {
         // ---------------------------------------------------------------------------------------------
         public void DeleteQuestion(int id) {
             _questionRepository.Delete(id);
-        }
-
-
-        // ---------------------------------------------------------------------------------------------
-        public List<test_question> SelectQuestionsForModule(int module_id) {
-            return _questionRepository.SelectQuestionsForModule(module_id);
         }
 
 

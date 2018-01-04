@@ -208,6 +208,7 @@
     <Compile Include="Dto\ModuleAndDistractorDTO.cs" />
     <Compile Include="Dto\TestCodeDTO.cs" />
     <Compile Include="Dto\GameScoreDTO.cs" />
+    <Compile Include="Dto\TestCodeAnswDTO.cs" />
     <Compile Include="Dto\TestQuestionAnswDTO.cs" />
     <Compile Include="Dto\TestQuestionDTO.cs" />
     <Compile Include="edumodule.cs">

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-// import { Subscriber } from 'rxjs/Subscriber';
 import { Router, Resolve, ActivatedRouteSnapshot } from '@angular/router';
 
 import { ModuleService } from '../services/module.service';
@@ -26,6 +25,7 @@ export class ModuleResolver implements Resolve<any> {
     // ==============================================================================================================
     resolve(route: ActivatedRouteSnapshot): Observable<any> | Promise<any> | any {
         this.context.currentModuleId = +route.params['moduleId'];
+
         if (this.context.isEditMode)
             return this.service.getModuleByIdEdit(this.context.currentModuleId);
         else

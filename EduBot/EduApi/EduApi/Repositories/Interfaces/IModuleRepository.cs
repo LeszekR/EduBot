@@ -11,10 +11,10 @@ namespace EduApi.DAL.Interfaces {
         //List<edumodule> ModulesOfUser(int userId);
 
         //// ---------------------------------------------------------------------------------------------
-        ///* 1. Pobiera wszystkie moduły, które należą do grupy o podanym id_grupy 
+        ///* 1. Pobiera wszystkie moduły, które należą do grupy o podanym parentId 
         // * 2. sortuje wg pozycji w grupie (kolejności)
         // */
-        //List<edumodule> SelectChildren(int? id_grupy);
+        //List<edumodule> SelectChildren(int? parentId);
 
         // ---------------------------------------------------------------------------------------------
         /* Kopiuje dane z ModuleDTO do edumodule pobranego z bazy i zapisuje zmiany w bazie. */

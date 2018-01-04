@@ -76,30 +76,30 @@ namespace EduApi.Services {
                 if (children.FirstOrDefault(c => userModulesAll.Contains(c)) == null)
                     foreach (var child in children)
                         nDone += countEasiestChildren(child);
-
-                //childrenShownToo = false;
-                //foreach (var child in children)
-                //    if (userModulesAll.Contains(child)) {
-                //        childrenShownToo = true;
-                //        break;
-                //    }
-                //childrenShownToo = children.FirstOrDefault(c => userModulesAll.Contains(c)) == null;
             }
 
             var nTotal = _moduleRepository.All().Count();
-            var progress = nTotal == 0? 0 : 100 * nDone / nTotal;
+            var progress = nTotal == 0 ? 0 : 100 * nDone / nTotal;
 
 
-            // obliczenie aktualnego wyniku = procentu prawidłowych odpowiedzi
+            // obliczenie aktualnego wyniku pytań zamkniętych = procentu prawidłowych odpowiedzi
             var questions = user.user_question;
             nTotal = questions.Count();
             var nCorrect = questions.Where(q => q.last_result == true).Count();
             var correctAnswers = nTotal == 0 ? 0 : 100 * nCorrect / nTotal;
 
 
+            // obliczenie aktualnego wyniku testów z kodu = procentu prawidłowych rozwiązań
+            var codes = user.user_code;
+            nTotal = codes.Count();
+            nCorrect = codes.Where(c => c.last_result == true).Count();
+            var correctCodes = nTotal == 0 ? 0 : 100 * nCorrect / nTotal;
+
+
             return new GameScoreDTO() {
                 progress = progress,
-                correctAnswers = correctAnswers
+                correctQuestions = correctAnswers,
+                correctCodes = correctCodes
             };
         }
 
@@ -445,15 +445,15 @@ namespace EduApi.Services {
                 change = ChangeDifficulty.NO_CHANGE;
 
 
-            // TODO: uporządkować przypadek group_id == null - nie może występować
+            // TODO: uporządkować przypadek parent == null - nie może występować
             // pobranie rodzeństwa bieżącego modułu
-            int? parentId = lastModule.group_id;
+            int? parentId = lastModule.parent;
             var siblings = _moduleService.SelectChildren(parentId);
 
 
             // wykluczenie modułów nie przypisanych do żadnego nadrzędnego, 
             // które powinny mieć rodzica (czyli na poziomie niższym niz "hard")
-            siblings = siblings.Where(s => (s.group_id != null || s.difficulty == "hard")).ToList();
+            siblings = siblings.Where(s => (s.parent != null || s.difficulty == "hard")).ToList();
             ModuleService.SortGroupPosition(ref siblings);
 
 

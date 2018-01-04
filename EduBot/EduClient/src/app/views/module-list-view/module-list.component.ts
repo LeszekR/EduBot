@@ -173,12 +173,21 @@ export class ModuleListComponent implements OnInit {
     private setNewModules(newModules: Module[]) {
         this.modules = newModules;
 
-        // this.modules.forEach(m => m.isSelected = false);
+        // usunięcie zaznaczenia z modułów wybranych do utworzenia modułu nadrzędnego
+        this.modules.forEach(m => m.isSelected = false);
 
         // wyświetlenie ostatnio oglądanego modułu ...
         let index = this.modules.findIndex(m => m.id == this.context.currentModuleId);
-        if (index > -1)
-            this.router.navigate(['module/' + this.context.currentModuleId])
+
+        if (index > -1) {
+            // TODO - usunąć lub poprawić tak, żeby po zmianie trybu zmieniła się też treść
+            // odpowiedzi na pytania i kod (w edycji: odpowiedzi prawidłowe, w learn: odpowiedzi ucznia )
+            // this.moduleService.getModuleInProperMode()
+            //     .subscribe(module => {
+            //         this.modules[index] = module;
+            //         this.router.navigate(['module/' + this.context.currentModuleId]);
+            //     });
+        }
 
         // ... a jeśli już go nie ma w tablicy modułów - wyświetlenie ostatniego z tablicy
         else

@@ -3,6 +3,7 @@ using EduApi.Dto.Mappers;
 using EduApi.Repositories.Interfaces;
 using EduApi.Services.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EduApi.Services {
 
@@ -55,8 +56,8 @@ namespace EduApi.Services {
 
 
         // ---------------------------------------------------------------------------------------------
-        public List<test_code> SelectCodesForModule(int module_id) {
-            return _codeRepository.SelectCodesForModule(module_id);
+        public List<test_code> SelectCodesForModule(edumodule module) {
+            return module.test_code.ToList();
         }
 
 

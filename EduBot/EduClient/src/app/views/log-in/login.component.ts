@@ -1,8 +1,8 @@
-import { Component, Output, EventEmitter } from '@angular/core'
+import { Component, Output, EventEmitter, } from '@angular/core'
 
 import { LoginService } from '../../services/login.service';
 import { UserService } from '../../services/user.service';
-import { FormField } from '../form-field/form-field';
+import { FormField } from '../../components/form-field/form-field';
 import { User } from '../../models/user';
 import { JwtHelper } from '../../shared/utils/jwt-helper';
 import { Role } from '../../models/enum-user-role';

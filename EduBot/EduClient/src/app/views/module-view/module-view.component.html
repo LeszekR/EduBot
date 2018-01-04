@@ -2,30 +2,23 @@
 
     <div class="row w-100 m-0 p-0" style="height: calc(100% - 3rem)">
 
-        <!-- content i example -->
         <fieldset class="row col-12 h-100 d-flex m-0 p-1">
-
-            <div *ngIf="viewType==CONTENT_VIEW" class="d-flex flex-row w-100 h-100 m-0 p-0">
-                <div class="col-6 h-100 pr-1 p-0">
-                    <content-view [module]="module" [readonly]="!context.isEditMode"></content-view>
-                </div>
-                <div class="col-6 h-100 p-0">
-                    <example-view [module]="module" [readonly]="!context.isEditMode"></example-view>
-                </div>
+            
+            <!-- content i example -->
+            <div *ngIf="viewType==CONTENT_VIEW" class="w-100 h-100 m-0 p-0">
+                <content-view [module]="module" [readonly]="!context.isEditMode"></content-view>
             </div>
-            
-            
+
             <!-- test - pytania zamknięte  -->
-            <div *ngIf="viewType==QUIZ_VIEW" class="row col-12 h-100 d-flex m-0 p-0 of-auto">
+            <div *ngIf="viewType==QUIZ_VIEW" class="w-100 h-100 m-0 p-0 of-auto">
                 <quiz-view [module]="module" [readonly]="!context.isEditMode || !module.difficulty=='easy'"></quiz-view>
             </div>
-            
-            
+
             <!-- test - pytanie z kodu -->
-            <div *ngIf="viewType==CODE_VIEW" name='moduleCode' class="col-12 h-100 m-0 p-0 of-auto">
+            <div *ngIf="viewType==CODE_VIEW" class="w-100 h-100 m-0 p-0 of-auto">
                 <code-task-view [module]="module" [readonly]="!context.isEditMode || !module.difficulty=='easy'"></code-task-view>
             </div>
-            
+
         </fieldset>
     </div>
 
@@ -38,10 +31,10 @@
         <!-- WIDOK -->
         <!-- ........................................................................................... -->
         <div class="col-3 d-flex flex-row h-100 m-0 p-0 b-0 pull-left">
-            <button (click)="viewType=CODE_VIEW" class="col-4 btn btn-primary pull-right mr-1">{{ 'common.code' | translate }}</button>
-            <button (click)="viewType=QUIZ_VIEW" class="col-4 btn btn-primary pull-right mr-1">{{ 'common.quiz' | translate }}</button>
-            <button (click)="viewType=CONTENT_VIEW" class="col-4 btn btn-primary pull-right mr-1">{{ 'common.content' | translate }}</button>
-         </div>
+            <button (click)="viewChange(CONTENT_VIEW)" class="col-4 btn btn-primary pull-right mr-1">{{ 'common.content' | translate }}</button>
+            <button (click)="viewChange(QUIZ_VIEW)" class="col-4 btn btn-primary pull-right mr-1">{{ 'common.quiz' | translate }}</button>
+            <button (click)="viewChange(CODE_VIEW)" class="col-4 btn btn-primary pull-right mr-1">{{ 'common.code' | translate }}</button>
+        </div>
 
 
 
@@ -50,10 +43,10 @@
         <div *ngIf="!context.isEditMode" class="row col-9 h-100 m-0 p-0 b-0">
 
 
-            <!-- przycisk 'sprawdź test' -->
+            <!-- przyciski 'sprawdź test' -->
             <div class="col-4 d-flex flex-row-reverse h-100 m-0 p-0 b-0">
                 <button (click)="verifyClosedTest()" *ngIf="viewType==QUIZ_VIEW && module.questions!=undefined" class="btn btn-primary mr-1">{{ 'learn.verify-test' | translate }}</button>
-                <button (click)="verifyCodeTest()" *ngIf="viewType==CODE_VIEW && module.codeTasks!=undefined" class="btn btn-primary mr-1">{{ 'learn.verify-test' | translate }}</button>
+                <button (click)="verifyCodeTest()" *ngIf="viewType==CODE_VIEW && module.codeTasks!=undefined" class="btn btn-primary mr-1">{{ 'learn.verify-code' | translate }}</button>
             </div>
 
 

@@ -2,12 +2,19 @@
 <!-- ................................................................................................ -->
 <div *ngIf="!editMode" class="card-block w-100">
  
+  <!-- result mark -->
   <div *ngIf="questionData.status!=0" class="q-status" > 
-    <i [ngClass]="getClass()" ></i> 
+    <i [ngClass]="markCorrectResult()" ></i> 
   </div>
  
-  <h6 class="card-title w-100"><strong>{{ questionData.question }}</strong></h6>
+  <!-- question -->
+  <h6 class="card-title w-100">
+    <strong>
+      {{ questionData.question }}
+    </strong>
+  </h6>
  
+  <!-- answers -->
   <div *ngFor="let answer of questionData.answers; let i=index" [attr.data-index]="i" class="w-100">
     <div class="form-check card-text w-100" (click)="questionData.correct_idx=i">
       <label class="form-check-label">

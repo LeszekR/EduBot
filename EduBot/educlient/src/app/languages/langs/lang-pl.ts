@@ -11,6 +11,9 @@ export const LANG_PL_TRANS = {
     'common.quiz': 'Pytania',
     'common.code': 'Koduj',
     'common.empty': ' ',
+
+    'view.content': 'Materiał',
+    'view.example': 'Przykład',
     
     'edit.add_module': 'Dodaj moduł',
     'edit.add_meta_module': 'Moduł nadrzędny',
@@ -22,9 +25,11 @@ export const LANG_PL_TRANS = {
     'edit.del_module_failed': 'Nie udało się usunąć modułu.',
     'edit.del_question_title': 'Usuwanie pytania',
     'edit.del_question_decision': 'Czy na pewno chcesz usunąć to pytanie?',
+    'edit.del_code_decision': 'Czy na pewno chcesz usunąć to zadanie?',
     'edit.enter_edit_mode': 'Włącz tryb edycji',
     'edit.exit_edit_mode': 'Wyłącz tryb edycji',
     'edit.no-correct-answer': 'Aby zapisać pytania musisz przy każdym zaznaczyć prawidłową odpowiedź.',
+    'edit.no-code': 'Aby zapisać test z kodu musisz wpisać prawidłowy wynik.',
     
     'error.login.credentials': 'Nieprawidłowe dane logowania',
     'error.login.repeat': 'Hasła są różne',
@@ -55,9 +60,12 @@ export const LANG_PL_TRANS = {
     'learn.prev_module': 'Wstecz',
     'learn.explain': 'Wyjaśnij dokładniej',
     'learn.verify-test': 'Sprawdź test',
+    'learn.verify-code': 'Wykonaj kod',
     'learn.keep-working': 'Naciśnij "Ok" aby wznowić pracę',
     'learn.unfinished-test': 'Aby sprawdzić test musisz odpowiedzieć na wszystkie pytania.',
+    'learn.unfinished-code': 'Brak kodu do wykonania lub jest niepoprawny.',
     'learn.test-before-next': 'Aby przejść dalej musisz dać odpowiedź na wszystkie pytania.',
+    'learn.code-before-next': 'Aby przejść dalej musisz rozwiązć wszystkie zadania z kodu.',
     'learn.progres': 'Wyświetlone moduły',
     'learn.correct-answers': 'Wynik testów'
 

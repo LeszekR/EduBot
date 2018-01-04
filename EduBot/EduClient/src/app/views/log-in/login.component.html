@@ -1,11 +1,13 @@
 <div class="pl-3 pt-3 container" *ngIf="!loggedIn">
+
     <div *ngIf="action=='logging-in' || action=='passw-change'" >
-        <formfield [field]='fieldLogin' class='formfield'></formfield>
+        <formfield [field]='fieldLogin' class='formfield' id="login"></formfield>
         <formfield [field]='fieldPassw' class='formfield'></formfield>
         <div class='text-danger'>
             <p>{{ errCredentials | translate }}</p>
         </div>
     </div>
+    
     <div *ngIf="action=='register' || action=='passw-change'" >
         <formfield [field]='fieldNewLogin' class='formfield'></formfield>
         <formfield [field]='fieldNewPassw' class='formfield'></formfield>
@@ -26,6 +28,7 @@
             </div>
         </div>
     </div>
+    
     <div class="row mt-2" >
         <div>
             <a *ngIf="action!='logging-in'" class="ml-2" (click)="setAction('logging-in')">{{ 'login.log_in' | translate }}</a>
@@ -37,7 +40,9 @@
     <div class="row" >
         <button class="btn btn-primary ml-auto" (click)='submitLogin()'><strong>{{ 'common.ok' | translate }}</strong></button>
     </div>
+
 </div>
+
 <div *ngIf="loggedIn">
     {{ 'login.success' | translate }}
 </div>

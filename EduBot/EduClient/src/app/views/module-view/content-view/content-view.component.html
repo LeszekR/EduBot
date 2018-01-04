@@ -1,7 +1,27 @@
-<div class="font-weight-bold" style="height: 2.5rem">
-    <i class="fa fa-book fa-2x"></i>
-    Materiał
-</div>
-<div style="height: calc(100% - 2.5rem)">
-    <textarea [(ngModel)]="module.content" class="form-control w-100 h-100 text-muted" [readonly]="readonly"></textarea>
+<div class="d-flex flex-row w-100 h-100 m-0 p-0">
+
+    
+    <!-- CONTENT -->
+    <div class="col-6 h-100 pr-1 p-0">
+        <div class="font-weight-bold" style="height: 2.5rem">
+            <i class="fa fa-book fa-2x"></i>
+            {{ 'view.content' | translate }}
+        </div>
+        <div style="height: calc(100% - 2.5rem)">
+            <textarea [(ngModel)]="module.content" class="form-control w-100 h-100 text-muted" [readonly]="readonly"></textarea>
+        </div>
+    </div>
+
+
+    <!-- EXAMPLE -->
+    <div class="col-6 h-100 p-0">
+        <div class="font-weight-bold" style="height: 2.5rem">
+            <i class="fa fa-keyboard-o fa-2x"></i>
+            {{ 'view.example' | translate }}
+        </div>
+        <div style="height: calc(100% - 2.5rem)">
+            <textarea [(ngModel)]="module.example" class="module-example form-control w-100 h-100 text-muted" [readonly]="readonly"></textarea>
+        </div>
+
+    </div>
 </div>

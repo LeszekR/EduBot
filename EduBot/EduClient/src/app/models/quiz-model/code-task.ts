@@ -8,7 +8,7 @@ export class CodeTask {
     position: number;
     question: string;
     status: TestResult = TestResult.None;
-    correct_result: any;
+    correct_result: string;
     executor_code: string;
 }
 

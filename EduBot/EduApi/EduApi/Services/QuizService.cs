@@ -86,8 +86,27 @@ namespace EduApi.Services {
         // ---------------------------------------------------------------------------------------------
         public bool VerifyCodeTest(TestCodeDTO code, int userId) {
 
-            // TODO zaimplementowac VerifycodeTest
-            throw new NotImplementedException();
+            var user = _userService.GetUserEntity(userId);
+
+            // Pobranie kodu z listy kodów, na które użytkownik już odpowiadał ...
+            user_code solvedCode = user.user_code.ToList()
+                .Where(c => c.code_id == code.id)
+                .FirstOrDefault();
+
+            // ... lub dodanie nowego kodu do listy kodów, na które użytkownik odpowiedział
+            if (solvedCode == null) {
+                solvedCode = new user_code() {
+                    user_id = userId,
+                    first_result = code.last_result
+                };
+                user.user_code.Add(solvedCode);
+            }
+            solvedCode.last_result = code.last_result;
+            solvedCode.last_answer = code.task_answer;
+
+            _userService.SaveChanges();
+
+            return code.last_result;
         }
 
 
@@ -122,7 +141,6 @@ namespace EduApi.Services {
                     result = false;
                     ans.answer_id = 0;
                 }
-
 
 
                 // Pobranie pytania z listy pytań, na które użytkownik już odpowiadał ...

@@ -1,12 +1,17 @@
+<!-- POLA - pytanie, kod, wynik -->
 <div *ngFor="let c of module.codeTasks; let i=index" [attr.data-index]="i" class="w-100 m-0" style="height:95%">
 
-  <textarea [(ngModel)]="c.question" class="w-100 p-1" style="height:10%;" [readonly]="readonly"></textarea>
+  <textarea [(ngModel)]="c.question" class="w-100 p-1" style="height:10%;" [readonly]="readonly || module.difficulty!='easy'"></textarea>
 
   <div class="d-flex w-100 pb-1" style="height: 90%">
-    <textarea [(ngModel)]="c.correct_result" class="w-50 h-100 p-1 mr-1" [readonly]="readonly"></textarea>
-    <textarea [(ngModel)]="c.executor_code" class="w-50 h-100 p-1" [readonly]="readonly"></textarea>
+    <textarea [(ngModel)]="c.correct_result" class="w-50 h-100 p-1 mr-1" [readonly]="context.isEditMode && module.difficulty!='easy'"></textarea>
+    <textarea [(ngModel)]="c.executor_code" class="w-50 h-100 p-1" [readonly]="context.isEditMode && module.difficulty!='easy'"></textarea>
   </div>
 
 </div>
 
-<div *ngIf="!readonly" (click)="addCodeTask()" class="fa fa-plus fa-2x ml-2 w-0" style="width: 5%; height:5%;"></div>
+<!-- przyciski DODAJ USUŃ -->
+<div class="d-flex flex-row pt-1 m-0">
+  <div *ngIf="!readonly && module.difficulty=='easy'" (click)="addCodeTask()" class="fa fa-plus fa-2x ml-2 w-0" style="width: 5%; height:5%;"></div>
+  <div *ngIf="!readonly && module.difficulty=='easy'" (click)="deleteCodeTask()" class="fa fa-minus fa-2x ml-2 w-0" style="width: 5%; height:5%;"></div>
+</div>

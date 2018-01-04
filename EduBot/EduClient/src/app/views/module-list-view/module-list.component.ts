@@ -1,19 +1,20 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-//Models
-import { Module } from '../../models/module';
-
-//Services
+// Commmon
 import { ModuleResolver } from '../../resolvers/module.resolver';
 import { TranslatePipe } from '../../languages/translate.pipe';
+import { MessageService } from '../../shared/components/message/message.service';
 
+//Models
+import { Module } from '../../models/module';
+import { ModulDistracDTO } from '../../models/module-and-distractor-DTO';
+
+//Services
 import { ModuleService } from '../../services/module.service';
 import { DistractorService } from '../../services/distractor.service';
 import { EduService } from '../../services/edu.service';
 import { ContextService } from '../../services/context.service';
-import { MessageService } from '../../shared/components/message/message.service';
-import { ModulDistracDTO } from '../../models/module-and-distractor-DTO';
 
 
 // ==================================================================================================================
@@ -57,15 +58,6 @@ export class ModuleListComponent implements OnInit {
 
     // PUBLIC
     // ==============================================================================================================
-    // navigateToLastVisited() {
-    //     let index = this.modules.findIndex(m => m.id == +this.route.params[0]);
-    //     if (index > -1)
-    //         this.router.navigate(['module/' + index])
-    //     else
-    //         this.router.navigate(['module/' + this.modules[this.modules.length - 1].id]);
-    // }
-
-    // --------------------------------------------------------------------------------------------------------------
     explain() {
         let currentModule = this.context.currentModule;
         let currentModuleId = currentModule.id;
@@ -103,10 +95,16 @@ export class ModuleListComponent implements OnInit {
 
         let currModule = this.context.currentModule;
 
-        // blokada następnego modułu dopóki użytkownik nie odpowie na wszystkie pytania testu
         if (currModule != undefined)
+
+            // blokada następnego modułu dopóki użytkownik nie odpowie na wszystkie pytania testu
             if (!this.context.moduleViewComponent.hasAllAnswers('learn.test-before-next'))
                 return;
+
+            // blokada następnego modułu dopóki użytkownik nie rozwiąże wszytkich zadań z kodu
+            else if (!this.context.moduleViewComponent.hasAllCodes('learn.code-before-next'))
+                return;
+
 
 
         // jeśli jeszcze nie zaznaczono żadnego modułu to serwer otrzymawszy currModuleId = -1
@@ -175,17 +173,16 @@ export class ModuleListComponent implements OnInit {
     private setNewModules(newModules: Module[]) {
         this.modules = newModules;
 
+        // this.modules.forEach(m => m.isSelected = false);
+
+        // wyświetlenie ostatnio oglądanego modułu ...
         let index = this.modules.findIndex(m => m.id == this.context.currentModuleId);
         if (index > -1)
             this.router.navigate(['module/' + this.context.currentModuleId])
+
+        // ... a jeśli już go nie ma w tablicy modułów - wyświetlenie ostatniego z tablicy
         else
             this.router.navigate(['module/' + this.modules[this.modules.length - 1].id]);
-
-        // this.navigateToLastVisited();    
-
-        // this.modules.forEach(m => m.isSelected = false);
-        // if (navigateToLast)
-        //     this.router.navigate(['module/' + this.modules[this.modules.length - 1].id]);
     }
 
     // --------------------------------------------------------------------------------------------------------------

@@ -17,11 +17,8 @@ import { MessageService } from '../../shared/components/message/message.service'
 
 //Components
 import { AppComponent } from '../../app.component'
-import { ContentViewComponent } from './content-view/content-view.component';
-import { ExampleViewComponent } from './example-view/example-view.component';
-import { QuizViewComponent } from './quiz-view/quiz-view.component';
 
-import { MockData } from '../../mock/test-data'
+// import { MockData } from '../../mock/test-data'
 
 
 // ==================================================================================================================
@@ -31,13 +28,6 @@ import { MockData } from '../../mock/test-data'
   styles: ['./module-view.component.css']
 })
 export class ModuleViewComponent implements OnInit {
-
-  @ViewChild(ContentViewComponent)
-  private contentComponent: ContentViewComponent;
-  @ViewChild(ExampleViewComponent)
-  private exampleComponent: ExampleViewComponent;
-  @ViewChild(QuizViewComponent)
-  private quizComponent: QuizViewComponent;
 
   module: Module;
   viewType: string;
@@ -77,6 +67,10 @@ export class ModuleViewComponent implements OnInit {
     if (!this.hasAllAnswers('edit.no-correct-answer'))
       return;
 
+    // check if every code task has been solved
+    if (!this.hasAllCodes('edit.no-code'))
+      return;
+
     this.module.test_questions_DTO = this.testTaskService
       .StringifyClosedQuestions(this.module.questions, this.module.id);
 
@@ -92,11 +86,25 @@ export class ModuleViewComponent implements OnInit {
   }
 
   // --------------------------------------------------------------------------------------------------------------
+  hasAllCodes(msg: string): boolean {
+
+    let tasks = this.module.codeTasks;
+    for (var i in tasks)
+
+      // stop if unsolved code task is fonud
+      if (tasks[i].correct_result.replace(" ", '').length < 7) {
+        this.messageService.info(msg, 'common.empty');
+        return false;
+      }
+    return true;
+  }
+
+  // --------------------------------------------------------------------------------------------------------------
   hasAllAnswers(msg: string): boolean {
 
     for (var i in this.module.questions)
 
-      // stop if unanswered question is foud
+      // stop if unanswered question is fonud
       if (this.module.questions[i].correct_idx == -1) {
         this.messageService.info(msg, 'common.empty');
         return false;
@@ -108,7 +116,22 @@ export class ModuleViewComponent implements OnInit {
   // PRIVATE
   // ==============================================================================================================
   private verifyCodeTest() {
-    console.log("verifyCodeTest()");
+
+    // check if all answers have been given
+    if (!this.hasAllCodes('learn.unfinished-code'))
+      return;
+
+
+    this.testTaskService.verifyCodeTest(this.context.currentCodeTask)
+      .subscribe(codeExecResult => {
+
+        // show the result
+        // TODO - zmienić kolor zakładki na zielony | czerwony
+        console.log(codeExecResult);
+
+        // showing the updated game score
+        this.context.appComponent.showGameScore();
+      });
   }
 
   // --------------------------------------------------------------------------------------------------------------
@@ -150,5 +173,17 @@ export class ModuleViewComponent implements OnInit {
     if (currentModule == null)
       return false;
     return currentModule.difficulty != 'easy';
+  }
+
+  // --------------------------------------------------------------------------------------------------------------
+  private viewChange(viewType: string) {
+    this.viewType = viewType;
+    if (viewType == this.CODE_VIEW)
+
+      // TODO po wstawieniu tab-component aktualizować context.currentCodeTask na kod wyświetlany aktualnie
+      if (this.module.codeTasks == undefined)
+        this.context.currentCodeTask = undefined;
+      else
+        this.context.currentCodeTask = this.module.codeTasks[0];
   }
 }

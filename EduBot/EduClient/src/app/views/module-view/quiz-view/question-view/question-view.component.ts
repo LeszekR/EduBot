@@ -75,7 +75,7 @@ export class QuestionViewComponent implements OnInit {
   }
 
   // --------------------------------------------------------------------------------------------------------------
-  private getClass(): string {
+  private markCorrectResult(): string {
     if (this.questionData.status == TestResult.Correct)
       return "fa fa-check fa-3x";
     else if (this.questionData.status == TestResult.Incorrect)

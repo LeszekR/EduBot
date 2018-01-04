@@ -7,6 +7,7 @@ import { ModuleViewComponent } from '../views/module-view/module-view.component'
 import { ModuleListComponent } from '../views/module-list-view/module-list.component'
 import { AppComponent } from '../app.component';
 import { GameScore } from '../models/game-score';
+import { CodeTask } from '../models/quiz-model/code-task';
 
 
 // ==================================================================================================================
@@ -21,6 +22,7 @@ export class ContextService {
     isEditMode: boolean = false;
     currentModuleId: number;
     currentModule: Module;
+    currentCodeTask: CodeTask;
     gameScore: GameScore;
 
     // pośrednictwo między komponentami

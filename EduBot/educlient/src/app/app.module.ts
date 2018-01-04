@@ -9,15 +9,13 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 
 //Components
 import { FormFieldComponent } from './components/form-field/form-field.component'
-import { LoginComponent } from './components/log-in/login.component'
+import { LoginComponent } from './views/log-in/login.component'
 import { AppComponent } from './app.component';
-import { WelcomeComponent } from './components/welcome-comp/welcome.component';
+import { WelcomeComponent } from './views/welcome-comp/welcome.component';
 import { ModuleViewComponent } from './views/module-view/module-view.component';
+import { ContentViewComponent } from './views/module-view/content-view/content-view.component';
 import { QuizViewComponent } from './views/module-view/quiz-view/quiz-view.component';
 import { CodeTaskViewComponent } from './views/module-view/code-task-view/code-task-view.component';
-import { ResultViewComponent } from './views/module-view/result-view/result-view.component';
-import { ExampleViewComponent } from './views/module-view/example-view/example-view.component';
-import { ContentViewComponent } from './views/module-view/content-view/content-view.component';
 import { ModuleListComponent } from './views/module-list-view/module-list.component';
 import { GameProgressComponent } from './components/game-progress/game-progress.component';
 import { SelectLanguageComponent } from './components/select-language/select-language.component';
@@ -67,9 +65,7 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     QuizViewComponent,
     SpinnerComponent,
     CodeTaskViewComponent,
-    ResultViewComponent,
     ContentViewComponent,
-    ExampleViewComponent,
     ModuleListComponent,
     GameProgressComponent,
     SelectLanguageComponent,

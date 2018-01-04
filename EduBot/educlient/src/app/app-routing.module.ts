@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 //Components
 import { AppComponent } from './app.component';
-import { WelcomeComponent } from './components/welcome-comp/welcome.component';
+import { WelcomeComponent } from './views/welcome-comp/welcome.component';
 import { ModuleViewComponent } from './views/module-view/module-view.component';
 
 //Resolvers

@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 
 //Services
 import { HttpService } from './http.service';
+import { TestCodeService } from './test-code.service';
 
 // Model
 import { ClosedQuestion, ClosedQuestionDTO, ClosedQuestionAnswDTO } from '../models/quiz-model/closed-question';
@@ -10,7 +11,6 @@ import { CodeTask, CodeTaskDTO } from '../models/quiz-model/code-task';
 
 // Components
 import { QuizViewComponent } from '../views/module-view/quiz-view/quiz-view.component';
-import { TestCodeService } from './test-code.service';
 
 
 // ==================================================================================================================
@@ -32,9 +32,7 @@ export class TestTaskService {
 
         let codeTaskDTO = new CodeTaskDTO(codeTask);
         codeTaskDTO.last_result = result;
-        this.http.post<boolean>(this.quizUrl + '/verifycodetest', codeTaskDTO);
-
-        return null;
+        return this.http.post<boolean>(this.quizUrl + '/verifycodetest', codeTaskDTO);
     }
 
     // --------------------------------------------------------------------------------------------------------------
@@ -44,7 +42,7 @@ export class TestTaskService {
     }
 
     // --------------------------------------------------------------------------------------------------------------
-    public StringifyClosedQuestions(questions: ClosedQuestion[], moduleId: number): ClosedQuestionDTO[] {
+    StringifyClosedQuestions(questions: ClosedQuestion[], moduleId: number): ClosedQuestionDTO[] {
 
         if (questions == undefined)
             return null;
@@ -60,10 +58,10 @@ export class TestTaskService {
         for (var i in questions) {
 
             q = questions[i];
-            
+
             answersStr = "";
             for (var j in q.answers) answersStr += "*" + q.answers[j];
-            
+
             qDTO = new ClosedQuestionDTO();
             qDTO.id = q.id;
             qDTO.module_id = moduleId;
@@ -78,7 +76,7 @@ export class TestTaskService {
 
 
     // --------------------------------------------------------------------------------------------------------------
-    public StringifyCodeTasks(codeTasks: CodeTask[], moduleId: number): CodeTaskDTO[] {
+    StringifyCodeTasks(codeTasks: CodeTask[], moduleId: number): CodeTaskDTO[] {
 
         if (codeTasks == undefined)
             return null;
@@ -105,7 +103,7 @@ export class TestTaskService {
     }
 
     // --------------------------------------------------------------------------------------------------------------
-    public UnpackClosedQuestions(questions: ClosedQuestionDTO[]): ClosedQuestion[] {
+    UnpackClosedQuestions(questions: ClosedQuestionDTO[]): ClosedQuestion[] {
 
         if (questions.length == 0)
             return;
@@ -131,7 +129,7 @@ export class TestTaskService {
     }
 
     // --------------------------------------------------------------------------------------------------------------
-    public UnpackCodeTasks(codeTasks: CodeTaskDTO[]): CodeTask[] {
+    UnpackCodeTasks(codeTasks: CodeTaskDTO[]): CodeTask[] {
 
         if (codeTasks.length == 0)
             return;

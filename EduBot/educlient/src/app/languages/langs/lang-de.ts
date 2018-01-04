@@ -11,6 +11,9 @@ export const LANG_DE_TRANS = {
     'common.quiz': '<brak tłuamcz>',
     'common.code': '<brak tłuamcz>',
     'common.empty': '',    
+        
+    'view.content': '<Content>',
+    'view.example': '<Example>',
     
     'edit.add_module': 'Modul hinzufügen',
     'edit.add_meta_module': 'Fater Modul',
@@ -22,9 +25,11 @@ export const LANG_DE_TRANS = {
     'edit.del_module_failed': '<brak tłumaczenia>',
     'edit.del_question_title': '<brak tłumaczenia>',
     'edit.del_question_decision': '<brak tłumaczenia>',
+    'edit.del_code_decision': '<Are you sure you want to delete this task?> ',
     'edit.enter_edit_mode': '<brak tłumaczenia>',
     'edit.exit_edit_mode': '<brak tłumaczenia>',
     'edit.no-correct-answer': '<In order to save the questions you must tick the correct answer in all of them.>',
+    'edit.no-code': '<In order to save code tasks you must write correct execution result in all of them.>',
     
     'error.login.credentials': 'Benutzername oder Passwort ist falsch',
     'error.login.repeat': 'Passwörter sind anders',
@@ -55,9 +60,12 @@ export const LANG_DE_TRANS = {
     'learn.prev_module': '<Back>',
     'learn.explain': '<Explain in detail>',
     'learn.verify-test': '<Verify test>',
+    'learn.verify-code': '<Execute code>',
     'learn.keep-working': '<Click "Ok" to continue>',
     'learn.unfinished-test': '<You need to answer all questions in order to verify the test.>',
+    'learn.unfinished-code': '<No code to execute or the code is incorrect.>',
     'learn.test-before-next': '<You need to try and answer all questions in order to get next module.>',
+    'learn.code-before-next': '<You need to try and solve all code tasks in order to get next module.>',
     'learn.progres': '<Modules shown>',
     'learn.correct-answers': '<Tests\' result:>'
 };

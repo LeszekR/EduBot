@@ -23,6 +23,11 @@ export class TestCodeService {
     // PUBLIC
     // ==============================================================================================================
     executeCode(codeTask: CodeTask): boolean {
+
+        // MOCK ***************************************************
+        console.log("verifyCodeTest(): " + codeTask.correct_result);
+        // ********************************************************
+
         // TODO: wykonać kod studenta, zwrócić true | false zaleznie od prawidłowości wyniku
         return false;
     }

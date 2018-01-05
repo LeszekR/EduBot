@@ -15,7 +15,8 @@ import { ContextService } from '../../../services/context.service';
 export class CodeTaskViewComponent {
 
   @Input() readonly: boolean;
-  @Input() module: Module;
+  @Input() moduleDifficulty: string;
+  @Input() codeTasks: CodeTask[];
 
   activeTab: number = 0;
 
@@ -33,11 +34,11 @@ export class CodeTaskViewComponent {
       .confirm('edit.del_code_decision', 'common.empty')
       .then(confirmed => {
 
-        let codes = this.module.codeTasks;
+        let codes = this.codeTasks;
         let index = codes.findIndex(c => c.id == this.context.currentCodeTask.id);
         codes.splice(index, 1);
         if (codes.length == 0)
-          this.module.codeTasks = undefined;
+          this.codeTasks = undefined;
 
           console.log("usuwam kod")
       });
@@ -45,8 +46,8 @@ export class CodeTaskViewComponent {
 
   // --------------------------------------------------------------------------------------------------------------
   addCodeTask() {
-    if (this.module.codeTasks == undefined)
-      this.module.codeTasks = [];
-    this.module.codeTasks.push(new CodeTask());
+    if (this.codeTasks == undefined)
+    this.codeTasks = [];
+    this.codeTasks.push(new CodeTask());
   }
 }

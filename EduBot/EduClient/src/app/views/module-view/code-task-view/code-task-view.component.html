@@ -1,29 +1,29 @@
 
 <div class="tabview">
-    <a *ngFor="let c of module.codeTasks;let i = index" class="tabitem"
+    <a *ngFor="let c of codeTasks;let i = index" class="tabitem"
       [class.active]="activeTab==i"
       (click)="activeTab=i">Zadanie {{i+1}}</a>
 </div>
 
-<div *ngIf="module.codeTasks" class="pt-2" style="height: calc(100% - 40px)">
-    <textarea [(ngModel)]="module.codeTasks[activeTab].question" class="w-100 p-1" style="height:10%;" [readonly]="readonly || module.difficulty!='easy'"></textarea>
+<div *ngIf="codeTasks" class="pt-2" style="height: calc(100% - 40px)">
+    <textarea [(ngModel)]="codeTasks[activeTab].question" class="w-100 p-1" style="height:10%;" [readonly]="readonly || moduleDifficulty!='easy'"></textarea>
 
     <div class="d-flex w-100 pb-1" style="height: 90%">
   
     
-        <ace-editor [(text)]="module.codeTasks[activeTab].exec_output"
+        <ace-editor [(text)]="codeTasks[activeTab].exec_output"
                     [mode]="'javascript'"
                     [theme]="'eclipse'"
-                    [readOnly]="context.isEditMode && module.difficulty!='easy'"
+                    [readOnly]="context.isEditMode && moduleDifficulty!='easy'"
                     class="w-50 h-100 p-1"
-                    id="ae{{module.codeTasks[activeTab].id}}"
+                    id="ae{{codeTasks[activeTab].id}}"
                     style="min-height: 100%">
         </ace-editor>
     
     
         <!-- WYŚWIETLENIE WYNIKU DZIAŁANIA KODU UCZNIA -->
         <!-- TODO  zastąpić pole tekstowe wynikiem kodu -->
-        <textarea [(ngModel)]="module.codeTasks[activeTab].executor_code" class="w-50 h-100 p-1" [readonly]="context.isEditMode && module.difficulty!='easy'"></textarea>
+        <textarea [(ngModel)]="codeTasks[activeTab].executor_code" class="w-50 h-100 p-1" [readonly]="context.isEditMode && moduleDifficulty!='easy'"></textarea>
       </div>
 </div>
 

@@ -16,7 +16,7 @@
 
             <!-- test - pytanie z kodu -->
             <div *ngIf="viewType==CODE_VIEW" class="w-100 h-100 m-0 p-0 of-auto">
-                <code-task-view [module]="module" [readonly]="!context.isEditMode || !module.difficulty=='easy'"></code-task-view>
+                <code-task-view [codeTasks]="module.codeTasks" [moduleDifficulty]="module.difficulty" [readonly]="!context.isEditMode || !module.difficulty=='easy'"></code-task-view>
             </div>
 
         </fieldset>

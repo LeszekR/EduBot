@@ -4,6 +4,7 @@ import { ModuleViewComponent } from '../module-view.component';
 import { Module } from '../../../models/module';
 import { MessageService } from '../../../shared/components/message/message.service';
 import { ContextService } from '../../../services/context.service';
+import { TestResult } from '../../../models/quiz-model/enum-test-result';
 
 
 // ==================================================================================================================
@@ -49,5 +50,17 @@ export class CodeTaskViewComponent {
     if (this.codeTasks == undefined)
     this.codeTasks = [];
     this.codeTasks.push(new CodeTask());
+  }
+
+  getCssClass(status: TestResult): string{
+    switch(status){
+      case TestResult.None:
+        return "fa fa-edit text-warning";
+      case TestResult.Correct:
+        return "fa fa-check text-success";
+      case TestResult.Incorrect:
+        return "fa fa-close text-danger";
+      default: return "";
+    }
   }
 }

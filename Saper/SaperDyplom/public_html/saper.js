@@ -6,14 +6,7 @@ var size = 5;
 //------------------------------------------------------------------------------
 function init() {
     console.log("zaczynam");
-//    var pole = document.getElementById("boardSize");
-//    pole.addEventListener("onkeyup", generateNewBoard);
     generateBoard(5, 5);
-}
-
-//------------------------------------------------------------------------------
-function testuj(){
-    console.log("testuję");
 }
 
 //------------------------------------------------------------------------------
@@ -52,11 +45,9 @@ function odkryjMine(row, col, r, c) {
     wrOk = (wr >= 0 && wr < size);
     klOk = (kl >= 0 && kl < size);
 
-    if (wrOk && klOk) {
-        if (board[wr][kl] == 1) {
+    if (wrOk && klOk)
+        if (board[wr][kl] == 1)
             BUM(wr, kl)
-        }
-    }
 }
 
 //------------------------------------------------------------------------------
@@ -87,7 +78,7 @@ function minyWokol(e) {
             klOk = (kl >= 0 && kl < size);
             inna = (wr != row || kl != col);
 
-           if (wrOk && klOk && inna)
+            if (wrOk && klOk && inna)
                 n += board[wr][kl];
         }
     document.getElementById(id).innerHTML = n;
@@ -107,90 +98,129 @@ function dajY(e) {
 }
 
 //------------------------------------------------------------------------------
-function uwagaMina(e) {
-    var evn = e || window.event;
-    evn.preventDefault();
-    evn.target.classList.add("uwagaMina");
-}
-
-//------------------------------------------------------------------------------
-function boardButtonClick() {
+function fieldButtonClick() {
     var e = window.event;
     var klawisz = e.button;
-  
+
     var row = dajX(e);
     var col = dajY(e);
-    
-    
-    if (klawisz == 2) {
+
+
+    if (klawisz == 2)
         e.target.classList.add("uwagaMina");
-    }
+
     else {
         var boardRow = board[row];
         var mine = boardRow[col];
 
         minyWokol(e);
-        
+
         e.target.classList.toggle("uwagaMina", false);
         if (mine === 1) {
             e.target.classList.add("visitedMine");
             zakoncz(e);
-        } else {
+        }
+        else {
             e.target.classList.add("visitedNoMine");
         }
     }
 }
 
 //------------------------------------------------------------------------------
-function bbId(row, col) {
-    return "bb_" + row + "_" + col;
-}
-
-//------------------------------------------------------------------------------
-function generateBoard(ryzyko)
-{
-    var rows = size;
-    var cols = size;
-    var code = "<table>";
-
-    board = [];
-
-    for (var r = 0; r < rows; r++) {
-        code += "<tr>";
-        for (var c = 0; c < cols; c++)
-        {
-            var id = bbId(r, c);
-            code += "<td><div class=\"boardButton\" id=\"" + id + "\"></div></td>";
-        }
-        code += "</tr>";
-    }
-
-    code += "</table>";
-    document.getElementById("board").innerHTML = code;
-
-    for (var r = 0; r < rows; r++) {
-        var boardRow = [];
-        for (var c = 0; c < cols; c++) {
-            var id = bbId(r, c);
-            var bb = document.getElementById(id);
-            bb.addEventListener("click", boardButtonClick);
-            bb.addEventListener("contextmenu", uwagaMina);
-            
-            var rnd = Math.random();
-            if (rnd < ryzyko) {
-                boardRow[c] = 1;
-            } else {
-                boardRow[c] = 0;
-            }
-
-        }
-        board[r] = boardRow;
-    }
+function createBoardFieldId(row, column) {
+    return "bb_" + row + "_" + column;
 }
 
 //------------------------------------------------------------------------------
 function generateNewBoard() {
     size = document.getElementById("boardSize").value;
-    var ryzyko = document.getElementById("txRyzyko").value / 10;
-    generateBoard(ryzyko);
+    var riskOfExplosion = document.getElementById("txRyzyko").value / 10;
+    generateBoard();
+    generateBoardFields(riskOfExplosion);
+}
+
+//------------------------------------------------------------------------------
+function generateBoard()
+{
+    var boardHtml = "<table>";
+    var fieldId;
+
+    for (var row = 0; row < size; row++) {
+
+        boardHtml += "<tr>";
+
+        for (var column = 0; column < size; column++) {
+            fieldId = createBoardFieldId(row, column);
+            boardHtml += "<td><div class=\"boardButton\" id=\"" + fieldId + "\"></div></td>";
+        }
+        boardHtml += "</tr>";
+    }
+
+    boardHtml += "</table>";
+    document.getElementById("board").innerHTML = boardHtml;
+    
+    checkTheBoard();
+}
+
+//------------------------------------------------------------------------------
+function generateBoardFields(risk) {
+
+    board = [];
+    var boardRow = [];
+
+    var fieldButton;
+    var fieldId;
+
+    for (var row = 0; row < size; row++) {
+
+        boardRow = [];
+
+        for (var column = 0; column < size; column++) {
+
+            fieldId = createBoardFieldId(row, column);
+            fieldButton = document.getElementById(fieldId);
+            fieldButton.addEventListener("click", fieldButtonClick);
+            fieldButton.addEventListener("contextmenu", uwagaMina);
+
+            var randomNumber = Math.random();
+            if (randomNumber < risk)
+                boardRow[column] = 1;
+            else
+                boardRow[column] = 0;
+
+        }
+        board[row] = boardRow;
+    }
+}
+
+//------------------------------------------------------------------------------
+function getFieldId(boardField) {
+    var id = boardField.getAttribute('id');
+    return id;
+}
+
+//------------------------------------------------------------------------------
+function uwagaMina(e) {
+
+    // TODO tu można dorobić utratę punktów za uzyskiwanie podpowiedzi
+
+    var evn = e || window.event;
+    evn.preventDefault();
+    var boardField = evn.target;
+
+    var id = getFieldId(boardField);
+    var idElements = id.split("_");
+    var row = idElements[1];
+    var column = idElements[2];
+
+    if (board[Number(row)][+column] == 1)
+        boardField.classList.add("uwagaMina");
+}
+
+//==============================================================================
+// FUNKCJE KONTROLI KODU UCZNIA
+function checkTheBoard() {
+    var newBoard = document.getElementById("board");
+    var n = newBoard.getElementsByTagName('tr').length;
+    console.log(n);
 }

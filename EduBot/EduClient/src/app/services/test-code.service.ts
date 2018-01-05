@@ -26,7 +26,6 @@ export class TestCodeService {
 
             return false;
         }
-        // TODO: wykonać kod studenta, zwrócić true | false zaleznie od prawidłowości wyniku
         return false;
     }
 }

@@ -13,8 +13,8 @@ export const LANG_PL_TRANS = {
     'common.empty': ' ',
     'common.error': 'Błąd',
 
-    'view.content': 'Materiał',
-    'view.example': 'Przykład',
+    'view.content': 'MATERIAŁ',
+    'view.example': 'PRZYKŁAD',
     
     'edit.add_module': 'Dodaj moduł',
     'edit.add_meta_module': 'Moduł nadrzędny',

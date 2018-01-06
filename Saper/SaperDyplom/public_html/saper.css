@@ -15,25 +15,42 @@ input {
     border: solid black;
 }
 
-#menu > div {
+.settings > div {
     display: inline-block;
 }
 
-#menu > div > div {
+.settings > div > div {
     padding: 0.3rem;
 }
 
-#polaText input {
-    width: 3em;
+.settings input {
+    width: 3rem;
     text-align: center;
 }
 
-#gra > div {
-    padding: 0.6rem;
+.opisPola {
+    margin-bottom: 0.4rem;
 }
 
-#prawy, #lewy {
-    min-width: 150px;
+.game {
+    display: block;    
+    width: 100%;
+}
+
+.board {
+    margin-top: 1rem;
+    margin-left: 0.3rem;
+    padding: 0;
+    float:left; 
+}
+
+.buttonGenerate {
+    margin-top: 1.3rem;
+    margin-bottom: 2rem;
+    margin-left: 0.3rem;
+    height: 1.6rem;
+    width: 12rem;
+    float: left;
 }
 
 .boardButton{
@@ -41,7 +58,7 @@ input {
     height: 25px;
     background-color: lightgray;
     border: solid black;
-    margin: 2px;
+    margin: 0.1rem;
 
     font-family: "Arial", sans-serif;
     font-style: normal;

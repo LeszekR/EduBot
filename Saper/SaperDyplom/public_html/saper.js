@@ -5,6 +5,10 @@ var size = 5;
 //------------------------------------------------------------------------------
 function generateNewBoard() {
     size = document.getElementById("boardSize").value;
+    
+    if (size > 10)
+        size = 10;
+    
     var riskOfExplosion = document.getElementById("txRyzyko").value / 10;
     generateBoard();
     generateBoardFields(riskOfExplosion);
@@ -169,7 +173,7 @@ function mineAlarm(e) {
 //------------------------------------------------------------------------------
 function init() {
 //    console.log("zaczynam");
-//    generateBoard(5, 5);
+    generateBoard(5, 5);
 }
 
 //==============================================================================

@@ -3,9 +3,11 @@
     
     <!-- CONTENT -->
     <div class="col-6 h-100 pr-1 p-0">
-        <div class="font-weight-bold" style="height: 2.5rem">
-            <i class="fa fa-book fa-2x"></i>
-            {{ 'view.content' | translate }}
+        <div class="font-weight-bold d-flex justify-content-center" style="height: 2.5rem">
+            <div>
+                <i class="fa fa-book fa-2x"></i>
+                {{ 'view.content' | translate }}
+            </div>
         </div>
         <div style="height: calc(100% - 2.5rem)">
             <textarea [(ngModel)]="module.content" class="form-control w-100 h-100 text-muted" [readonly]="readonly"></textarea>
@@ -15,9 +17,11 @@
 
     <!-- EXAMPLE -->
     <div class="col-6 h-100 p-0">
-        <div class="font-weight-bold" style="height: 2.5rem">
-            <i class="fa fa-keyboard-o fa-2x"></i>
-            {{ 'view.example' | translate }}
+        <div class="font-weight-bold d-flex justify-content-center" style="height: 2.5rem">
+            <div>
+                <i class="fa fa-keyboard-o fa-2x"></i>
+                {{ 'view.example' | translate }}
+            </div>
         </div>
         <div style="height: calc(100% - 2.5rem)">
             <textarea [(ngModel)]="module.example" class="module-example form-control w-100 h-100 text-muted" [readonly]="readonly"></textarea>

@@ -13,8 +13,8 @@ export const LANG_EN_TRANS = {
     'common.empty': ' ',
     'common.error': 'Error',
     
-    'view.content': 'Content',
-    'view.example': 'Example',
+    'view.content': 'CONTENT',
+    'view.example': 'EXAMPLE',
 
     
     'edit.add_module': 'Add module',

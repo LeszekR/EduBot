@@ -40,7 +40,7 @@
                         </div>
                     </div>
 
-                    <div class="ml-auto pr-1" (click)="selectModule(module);$event.stopPropagation();$event.preventDefault();" *ngIf="context.isEditMode && module.difficulty!='hard' && !module.group_id">
+                    <div class="ml-auto pr-2" (click)="selectModule(module);$event.stopPropagation();$event.preventDefault();" *ngIf="context.isEditMode && module.difficulty!='hard' && !module.parent">
                         <div [ngClass]="module.isSelected ? 'fa fa-check-square-o' : 'fa fa-square-o'"></div>
                     </div>
                 </a>

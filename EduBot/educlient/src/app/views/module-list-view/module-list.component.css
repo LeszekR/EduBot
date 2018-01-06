@@ -2,11 +2,20 @@
     line-height: 0.2;
     margin-bottom: 1px;
     color: #017EB5;
+    border-radius: 0px;
+}
+
+.list-group-item span{
+    color: #636c72;
+}
+
+.list-group-item.active span{
+    color: #FFF;
 }
 
 .list-group-item.active {
     background-color: #017EB5;
-    color: #FFF;
+    color: #FFF !important;
 }
 
 .lvl-easy {
@@ -62,3 +71,6 @@
     z-index: 1001;
 }
 
+.fa{
+    font-size: 1.3rem;
+}

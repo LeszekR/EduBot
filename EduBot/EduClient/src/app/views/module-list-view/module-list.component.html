@@ -40,7 +40,7 @@
                         </div>
                     </div>
 
-                    <div class="ml-auto pr-1" (click)="selectModule(module);$event.stopPropagation();$event.preventDefault();" *ngIf="context.isEditMode && module.difficulty!='hard' && !module.group_id">
+                    <div class="ml-auto pr-2" (click)="selectModule(module);$event.stopPropagation();$event.preventDefault();" *ngIf="context.isEditMode && module.difficulty!='hard' && !module.parent">
                         <div [ngClass]="module.isSelected ? 'fa fa-check-square-o' : 'fa fa-square-o'"></div>
                     </div>
                 </a>
@@ -59,12 +59,10 @@
                 [class.justify-content-start]="module.difficulty=='hard'">
 
                 <a class="btn-menu list-group-item list-group-item-action p-0 col-10" [routerLink]="['module/', module.id]" routerLinkActive="active" (click)="selectedModuleId=module.id">
-
-                    <div class="pl-2 p-3">
-                        <div class="ml-3">
-                            <span class="w-100">{{ module.title }}</span>
-                        </div>
+                    <div class="pl-2 p-3 ml-3">
+                        <span class="w-100">{{ module.title }}</span>
                     </div>
+                    <div *ngIf="module.solvedQuestions && module.solvedCodes" class="fa fa-check-circle ml-auto pr-2"></div>
                 </a>
             </div>
         </ng-template>

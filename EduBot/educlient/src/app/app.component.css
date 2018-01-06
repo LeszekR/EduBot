@@ -22,6 +22,7 @@ html {
 
 .main-container{
     height: calc(100vh - 54px);
+    background-color: #B5CCF64D !important;
 }
 
 nav, footer {

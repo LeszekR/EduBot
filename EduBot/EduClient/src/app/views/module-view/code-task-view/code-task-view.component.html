@@ -1,8 +1,11 @@
 
 <div class="tabview">
-    <a *ngFor="let c of codeTasks;let i = index" class="tabitem"
+    <a *ngFor="let task of codeTasks;let i = index" class="tabitem"
       [class.active]="activeTab==i"
-      (click)="activeTab=i">Zadanie {{i+1}}</a>
+      (click)="activeTab=i">
+      <strong>Zadanie {{i+1}}</strong>
+      <i class="ml-1" [ngClass]="getCssClass(task.status)" ></i>
+    </a>
 </div>
 
 <div *ngIf="codeTasks" class="pt-2" style="height: calc(100% - 40px)">

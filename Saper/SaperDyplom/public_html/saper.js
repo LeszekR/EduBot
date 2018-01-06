@@ -10,6 +10,7 @@ function generateNewBoard() {
         size = 10;
     
     var riskOfExplosion = document.getElementById("txRyzyko").value / 10;
+
     generateBoard();
     generateBoardFields(riskOfExplosion);
 }

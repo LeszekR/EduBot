@@ -386,7 +386,6 @@ namespace EduApi.Services {
             // sortowanie otrzymanych modułów w kolejności id
             List<ModuleDTO> moduleList = new List<ModuleDTO>(moduleGroup);
             moduleList.Sort((a, b) => (a.id > b.id ? 1 : -1));
-            //moduleList.Sort(SortModules);
 
 
             // połączenie treści, przykładów i - jeżeli jest - testów z kodu modułów podrzędnych
@@ -398,8 +397,8 @@ namespace EduApi.Services {
             var children = new List<edumodule>();
             for (var i = 0; i < moduleList.Count; i++) {
                 child = _moduleRepository.Get(moduleList[i].id);
-                content += "\n\n" + child.content;
-                example += "\n\n" + child.example;
+                content += childSeparator(child, i, false) + child.content;
+                example += childSeparator(child, i, true) + child.example;
                 children.Add(child);
             }
 
@@ -481,6 +480,31 @@ namespace EduApi.Services {
 
         // PRIVATE
         // =============================================================================================
+        private string childSeparator(edumodule module, int index, bool codeSeparator) {
+
+            string separator = (index > 0 ? "\n\n\n" : " ") + (codeSeparator ? "// " : " ");
+            string oneChar;
+
+            if (module.difficulty == "easy") {
+                separator += (index + 1).ToString() + ") ";
+                oneChar = "-";
+            }
+            else {
+                separator += module.title + " ";
+                oneChar = "=";
+            }
+
+            for (var i = separator.Length; i < 60; i++)
+                separator += oneChar;
+
+            if (module.difficulty != "easy")
+                separator = (index > 0 ? "\n" : "") + separator;
+
+            return separator + "\n";
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
         private int SortModules(ModuleDTO a, ModuleDTO b) {
             if (a.group_position != b.group_position)
                 return a.group_position > b.group_position ? 1 : -1;

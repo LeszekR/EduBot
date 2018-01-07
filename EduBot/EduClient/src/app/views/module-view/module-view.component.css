@@ -1,4 +1,4 @@
-.chevron-right:after {
+.caret-right:after {
     content: '\f0da';
     font-family: 'FontAwesome';
     position: absolute;

@@ -1,0 +1,6 @@
+.caret-right:after {
+    content: '\f0da';
+    font-family: 'FontAwesome';
+    position: absolute;
+    right: 15px;
+}

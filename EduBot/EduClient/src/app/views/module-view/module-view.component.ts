@@ -23,7 +23,7 @@ import { AppComponent } from '../../app.component'
 @Component({
   selector: 'module-view',
   templateUrl: './module-view.component.html',
-  styles: ['./module-view.component.css']
+  styleUrls: ['./module-view.component.css']
 })
 export class ModuleViewComponent implements OnInit, OnDestroy {
 

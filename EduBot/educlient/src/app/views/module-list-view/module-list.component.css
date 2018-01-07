@@ -1,7 +1,6 @@
 .list-group-item { 
     line-height: 0.2;
     margin-bottom: 1px;
-    color: #017EB5;
     border-radius: 0px;
 }
 
@@ -72,6 +71,10 @@
 }
 
 .fa{
-    color: #017EB5E6 !important;
+    color: #017EB5E6;
     font-size: 1.3rem;
+}
+
+.bg-white{
+    background-color: white;
 }

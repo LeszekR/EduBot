@@ -24,8 +24,16 @@
             </div>
         </div>
         <div style="height: calc(100% - 2.5rem)">
-            <textarea [(ngModel)]="module.example" class="module-example form-control w-100 h-100 text-muted" [readonly]="readonly"></textarea>
+            <ace-editor
+                class="w-100 h-100 text-muted"
+                style="min-height: 100%; font-size: 18px"
+                [(text)]="module.example"
+                [mode]="'javascript'"
+                [theme]="'eclipse'"
+                [readOnly]="readonly"
+                >
+            </ace-editor>
         </div>
-
+        
     </div>
 </div>

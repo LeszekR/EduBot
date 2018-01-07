@@ -1,4 +1,4 @@
-<div class="list-group h-100 mt-1 mr-1 mt-md-0 pb-md-1 pl-md-1" style="width: inherit;">
+<div class="list-group h-100 mt-1 mr-1 mt-md-0 pb-md-1 pl-md-1" [ngClass]="{'bg-white': context.isEditMode}" style="width: inherit;">
 
 
     <!-- kontrolki w trybie: EDYCJA -->
@@ -62,7 +62,7 @@
                     <div class="pl-2 p-3 ml-3">
                         <span class="w-100">{{ module.title }}</span>
                     </div>
-                    <div *ngIf="module.solvedQuestions && module.solvedCodes" class="fa fa-check-circle ml-auto pr-2"></div>
+                    <div *ngIf="module.solvedQuestions && module.solvedCodes" [ngClass]="selectedModuleId==module.id ? 'text-white' : ''" class="fa fa-check-circle ml-auto pr-2"></div>
                 </a>
             </div>
         </ng-template>

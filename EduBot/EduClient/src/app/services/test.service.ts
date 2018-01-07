@@ -30,7 +30,7 @@ export class TestTaskService {
     verifyCodeTest(codeTask: CodeTask): Observable<boolean> {
         let result = this.testCodeService.executeCode(codeTask);
 
-        let codeTaskAnswDTO = new CodeTaskAnswDTO(codeTask.id, codeTask.exec_output, result);
+        let codeTaskAnswDTO = new CodeTaskAnswDTO(codeTask.id, codeTask.correct_result, result);
         return this.http.post<boolean>(this.quizUrl + '/verifycodetest', codeTaskAnswDTO);
     }
 
@@ -93,7 +93,7 @@ export class TestTaskService {
             cDTO = new CodeTaskDTO(c);
             cDTO.module_id = moduleId;
             cDTO.position = +i;
-            cDTO.task_answer = c.question + "^" + c.exec_output + "^" + c.executor_code;
+            cDTO.task_answer = c.question + "^" + c.correct_result + "^" + c.executor_code;
 
             codeTaskArr[codeTaskArr.length] = cDTO;
         }
@@ -145,7 +145,7 @@ export class TestTaskService {
             c = new CodeTask();
             c.id = codeTasks[i].id;
             c.question = elements[0];
-            c.exec_output = elements[1];
+            c.correct_result = elements[1];
             c.executor_code = elements[2];
 
             codeTasksArr[codeTasksArr.length] = c;

@@ -104,7 +104,7 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
     for (var i in tasks)
 
       // stop if unsolved code task is fonud
-      if (tasks[i].exec_output.replace(" ", '').length < 7) {
+      if (tasks[i].correct_result.replace(" ", '').length < 7) {
         this.messageService.info(msg, 'common.empty');
         return false;
       }
@@ -168,10 +168,10 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
       .subscribe(res => {
 
         // slow show of the results
-        let multiplier = 1;
+        let multiplier = 7;
         res.forEach(result => {
           let question = this.module.questions.find(q => q.id == result.question_id);
-          setTimeout(() => { question.status = result.answer_id == 0 ? TestResult.Incorrect : TestResult.Correct; }, 1000 * multiplier++);
+          setTimeout(() => { question.status = result.answer_id == 0 ? TestResult.Incorrect : TestResult.Correct; }, 100 * multiplier++);
         })
 
         // showing the updated game score

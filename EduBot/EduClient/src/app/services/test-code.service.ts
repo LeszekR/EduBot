@@ -19,7 +19,7 @@ export class TestCodeService {
     executeCode(codeTask: CodeTask): boolean {
 
         try {
-            codeTask.executor_code = new Function(codeTask.exec_output)();
+            codeTask.executor_code = new Function(codeTask.correct_result)();
             console.log(codeTask.id + ' result:', codeTask.executor_code);
         } catch (e) {
             this.messageService.error(e.message, 'common.error');

@@ -2,31 +2,41 @@
 <div class="tabview">
     <a *ngFor="let task of codeTasks;let i = index" class="tabitem"
       [class.active]="activeTab==i"
-      (click)="activeTab=i">
+      (click)="setActiveTab(i)">
       <strong>Zadanie {{i+1}}</strong>
       <i class="ml-1" [ngClass]="getCssClass(task.status)" ></i>
     </a>
 </div>
 
 <div *ngIf="codeTasks" class="pt-2" style="height: calc(100% - 40px)">
-    <textarea [(ngModel)]="codeTasks[activeTab].question" class="w-100 p-1" style="height:10%;" [readonly]="readonly || moduleDifficulty!='easy'"></textarea>
+    <textarea 
+          style="height:10%;" 
+          [readonly]="readonly || moduleDifficulty!='easy'"
+          [(ngModel)]="codeTasks[activeTab].question" class="w-100 p-1" 
+    ></textarea>
 
     <div class="d-flex w-100 pb-1" style="height: 90%">
   
     
-        <ace-editor [(text)]="codeTasks[activeTab].exec_output"
-                    [mode]="'javascript'"
-                    [theme]="'eclipse'"
-                    [readOnly]="context.isEditMode && moduleDifficulty!='easy'"
-                    class="w-50 h-100 p-1"
-                      id="ae{{codeTasks[activeTab].id}}"
-                    style="min-height: 100%">
+        <ace-editor 
+          id="ae{{codeTasks[activeTab].id}}"
+          class="w-50 h-100 p-1"
+          style="min-height: 100%"
+          [(text)]="codeTasks[activeTab].correct_result"
+          [mode]="'javascript'"
+          [theme]="'eclipse'"
+          [readOnly]="context.isEditMode && moduleDifficulty!='easy'"
+          >
         </ace-editor>
-    
+
     
         <!-- WYŚWIETLENIE WYNIKU DZIAŁANIA KODU UCZNIA -->
         <!-- TODO  zastąpić pole tekstowe wynikiem kodu -->
-        <textarea [(ngModel)]="codeTasks[activeTab].executor_code" class="w-50 h-100 p-1" [readonly]="context.isEditMode && moduleDifficulty!='easy'"></textarea>
+        <textarea 
+          class="w-50 h-100 p-1" 
+          [readonly]="context.isEditMode && moduleDifficulty!='easy'"
+          [(ngModel)]="codeTasks[activeTab].executor_code" 
+        ></textarea>
       </div>
 </div>
 

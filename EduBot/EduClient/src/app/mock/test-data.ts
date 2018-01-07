@@ -14,7 +14,7 @@ export class MockData {
     public mockCodeTasks: CodeTask[] = [
         <CodeTask>{
             question: "Napisz program, który włamuje się do serwerwa PG i zalicza dyplom wskazanego studenta.",
-            exec_output: "{'ocena': '5', 'oferty_pracy': '84', 'proponowane_wynagrodzenie': '150.000'}",
+            correct_result: "{'ocena': '5', 'oferty_pracy': '84', 'proponowane_wynagrodzenie': '150.000'}",
             executor_code: `"<!DOCTYPE html>
             <html>
                 <head>
@@ -34,7 +34,7 @@ export class MockData {
         },
         <CodeTask>{
             question: "Zaprogramuj wyrzynarkę do marchwi w JavaScript",
-            exec_output: "8 średnich marchwi na minutę | 5 dużych",
+            correct_result: "8 średnich marchwi na minutę | 5 dużych",
             executor_code: `"    <body onload="init()">
             <div>
                 <div id="menu">
@@ -68,12 +68,12 @@ export class MockData {
         },
         <CodeTask>{
             question: "Napisz przeszukiwanie w głąb planu zajęć PG oparte na kopcu Fibonacciego, nie stosując znaku '=', wykorzystując drzewo binarne czarno-czerowno-seledynowe, zoptymalizowane dla branek OR, XOR i XEROX oraz zwracające wynik w postaci XML w base64 w UTF-51, z ponięciem znaków o indeksach liczb pierwszych.",
-            exec_output: "Łatwizna. Ale dajcie dziennym, połowa popełni samobójstwo zanim skończy czytać polecenie.",
+            correct_result: "Łatwizna. Ale dajcie dziennym, połowa popełni samobójstwo zanim skończy czytać polecenie.",
             executor_code: "Po co. Rzut oka na wynik i będzie przecież widać czy jest ok."
         },
         <CodeTask>{
             question: "Wykorzystując przekazywanie zmiennej przez referencję oraz wielokrotne dziedziczenie diamentowe oblicz sumę.",
-            exec_output: "5",
+            correct_result: "5",
             executor_code: "Nie ma sensu bo każdy procesor się na tym spali. Niech się student męczy, przecież tego się nie da, hi, hi..."
         }
     ];

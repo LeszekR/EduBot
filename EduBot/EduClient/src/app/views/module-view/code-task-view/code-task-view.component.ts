@@ -30,7 +30,13 @@ export class CodeTaskViewComponent {
 
   // PRIVATE
   // ==============================================================================================================
-  deleteCodeTask() {
+  private setActiveTab(i: number) {
+    this.activeTab = i;
+    this.context.currentCodeTask = this.codeTasks[i];
+  }
+
+  // --------------------------------------------------------------------------------------------------------------
+  private deleteCodeTask() {
     this.messageService
       .confirm('edit.del_code_decision', 'common.empty')
       .then(confirmed => {
@@ -46,13 +52,14 @@ export class CodeTaskViewComponent {
   }
 
   // --------------------------------------------------------------------------------------------------------------
-  addCodeTask() {
+  private addCodeTask() {
     if (this.codeTasks == undefined)
     this.codeTasks = [];
     this.codeTasks.push(new CodeTask());
   }
 
-  getCssClass(status: TestResult): string{
+  // --------------------------------------------------------------------------------------------------------------
+  private getCssClass(status: TestResult): string{
     switch(status){
       case TestResult.None:
         return "fa fa-edit text-warning";

@@ -157,8 +157,8 @@ namespace EduApi.Services {
         public ModuleDTO GetDTOWithQuestions(edumodule module, int userId) {
 
             ModuleDTO moduleDTO = ModuleMapper.GetDTO(module);
-            List<TestQuestionDTO> questions = QuestionDtosForModule(module);
-            List<TestCodeDTO> codes = CodeDtosForModule(module);
+            List<TestQuestionDTO> questionDtosOfModule = QuestionDtosForModule(module);
+            List<TestCodeDTO> codeDtosOfModule = CodeDtosForModule(module);
 
 
             // Wersja dla NAUCZYCIELA (do edycji modułów)
@@ -166,8 +166,8 @@ namespace EduApi.Services {
             // brak id użytkownika - pytania będą zawierać indeks prawidłowej odpowiedzi
             // - ta wersja potrzebna jest do edycji modułów
             if (userId < 0) {
-                moduleDTO.test_questions_DTO = questions;
-                moduleDTO.test_codes_DTO = codes;
+                moduleDTO.test_questions_DTO = questionDtosOfModule;
+                moduleDTO.test_codes_DTO = codeDtosOfModule;
                 return moduleDTO;
             }
 
@@ -179,8 +179,8 @@ namespace EduApi.Services {
             // - kody będą zawierały kody utworzone przez użytkownika 
             // (zamiana indeksów prawidłowych odpowiedzi na ostatnie odpowiedzi podane przez użytkownika
             // i prawidłowych wyników kodu na kody utworzone przez użytkownika).
-            moduleDTO.test_questions_DTO = SetStudentAnswers(userId, questions);
-            moduleDTO.test_codes_DTO = SetStudentCodes(userId, codes);
+            moduleDTO.test_questions_DTO = SetStudentAnswers(userId, questionDtosOfModule);
+            moduleDTO.test_codes_DTO = SetStudentCodes(userId, codeDtosOfModule);
 
 
             // moduł gotowy do wysłania studentowi
@@ -189,10 +189,10 @@ namespace EduApi.Services {
 
 
         // ---------------------------------------------------------------------------------------------
-        private List<TestCodeDTO> SetStudentCodes(int userId, List<TestCodeDTO> codes) {
+        private List<TestCodeDTO> SetStudentCodes(int userId, List<TestCodeDTO> codeDtosOfModule) {
 
             // rozbicie stringu code_answer na składniki i dodanie do nich 'id' pytania
-            List<List<string>> codesInParts = codes
+            List<List<string>> codesInParts = codeDtosOfModule
                 .Select(q => {
                     var code = new List<string>();
                     code.Add(q.id.ToString());
@@ -201,15 +201,19 @@ namespace EduApi.Services {
                 })
                 .ToList();
 
+            //// wydobycie odpowiedzi, jakie użytkownik już udzielił na te pytania
+            //var codeIds = codeDtosOfModule.Select(q => q.id).ToList();
+            //var userCodesAll = _userService.GetUserEntity(userId).user_code.ToList()
+            //    .Where(q => codeIds.Contains(q.code_id))
+            //    .ToList();
             // wydobycie odpowiedzi, jakie użytkownik już udzielił na te pytania
-            var codeIds = codes.Select(q => q.id).ToList();
-            var userCodeAll = _userService.GetUserEntity(userId).user_code.ToList()
-                .Where(q => codeIds.Contains(q.code_id))
-                .ToList();
 
 
-            // ustalenie czy użytkownik już odpowiadał na te pytania
-            bool answered = userCodeAll.Count() > 0;
+            //// ustalenie czy użytkownik już odpowiadał na te pytania
+            //bool answered = userCodesAll.Count() > 0;
+
+
+            var userCodesAll = _userService.GetUserEntity(userId).user_code.ToList();
 
 
             // zbudowanie z powrotem stringów code_answer zawierających tym razem
@@ -220,14 +224,20 @@ namespace EduApi.Services {
             bool lastResult;
             user_code userCode;
 
-            foreach (var code in codes) {
+            foreach (var codeDTO in codeDtosOfModule) {
 
-                parts = codesInParts.First(q => Int32.Parse(q[0]) == code.id);
 
                 // ten moduł już był zaliczany - są wszystkie odpowiedzi
                 // (choć mogą być błędne - liczy się tu że była próba odpowiedzi i jest jej wynik)
-                if (answered) {
-                    userCode = userCodeAll.First(q => q.code_id == code.id);
+                //if (answered) {
+                //    userCode = userCodesAll.First(q => q.code_id == code.id);
+                //    lastAnswer = userCode.last_answer.ToString();
+                //    lastResult = userCode.last_result;
+                //}
+
+                userCode = userCodesAll.FirstOrDefault(c => c.code_id == codeDTO.id);
+
+                if (userCode != null) {
                     lastAnswer = userCode.last_answer.ToString();
                     lastResult = userCode.last_result;
                 }
@@ -238,11 +248,12 @@ namespace EduApi.Services {
                     lastResult = false;
                 }
 
-                code.task_answer = parts[1] + "^" + lastAnswer + "^" + parts[3];
-                code.last_result = lastResult;
+                parts = codesInParts.First(q => Int32.Parse(q[0]) == codeDTO.id);
+                codeDTO.task_answer = parts[1] + "^" + lastAnswer + "^" + parts[3];
+                codeDTO.last_result = lastResult;
             }
 
-            return codes;
+            return codeDtosOfModule;
         }
 
 
@@ -504,7 +515,7 @@ namespace EduApi.Services {
                     codes.AddRange(CodesForModule(child));
                 });
             }
-    
+
             return codes;
         }
 

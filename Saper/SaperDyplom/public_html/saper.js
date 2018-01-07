@@ -1,14 +1,19 @@
 
 var board;
-var size = 5;
+var boardSize = 5; // ct 001
+
+//------------------------------------------------------------------------------
+function init() {
+//    makeBoard(size, size);
+}
 
 //------------------------------------------------------------------------------
 function makeNewBoard() {
-    size = document.getElementById("boardSize").value;
-    
-    if (size > 10)
-        size = 10;
-    
+    boardSize = document.getElementById("boardSize").value;
+
+    if (boardSize > 10)
+        boardSize = 10;
+
     var riskOfExplosion = document.getElementById("txRyzyko").value / 10;
 
     makeBoard();
@@ -21,11 +26,11 @@ function makeBoard()
     var boardHtml = "<table>";
     var fieldId;
 
-    for (var row = 0; row < size; row++) {
+    for (var row = 0; row < boardSize; row++) {
 
         boardHtml += "<tr>";
 
-        for (var column = 0; column < size; column++) {
+        for (var column = 0; column < boardSize; column++) {
             fieldId = makeBoardFieldId(row, column);
             boardHtml += "<td><div class=\"boardButton\" id=\"" + fieldId + "\"></div></td>";
         }
@@ -34,7 +39,7 @@ function makeBoard()
 
     boardHtml += "</table>";
     document.getElementById("board").innerHTML = boardHtml;
-    
+
     checkTheBoard();
 }
 
@@ -47,11 +52,11 @@ function makeBoardFields(risk) {
     var fieldButton;
     var fieldId;
 
-    for (var row = 0; row < size; row++) {
+    for (var row = 0; row < boardSize; row++) {
 
         boardRow = [];
 
-        for (var column = 0; column < size; column++) {
+        for (var column = 0; column < boardSize; column++) {
 
             fieldId = makeBoardFieldId(row, column);
             fieldButton = document.getElementById(fieldId);
@@ -71,10 +76,10 @@ function makeBoardFields(risk) {
 
 //------------------------------------------------------------------------------
 function blowAllMines(e) {
-    for (var r = 0; r < size; r++)
-        for (var c = 0; c < size; c++)
+    for (var r = 0; r < boardSize; r++)
+        for (var c = 0; c < boardSize; c++)
             if (board[r][c] == 1)
-                BAM(r,c);
+                BAM(r, c);
 }
 
 //------------------------------------------------------------------------------
@@ -101,8 +106,8 @@ function nMinesAround(e) {
             wr = Number(row) + r;
             kl = Number(col) + c;
 
-            rowOk = (wr >= 0 && wr < size);
-            colOk = (kl >= 0 && kl < size);
+            rowOk = (wr >= 0 && wr < boardSize);
+            colOk = (kl >= 0 && kl < boardSize);
             isNeighbour = (wr != row || kl != col);
 
             if (rowOk && colOk && isNeighbour)
@@ -169,12 +174,6 @@ function mineAlarm(e) {
 
     if (board[row][column] == 1)
         boardField.classList.add("mineIsHere");
-}
-
-//------------------------------------------------------------------------------
-function init() {
-//    console.log("zaczynam");
-    makeBoard(5, 5);
 }
 
 //==============================================================================

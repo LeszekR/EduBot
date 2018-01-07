@@ -62,7 +62,7 @@
                     <div class="pl-2 p-3 ml-3">
                         <span class="w-100">{{ module.title }}</span>
                     </div>
-                    <div *ngIf="module.solvedQuestions && module.solvedCodes" class="fa fa-check-circle ml-auto pr-2"></div>
+                    <div *ngIf="module.solvedQuestions && module.solvedCodes" [ngClass]="selectedModuleId==module.id ? 'text-white' : ''" class="fa fa-check-circle ml-auto pr-2"></div>
                 </a>
             </div>
         </ng-template>

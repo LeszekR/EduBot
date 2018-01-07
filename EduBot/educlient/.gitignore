@@ -4,6 +4,7 @@ jspm_packages
 link-checker-results.txt
 **/*npm-debug.log.*
 *.js
+!assets/*
 *.js.map
 e2e/**/*.js
 e2e/**/*.js.map

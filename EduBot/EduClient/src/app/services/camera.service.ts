@@ -5,23 +5,38 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class CameraService {
 
+    private static readonly interval = 2000;
+    private static readonly prefix = 'data:image/png;base64,';
+
+    private camera;
+    private canvas;
+
 
     // CONSTRUCTOR
     // ==============================================================================================================
-    constructor() {}
+    constructor() {
+        this.camera = new (window as any).JpegCamera('#camera', {
+            on_ready: () => {
+                document.getElementById('camera').style.display = 'none';
+                setInterval(() =>
+                    this.camera.capture().get_canvas(canvas =>
+                        this.canvas = canvas
+                    ),
+                    CameraService.interval
+                );
+            }
+        });
+    }
 
 
     // PUBLIC
     // ==============================================================================================================
     makePicture(): string {
 
-        // TODO obsłużyć wykonanie i konwersję zdjęcia 
-        
-        // 1. wykonać zdjęcie
-        
-        // 2. skonwertować do formatu gotowego do wysłania do serwera
-        
-        // 3. oddać
-        return "nowe zdjęcie";
+        if (this.canvas) {
+            return this.canvas.toDataURL().replace(CameraService.prefix, '');
+        }
+
+        return null;
     }
 }

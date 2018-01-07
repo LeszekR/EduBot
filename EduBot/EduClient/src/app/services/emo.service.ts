@@ -57,10 +57,12 @@ export class EmoService {
     // ==============================================================================================================
     private takeSendPicture(): void {
         let pic = this.camera.makePicture();
-        this.http.post<Distractor>(this.emoUrl, pic)
-            .subscribe(distractor => {
-                if (distractor != null)
-                    this.edu.serverWantsToDistract(distractor);
-            });
+        if (pic !== null) {
+            this.http.post<Distractor>(this.emoUrl, pic, true)
+                .subscribe(distractor => {
+                    if (distractor != null)
+                        this.edu.serverWantsToDistract(distractor);
+                });
+        }
     }
 }

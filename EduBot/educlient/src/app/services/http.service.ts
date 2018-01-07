@@ -27,8 +27,9 @@ export class HttpService extends Http {
 
     // PUBLIC
     // ==============================================================================================================
-    post<T>(url: string, data: any): Observable<T> {
+    post<T>(url: string, data: any, withCredentials: boolean = false): Observable<T> {
         let options: RequestOptionsArgs = this.setHeaders({ 'Content-Type': 'application/json' });
+        options.withCredentials = withCredentials;
         let body = JSON.stringify(data);
         return super.post(url, body, options)
             .map((res: Response) => res.json())

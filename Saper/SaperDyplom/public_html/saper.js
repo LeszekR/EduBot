@@ -3,7 +3,7 @@ var board;
 var size = 5;
 
 //------------------------------------------------------------------------------
-function generateNewBoard() {
+function makeNewBoard() {
     size = document.getElementById("boardSize").value;
     
     if (size > 10)
@@ -11,12 +11,12 @@ function generateNewBoard() {
     
     var riskOfExplosion = document.getElementById("txRyzyko").value / 10;
 
-    generateBoard();
-    generateBoardFields(riskOfExplosion);
+    makeBoard();
+    makeBoardFields(riskOfExplosion);
 }
 
 //------------------------------------------------------------------------------
-function generateBoard()
+function makeBoard()
 {
     var boardHtml = "<table>";
     var fieldId;
@@ -26,7 +26,7 @@ function generateBoard()
         boardHtml += "<tr>";
 
         for (var column = 0; column < size; column++) {
-            fieldId = createBoardFieldId(row, column);
+            fieldId = makeBoardFieldId(row, column);
             boardHtml += "<td><div class=\"boardButton\" id=\"" + fieldId + "\"></div></td>";
         }
         boardHtml += "</tr>";
@@ -39,7 +39,7 @@ function generateBoard()
 }
 
 //------------------------------------------------------------------------------
-function generateBoardFields(risk) {
+function makeBoardFields(risk) {
 
     board = [];
     var boardRow = [];
@@ -53,7 +53,7 @@ function generateBoardFields(risk) {
 
         for (var column = 0; column < size; column++) {
 
-            fieldId = createBoardFieldId(row, column);
+            fieldId = makeBoardFieldId(row, column);
             fieldButton = document.getElementById(fieldId);
             fieldButton.addEventListener("click", fieldButtonClick);
             fieldButton.addEventListener("contextmenu", mineAlarm);
@@ -70,15 +70,15 @@ function generateBoardFields(risk) {
 }
 
 //------------------------------------------------------------------------------
-function zakoncz(e) {
+function blowAllMines(e) {
     for (var r = 0; r < size; r++)
         for (var c = 0; c < size; c++)
             if (board[r][c] == 1)
-                BUM(r,c);
+                BAM(r,c);
 }
 
 //------------------------------------------------------------------------------
-function BUM(wr, kl) {
+function BAM(wr, kl) {
     id = "bb_" + wr + "_" + kl;
     document.getElementById(id).classList.add("visitedMine");
 }
@@ -131,7 +131,7 @@ function fieldButtonClick() {
         e.target.classList.toggle("mineIsHere", false);
         if (mine === 1) {
             e.target.classList.add("visitedMine");
-            zakoncz(e);
+            blowAllMines(e);
         }
         else {
             e.target.classList.add("visitedNoMine");
@@ -140,7 +140,7 @@ function fieldButtonClick() {
 }
 
 //------------------------------------------------------------------------------
-function createBoardFieldId(row, column) {
+function makeBoardFieldId(row, column) {
     return "bb_" + row + "_" + column;
 }
 
@@ -174,7 +174,7 @@ function mineAlarm(e) {
 //------------------------------------------------------------------------------
 function init() {
 //    console.log("zaczynam");
-    generateBoard(5, 5);
+    makeBoard(5, 5);
 }
 
 //==============================================================================

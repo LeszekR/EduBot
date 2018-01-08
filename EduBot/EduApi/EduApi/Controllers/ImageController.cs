@@ -50,7 +50,7 @@ namespace EduApi.Controllers {
                 return BadRequest("unprocessed");
             }
             catch (Exception e) {
-                return Ok(e.ToString());
+                return BadRequest(e.ToString());
             }
         }
 

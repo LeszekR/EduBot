@@ -15,7 +15,7 @@ export const LANG_PL_TRANS = {
 
     'view.content': 'MATERIAŁ',
     'view.example': 'PRZYKŁAD',
-    
+
     'edit.add_module': 'Dodaj moduł',
     'edit.add_meta_module': 'Moduł nadrzędny',
     'edit.del_answer_title': 'Usuwanie odpowiedzi',
@@ -31,11 +31,11 @@ export const LANG_PL_TRANS = {
     'edit.exit_edit_mode': 'Wyłącz tryb edycji',
     'edit.no-correct-answer': 'Aby zapisać pytania musisz przy każdym zaznaczyć prawidłową odpowiedź.',
     'edit.no-code': 'Aby zapisać test z kodu musisz wpisać prawidłowy wynik.',
-    
+
     'error.login.credentials': 'Nieprawidłowe dane logowania',
     'error.login.repeat': 'Hasła są różne',
     'error.server': 'Błąd serwera. Czy serwer jest uruchomiony?',
-    
+
     'login': 'Logowanie',
     'login.log_in': 'Zaloguj się',
     'login.login': 'Login',
@@ -47,11 +47,11 @@ export const LANG_PL_TRANS = {
     'login.register_new_user': 'Rejestracja nowego użytkownika',
     'login.repeat_password': 'Powtórz hasło',
     'login.success': 'Jesteś zalogowany',
-    
+
     'module.diff-level.Easy': 'Łatwy',
     'module.diff-level.Medium': 'Średni',
     'module.diff-level.Hard': 'Trudny',
-    
+
     'toolbar.edit_mode': 'Tryb edycji',
     'toolbar.log_in': 'Zaloguj się',
     'toolbar.manage_users': 'Zarządzaj użytkownikami',
@@ -69,6 +69,7 @@ export const LANG_PL_TRANS = {
     'learn.code-before-next': 'Aby przejść dalej musisz rozwiązć wszystkie zadania z kodu.',
     'learn.progres': 'Wyświetlone moduły',
     'learn.correct-questions': 'Wynik pytań',
-    'learn.correct-codes': 'Wynik kodów'
+    'learn.correct-codes': 'Wynik kodów',
 
+    'camera.share-error': 'W celu możliwości dostosowania poziomu trudności prosimy o odblokowanie kamery'
 };

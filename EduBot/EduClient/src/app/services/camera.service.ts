@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import {MessageService} from '../shared/components/message/message.service';
 
 
 // ==================================================================================================================
@@ -11,10 +12,11 @@ export class CameraService {
     private camera;
     private canvas;
 
-
     // CONSTRUCTOR
     // ==============================================================================================================
-    constructor() {
+    constructor(
+        private messageService: MessageService
+    ) {
         this.camera = new (window as any).JpegCamera('#camera', {
             on_ready: () => {
                 this.hideSlot();
@@ -26,7 +28,10 @@ export class CameraService {
                     CameraService.interval
                 );
             },
-            on_error: this.hideSlot,
+            on_error: () => {
+                this.hideSlot();
+                this.messageService.error('camera.share-error', 'common.error');
+            }
         });
     }
 

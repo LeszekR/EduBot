@@ -1,9 +1,9 @@
-import { TestResult } from "./enum-test-result";
+import { TestResult } from './enum-test-result';
 
 
 // ==================================================================================================================
 export class CodeTask {
-    
+
     id: number;
     position: number;
     question: string;
@@ -32,7 +32,7 @@ export class CodeTaskDTO {
 
 
 // ==================================================================================================================
-export class CodeTaskAnswDTO {   
+export class CodeTaskAnswDTO {
     codeTaskId: number;
     answer: string;
     lastResult: boolean;

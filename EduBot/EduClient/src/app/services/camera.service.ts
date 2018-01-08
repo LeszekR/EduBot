@@ -17,6 +17,7 @@ export class CameraService {
     constructor() {
         this.camera = new (window as any).JpegCamera('#camera', {
             on_ready: () => {
+                this.hideSlot();
                 document.getElementById('camera').style.display = 'none';
                 setInterval(() =>
                     this.camera.capture().get_canvas(canvas =>
@@ -24,7 +25,8 @@ export class CameraService {
                     ),
                     CameraService.interval
                 );
-            }
+            },
+            on_error: this.hideSlot,
         });
     }
 
@@ -38,5 +40,13 @@ export class CameraService {
         }
 
         return null;
+    }
+
+
+    // PRIVATE
+    // ==============================================================================================================
+    private hideSlot(): void {
+
+        document.getElementById('camera').style.display = 'none';
     }
 }

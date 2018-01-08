@@ -27,21 +27,32 @@
     <div *ngIf="context.isEditMode" class="of-auto">
         <ng-template ngFor let-module [ngForOf]="modules">
 
-            <div class="d-flex" [class.justify-content-end]="module.difficulty=='easy'" [class.justify-content-center]="module.difficulty=='medium'"
+            <div class="d-flex" 
+                [class.justify-content-end]="module.difficulty=='easy'" 
+                [class.justify-content-center]="module.difficulty=='medium'"
                 [class.justify-content-start]="module.difficulty=='hard'">
 
-                <a class="btn-menu list-group-item p-0 col-10" [class.lvl-easy]="module.difficulty=='easy'" [class.lvl-medium]="module.difficulty=='medium'"
-                    [class.lvl-hard]="module.difficulty=='hard'" [routerLink]="['module/', module.id]" routerLinkActive="active"
+                <a class="btn-menu list-group-item p-0 col-10" 
+                    [class.lvl-easy]="module.difficulty=='easy'" 
+                    [class.lvl-medium]="module.difficulty=='medium'"
+                    [class.lvl-hard]="module.difficulty=='hard'" 
+                    [routerLink]="['module/', module.id]" 
+                    routerLinkActive="active"
                     (click)="selectedModuleId=module.id">
 
-                    <div class="pl-2 p-3">
-                        <div class="ml-3">
+                    <div class="pl-2 pt-3 pb-3 pr-2">
+                        <div class="">
                             <span class="w-100">{{ module.title }}</span>
                         </div>
                     </div>
 
-                    <div class="ml-auto pr-2" (click)="selectModule(module);$event.stopPropagation();$event.preventDefault();" *ngIf="context.isEditMode && module.difficulty!='hard' && !module.parent">
+                    <div 
+                        *ngIf="context.isEditMode && module.difficulty!='hard' && !module.parent"
+                        class="ml-auto pr-2" 
+                        (click)="selectModule(module);$event.stopPropagation();$event.preventDefault();">
+
                         <div [ngClass]="module.isSelected ? 'fa fa-check-square-o' : 'fa fa-square-o'"></div>
+
                     </div>
                 </a>
             </div>
@@ -55,14 +66,24 @@
     <div *ngIf="!context.isEditMode" class="of-auto">
         <ng-template ngFor let-module [ngForOf]="modules">
 
-            <div class="d-flex" [class.justify-content-end]="module.difficulty=='easy'" [class.justify-content-center]="module.difficulty=='medium'"
+            <div class="d-flex" 
+                [class.justify-content-end]="module.difficulty=='easy'" 
+                [class.justify-content-center]="module.difficulty=='medium'"
                 [class.justify-content-start]="module.difficulty=='hard'">
 
-                <a class="btn-menu list-group-item list-group-item-action p-0 col-10" [routerLink]="['module/', module.id]" routerLinkActive="active" (click)="selectedModuleId=module.id">
-                    <div class="pl-2 p-3 ml-3">
+                <a class="btn-menu list-group-item list-group-item-action p-0 col-10" 
+                    [routerLink]="['module/', module.id]" 
+                    routerLinkActive="active" 
+                    (click)="selectedModuleId=module.id">
+                    
+                    <div class="pl-2 pt-3 pb-3 pr-2">
                         <span class="w-100">{{ module.title }}</span>
                     </div>
-                    <div *ngIf="module.solvedQuestions && module.solvedCodes" [ngClass]="selectedModuleId==module.id ? 'text-white' : ''" class="fa fa-check-circle ml-auto pr-2"></div>
+
+                    <div *ngIf="module.solvedQuestions && module.solvedCodes" 
+                        [ngClass]="selectedModuleId==module.id ? 'text-white' : ''" 
+                        class="fa fa-check-circle ml-auto pr-2">
+                    </div>
                 </a>
             </div>
         </ng-template>

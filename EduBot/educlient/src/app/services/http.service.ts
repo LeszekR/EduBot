@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Http, XHRBackend, RequestOptions, Request, RequestOptionsArgs, Response, Headers } from '@angular/http';
+import { Http, XHRBackend, RequestOptions, RequestOptionsArgs, Response, Headers } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -10,7 +10,7 @@ import 'rxjs/add/observable/throw';
 
 // ==================================================================================================================
 /**
- * Serwis obsługjący zapytania http. 
+ * Serwis obsługjący zapytania http.
  * Pozwala na globalną konfigurację nagłówków w requestach.
  */
 @Injectable()
@@ -28,9 +28,9 @@ export class HttpService extends Http {
     // PUBLIC
     // ==============================================================================================================
     post<T>(url: string, data: any, withCredentials: boolean = false): Observable<T> {
-        let options: RequestOptionsArgs = this.setHeaders({ 'Content-Type': 'application/json' });
+        const options: RequestOptionsArgs = this.setHeaders({ 'Content-Type': 'application/json' });
         options.withCredentials = withCredentials;
-        let body = JSON.stringify(data);
+        const body = JSON.stringify(data);
         return super.post(url, body, options)
             .map((res: Response) => res.json())
             .catch(error => this.catchError(error));
@@ -38,7 +38,7 @@ export class HttpService extends Http {
 
     // --------------------------------------------------------------------------------------------------------------
     get<T>(url: string): Observable<T> {
-        let options: RequestOptionsArgs = this.setHeaders({});
+        const options: RequestOptionsArgs = this.setHeaders({});
         return super.get(url, options)
             .map((res: Response) => res.json())
             .catch(error => this.catchError(error));
@@ -47,7 +47,7 @@ export class HttpService extends Http {
     // --------------------------------------------------------------------------------------------------------------
     // delete<T>(url: string, data: any): Observable<T> {
     delete<T>(url: string): Observable<T> {
-        let options: RequestOptionsArgs = this.setHeaders({});
+        const options: RequestOptionsArgs = this.setHeaders({});
         return super.delete(url, options)
             .map((res: Response) => res.json())
             .catch(error => this.catchError(error));
@@ -89,8 +89,8 @@ export class HttpService extends Http {
         newHeaders.append('Cache-Control', 'no-cache');
         newHeaders.append('Pragma', 'no-cache');
 
-        let options: RequestOptionsArgs = { 
-            headers: newHeaders 
+        const options: RequestOptionsArgs = {
+            headers: newHeaders
         };
         return options;
     }

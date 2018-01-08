@@ -403,8 +403,8 @@ namespace EduApi.Services {
             }
 
             // zapisanie nowego nadrzędnego modułu w bazie danych
-            newModule.content = content.Substring(2);
-            newModule.example = example.Substring(2);
+            newModule.content = content;
+            newModule.example = example;
             newModule.difficulty = moduleGroup[0].difficulty == "easy" ? "medium" : "hard";
             newModule.title = "<podaj tytuł>";
             newModule.group_position = 2000000000;
@@ -482,23 +482,18 @@ namespace EduApi.Services {
         // =============================================================================================
         private string childSeparator(edumodule module, int index, bool codeSeparator) {
 
-            string separator = (index > 0 ? "\n\n\n" : " ") + (codeSeparator ? "// " : " ");
-            string oneChar;
+            string separator = (index > 0 ? "\n\n\n" : "");
+            string comment = codeSeparator ? "// " : "";
 
             if (module.difficulty == "easy") {
-                separator += (index + 1).ToString() + ") ";
-                oneChar = "-";
+                separator += comment + (index + 1).ToString() + ") ";
+                for (var i = separator.Length; i < 70; i++)
+                    separator += '-';
             }
             else {
-                separator += module.title + " ";
-                oneChar = "=";
+                separator += comment + module.title.ToUpper();
+                separator += "\n" + comment + "=========================================================\n";
             }
-
-            for (var i = separator.Length; i < 60; i++)
-                separator += oneChar;
-
-            if (module.difficulty != "easy")
-                separator = (index > 0 ? "\n" : "") + separator;
 
             return separator + "\n";
         }

@@ -318,9 +318,11 @@ namespace EduApi.Services {
                 // aktualnie użytkownik ogląda ostatni z pobranych =>
                 // dostosowanie trudności do stanu emocjonalnego i dotychczasowych wyników użytkownika
                 else {
-                    var lastModuleId = prevModules[prevModules.Count() - 1].id;
+                    //var lastModuleId = prevModules[prevModules.Count() - 1].id;
+                    //var nextDifficulty = difficultyAndDistractor.Item1;
+                    //newModule = PickNextModule(lastModuleId, nextDifficulty);
                     var nextDifficulty = difficultyAndDistractor.Item1;
-                    newModule = PickNextModule(lastModuleId, nextDifficulty);
+                    newModule = PickNextModule(currentModuleId, nextDifficulty);
                 }
 
                 // pobranie następnego dystraktora (distractorService sprawdzi czy już można)

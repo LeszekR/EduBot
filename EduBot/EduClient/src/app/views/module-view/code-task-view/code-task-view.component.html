@@ -11,20 +11,20 @@
 <div *ngIf="codeTasks" class="pt-2" style="height: calc(100% - 40px)">
 
 
-<!-- QUESTION -->
-<!-- ..................................................................................... -->
-<textarea 
-      style="height:10%;" 
-      [readonly]="readonly || moduleDifficulty!='easy'"
-      [(ngModel)]="codeTasks[activeTab].question" class="w-100 p-1" 
-></textarea>
+  <!-- QUESTION -->
+  <!-- ..................................................................................... -->
+  <textarea 
+        style="height:10%;" 
+        [readonly]="readonly || moduleDifficulty!='easy'"
+        [(ngModel)]="codeTasks[activeTab].question" class="w-100 p-1" 
+  ></textarea>
 
 
-<!-- STUDENT'S CODE EDITOR AND RESULT -->
-<!-- ..................................................................................... -->
-<div *ngIf="!context.isEditMode"
-      class="d-flex w-100 pb-1" 
-      style="height: 90%">
+  <!-- STUDENT'S CODE EDITOR AND RESULT -->
+  <!-- ..................................................................................... -->
+  <div *ngIf="!context.isEditMode"
+        class="d-flex w-100 pb-1" 
+        style="height: 90%">
 
     <ace-editor 
       #studentCode
@@ -51,57 +51,54 @@
     <!-- TODO  zastąpić pole tekstowe wynikiem kodu -->
     <div #codeOutputDiv 
       class="w-50 h-100 p-1" 
-      [readonly]="true"
-      [(ngModel)]="codeOutput" 
-    ></textarea>
+    ></div>
   </div>
 
 
 
-<!-- CODE TASK EDITION -->
-<!-- ..................................................................................... -->
-<div *ngIf="context.isEditMode && moduleDifficulty!='easy'"
-            class="d-flex w-100 pb-1" 
-            style="height: 90%">
+  <!-- CODE TASK EDITION -->
+  <!-- ..................................................................................... -->
+  <div *ngIf="context.isEditMode && moduleDifficulty!='easy'"
+              class="d-flex w-100 pb-1" 
+              style="height: 90%">
 
-        <!-- TODO: zmienić na drop-down z możliwymi trybami kodu -->
-        <textarea #codeMode
-          class="w-100 p-2" 
-          style="min-height: 10%; font-size: 18px"
-          [readonly]="false"
-          [(ngModel)]="codeTasks[activeTab].codeMode" 
-        ></textarea>
+    <!-- TODO: zmienić na drop-down z możliwymi trybami kodu -->
+    <textarea #codeMode
+      class="w-100 p-2" 
+      style="min-height: 10%; font-size: 18px"
+      [readonly]="false"
+      [(ngModel)]="codeTasks[activeTab].codeMode" 
+    ></textarea>
 
-        <ace-editor #surroundingCode
-          id="ae{{codeTasks[activeTab].surroundingCode}}"
-          class="w-100 p-1"
-          style="min-height: 40%; font-size: 18px"
-          [theme]="'eclipse'"
-          [readonly]="false"
-          [mode]="codeTasks[activeTab].codeMode"
-          [(text)]="codeTasks[activeTab].surroundingCode"
-          >
-        </ace-editor>
+    <ace-editor #surroundingCode
+      id="ae{{codeTasks[activeTab].surroundingCode}}"
+      class="w-100 p-1"
+      style="min-height: 40%; font-size: 18px"
+      [theme]="'eclipse'"
+      [readonly]="false"
+      [mode]="codeTasks[activeTab].codeMode"
+      [(text)]="codeTasks[activeTab].surroundingCode"
+      >
+    </ace-editor>
 
-        <ace-editor #executorCode
-          id="ae{{codeTasks[activeTab].executorCode}}"
-          class="w-100 p-1"
-          style="min-height: 40%; font-size: 18px"
-          [theme]="'eclipse'"
-          [readonly]="false"
-          [mode]="'javascript'"
-          [(text)]="codeTasks[activeTab].executorCode"
-          >
-        </ace-editor>
+    <ace-editor #executorCode
+      id="ae{{codeTasks[activeTab].executorCode}}"
+      class="w-100 p-1"
+      style="min-height: 40%; font-size: 18px"
+      [theme]="'eclipse'"
+      [readonly]="false"
+      [mode]="'javascript'"
+      [(text)]="codeTasks[activeTab].executorCode"
+      >
+    </ace-editor>
 
-        <textarea #correctResult
-          class="w-10 h-100 p-1" 
-          [readonly]="false"
-          [(ngModel)]="codeTasks[activeTab].correctResult" 
-        ></textarea>
+    <textarea #correctResult
+      class="w-10 h-100 p-1" 
+      [readonly]="false"
+      [(ngModel)]="codeTasks[activeTab].correctResult" 
+    ></textarea>
 
-      </div>
-    </div>
+  </div>
 </div>
 
 

@@ -17,14 +17,15 @@ import { ViewChild } from '@angular/core/src/metadata/di';
 export class CodeTaskViewComponent {
 
   // learning mode - for the student
-  @ViewChild('studentCode') studentCode;
-  @ViewChild('codeOutputDiv') codeOutputDiv;
+  // @ViewChild('studentCode') studentCode;
+  @ViewChild("codeOutputDiv") codeOutputDiv: HTMLDivElement;
+  // codeOutputDiv: HTMLDivElement;
 
   // edit mode - for the teacher
-  @ViewChild('codeMode') codeMode;
-  @ViewChild('surroundingCode') surroundingCode;
-  @ViewChild('executorCode') executorCode;
-  @ViewChild('correctResult') correctResult;
+  // @ViewChild('codeMode') codeMode;
+  // @ViewChild('surroundingCode') surroundingCode;
+  // @ViewChild('executorCode') executorCode;
+  // @ViewChild('correctResult') correctResult;
 
   // other
   @Input() readonly: boolean;

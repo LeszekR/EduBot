@@ -21,8 +21,8 @@ export class CodeTaskFront {
     executorCode: string;
     codeMode: CodeMode;
     correctResult: string;
-    // correctResultType: string;
     studentCode: string;
+    // correctResultType: string;
 }
 
 

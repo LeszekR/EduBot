@@ -27,7 +27,6 @@
       style="height: 90%">
 
     <ace-editor 
-      #studentCode
       class="w-50 h-100 p-1"
       style="min-height: 100%;font-size: 18px"
       [(text)]="codeTasks[activeTab].studentCode"
@@ -49,7 +48,8 @@
 
     <!-- wynik działania kodu studenta -->
     <!-- TODO  zastąpić pole tekstowe wynikiem kodu -->
-    <div #codeOutputDiv 
+    <div 
+      #codeOutputDiv 
       class="w-50 h-100 p-1" 
     ></div>
   </div>
@@ -63,35 +63,36 @@
               style="height: 90%">
 
     <!-- TODO: zmienić na drop-down z możliwymi trybami kodu -->
-    <textarea #codeMode
+    <textarea
       class="w-100 p-2" 
-      style="min-height: 10%; font-size: 18px"
+      style="height: 10%; font-size: 18px; display: block;"
       [readonly]=false
       [(ngModel)]="codeTasks[activeTab].codeMode" 
     ></textarea>
 
-    <ace-editor #surroundingCode
-      id="ae{{codeTasks[activeTab].surroundingCode}}"
+    <ace-editor
       class="w-100 p-1"
-      style="min-height: 40%; font-size: 18px"
+      style="min-height: 40%; font-size: 18px; display: block;"
       [theme]="'eclipse'"
+      [readOnly]=false
       [mode]="codeTasks[activeTab].codeMode"
       [(text)]="codeTasks[activeTab].surroundingCode"
       >
     </ace-editor>
 
-    <ace-editor #executorCode
-      id="ae{{codeTasks[activeTab].executorCode}}"
+    <ace-editor
       class="w-100 p-1"
-      style="min-height: 40%; font-size: 18px"
+      style="height: 40%; font-size: 18px; display: block;"
       [theme]="'eclipse'"
+      [readOnly]=false
       [mode]="'javascript'"
       [(text)]="codeTasks[activeTab].executorCode"
       >
     </ace-editor>
 
-    <textarea #correctResult
+    <textarea
       class="w-10 h-100 p-1" 
+      style="height: 10%; font-size: 18px; display: block;"
       [readonly]=false
       [(ngModel)]="codeTasks[activeTab].correctResult" 
     ></textarea>

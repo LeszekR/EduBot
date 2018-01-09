@@ -11,7 +11,7 @@ import { ContextService } from './context.service';
 @Injectable()
 export class TestCodeService {
 
-    readonly STUDENT_CODE = "// STUDENT_CODE_GOES_HERE";
+    readonly STUDENT_CODE = "// STUDENT_CODE_HERE";
 
 
     // CONSTRUCTOR
@@ -27,7 +27,7 @@ export class TestCodeService {
     * UWAGA: niektóre zadania nie wymagają kodu do wykonania przed oraz/lub po kodzie studenta 
     * - wówczas surroundingCode jest pustym stringiem.
     * Inne zadania wymagają wykonania czegoś przed lub po kodzie studenta
-    * - wówczas surroundingCode zawiera kod w którym w 1 miejscu znajduje się 
+    * - wówczas surroundingCode zawiera kod w którym gdzieś  znajduje się 
     * string: '// STUDENT_CODE_GOES_HERE' - za który podstawiamy kod studenta przed wykonaniem.
     * 
     * UWAGA: aby zweryfikować kod w trybie HTML obowiązkowe jest podanie executorCode.
@@ -37,20 +37,20 @@ export class TestCodeService {
     * wykonania kodu studenta z correctResult.
     * 
     * 
-     * Wykonanie kodu studenta:
-     * 
-     * 1. kod studenta (studentCode) wstawiamy do kodu otaczającego
-     * 
-     * ACE MODE: javascript
-     * 2. wstawiamy ten kod do funkcji, wykonujemy i otrzymujemy wynik 
-     * 3. wyświetlamy wynik na ekranie
-     * 
-     * ACE MODE: html
-     * 2. przeglądarka wykonuje html i wstawia na ekran
-     * 3. wykonujemy kod sprawdzający wynik (executorCode) na zawartości div'a w oknie wyświetlającym 
-     *    efekt działania kodu - otrzymujemy wynik
-     * 
-     * 4. porównujemy wynik do prawidłowego (correctResult) i zwracamy wynik tego porównania
+    * Wykonanie kodu studenta:
+    * 
+    * 1. kod studenta (studentCode) wstawiamy do kodu otaczającego
+    * 
+    * ACE MODE: javascript
+    * 2. wstawiamy ten kod do funkcji, wykonujemy i otrzymujemy wynik 
+    * 3. wyświetlamy wynik na ekranie
+    * 
+    * ACE MODE: html
+    * 2. przeglądarka wykonuje html i wstawia na ekran
+    * 3. wykonujemy kod sprawdzający wynik (executorCode) na zawartości div'a w oknie wyświetlającym 
+    *    efekt działania kodu - otrzymujemy wynik
+    * 
+    * 4. porównujemy wynik do prawidłowego (correctResult) i zwracamy wynik tego porównania
     */
     executeCode(codeTask: CodeTaskFront): boolean {
 

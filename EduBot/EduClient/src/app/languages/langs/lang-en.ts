@@ -12,11 +12,11 @@ export const LANG_EN_TRANS = {
     'common.code': 'Code task',
     'common.empty': ' ',
     'common.error': 'Error',
-    
+
     'view.content': 'CONTENT',
     'view.example': 'EXAMPLE',
 
-    
+
     'edit.add_module': 'Add module',
     'edit.add_meta_module': 'Parent module',
     'edit.del_answer_title': 'Deleting answer',
@@ -32,7 +32,7 @@ export const LANG_EN_TRANS = {
     'edit.exit_edit_mode': 'Exit edit mode',
     'edit.no-correct-answer': 'In order to save the questions you must tick the correct answer in all of them.',
     'edit.no-code': 'In order to save code tasks you must write correct execution result in all of them.',
-    
+
     'error.login.credentials': 'Username or password is incorrect',
     'error.login.repeat': 'Passwords are different.',
     'error.server': 'Server error. Check your server state',
@@ -48,7 +48,7 @@ export const LANG_EN_TRANS = {
     'login.register_new_user': 'Register new user',
     'login.repeat_password': 'Repeat password',
     'login.success': 'You are logged in.',
-    
+
     'module.diff-level.Easy': 'Easy',
     'module.diff-level.Medium': 'Medium',
     'module.diff-level.Hard': 'Hard',
@@ -70,5 +70,7 @@ export const LANG_EN_TRANS = {
     'learn.code-before-next': 'You need to try and solve all code tasks in order to get next module.',
     'learn.progres': 'Modules shown',
     'learn.correct-questions': 'Tests\' result:',
-    'learn.correct-codes': 'Code tasks\' result'
+    'learn.correct-codes': 'Code tasks\' result',
+
+    'camera.share-error': 'In order to be able to adjust difficulty level please unblock camera access'
 };

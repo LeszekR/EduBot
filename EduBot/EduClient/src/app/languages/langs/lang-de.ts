@@ -12,10 +12,10 @@ export const LANG_DE_TRANS = {
     'common.code': '<brak tłuamcz>',
     'common.empty': '',
     'common.error': 'Fehler',
-        
+
     'view.content': '<Content>',
     'view.example': '<Example>',
-    
+
     'edit.add_module': 'Modul hinzufügen',
     'edit.add_meta_module': 'Fater Modul',
     'edit.del_answer_title': '<brak tłumaczenia>',
@@ -31,7 +31,7 @@ export const LANG_DE_TRANS = {
     'edit.exit_edit_mode': '<brak tłumaczenia>',
     'edit.no-correct-answer': '<In order to save the questions you must tick the correct answer in all of them.>',
     'edit.no-code': '<In order to save code tasks you must write correct execution result in all of them.>',
-    
+
     'error.login.credentials': 'Benutzername oder Passwort ist falsch',
     'error.login.repeat': 'Passwörter sind anders',
     'error.server': 'Serverfehler. Überprüfen Sie Ihren Serverstatus',
@@ -47,7 +47,7 @@ export const LANG_DE_TRANS = {
     'login.register_new_user': 'Neuen Benutzer registrieren',
     'login.repeat_password': 'Passwort wiederholen',
     'login.success': '<brak tłumaczenia>',
-    
+
     'module.diff-level.Easy': 'Einfach',
     'module.diff-level.Medium': 'Mittel',
     'module.diff-level.Hard': 'Hart',
@@ -69,5 +69,7 @@ export const LANG_DE_TRANS = {
     'learn.code-before-next': '<You need to try and solve all code tasks in order to get next module.>',
     'learn.progres': '<Modules shown>',
     'learn.correct-questions': '<Tests\' result:>',
-    'learn.correct-codes': '<Code tasks\' result>'
+    'learn.correct-codes': '<Code tasks\' result>',
+
+    'camera.share-error': '<brak tłumaczenia>'
 };

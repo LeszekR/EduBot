@@ -2,19 +2,12 @@ import { Component, OnInit, OnDestroy, ViewChild, HostListener } from '@angular/
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
 import { ContextService } from './services/context.service';
-import { ModuleService } from './services/module.service';
 import { EmoService } from './services/emo.service';
 import { MessageService } from './shared/components/message/message.service';
-import { ModuleListComponent } from './views/module-list-view/module-list.component'
+import { ModuleListComponent } from './views/module-list-view/module-list.component';
 
-import { LoginService } from './services/login.service';
-import { GameScore } from './models/game-score';
 import { EduService } from './services/edu.service';
-
-
-// MOCK *******************************************
 import { HttpService } from './services/http.service';
-// *******************************************
 
 
 // ==================================================================================================================
@@ -40,17 +33,14 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private context: ContextService,
     private http: HttpService,
-    private moduleService: ModuleService,
     private emoService: EmoService,
     private messageService: MessageService,
-    private loginService: LoginService,
     private eduService: EduService) {
 
     this.initializeTimer();
 
     // start of the pic-taking loop
-    // TODO odblokować po testach
-    // this.emoService.start();
+    this.emoService.start();
   }
 
   // --------------------------------------------------------------------------------------------------------------
@@ -67,10 +57,10 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
 
-  // MOCK
+  // PRIVATE
   // ==============================================================================================================
-  private mockSendPic() {
-    this.emoService.mockSendPic();
+  private sendPic() {
+    this.emoService.sendPic();
   }
   // --------------------------------------------------------------------------------------------------------------
   setEmoState(state: number) {
@@ -79,7 +69,7 @@ export class AppComponent implements OnInit, OnDestroy {
         .subscribe(res => {
           if (state == 2)
             this.moduleListComponent.clearModules();
-          console.log(res)
+          console.log(res);
         });
   }
 

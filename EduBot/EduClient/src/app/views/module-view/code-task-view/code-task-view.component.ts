@@ -1,11 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { CodeTaskFront } from '../../../models/code-task';
 import { ModuleViewComponent } from '../module-view.component';
 import { Module } from '../../../models/module';
 import { MessageService } from '../../../shared/components/message/message.service';
 import { ContextService } from '../../../services/context.service';
 import { TestResult } from '../../../models/enums';
-import { ViewChild } from '@angular/core/src/metadata/di';
 
 
 // ==================================================================================================================

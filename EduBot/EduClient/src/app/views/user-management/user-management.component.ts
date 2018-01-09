@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 //Models
 import { User } from '../../models/user';
-import { Role } from '../../models/enum-user-role';
+import { Role } from '../../models/enums';
 
 //Services
 import { UserService } from '../../services/user.service';

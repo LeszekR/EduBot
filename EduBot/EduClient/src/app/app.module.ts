@@ -23,7 +23,7 @@ import { MessageComponent } from './shared/components/message/message.component'
 import { QuestionViewComponent } from './views/module-view/quiz-view/question-view/question-view.component';
 import { Autofocus } from './shared/directives/autofocus.directive';
 import { SpinnerComponent } from './shared/components/spinner/spinner.component';
-import {AceEditorComponent} from 'ng2-ace-editor';
+import { AceEditorComponent } from 'ng2-ace-editor';
 
 //Services
 import { TestService } from './mock/test.service';

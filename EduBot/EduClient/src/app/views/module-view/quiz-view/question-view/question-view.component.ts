@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { ClosedQuestion } from '../../../../models/quiz-model/closed-question'
-import { TestResult } from '../../../../models/quiz-model/enum-test-result'
+import { ClosedQuestion } from '../../../../models/closed-question'
+import { TestResult } from '../../../../models/enums'
 import { MessageService } from '../../../../shared/components/message/message.service';
 import { ContextService } from '../../../../services/context.service'
 

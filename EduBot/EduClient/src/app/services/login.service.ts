@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {Http, Headers} from '@angular/http';
 import { JwtHelper } from '../shared/utils/jwt-helper';
 import { ContextService } from './context.service';
-import { Role } from '../models/enum-user-role';
+import { Role } from '../models/enums';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 

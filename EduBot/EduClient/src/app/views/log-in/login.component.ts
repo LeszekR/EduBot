@@ -5,7 +5,7 @@ import { UserService } from '../../services/user.service';
 import { FormField } from '../../components/form-field/form-field';
 import { User } from '../../models/user';
 import { JwtHelper } from '../../shared/utils/jwt-helper';
-import { Role } from '../../models/enum-user-role';
+import { Role } from '../../models/enums';
 import { ContextService } from '../../services/context.service';
 import { SpinnerService } from '../../shared/components/spinner/spinner.service';
 

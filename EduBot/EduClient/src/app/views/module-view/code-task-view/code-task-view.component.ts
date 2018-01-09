@@ -1,10 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { CodeTask } from '../../../models/quiz-model/code-task';
+import { CodeTaskFront } from '../../../models/code-task';
 import { ModuleViewComponent } from '../module-view.component';
 import { Module } from '../../../models/module';
 import { MessageService } from '../../../shared/components/message/message.service';
 import { ContextService } from '../../../services/context.service';
-import { TestResult } from '../../../models/quiz-model/enum-test-result';
+import { TestResult } from '../../../models/enums';
+import { ViewChild } from '@angular/core/src/metadata/di';
 
 
 // ==================================================================================================================
@@ -15,9 +16,21 @@ import { TestResult } from '../../../models/quiz-model/enum-test-result';
 })
 export class CodeTaskViewComponent {
 
+  // learning mode - for the student
+  @ViewChild('studentCode') studentCode;
+  @ViewChild('codeOutputDiv') codeOutputDiv;
+
+  // edit mode - for the teacher
+  @ViewChild('codeMode') codeMode;
+  @ViewChild('surroundingCode') surroundingCode;
+  @ViewChild('executorCode') executorCode;
+  @ViewChild('correctResult') correctResult;
+
+  // other
   @Input() readonly: boolean;
   @Input() moduleDifficulty: string;
-  @Input() codeTasks: CodeTask[];
+  @Input() codeTasks: CodeTaskFront[];
+  @Input() codeOutput: any;
 
   activeTab: number = 0;
 
@@ -33,6 +46,7 @@ export class CodeTaskViewComponent {
   private setActiveTab(i: number) {
     this.activeTab = i;
     this.context.currentCodeTask = this.codeTasks[i];
+    this.context.codeOutputDiv = this.codeOutputDiv;
   }
 
   // --------------------------------------------------------------------------------------------------------------
@@ -47,20 +61,20 @@ export class CodeTaskViewComponent {
         if (codes.length == 0)
           this.codeTasks = undefined;
 
-          console.log("usuwam kod")
+        // console.log("usuwam kod");
       });
   }
 
   // --------------------------------------------------------------------------------------------------------------
   private addCodeTask() {
     if (this.codeTasks == undefined)
-    this.codeTasks = [];
-    this.codeTasks.push(new CodeTask());
+      this.codeTasks = [];
+    this.codeTasks.push(new CodeTaskFront());
   }
 
   // --------------------------------------------------------------------------------------------------------------
-  private getCssClass(status: TestResult): string{
-    switch(status){
+  private getCssClass(status: TestResult): string {
+    switch (status) {
       case TestResult.None:
         return "fa fa-edit text-warning";
       case TestResult.Correct:

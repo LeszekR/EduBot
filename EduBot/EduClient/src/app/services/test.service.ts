@@ -6,11 +6,12 @@ import { HttpService } from './http.service';
 import { TestCodeService } from './test-code.service';
 
 // Model
-import { ClosedQuestion, ClosedQuestionDTO, ClosedQuestionAnswDTO } from '../models/quiz-model/closed-question';
-import { CodeTask, CodeTaskDTO, CodeTaskAnswDTO } from '../models/quiz-model/code-task';
+import { ClosedQuestion, ClosedQuestionDTO, ClosedQuestionAnswDTO } from '../models/closed-question';
+import { CodeTaskFront, CodeTaskDTO, CodeTaskAnswDTO } from '../models/code-task';
 
 // Components
 import { QuizViewComponent } from '../views/module-view/quiz-view/quiz-view.component';
+import { CodeMode, CodeModeMapper } from '../models/enums';
 
 
 // ==================================================================================================================
@@ -27,10 +28,10 @@ export class TestTaskService {
 
     // PUBLIC
     // ==============================================================================================================
-    verifyCodeTest(codeTask: CodeTask): Observable<boolean> {
+    verifyCodeTest(codeTask: CodeTaskFront): Observable<boolean> {
         let result = this.testCodeService.executeCode(codeTask);
 
-        let codeTaskAnswDTO = new CodeTaskAnswDTO(codeTask.id, codeTask.correct_result, result);
+        let codeTaskAnswDTO = new CodeTaskAnswDTO(codeTask, result);
         return this.http.post<boolean>(this.quizUrl + '/verifycodetest', codeTaskAnswDTO);
     }
 
@@ -75,7 +76,7 @@ export class TestTaskService {
 
 
     // --------------------------------------------------------------------------------------------------------------
-    StringifyCodeTasks(codeTasks: CodeTask[], moduleId: number): CodeTaskDTO[] {
+    StringifyCodeTasks(codeTasks: CodeTaskFront[], moduleId: number): CodeTaskDTO[] {
 
         if (codeTasks == undefined)
             return null;
@@ -83,22 +84,33 @@ export class TestTaskService {
             return null;
 
 
-        let codeTaskArr: CodeTaskDTO[] = [];
-        let cDTO: CodeTaskDTO;
-        let c: CodeTask;
+        let codeTaskDtoArr: CodeTaskDTO[] = [];
+        let codeTaskDto: CodeTaskDTO;
+        let codeTask: CodeTaskFront;
 
         for (var i in codeTasks) {
 
-            c = codeTasks[i];
-            cDTO = new CodeTaskDTO(c);
-            cDTO.module_id = moduleId;
-            cDTO.position = +i;
-            cDTO.task_answer = c.question + "^" + c.correct_result + "^" + c.executor_code;
+            codeTaskDto = new CodeTaskDTO();
+            codeTaskDto.module_id = moduleId;
 
-            codeTaskArr[codeTaskArr.length] = cDTO;
+            codeTask = codeTasks[i];
+
+            codeTaskDto.id = codeTask.id;
+            codeTaskDto.position = codeTask.position;
+            codeTaskDto.task_answer =
+                codeTask.question
+                + '^' + codeTask.surroundingCode
+                + '^' + codeTask.executorCode
+                + '^' + codeTask.codeMode
+                + '^' + codeTask.correctResult
+                + '^' + codeTask.studentCode
+                // + '^' + codeTask.correctResultType
+                ;
+
+            codeTaskDtoArr[codeTaskDtoArr.length] = codeTaskDto;
         }
 
-        return codeTaskArr;
+        return codeTaskDtoArr;
     }
 
     // --------------------------------------------------------------------------------------------------------------
@@ -128,29 +140,33 @@ export class TestTaskService {
     }
 
     // --------------------------------------------------------------------------------------------------------------
-    UnpackCodeTasks(codeTasks: CodeTaskDTO[]): CodeTask[] {
+    UnpackCodeTasks(codeTaskDtos: CodeTaskDTO[]): CodeTaskFront[] {
 
-        if (codeTasks.length == 0)
+        if (codeTaskDtos.length == 0)
             return;
 
 
-        let codeTasksArr: CodeTask[] = [];
-        let c: CodeTask;
+        let codeTaskArr: CodeTaskFront[] = [];
+        let codeTask: CodeTaskFront;
         let elements: string[];
 
-        for (var i in codeTasks) {
+        for (var i in codeTaskDtos) {
 
-            elements = codeTasks[i].task_answer.split("^");
+            codeTask = new CodeTaskFront();
+            codeTask.id = codeTaskDtos[i].id;
 
-            c = new CodeTask();
-            c.id = codeTasks[i].id;
-            c.question = elements[0];
-            c.correct_result = elements[1];
-            c.executor_code = elements[2];
+            elements = codeTaskDtos[i].task_answer.split("^");
+            codeTask.question = elements[0];
+            codeTask.surroundingCode = elements[1];
+            codeTask.executorCode = elements[2];
+            codeTask.codeMode = CodeModeMapper.makeMode(elements[3]);
+            codeTask.correctResult = elements[4];
+            codeTask.studentCode = elements[5];
+            // codeTask.correctResultType = elements[6];
 
-            codeTasksArr[codeTasksArr.length] = c;
+            codeTaskArr[codeTaskArr.length] = codeTask;
         }
 
-        return codeTasksArr;
+        return codeTaskArr;
     }
 }

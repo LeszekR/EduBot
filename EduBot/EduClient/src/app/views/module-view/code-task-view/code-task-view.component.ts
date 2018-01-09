@@ -1,10 +1,12 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
+
 import { CodeTaskFront } from '../../../models/code-task';
 import { ModuleViewComponent } from '../module-view.component';
 import { Module } from '../../../models/module';
-import { MessageService } from '../../../shared/components/message/message.service';
-import { ContextService } from '../../../services/context.service';
 import { TestResult } from '../../../models/enums';
+
+import { ContextService } from '../../../services/context.service';
+import { MessageService } from '../../../shared/components/message/message.service';
 
 
 // ==================================================================================================================
@@ -15,25 +17,15 @@ import { TestResult } from '../../../models/enums';
 })
 export class CodeTaskViewComponent {
 
-  // learning mode - for the student
-  // @ViewChild('studentCode') studentCode;
   @ViewChild("codeOutputDiv") codeOutputDiv: HTMLDivElement;
-  // codeOutputDiv: HTMLDivElement;
 
-  // edit mode - for the teacher
-  // @ViewChild('codeMode') codeMode;
-  // @ViewChild('surroundingCode') surroundingCode;
-  // @ViewChild('executorCode') executorCode;
-  // @ViewChild('correctResult') correctResult;
-
-  // other
   @Input() readonly: boolean;
-  @Input() moduleDifficulty: string;
+  @Input() difficulty: string;
   @Input() codeTasks: CodeTaskFront[];
-  @Input() codeOutput: any;
 
   activeTab: number = 0;
 
+  
   // CONSTRUCTOR
   // ==============================================================================================================
   constructor(

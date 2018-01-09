@@ -5,9 +5,8 @@
         <meta charset="UTF-8"> 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="saper.css">
-        <script src="saper.js"></script>
     </head>
-    <body onload="init()">
+    <body id="codeTask" onload="init()">
 
 
         <!--......................................................-->
@@ -28,15 +27,22 @@
         </div>
 
         <div class="game">
-            <input type="button" class="buttNewBoard" onclick="makeNewBoard()" value="Nowa plansza">
+            <input type="button" class="buttNewBoard" value="Generuj planszę" onclick="makeNewBoard()">
         </div>
 
-        <div id="board" class="board">
-        </div>
-
-        <div id="result" class="board">
+        <div id="board" class="board game">
         </div>
         <!--......................................................-->
-        
+
+        <div id="wynik" class="board game">            
+        </div>
+
+        <script>
+            function init() {
+                var doc = document.body;
+                document.getElementById('wynik').innerHTML = doc.childNodes.length;
+            }
+        </script>
+
     </body>
 </html>

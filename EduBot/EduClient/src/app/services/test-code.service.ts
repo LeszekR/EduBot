@@ -33,7 +33,7 @@ export class TestCodeService {
     * UWAGA: aby zweryfikować kod w trybie HTML obowiązkowe jest podanie executorCode.
     * - jako funkcję, która pobiera 1 argument - tym argumentem jest poddrzewo DOM utworzone
     * przez kod studenta (ew. umieszczony wewnątrz surroundingCode). Zadaniem executorCode
-    * jest porównanie struktury i atrybutów poddrzewa DOM utworzonego w div'ie z rezultatem 
+    * jest porównanie struktury i atrybutów poddrzewa DOM utworzonego w div'ie jako rezultat 
     * wykonania kodu studenta z correctResult.
     * 
     * 

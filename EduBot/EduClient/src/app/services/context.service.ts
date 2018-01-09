@@ -1,13 +1,13 @@
 import { Injectable, OnInit } from '@angular/core';
 
 //Models
-import { Role } from '../models/enum-user-role';
+import { Role } from '../models/enums';
 import { Module } from '../models/module'
 import { ModuleViewComponent } from '../views/module-view/module-view.component'
 import { ModuleListComponent } from '../views/module-list-view/module-list.component'
 import { AppComponent } from '../app.component';
 import { GameScore } from '../models/game-score';
-import { CodeTask } from '../models/quiz-model/code-task';
+import { CodeTaskFront } from '../models/code-task';
 
 
 // ==================================================================================================================
@@ -22,14 +22,14 @@ export class ContextService {
     isEditMode: boolean = false;
     currentModuleId: number;
     currentModule: Module;
-    currentCodeTask: CodeTask;
+    currentCodeTask: CodeTaskFront;
     gameScore: GameScore;
 
     // pośrednictwo między komponentami
     appComponent: AppComponent;
     moduleViewComponent: ModuleViewComponent;
     moduleList: ModuleListComponent;
-
+    codeOutputDiv: HTMLDivElement;
 
     // CONSTRUCTOR
     // ==============================================================================================================

@@ -1,5 +1,5 @@
-import { ClosedQuestion } from '../models/quiz-model/closed-question';
-import { CodeTask } from '../models/quiz-model/code-task';
+import { ClosedQuestion } from '../models/closed-question';
+import { CodeTaskFront } from '../models/code-task';
 
 
 export class TestData {
@@ -11,11 +11,11 @@ export class MockData {
 
     constructor() { }
 
-    public mockCodeTasks: CodeTask[] = [
-        <CodeTask>{
+    public mockCodeTasks: CodeTaskFront[] = [
+        <CodeTaskFront>{
             question: "Napisz program, który włamuje się do serwerwa PG i zalicza dyplom wskazanego studenta.",
-            correct_result: "{'ocena': '5', 'oferty_pracy': '84', 'proponowane_wynagrodzenie': '150.000'}",
-            executor_code: `"<!DOCTYPE html>
+            correctResult: "{'ocena': '5', 'oferty_pracy': '84', 'proponowane_wynagrodzenie': '150.000'}",
+            executorCode: `"<!DOCTYPE html>
             <html>
                 <head>
                     <title>TODO supply a title</title>
@@ -32,10 +32,10 @@ export class MockData {
                             <div id="opisy">
             "`
         },
-        <CodeTask>{
+        <CodeTaskFront>{
             question: "Zaprogramuj wyrzynarkę do marchwi w JavaScript",
-            correct_result: "8 średnich marchwi na minutę | 5 dużych",
-            executor_code: `"    <body onload="init()">
+            correctResult: "8 średnich marchwi na minutę | 5 dużych",
+            executorCode: `"    <body onload="init()">
             <div>
                 <div id="menu">
                     <div id="opisy">
@@ -66,15 +66,15 @@ export class MockData {
             </div>
     "`
         },
-        <CodeTask>{
+        <CodeTaskFront>{
             question: "Napisz przeszukiwanie w głąb planu zajęć PG oparte na kopcu Fibonacciego, nie stosując znaku '=', wykorzystując drzewo binarne czarno-czerowno-seledynowe, zoptymalizowane dla branek OR, XOR i XEROX oraz zwracające wynik w postaci XML w base64 w UTF-51, z ponięciem znaków o indeksach liczb pierwszych.",
-            correct_result: "Łatwizna. Ale dajcie dziennym, połowa popełni samobójstwo zanim skończy czytać polecenie.",
-            executor_code: "Po co. Rzut oka na wynik i będzie przecież widać czy jest ok."
+            correctResult: "Łatwizna. Ale dajcie dziennym, połowa popełni samobójstwo zanim skończy czytać polecenie.",
+            executorCode: "Po co. Rzut oka na wynik i będzie przecież widać czy jest ok."
         },
-        <CodeTask>{
+        <CodeTaskFront>{
             question: "Wykorzystując przekazywanie zmiennej przez referencję oraz wielokrotne dziedziczenie diamentowe oblicz sumę.",
-            correct_result: "5",
-            executor_code: "Nie ma sensu bo każdy procesor się na tym spali. Niech się student męczy, przecież tego się nie da, hi, hi..."
+            correctResult: "5",
+            executorCode: "Nie ma sensu bo każdy procesor się na tym spali. Niech się student męczy, przecież tego się nie da, hi, hi..."
         }
     ];
 

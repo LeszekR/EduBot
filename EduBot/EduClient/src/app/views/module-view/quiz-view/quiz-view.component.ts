@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 
-import { ClosedQuestion } from '../../../models/quiz-model/closed-question';
+import { ClosedQuestion } from '../../../models/closed-question';
 import { ModuleViewComponent } from '../module-view.component';
 import { Module } from '../../../models/module';
 

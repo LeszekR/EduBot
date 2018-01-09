@@ -2,11 +2,11 @@ import { Component, OnInit, ViewChild, Output, EventEmitter, OnDestroy } from '@
 import { ActivatedRoute } from '@angular/router';
 
 //Models
-import { DiffLevel } from '../../models/enum-diff-level';
+import { DiffLevel } from '../../models/enums';
 import { Module } from '../../models/module';
-import { ClosedQuestionAnswDTO } from '../../models/quiz-model/closed-question';
-import { ClosedQuestion } from '../../models/quiz-model/closed-question';
-import { TestResult } from '../../models/quiz-model/enum-test-result';
+import { ClosedQuestionAnswDTO } from '../../models/closed-question';
+import { ClosedQuestion } from '../../models/closed-question';
+import { TestResult } from '../../models/enums';
 
 //Services
 import { TestTaskService } from '../../services/test.service';
@@ -59,10 +59,12 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
     });
   }
 
+  // --------------------------------------------------------------------------------------------------------------
   ngOnDestroy(){
     if(this.sub) this.sub.unsubscribe();
   }
 
+  // --------------------------------------------------------------------------------------------------------------
   init(mod :Module){
     this.module = mod;
     this.context.currentModule = mod;
@@ -104,7 +106,7 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
     for (var i in tasks)
 
       // stop if unsolved code task is fonud
-      if (tasks[i].correct_result.replace(" ", '').length < 7) {
+      if (tasks[i].correctResult.replace(" ", '').length < 7) {
         this.messageService.info(msg, 'common.empty');
         return false;
       }

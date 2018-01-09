@@ -9,39 +9,105 @@
 </div>
 
 <div *ngIf="codeTasks" class="pt-2" style="height: calc(100% - 40px)">
-    <textarea 
-          style="height:10%;" 
-          [readonly]="readonly || moduleDifficulty!='easy'"
-          [(ngModel)]="codeTasks[activeTab].question" class="w-100 p-1" 
-    ></textarea>
 
-    <div class="d-flex w-100 pb-1" style="height: 90%">
-  
-    
-        <ace-editor 
-          id="ae{{codeTasks[activeTab].id}}"
-          class="w-50 h-100 p-1"
-          style="min-height: 100%;font-size: 18px"
-          [(text)]="codeTasks[activeTab].correct_result"
-          [mode]="'javascript'"
+
+<!-- QUESTION -->
+<!-- ..................................................................................... -->
+<textarea 
+      style="height:10%;" 
+      [readonly]="readonly || moduleDifficulty!='easy'"
+      [(ngModel)]="codeTasks[activeTab].question" class="w-100 p-1" 
+></textarea>
+
+
+<!-- STUDENT'S CODE EDITOR AND RESULT -->
+<!-- ..................................................................................... -->
+<div *ngIf="!context.isEditMode"
+      class="d-flex w-100 pb-1" 
+      style="height: 90%">
+
+    <ace-editor 
+      #studentCode
+      class="w-50 h-100 p-1"
+      style="min-height: 100%;font-size: 18px"
+      [(text)]="codeTasks[activeTab].studentCode"
+      [mode]="'javascript'"
+      [theme]="'eclipse'"
+      [readOnly]="true"
+      >
+    </ace-editor>
+
+
+    <!-- wynik działania kodu studenta -->
+    <!-- TODO  zastąpić pole tekstowe wynikiem kodu -->
+    <!-- <textarea 
+      class="w-50 h-100 p-1" 
+      [readonly]="context.isEditMode && moduleDifficulty!='easy'"
+      [(ngModel)]="codeTasks[activeTab].executorCode" 
+    ></textarea>
+  </div> -->
+
+    <!-- wynik działania kodu studenta -->
+    <!-- TODO  zastąpić pole tekstowe wynikiem kodu -->
+    <div #codeOutputDiv 
+      class="w-50 h-100 p-1" 
+      [readonly]="true"
+      [(ngModel)]="codeOutput" 
+    ></textarea>
+  </div>
+
+
+
+<!-- CODE TASK EDITION -->
+<!-- ..................................................................................... -->
+<div *ngIf="context.isEditMode && moduleDifficulty!='easy'"
+            class="d-flex w-100 pb-1" 
+            style="height: 90%">
+
+        <!-- TODO: zmienić na drop-down z możliwymi trybami kodu -->
+        <textarea #codeMode
+          class="w-100 p-2" 
+          style="min-height: 10%; font-size: 18px"
+          [readonly]="false"
+          [(ngModel)]="codeTasks[activeTab].codeMode" 
+        ></textarea>
+
+        <ace-editor #surroundingCode
+          id="ae{{codeTasks[activeTab].surroundingCode}}"
+          class="w-100 p-1"
+          style="min-height: 40%; font-size: 18px"
           [theme]="'eclipse'"
-          [readOnly]="context.isEditMode && moduleDifficulty!='easy'"
+          [readonly]="false"
+          [mode]="codeTasks[activeTab].codeMode"
+          [(text)]="codeTasks[activeTab].surroundingCode"
           >
         </ace-editor>
 
-    
-        <!-- WYŚWIETLENIE WYNIKU DZIAŁANIA KODU UCZNIA -->
-        <!-- TODO  zastąpić pole tekstowe wynikiem kodu -->
-        <textarea 
-          class="w-50 h-100 p-1" 
-          [readonly]="context.isEditMode && moduleDifficulty!='easy'"
-          [(ngModel)]="codeTasks[activeTab].executor_code" 
+        <ace-editor #executorCode
+          id="ae{{codeTasks[activeTab].executorCode}}"
+          class="w-100 p-1"
+          style="min-height: 40%; font-size: 18px"
+          [theme]="'eclipse'"
+          [readonly]="false"
+          [mode]="'javascript'"
+          [(text)]="codeTasks[activeTab].executorCode"
+          >
+        </ace-editor>
+
+        <textarea #correctResult
+          class="w-10 h-100 p-1" 
+          [readonly]="false"
+          [(ngModel)]="codeTasks[activeTab].correctResult" 
         ></textarea>
+
       </div>
+    </div>
 </div>
 
 
+
 <!-- przyciski DODAJ USUŃ -->
+<!-- ..................................................................................... -->
 <div class="d-flex flex-row pt-1 m-0">
   <div *ngIf="!readonly && module.difficulty=='easy'" (click)="addCodeTask()" class="fa fa-plus fa-2x ml-2 w-0" style="width: 5%; height:5%;"></div>
   <div *ngIf="!readonly && module.difficulty=='easy'" (click)="deleteCodeTask()" class="fa fa-minus fa-2x ml-2 w-0" style="width: 5%; height:5%;"></div>

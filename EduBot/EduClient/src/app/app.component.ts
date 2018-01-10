@@ -8,13 +8,13 @@ import { ModuleListComponent } from './views/module-list-view/module-list.compon
 
 import { EduService } from './services/edu.service';
 import { HttpService } from './services/http.service';
-
+import { LoginService } from './services/login.service';
 
 // ==================================================================================================================
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit, OnDestroy {
 
@@ -35,7 +35,9 @@ export class AppComponent implements OnInit, OnDestroy {
     private http: HttpService,
     private emoService: EmoService,
     private messageService: MessageService,
-    private eduService: EduService) {
+    private eduService: EduService,
+    private loginService: LoginService
+  ) {
 
     this.initializeTimer();
 

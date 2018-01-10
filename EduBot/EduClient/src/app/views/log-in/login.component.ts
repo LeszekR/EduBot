@@ -50,8 +50,8 @@ export class LoginComponent {
     // CONSTRUCTOR
     // ==============================================================================================================
     constructor(
-        private loginService: LoginService, 
-        private userService: UserService, 
+        private loginService: LoginService,
+        private userService: UserService,
         private context: ContextService,
         private spinner: SpinnerService) { // , private localStor: LocalStorage ... ) {
 

@@ -259,8 +259,11 @@ export class ModuleListComponent implements OnInit {
                     if (newModules[i].id > newIdx)
                         newIdx = newModules[i].id;
 
+                this.modules.forEach(m => m.isSelected = false);
+                this.anyModulesSelected = false;
+
                 this.modules = newModules;
-                this.router.navigate([newIdx]);
+                this.router.navigate(['module/' + newIdx]);
             });
     }
 

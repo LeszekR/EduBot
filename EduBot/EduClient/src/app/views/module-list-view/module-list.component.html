@@ -3,14 +3,16 @@
 
     <!-- kontrolki w trybie: EDYCJA -->
     <!-- ........................................................................................... -->
-    <div *ngIf="context.isEditMode" class="pb-2 pl-0 d-flex" role="group">
+    <div *ngIf="context.isEditMode" class="pb-2 mb-2 pl-0 d-flex" role="group">
         <div class="col-3 mr-1 p-0">
-            <button type="button" class="col-12 btn btn-success" (click)="addModule()" *ngIf="!anyModulesSelected">
+            <button 
+                *ngIf="!anyModulesSelected" type="button"  class="col-12 btn btn-primary" (click)="addModule()" 
+                >
                 {{ 'common.add' | translate }}
             </button>
         </div>
         <div class="col-3 mr-1 p-0">
-            <button type="button" class="col-12 btn btn-danger" (click)="deleteModuleConfirm()" *ngIf="!anyModulesSelected">
+            <button type="button" class="col-12 btn btn-primary" (click)="deleteModuleConfirm()" *ngIf="!anyModulesSelected">
                 {{ 'common.delete' | translate }}
             </button>
         </div>

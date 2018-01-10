@@ -1,34 +1,46 @@
-
+<!-- ======================================================================================= -->
+<!-- tab -->
 <div class="tabview">
-    <a *ngFor="let task of codeTasks;let i = index" class="tabitem"
+    <a 
+      *ngFor="let task of codeTasks;let i = index" 
+      class="tabitem"
       [class.active]="activeTab==i"
       (click)="setActiveTab(i)">
+
       <strong>Zadanie {{i+1}}</strong>
       <i class="ml-1" [ngClass]="getCssClass(task.status)" ></i>
+
     </a>
 </div>
 
-<div *ngIf="codeTasks" class="pt-2" style="height: calc(100% - 40px)">
 
 
-<!-- QUESTION -->
-<!-- ..................................................................................... -->
-<textarea 
-      style="height:10%;" 
-      [readonly]="readonly || moduleDifficulty!='easy'"
-      [(ngModel)]="codeTasks[activeTab].question" class="w-100 p-1" 
-></textarea>
+<!-- ======================================================================================= -->
+<!-- tab content -->
+<div *ngIf="codeTasks" class="p-0 m-0" style="height: 85%;">
 
 
-<!-- STUDENT'S CODE EDITOR AND RESULT -->
-<!-- ..................................................................................... -->
-<div *ngIf="!context.isEditMode"
+  <!-- QUESTION -->
+  <!-- ..................................................................................... -->
+  <textarea 
+    class="w-100 p-1 m-0" 
+    style="height:20%;" 
+    [readonly]="readonly || difficulty!='easy'"
+    [(ngModel)]="codeTasks[activeTab].question" 
+  ></textarea>
+
+
+  <!-- STUDENT'S CODE EDITOR AND RESULT -->
+  <!-- ..................................................................................... -->
+  <div 
+      *ngIf="!context.isEditMode"
       class="d-flex w-100 pb-1" 
-      style="height: 90%">
+      style="height: 90%"
+      >
 
     <ace-editor 
-      class="w-50 h-100 p-1"
-      style="min-height: 100%;font-size: 18px"
+      class="w-50 h-100 p-1 mr-1"
+      style="min-height: 100%;"
       [(text)]="codeTasks[activeTab].studentCode"
       [mode]="'javascript'"
       [theme]="'eclipse'"
@@ -51,6 +63,7 @@
     <div 
       #codeOutputDiv 
       class="w-50 h-100 p-1" 
+      style="background: white;"
     ></div>
   </div>
 
@@ -59,43 +72,66 @@
   <!-- CODE TASK EDITION -->
   <!-- ..................................................................................... -->
   <div *ngIf="context.isEditMode && moduleDifficulty!='easy'"
-              class="d-flex w-100 pb-1" 
-              style="height: 90%">
+              class="w-100 p-0 m-0 mr-5 mb-1" 
+              style="height: 80%">
 
-    <!-- TODO: zmienić na drop-down z możliwymi trybami kodu -->
-    <textarea
-      class="w-100 p-2" 
-      style="height: 10%; font-size: 18px; display: block;"
-      [readonly]=false
-      [(ngModel)]="codeTasks[activeTab].codeMode" 
-    ></textarea>
+    <div class="mode-div d-flex w-100 m-0" style="height: 10%;">
 
-    <ace-editor
-      class="w-100 p-1"
-      style="min-height: 40%; font-size: 18px; display: block;"
-      [theme]="'eclipse'"
-      [readOnly]=false
-      [mode]="codeTasks[activeTab].codeMode"
-      [(text)]="codeTasks[activeTab].surroundingCode"
-      >
-    </ace-editor>
+      <!-- TODO: zmienić na drop-down z możliwymi trybami kodu -->
+      <!-- code mode -->
+      <label class="mr-2 justify-contents-left">
+        rodzaj<br>kodu
+      </label>
+      <textarea
+        class="h-100 p-1 mr-1" 
+        style="width: 15%;"
+        [readonly]=false
+        [(ngModel)]="codeTasks[activeTab].codeMode" 
+      ></textarea>
+      
+      <!-- correct answer -->
+      <label class="ml-5 mr-2">
+        prawidłowy<br>wynik
+      </label>
+      <textarea
+        class="h-100 p-1"
+        style="width: 80%;" 
+        [readonly]=false
+        [(ngModel)]="codeTasks[activeTab].correctResult" 
+      ></textarea>
 
-    <ace-editor
-      class="w-100 p-1"
-      style="height: 40%; font-size: 18px; display: block;"
-      [theme]="'eclipse'"
-      [readOnly]=false
-      [mode]="'javascript'"
-      [(text)]="codeTasks[activeTab].executorCode"
-      >
-    </ace-editor>
+    </div>          
 
-    <textarea
-      class="w-10 h-100 p-1" 
-      style="height: 10%; font-size: 18px; display: block;"
-      [readonly]=false
-      [(ngModel)]="codeTasks[activeTab].correctResult" 
-    ></textarea>
+
+    <div class="d-flex w-100 mt-1 p-0 pt-1" style="height: 90%; border-top: 1px solid blue;">
+
+      <!-- surrounding code -->
+      <div class="edit h-100 w-50 p-0 mr-1">
+          <label class="w-100">kod otaczający kod studenta (wstaw: '// STUDENT_CODE_HERE')</label>
+          <ace-editor
+            class="h-100 w-100 p-1"
+            [theme]="'eclipse'"
+            [readOnly]=false
+            [mode]="codeTasks[activeTab].codeMode"
+            [(text)]="codeTasks[activeTab].surroundingCode"
+            >
+          </ace-editor>
+      </div>
+
+      <!-- executor code -->
+      <div class="edit h-100 w-50 p-0">
+        <label class="w-100">kod sprawdzający wynik</label>
+        <ace-editor
+          class="h-100 w-100 p-1"
+          [theme]="'eclipse'"
+          [readOnly]=false
+          [mode]="'javascript'"
+          [(text)]="codeTasks[activeTab].executorCode"
+          >
+        </ace-editor>
+      </div>
+
+    </div>
 
   </div>
 </div>
@@ -104,7 +140,23 @@
 
 <!-- przyciski DODAJ USUŃ -->
 <!-- ..................................................................................... -->
-<div class="d-flex flex-row pt-1 m-0">
-  <div *ngIf="!readonly && difficulty=='easy'" (click)="addCodeTask()" class="fa fa-plus fa-2x ml-2 w-0" style="width: 5%; height:5%;"></div>
-  <div *ngIf="!readonly && difficulty=='easy'" (click)="deleteCodeTask()" class="fa fa-minus fa-2x ml-2 w-0" style="width: 5%; height:5%;"></div>
+<div 
+  *ngIf="!readonly && difficulty=='easy'" 
+  class="d-flex flex-row w-100 pt-1 m-0" 
+  style="height:5%;"
+  >
+  
+  <div 
+    class="fa fa-plus fa-2x ml-2 h-100 w-25" 
+    style="width: 5%;"  
+    (click)="addCodeTask()" 
+    >
+  </div>
+  
+  <div 
+    class="fa fa-minus fa-2x ml-2 h-100 w-25" 
+    style="width: 5%;"
+    (click)="deleteCodeTask()" 
+    >
+  </div>
 </div>

@@ -23,7 +23,6 @@ namespace EduApi.Dto.Mappers {
             entity.login = dto.Login;
             if (dto.Password != null)
                 entity.password = dto.Password;
-            entity.login = dto.Login;
         }
     }
 }

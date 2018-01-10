@@ -8,4 +8,5 @@ import { FormField }               from './form-field'
 })
 export class FormFieldComponent {
     @Input() field: FormField;
+    @Input() type = 'text';
 }

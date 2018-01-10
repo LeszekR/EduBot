@@ -54,18 +54,18 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
       this.viewType = this.CONTENT_VIEW;
     });
 
-    this.sub = this.moduleService.refreshModule.subscribe( m => {
+    this.sub = this.moduleService.refreshModule.subscribe(m => {
       this.init(m);
     });
   }
 
   // --------------------------------------------------------------------------------------------------------------
-  ngOnDestroy(){
-    if(this.sub) this.sub.unsubscribe();
+  ngOnDestroy() {
+    if (this.sub) this.sub.unsubscribe();
   }
 
   // --------------------------------------------------------------------------------------------------------------
-  init(mod :Module){
+  init(mod: Module) {
     this.module = mod;
     this.context.currentModule = mod;
     this.context.moduleViewComponent = this;
@@ -103,13 +103,22 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
   hasAllCodes(msg: string): boolean {
 
     let tasks = this.module.codeTasks;
-    for (var i in tasks)
+    let editMode = this.context.isEditMode;
 
-      // stop if unsolved code task is fonud
-      if (tasks[i].correctResult.replace(" ", '').length < 7) {
+    for (var i in tasks) {
+
+      // stop if unsolved code task is found
+      if (!editMode)
+        if (tasks[i].studentCode.replace(" ", '').length < 7) {
+          this.messageService.info(msg, 'common.empty');
+          return false;
+        }
+
+      else if (tasks[i].correctResult == "") {
         this.messageService.info(msg, 'common.empty');
         return false;
       }
+    }
     return true;
   }
 

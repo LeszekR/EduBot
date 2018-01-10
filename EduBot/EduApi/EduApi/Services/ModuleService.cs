@@ -482,17 +482,24 @@ namespace EduApi.Services {
         // =============================================================================================
         private string childSeparator(edumodule module, int index, bool codeSeparator) {
 
-            string separator = (index > 0 ? "\n\n\n" : "");
+            string separator;
             string comment = codeSeparator ? "// " : "";
 
+            // module 'medium' is being created
             if (module.difficulty == "easy") {
-                separator += comment + (index + 1).ToString() + ") ";
-                for (var i = separator.Length; i < 70; i++)
+                separator = comment + (index + 1).ToString() + ") ";
+                for (var i = separator.Length; i < 56; i++)
                     separator += '-';
+                if (index > 0)
+                    separator = "\n\n\n" + separator;
             }
+
+            // module 'hard' is being created
             else {
-                separator += comment + module.title.ToUpper();
-                separator += "\n" + comment + "=========================================================\n";
+                separator = comment + module.title.ToUpper();
+                separator += "\n" + comment + "=====================================================\n";
+                if (index > 0)
+                    separator = "\n\n\n\n\n" + separator;
             }
 
             return separator + "\n";

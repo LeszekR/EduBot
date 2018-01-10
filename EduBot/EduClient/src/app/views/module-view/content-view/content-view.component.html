@@ -1,8 +1,9 @@
 <div class="d-flex flex-row w-100 h-100 m-0 p-0">
 
-    
+
     <!-- CONTENT -->
-    <div class="col-6 h-100 pr-1 p-0">
+    <!-- <div class="col-6 h-100 pr-1 p-0"> -->
+    <div class="h-100 pr-1 p-0" style="width: 48%;">
         <div class="p-2 font-weight-bold d-flex align-items-center" style="height: 2.5rem">
             <div>
                 <i class="fa fa-book fa-2x pull-left"></i>
@@ -10,35 +11,26 @@
             </div>
         </div>
         <div style="height: calc(100% - 2.5rem);">
-            <textarea 
-                [(ngModel)]="module.content" 
-                class="form-control w-100 h-100 text-muted" 
-                [readonly]="readonly"
-                style="padding: 1rem; font-size: 1.0rem;">
+            <textarea [(ngModel)]="module.content" class="form-control w-100 h-100 text-muted" [readonly]="readonly" style="padding: 1rem; font-size: 1.0rem;">
             </textarea>
         </div>
     </div>
 
 
     <!-- EXAMPLE -->
-    <div class="col-6 h-100 p-0">
-        <div class="font-weight-bold d-flex align-items-center" style="height: 2.5rem">
+    <!-- <div class="col-6 h-100 p-0"> -->
+    <div class="h-100 p-0" style="width: 52%;">
+        <div class="font-weight-bold d-flex align-items-center" style="height: 2.5rem; font-size: 1.1rem; ">
             <div>
                 <i class="fa fa-keyboard-o fa-2x pull-left"></i>
                 {{ 'view.example' | translate }}
             </div>
         </div>
-        <div style="height: calc(100% - 2.5rem)">
-            <ace-editor
-                class="w-100 h-100 text-muted"
-                style="min-height: 100%; font-size: 1.0rem; padding: 1rem;"
-                [(text)]="module.example"
-                [mode]="'javascript'"
-                [theme]="'eclipse'"
-                [readOnly]="readonly"
-                >
+        <div style="height: calc(100% - 2.5rem); background: white; padding-top: 0.5rem;">
+            <ace-editor class="w-100 h-100 text-muted" style="min-height: 100%; font-size: 1.05rem; padding: 1rem;" [(text)]="module.example"
+                [mode]="'javascript'" [theme]="'eclipse'" [readOnly]="readonly">
             </ace-editor>
         </div>
-        
+
     </div>
 </div>

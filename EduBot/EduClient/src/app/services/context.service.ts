@@ -21,14 +21,14 @@ export class ContextService {
     userRole: Role;
     isEditMode: boolean = false;
     currentModuleId: number;
-    currentModule: Module;
-    currentCodeTask: CodeTaskFront;
     gameScore: GameScore;
-
+    
     // pośrednictwo między komponentami
     appComponent: AppComponent;
-    moduleViewComponent: ModuleViewComponent;
     moduleList: ModuleListComponent;
+    moduleViewComponent: ModuleViewComponent;
+    currentModule: Module;
+    currentCodeTask: CodeTaskFront;
     codeOutputDiv: HTMLDivElement;
 
     // CONSTRUCTOR

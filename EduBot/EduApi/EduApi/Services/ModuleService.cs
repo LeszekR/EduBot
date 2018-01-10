@@ -488,7 +488,7 @@ namespace EduApi.Services {
             // module 'medium' is being created
             if (module.difficulty == "easy") {
                 separator = comment + (index + 1).ToString() + ") ";
-                for (var i = separator.Length; i < 60; i++)
+                for (var i = separator.Length; i < 56; i++)
                     separator += '-';
                 if (index > 0)
                     separator = "\n\n\n" + separator;
@@ -497,7 +497,7 @@ namespace EduApi.Services {
             // module 'hard' is being created
             else {
                 separator = comment + module.title.ToUpper();
-                separator += "\n" + comment + "=========================================================\n";
+                separator += "\n" + comment + "=====================================================\n";
                 if (index > 0)
                     separator = "\n\n\n\n\n" + separator;
             }

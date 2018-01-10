@@ -44,7 +44,7 @@ function makeBoard()
     boardHtml += "</table>";
     document.getElementById("board").innerHTML = boardHtml;
 
-    checkTheBoard();
+//    checkTheBoard();
 }
 
 //------------------------------------------------------------------------------
@@ -64,6 +64,7 @@ function makeBoardFields(risk) {
 
             fieldId = makeBoardFieldId(row, column);
             fieldButton = document.getElementById(fieldId);
+
             fieldButton.addEventListener("click", boardFieldClick);
             fieldButton.addEventListener("contextmenu", mineAlarm);
 

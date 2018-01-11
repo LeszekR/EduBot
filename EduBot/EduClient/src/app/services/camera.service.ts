@@ -20,7 +20,6 @@ export class CameraService {
         this.camera = new (window as any).JpegCamera('#camera', {
             on_ready: () => {
                 this.hideSlot();
-                document.getElementById('camera').style.display = 'none';
                 setInterval(() =>
                     this.camera.capture().get_canvas(canvas =>
                         this.canvas = canvas

@@ -8,6 +8,7 @@ import { JwtHelper } from '../../shared/utils/jwt-helper';
 import { Role } from '../../models/enums';
 import { ContextService } from '../../services/context.service';
 import { SpinnerService } from '../../shared/components/spinner/spinner.service';
+import { Observable } from 'rxjs/Observable';
 
 
 
@@ -34,28 +35,31 @@ export class LoginComponent {
     private title: string;
     private regulationsApproval: boolean = false;
 
-    private fieldLogin = new FormField('login.login', '', true)
-    private fieldPassw = new FormField('login.password', '', true)
+    private fieldLogin = new FormField('login.login', '', true);
+    private fieldPassw = new FormField('login.password', '', true);
 
-    private fieldNewLogin = new FormField('login.new_login', '', false)
-    private fieldNewPassw = new FormField('login.new_password', '', false)
-    private fieldRepPassw = new FormField('login.repeat_password', '', false)
+    private fieldNewLogin;
+    private fieldNewPassw;
+    private fieldRepPassw;
 
     private errCredentials: string;
     private errPasswChange: string;
 
     private action: string;
 
+    private registerSuccess = false;
+
 
     // CONSTRUCTOR
     // ==============================================================================================================
     constructor(
-        private loginService: LoginService, 
-        private userService: UserService, 
+        private loginService: LoginService,
+        private userService: UserService,
         private context: ContextService,
-        private spinner: SpinnerService) { // , private localStor: LocalStorage ... ) {
+        private spinner: SpinnerService) {
 
         this.action = 'logging-in';
+        this.initializeRegisterForm();
     }
 
 
@@ -65,15 +69,27 @@ export class LoginComponent {
      * Depending on 'this.action' it sends to server one of the following:
      * - credentials in order to log-in the user
      * - login and password to be registered as new user
-     * - new login and/or password and credentials to update them in database 
+     * - new login and/or password and credentials to update them in database
      */
     submitLogin(): void {
-        if (this.action == 'logging-in')
+        this.registerSuccess = false;
+        if (this.action === 'logging-in')
             this.logIn();
-        else if (this.action == 'register')
-            this.registerUser();
-        else if (this.action == 'passw-change')
+        else if (this.action === 'register') {
+            this.registerUser().subscribe(() => {
+                this.initializeRegisterForm();
+            });
+            this.action = 'logging-in';
+            this.registerSuccess = true;
+        }
+        else if (this.action === 'passw-change')
             this.passwChange();
+    }
+
+    passwordCmp(): boolean {
+        return (this.action === 'register' || this.action === 'passw-change') &&
+            this.fieldNewPassw.text !== this.fieldRepPassw.text ||
+            !this.regulationsApproval;
     }
 
     // --------------------------------------------------------------------------------------------------------------
@@ -105,12 +121,12 @@ export class LoginComponent {
     /**
      * Records new user in the database.
      */
-    registerUser(): void {
+    registerUser(): Observable<User> {
         let user = new User();
         user.login = this.fieldNewLogin.text;
         user.password = this.fieldNewPassw.text;
 
-        this.userService.addUser(user).subscribe();
+        return this.userService.addUser(user);
     }
 
     // --------------------------------------------------------------------------------------------------------------
@@ -134,11 +150,11 @@ export class LoginComponent {
 
     // PRIVATE
     // ==============================================================================================================
-    /** 
-     * Sets {@param newAction}, which determines 
+    /**
+     * Sets {@param newAction}, which determines
      * - which divs will be visible
-     * - which menu buttons will be visible 
-     * - what will be the action of 'ok' button. 
+     * - which menu buttons will be visible
+     * - what will be the action of 'ok' button.
      */
     private setAction(newAction: string): void {
         this.action = newAction;
@@ -149,5 +165,11 @@ export class LoginComponent {
             this.title = 'login.register_new_user';
         else if (this.action == 'passw-change')
             this.title = 'login.password_change';
+    }
+
+    private initializeRegisterForm(): void {
+        this.fieldNewLogin = new FormField('login.new_login', '', false);
+        this.fieldNewPassw = new FormField('login.new_password', '', false);
+        this.fieldRepPassw = new FormField('login.repeat_password', '', false);
     }
 }

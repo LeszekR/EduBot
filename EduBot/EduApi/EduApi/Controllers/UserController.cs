@@ -30,6 +30,7 @@ namespace EduApi.Controllers {
         // ---------------------------------------------------------------------------------------------
         [Route("")]
         [HttpPost]
+        [OverrideAuthorization]
         public IHttpActionResult CreateUser(UserDTO user) {
             return Ok(_userService.SaveUser(user));
         }

@@ -2,7 +2,10 @@
 
     <div *ngIf="action=='logging-in' || action=='passw-change'" >
         <formfield [field]='fieldLogin' class='formfield' id="login"></formfield>
-        <formfield [field]='fieldPassw' class='formfield'></formfield>
+        <formfield [field]='fieldPassw' class='formfield' type="password"></formfield>
+        <div *ngIf="registerSuccess" class='text-success'>
+            <p>{{ 'login.success_register' | translate }}</p>
+        </div>
         <div class='text-danger'>
             <p>{{ errCredentials | translate }}</p>
         </div>
@@ -10,8 +13,8 @@
     
     <div *ngIf="action=='register' || action=='passw-change'" >
         <formfield [field]='fieldNewLogin' class='formfield'></formfield>
-        <formfield [field]='fieldNewPassw' class='formfield'></formfield>
-        <formfield [field]='fieldRepPassw' class='formfield'></formfield>
+        <formfield [field]='fieldNewPassw' class='formfield' type="password"></formfield>
+        <formfield [field]='fieldRepPassw' class='formfield' type="password"></formfield>
         <div class="text-danger">
             <p>{{ errPasswChange | translate }}</p>
         </div>
@@ -38,7 +41,7 @@
         </div>
     </div>
     <div class="row" >
-        <button class="btn btn-primary ml-auto" (click)='submitLogin()'><strong>{{ 'common.ok' | translate }}</strong></button>
+        <button [disabled]="passwordCmp()" class="btn btn-primary ml-auto" (click)='submitLogin()'><strong>{{ 'common.ok' | translate }}</strong></button>
     </div>
 
 </div>

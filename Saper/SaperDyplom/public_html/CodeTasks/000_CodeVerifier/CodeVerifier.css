@@ -1,0 +1,47 @@
+html {
+        background: lightblue;
+
+}
+
+html * {
+    padding: 0;
+    margin: 0;
+}
+.main {
+    width: 100%;
+    height: 85%;
+    padding: 0;
+    margin: 0;
+    background: lightblue;
+}
+
+
+.invisible {visibility: hidden;}
+
+.visible {
+    position: relative;
+    width: 93%;
+    padding: 2px; 
+    margin: 2px;
+    border: 1px solid black; 
+    background: white;
+}
+
+.outer {
+    width: 40%; 
+    height: 95%;
+    float: right;
+}
+.big {height: 85%;}
+.small {height: 10%;}
+
+.buttonDiv {
+    width: 80%;
+    height: 1.3rem;
+    padding: 4px;
+    background: lightblue;
+}
+button {
+    width: 8rem;
+    height: 1.8rem;
+}

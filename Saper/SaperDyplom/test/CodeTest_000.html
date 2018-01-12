@@ -5,20 +5,35 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div id="content">TODO write content</div>
+        <div id="codeOutput">
+            <!----Surrounding code START -------------------------------------->
+            
+            
+            <!----------------------------------------------------------------->
+            <!----STUDENT CODE------------------------------------------------->
+            
+            
+            <!----------------------------------------------------------------->
+            <!----Surrounding code END ---------------------------------------->
+            
+            
+            <!----------------------------------------------------------------->
+        </div>
 
         <button 
             onclick='{
                 // -------------------------------------------------------------
                         var pysio = "Józio";
-                        document.getElementById("content").innerHTML = pysio;
+                        document.getElementById("codeOutput").innerHTML = pysio;
                 // -------------------------------------------------------------
                     }' 
             style="height: 2rem; width: 4rem; margin-top: 8rem;"></button>
         <script>
+            var correctResult;
+            
             function doIt() {
                 var myContent = "Józio";
-                document.getElementById('content').innerHTML = myContent;
+                document.getElementById('codeOutput').innerHTML = myContent;
             }
         </script>
     </body>

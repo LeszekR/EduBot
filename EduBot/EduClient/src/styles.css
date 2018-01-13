@@ -20,6 +20,14 @@ nav{
     background-color: #273126;
 }
 
+.modal-content{
+    background-color: beige !important;
+}
+
+.modal-header{
+    border-bottom-color: #273126 !important;
+}
+
 .primary-color-light{
     color: white !important;
 }
@@ -29,7 +37,7 @@ nav{
 }
 
 .fa-div:hover, .fa:hover {
-    color: #043A6C !important;
+    color: #f7f7f7b3 !important;
     cursor: pointer;
 }
 
@@ -128,8 +136,15 @@ input{
 }
 
 .btn-primary-light:hover{
-    background-color: #f7f7f7cc !important;
+    background-color: #f7f7f7b3 !important;
 }
+
+.form-control {
+    background-color: white; }
+
+.form-control:focus {
+    background-color: #F0F6F9;     
+    border-color: #273126cc !important}
 
 .loading-spinner {
     border: 10px solid #83C8E5;

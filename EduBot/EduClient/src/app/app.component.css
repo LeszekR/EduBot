@@ -20,14 +20,6 @@
     background-size: cover;
 }
 
-.modal-content{
-    background-color: beige !important;
-}
-
-.modal-header{
-    border-bottom-color: #273126;
-}
-
 .nav-img{
     position: absolute;
     height: 80%;
@@ -35,14 +27,6 @@
 
 select option {
     background-color: #F0F6F9 }
-
-.form-control {
-    color: #017EB5;
-    background-color: white; }
-
-.form-control:focus {
-    background-color: #F0F6F9;     
-    border-color: #0AA5E8 }
 
 .form-group label {
     padding-top: 0.3rem;

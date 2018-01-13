@@ -12,33 +12,13 @@
     cursor: pointer; 
 }
 
-header,
-nav,
-section {
-  display: block; }
-
-html {
-    font-size: 16px; }
 
 .main-container{
     height: calc(100vh - 54px);
-    background-color: #B5CCF64D !important;
+    background-image: url("../assets/img/moro-bg2.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
-
-nav, footer {
-    background-color: #B5CCF6 !important;
-    font-family: Chalkduster, fantasy;
-}
-
-.footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    height: 40px;
-    line-height: 40px;
-    z-index: 100; 
-}
-
 
 .nav-img{
     position: absolute;
@@ -47,14 +27,6 @@ nav, footer {
 
 select option {
     background-color: #F0F6F9 }
-
-.form-control {
-    color: #017EB5;
-    background-color: white; }
-
-.form-control:focus {
-    background-color: #F0F6F9;     
-    border-color: #0AA5E8 }
 
 .form-group label {
     padding-top: 0.3rem;
@@ -71,14 +43,14 @@ select option {
     border-color: #44B2E2 }
 
 .list-group-item.active {
-    color: #F0F6F9;
-    background: #0275d8;
-    border-color: #0275d8; }
+    color: #3c763d;
+    background: #dff0d8;
+    border-color: #dff0d8; }
 
 .list-group-item.active:hover, .list-group-item-action:hover, .list-group-item:focus, .list-group-item.active:focus, .list-group-item-action:focus {
-    color: #F0F6F9;
-    background: #0275d8;
-    border-color: #0275d8 }
+    color: #3c763d;
+    background: #dff0d8;
+    border-color: #dff0d8; }
 
 .list-group-sm .list-group-item {
     padding: 0.25rem 1rem;

@@ -20,7 +20,7 @@
 
 .v-hr{ 
       border:         none;
-      border-left:    1px solid #017EB5;
+      border-left:    1px solid #273126;
       height:         100%;
       width:          1px;
       margin-left:      5px;   
@@ -28,6 +28,10 @@
 
 .checkbox-input{
     color: rgba(0,0,0,.25);
+}
+
+input{
+    font-family: "typeMachine" !important;
 }
 
 a:hover{

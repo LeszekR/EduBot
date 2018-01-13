@@ -8,6 +8,7 @@ using EduApi.DAL.Interfaces;
 using EduApi.DTO;
 using EduApi.Dto;
 using EduApi.Dto.Mappers;
+using NLog;
 
 namespace EduApi.Services {
 
@@ -26,6 +27,7 @@ namespace EduApi.Services {
         private readonly IUserService _userService;
         private readonly IQuizService _quizService;
         private readonly IDistractorService _distractorService;
+        private Logger _logger;
 
 
         // CONSTRUCTOR
@@ -44,6 +46,7 @@ namespace EduApi.Services {
             _userService = userService;
             _quizService = quizService;
             _distractorService = distractorService;
+            _logger = LogManager.GetCurrentClassLogger();
         }
         #endregion
 
@@ -128,7 +131,12 @@ namespace EduApi.Services {
 
 
             if (lastEmoStates.Count() < 5)
+            {
+                _logger.Debug("Not providing a distractor as not enough (" + lastEmoStates.Count() + ") emotional states gathered yet for user: " + userId);
+
                 return null;
+            }
+
 
 
             // ustalenie STANU EMOCJONALNEGO ..........................................
@@ -229,6 +237,12 @@ namespace EduApi.Services {
                 distrType = DistractorType.REWARD;
 
             var distractor = _distractorService.NextDistractor(userId, distrType);
+            string states = "";
+            lastEmoStates.ForEach(delegate (Pad pad) {
+                states += pad.state + ",";
+            });
+            _logger.Info("Providing a \"" + distrType + "\" distractor for user (" + userId + ") with last emotional states: " + states);
+
             return DistractorMapper.GetDTO(distractor);
         }
 
@@ -418,7 +432,7 @@ namespace EduApi.Services {
 
                 distractorType = DistractorType.REWARD;
             }
-
+            _logger.Info("Difficulty " + changeDifficulty + " based on " + recentTestScore + " score and emotional state " + emoState);
 
             // decyzja
             return Tuple.Create(changeDifficulty, distractorType);
@@ -518,6 +532,13 @@ namespace EduApi.Services {
                 // to jest ostatnie dziecko - podanie następnego trudniejszego
                 else
                     newModule = PickNextModule(parentId ?? 0, ChangeDifficulty.NO_CHANGE);
+            }
+            if (newModule != null)
+            {
+                _logger.Info("Picked " + newModule.title + " as next module");
+            } else
+            {
+                _logger.Info("No new module picked");
             }
 
             return newModule;

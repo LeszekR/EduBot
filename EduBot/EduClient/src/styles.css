@@ -1,13 +1,43 @@
-body {
-    color: #017EB5 !important;
+@font-face {
+    font-family: typeMachine;
+    src: url("assets/fonts/MyUnderwood.ttf");
 }
 
-.primary-color{
-    color: #053B6C;
+html, body, app-root{
+    height: 100%;
+}
+
+html {
+    font-size: 16px; 
+}
+
+body {
+    color: white !important;
+    font-family: "typeMachine" !important;
+}
+
+nav{
+    background-color: #273126;
+}
+
+.modal-content{
+    background-color: beige !important;
+}
+
+.modal-header{
+    border-bottom-color: #273126 !important;
+}
+
+.primary-color-light{
+    color: white !important;
+}
+
+.primary-color-dark{
+    color: #273126 !important;
 }
 
 .fa-div:hover, .fa:hover {
-    color: #043A6C !important;
+    color: #f7f7f7b3 !important;
     cursor: pointer;
 }
 
@@ -32,6 +62,9 @@ a.disabled {
     overflow-y: auto;
 }
 
+.font-machine{
+    font-family: typeMachine !important;
+}
 
 ::-webkit-scrollbar
 {
@@ -51,12 +84,12 @@ a.disabled {
 
 
 fieldset {
-    border: 1px solid #ddd !important;
+    border: 0px;
     margin: 0 !important;
     min-width: 0 !important;
     padding: 10px !important;       
     border-radius:4px !important;
-    background-color:#B5CCF6 !important;
+    background-color:#273126b3 !important;
     padding-left:10px!important;
 }	
 
@@ -76,7 +109,7 @@ textarea[readonly], textarea[readonly="readonly"] {
 }
 
 input{
-    color: #017EB5 !important;
+    color: #273127 !important;
 }
 
 .btn-xs{
@@ -87,14 +120,31 @@ input{
 }
 
 .btn-primary{
-    background-color: #017EB5 !important;
-    border-color: #017EB5 !important;  
+    background-color: #273127 !important;
+    border-color: #273127 !important;  
 }
 
 .btn-primary:hover {
-    background-color: #16598A !important;
-    border-color: #16598A !important;
+    background-color: #273126cc !important;
+    border-color: #273126cc !important;
   }
+
+.btn-primary-light{
+    color: #273127 !important;
+    background-color: #f7f7f7 !important;
+    border-color: #f7f7f7 !important;
+}
+
+.btn-primary-light:hover{
+    background-color: #f7f7f7b3 !important;
+}
+
+.form-control {
+    background-color: white; }
+
+.form-control:focus {
+    background-color: #F0F6F9;     
+    border-color: #273126cc !important}
 
 .loading-spinner {
     border: 10px solid #83C8E5;
@@ -128,10 +178,6 @@ input{
         transform: rotate(360deg); } }
 
 
-html, body, app-root{
-    height: 100%;
-}
-
 quiz-view{
     width: 100%;
 }
@@ -140,4 +186,13 @@ quiz-view{
     -webkit-box-shadow: 0 8px 6px -6px #999;
     -moz-box-shadow: 0 8px 6px -6px #999;
     box-shadow: 0 8px 6px -6px #999;
+}
+
+.box{
+    background: rgba(0, 0, 0, 0.65);
+    padding: 4px 8px;
+    color: white;
+    margin: 0;
+    font-size: 16px;
+    font-family: typeMachine;
 }

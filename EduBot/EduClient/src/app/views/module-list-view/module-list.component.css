@@ -9,12 +9,13 @@
 }
 
 .list-group-item.active span{
-    color: #FFF;
+    color: #3c763d !important;
 }
 
 .list-group-item.active {
-    background-color: #017EB5;
-    color: #FFF !important;
+    background-color: #dff0d8;
+    border-color: #d0e9c6;
+    color: #3c763d !important;
 }
 
 .lvl-easy {
@@ -71,7 +72,7 @@
 }
 
 .fa{
-    color: #017EB5E6;
+    color: #273126cc;
     font-size: 1.3rem;
 }
 

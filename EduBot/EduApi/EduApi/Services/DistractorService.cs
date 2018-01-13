@@ -4,6 +4,7 @@ using EduApi.Services.Interfaces;
 using System.Linq;
 using System;
 using System.Configuration;
+using NLog;
 
 namespace EduApi.Services {
 
@@ -13,6 +14,7 @@ namespace EduApi.Services {
 
         private readonly IUserService _userService;
         private readonly IDistractorRepository _distractorRepository;
+        private Logger _logger;
 
 
         // CONSTRUCTOR
@@ -24,6 +26,7 @@ namespace EduApi.Services {
 
             _userService = userService;
             _distractorRepository = distractorRepository;
+            _logger = LogManager.GetCurrentClassLogger();
         }
         #endregion
 
@@ -63,7 +66,11 @@ namespace EduApi.Services {
 
             // ostatni dystraktor był wysłany zbyt niedawno, trzeba jeszcze poczekać z następnym
             if (!TimeForDistractor(ref userToDistracts))
+            {
+                _logger.Debug("Not providing a distractor as user (" + userId + ") had one quiet recently.");
+
                 return null;
+            }
 
 
             // już czas na nastepny dystraktor
@@ -102,6 +109,8 @@ namespace EduApi.Services {
 
             // losowanie jednego dystraktora
             var index = (Int32)(new Random().Next(0, nDistractors));
+            _logger.Info("Distractor of type \"" + newDistractors[index].type + "\" was drawn for a user (" + userId + ") with content: " + newDistractors[index].distr_content);
+
             return newDistractors[index];
         }
 

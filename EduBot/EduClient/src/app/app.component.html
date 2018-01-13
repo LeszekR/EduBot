@@ -11,16 +11,15 @@
     <div class="container-fluid d-flex w-100 p-0 m-0">
 
         <!-- POLITECHNIKA GDAŃSKA -->
-        <a class="navbar-brand primary-color pl-0 ml-0" routerLink="/">
-            <img src="/assets/img/logo-pg.png" class="nav-img">
-            <span style="margin-left: 55px">Edugame</span>
+        <a class="navbar-brand text-white pl-0 ml-0" routerLink="/">
+            <span style="margin-left: 55px;"><strong>Patrol saperski</strong></span>
         </a>
 
 
         <!-- EDIT mode buttons -->
         <div *ngIf="context.userRole == 1 || context.userRole == 2" class="ml-auto d-flex justify-content-center align-items-center p-0">
 
-            <button class="btn btn-primary btn-xs h-100" (click)="toggleEditMode()">
+            <button class="btn btn-primary-light btn-xs h-100" (click)="toggleEditMode()">
                 {{ context.isEditMode ? ('edit.exit_edit_mode' | translate) : ('edit.enter_edit_mode' | translate) }}
             </button>
             <button class="btn btn-primary btn-xs h-100 ml-4" (click)="setEmoState(-1)">Nuda</button>
@@ -85,7 +84,7 @@
 <!-- ........................................................................................... -->
 <div class="modal fade" bsModal #loginModal="bs-modal" tabindex="-1">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content primary-color-dark">
             <div class="modal-header">
                 <h4 class="modal-title pull-left">
                     <i class="fa fa-user-circle-o"></i> {{ 'login' | translate }} </h4>

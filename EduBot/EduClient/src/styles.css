@@ -76,12 +76,12 @@ a.disabled {
 
 
 fieldset {
-    border: 1px solid #ddd !important;
+    border: 0px;
     margin: 0 !important;
     min-width: 0 !important;
     padding: 10px !important;       
     border-radius:4px !important;
-    background-color:#B5CCF6 !important;
+    background-color:#273126b3 !important;
     padding-left:10px!important;
 }	
 
@@ -120,6 +120,16 @@ input{
     background-color: #273126cc !important;
     border-color: #273126cc !important;
   }
+
+.btn-primary-light{
+    color: #273127 !important;
+    background-color: #f7f7f7 !important;
+    border-color: #f7f7f7 !important;
+}
+
+.btn-primary-light:hover{
+    background-color: #f7f7f7cc !important;
+}
 
 .loading-spinner {
     border: 10px solid #83C8E5;

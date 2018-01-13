@@ -1,9 +1,31 @@
-body {
-    color: #017EB5 !important;
+@font-face {
+    font-family: typeMachine;
+    src: url("assets/fonts/MyUnderwood.ttf");
 }
 
-.primary-color{
-    color: #053B6C;
+html, body, app-root{
+    height: 100%;
+}
+
+html {
+    font-size: 16px; 
+}
+
+body {
+    color: white !important;
+    font-family: "typeMachine" !important;
+}
+
+nav{
+    background-color: #273126;
+}
+
+.primary-color-light{
+    color: white !important;
+}
+
+.primary-color-dark{
+    color: #273126 !important;
 }
 
 .fa-div:hover, .fa:hover {
@@ -32,6 +54,9 @@ a.disabled {
     overflow-y: auto;
 }
 
+.font-machine{
+    font-family: typeMachine !important;
+}
 
 ::-webkit-scrollbar
 {
@@ -76,7 +101,7 @@ textarea[readonly], textarea[readonly="readonly"] {
 }
 
 input{
-    color: #017EB5 !important;
+    color: #273127 !important;
 }
 
 .btn-xs{
@@ -87,13 +112,13 @@ input{
 }
 
 .btn-primary{
-    background-color: #017EB5 !important;
-    border-color: #017EB5 !important;  
+    background-color: #273127 !important;
+    border-color: #273127 !important;  
 }
 
 .btn-primary:hover {
-    background-color: #16598A !important;
-    border-color: #16598A !important;
+    background-color: #273126cc !important;
+    border-color: #273126cc !important;
   }
 
 .loading-spinner {
@@ -128,10 +153,6 @@ input{
         transform: rotate(360deg); } }
 
 
-html, body, app-root{
-    height: 100%;
-}
-
 quiz-view{
     width: 100%;
 }
@@ -140,4 +161,13 @@ quiz-view{
     -webkit-box-shadow: 0 8px 6px -6px #999;
     -moz-box-shadow: 0 8px 6px -6px #999;
     box-shadow: 0 8px 6px -6px #999;
+}
+
+.box{
+    background: rgba(0, 0, 0, 0.65);
+    padding: 4px 8px;
+    color: white;
+    margin: 0;
+    font-size: 16px;
+    font-family: typeMachine;
 }

@@ -38,6 +38,34 @@ namespace EduApi.Services {
         #endregion
 
 
+        // MOCK
+        // =============================================================================================
+        public string FillMetaModules() {
+
+            string[] stopnie = { "medium", "hard" };
+
+            List<edumodule> modules;
+            ModuleDTO[] children;
+
+            for (int i = 0; i < 2; i++) {
+
+                // pobranie wszystkich modułów na danym stopniu trudności
+                modules = _moduleRepository.All().Where(m => m.difficulty == stopnie[i]).ToList();
+
+                // wypełnienie modułu nadrzędnego treścią jego dzieci
+                foreach (var module in modules) {
+                    children = module.edumodule1
+                        .ToList()
+                        .Select(child => ModuleMapper.GetDTO(child))
+                        .ToArray();
+                    FillMetaModule(children, module);
+                }
+            }
+
+            return "Automatycznie wypełniono meta moduły zawartością ich dzieci";
+        }
+
+
         // PUBLIC
         // =============================================================================================
         public List<edumodule> SelectChildren(int? parentId) {
@@ -382,46 +410,7 @@ namespace EduApi.Services {
 
         // ---------------------------------------------------------------------------------------------
         public List<ModuleDTO> NewMetaModule(ModuleDTO[] moduleGroup) {
-
-            // sortowanie otrzymanych modułów w kolejności id
-            List<ModuleDTO> moduleList = new List<ModuleDTO>(moduleGroup);
-            moduleList.Sort((a, b) => (a.id > b.id ? 1 : -1));
-
-
-            // połączenie treści, przykładów i - jeżeli jest - testów z kodu modułów podrzędnych
-            edumodule newModule = new edumodule();
-            string content = "";
-            string example = "";
-
-            edumodule child;
-            var children = new List<edumodule>();
-            for (var i = 0; i < moduleList.Count; i++) {
-                child = _moduleRepository.Get(moduleList[i].id);
-                content += childSeparator(child, i, false) + child.content;
-                example += childSeparator(child, i, true) + child.example;
-                children.Add(child);
-            }
-
-            // zapisanie nowego nadrzędnego modułu w bazie danych
-            newModule.content = content;
-            newModule.example = example;
-            newModule.difficulty = moduleGroup[0].difficulty == "easy" ? "medium" : "hard";
-            newModule.title = "<podaj tytuł>";
-            newModule.group_position = 2000000000;
-            _moduleRepository.Add(newModule);
-
-
-            // zmiana parentId wszystkich modułów podrzędnych na id nowo utworzonego modułu
-            foreach (var childReady in children)
-                childReady.parent = newModule.id;
-            _moduleRepository.SaveChanges();
-
-
-            // odświeżenie sekwencji modułów
-            CreateModuleSequence();
-
-            // wysłanie do frontu nowo utworzonego modułu
-            return GetSimpleModules();
+            return FillMetaModule(moduleGroup, null);
         }
 
 
@@ -480,7 +469,72 @@ namespace EduApi.Services {
 
         // PRIVATE
         // =============================================================================================
-        private string childSeparator(edumodule module, int index, bool codeSeparator) {
+        private List<ModuleDTO> FillMetaModule(ModuleDTO[] moduleGroup, edumodule newModule) {
+
+            // sortowanie otrzymanych modułów w kolejności id
+            List<ModuleDTO> moduleList = new List<ModuleDTO>(moduleGroup);
+            moduleList.Sort((a, b) => (a.id > b.id ? 1 : -1));
+
+
+            // przygotowanie modułu do wypełnienia treścią dzieci
+            List<edumodule> children;
+            bool newOne = false;
+
+            if (newModule == null) {
+                newOne = true;
+                newModule = new edumodule();
+                children = new List<edumodule>();
+            }
+            else
+                children = newModule.edumodule1.ToList();
+
+
+            // połączenie treści i przykładów dzieci w pojedyncze stringi
+            edumodule child;
+            string content = "";
+            string example = "";
+
+            for (var i = 0; i < moduleList.Count; i++) {
+                child = _moduleRepository.Get(moduleList[i].id);
+                content += ChildSeparator(child, i, false) + child.content;
+                example += ChildSeparator(child, i, true) + child.example;
+
+                if (newOne)
+                    children.Add(child);
+            }
+
+            // zapisanie nowego lub odświeżenie nadrzędnego modułu w bazie danych
+            newModule.content = content;
+            newModule.example = example;
+
+            if (newOne) {
+                newModule.difficulty = moduleGroup[0].difficulty == "easy" ? "medium" : "hard";
+                newModule.title = "<podaj tytuł>";
+                newModule.group_position = 2000000000;
+                _moduleRepository.Add(newModule);
+
+                // zmiana parentId wszystkich modułów podrzędnych na id nowo utworzonego modułu
+                foreach (var childReady in children)
+                    childReady.parent = newModule.id;
+            }
+
+            _moduleRepository.SaveChanges();
+
+
+            if (newOne) {
+                // odświeżenie sekwencji modułów
+                CreateModuleSequence();
+
+                // wysłanie do frontu nowo utworzonego modułu
+                return GetSimpleModules();
+            }
+            else
+                return null;
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
+        private string ChildSeparator(edumodule module, int index, bool codeSeparator) {
 
             string separator;
             string comment = codeSeparator ? "// " : "";

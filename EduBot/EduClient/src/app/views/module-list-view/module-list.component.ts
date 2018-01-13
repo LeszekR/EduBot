@@ -55,7 +55,7 @@ export class ModuleListComponent implements OnInit {
         // this.router.navigate(['module/' + this.modules[this.modules.length - 1].id]);
     }
 
-
+    
     // PUBLIC
     // ==============================================================================================================
     explain() {

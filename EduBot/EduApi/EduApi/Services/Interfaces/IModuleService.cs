@@ -7,6 +7,13 @@ namespace EduApi.Services.Interfaces {
     // =================================================================================================
     public interface IModuleService {
 
+        // MOCK
+        // =============================================================================================
+        /* Wypełnia wszystkie meta moduły połączeniem treści, przykładów, quizów i zadań ich dzieci.
+         */
+        string FillMetaModules();
+        // =============================================================================================
+
         // ---------------------------------------------------------------------------------------------
         /* 1. Pobiera wszystkie moduły, które należą do grupy o podanym parentId 
          * 2. sortuje wg pozycji w grupie (kolejności)

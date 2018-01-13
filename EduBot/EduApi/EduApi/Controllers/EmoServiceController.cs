@@ -9,13 +9,19 @@ namespace EduApi.Controllers {
 
         public static EmoState _emoState = EmoState.UNDEFINED;
         private readonly IUserService _userService;
+        private readonly IModuleService _moduleService;
 
 
         // CONSTRUCTOR
         // =============================================================================================
         #region Constructor
-        public EmoServiceController(IUserService userService/*, ITestQuestionService questionService*/) {
+        public EmoServiceController(
+            IUserService userService,
+            IModuleService moduleService
+            //ITestQuestionService questionService
+            ) {
             _userService = userService;
+            _moduleService = moduleService;
         }
         #endregion
 
@@ -39,6 +45,15 @@ namespace EduApi.Controllers {
                 _userService.ClearModuleHistory(userId);
                 return Ok("Wyczyszczono historię modułów, pytań i dystraktorów");
             }
+            else if (emoState == 3) {
+                _moduleService.FillMetaModules();
+                return Ok("Wyczyszczono treść meta-modułów i utworzono ją ponownie z modułów-dzieci");
+            }
+
+            // ---------------------------------------------------------------------------------------------
+
+
+
 
             return Ok("Ustawiono emostan: " + _emoState.ToString());
         }

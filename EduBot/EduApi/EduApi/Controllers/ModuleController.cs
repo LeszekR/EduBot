@@ -21,14 +21,6 @@ namespace EduApi.Controllers {
 
         // PUBLIC
         // =============================================================================================
-        //[HttpGet]
-        //public IHttpActionResult CreateModuleSequence() {
-        //    _moduleService.CreateModuleSequence();
-        //    return Ok("Odnowiono sekwencję modułów");
-        //}
-
-        // ---------------------------------------------------------------------------------------------
-        
         public IHttpActionResult GetSimpleModulesOfUser() {
             int userId = TokenHelper.GetUserId(User.Identity);
             return Ok(_moduleService.GetSimpleModules(userId));

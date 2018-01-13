@@ -16,6 +16,7 @@ export const LANG_EN_TRANS = {
     'view.content': 'CONTENT',
     'view.example': 'EXAMPLE',
 
+    'mock.fill-meta-modules': 'Czy na pewno chcesz usunąć treść wszystkich meta modułów i wczytać ją ponownie z ich dzieci?',
 
     'edit.add_module': 'Add module',
     'edit.add_meta_module': 'Parent module',

@@ -29,6 +29,11 @@ export class ModuleService {
 
     // PUBLIC
     // ==============================================================================================================
+    fillMetaModules(): Observable<string> {
+        return this.http.get<string>(this.moduleUrl + '/fillmetamodules');
+    } 
+
+    // --------------------------------------------------------------------------------------------------------------
     getSimpleModulesOfUser(): Observable<Module[]> {
         return this.http.get<Module[]>(this.moduleUrl + '/getsimplemodulesofuser');
     }

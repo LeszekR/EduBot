@@ -1,14 +1,17 @@
 .edit-title{
     font-weight: bolder;
-    
+}
+
+.card-block{
+    background-color: #f7f7f7 !important;
 }
 
 .fa-lighter{
-    color: #017EB580 !important;
+    color: #273126cc !important;
 }
 
 .fa-lighter:hover{
-    color: #017EB5 !important;
+    color: #273126 !important;
 }
 
 .fa-red{
@@ -17,10 +20,6 @@
 
 .fa-red:hover{
     color: #ff0000cb !important;
-}
-
-input {
-    color: #017EB5 !important;
 }
 
 .w-80 {

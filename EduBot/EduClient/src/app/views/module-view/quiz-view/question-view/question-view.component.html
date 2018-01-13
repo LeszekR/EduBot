@@ -1,6 +1,6 @@
 <!-- LEARNING mode - (student - not editing) -->
 <!-- ................................................................................................ -->
-<div *ngIf="!editMode" class="card-block w-100">
+<div *ngIf="!editMode" class="card-block primary-color-dark w-100">
  
   <!-- result mark -->
   <div *ngIf="questionData.status!=0" class="q-status" > 
@@ -29,7 +29,7 @@
 
 <!-- EDIT mode (teacher) -->
 <!-- ................................................................................................ -->
-<div *ngIf="editMode" class="card-block w-100">
+<div *ngIf="editMode" class="card-block primary-color-dark w-100">
   
   
   <!-- PYTANIE -->
@@ -68,6 +68,7 @@
         aria-hidden="true"></i>
     
       <div (click)="questionData.correct_idx=i"
+        class="fa-lighter"
         [ngClass]="questionData.correct_idx==i ? 'fa fa-check-square-o' : 'fa fa-square-o'" >
       </div>
     
@@ -85,5 +86,5 @@
     </div>
   </div>
 
-  <div class="fa fa-plus form-check-label ml-2" (click)="addAnswerToQuestion()" ></div>
+  <div class="fa fa-plus fa-lighter form-check-label ml-2" (click)="addAnswerToQuestion()" ></div>
 </div>

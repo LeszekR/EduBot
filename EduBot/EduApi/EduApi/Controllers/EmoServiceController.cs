@@ -9,13 +9,19 @@ namespace EduApi.Controllers {
 
         public static EmoState _emoState = EmoState.UNDEFINED;
         private readonly IUserService _userService;
+        private readonly IModuleService _moduleService;
 
 
         // CONSTRUCTOR
         // =============================================================================================
         #region Constructor
-        public EmoServiceController(IUserService userService/*, ITestQuestionService questionService*/) {
+        public EmoServiceController(
+            IUserService userService,
+            IModuleService moduleService
+            //ITestQuestionService questionService
+            ) {
             _userService = userService;
+            _moduleService = moduleService;
         }
         #endregion
 

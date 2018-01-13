@@ -59,7 +59,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
 
-  // PRIVATE
+  // MOCK
   // ==============================================================================================================
   private sendPic() {
     this.emoService.sendPic();

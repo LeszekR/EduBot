@@ -16,6 +16,8 @@ export const LANG_PL_TRANS = {
     'view.content': 'MATERIAŁ',
     'view.example': 'PRZYKŁAD',
 
+    'mock.fill-meta-modules': 'Czy na pewno chcesz usunąć treść wszystkich meta modułów i wczytać ją ponownie z ich dzieci?',
+
     'edit.add_module': 'Dodaj moduł',
     'edit.add_meta_module': 'Moduł nadrzędny',
     'edit.del_answer_title': 'Usuwanie odpowiedzi',

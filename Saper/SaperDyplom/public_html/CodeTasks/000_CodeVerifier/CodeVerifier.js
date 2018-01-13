@@ -4,11 +4,10 @@ function verifyCode() {
 
     var codeMode = document.getElementById('codeMode').innerHTML.trim();
     var correctResult;
-    
+
     var divCorrectResult = document.getElementById('correctResult');
-//    var divSurrCode = document.getElementById('surroundingCode');
     var divCodeOutput = document.getElementById('codeOutput');
-    
+
     var output;
     if (codeMode === 'javascript') {
         correctResult = correctJsResult;
@@ -18,17 +17,23 @@ function verifyCode() {
     }
 
     else if (codeMode === 'html') {
-        correctResult = document.getElementById('correctResult').innerHTML.trim();
+        correctResult = correctHtmlResult;
+        divCorrectResult.innerHTML = correctResult;
 
-        var surroundingCode = document.getElementById('surroundingCode').innerHTML.trim();
+        // biorę surrounding code
+        var divSurrounding = document.getElementById('surroundingCode');
+        var surroundingCode = divSurrounding.innerHTML.trim();
+
+        // podstawiam kod studenta w surrounding code
         var studentHtmlCode = document.getElementById('codeEditor').innerHTML.trim();
         studentHtmlCode = surroundingCode.replace('// STUDENT_CODE_HERE', studentHtmlCode);
 
+        // wkładam kod studenta do div w którym ma się wyświetlić
+        divSurrounding.innerHTML = "";
         divCodeOutput.innerHTML = studentHtmlCode;
-        studentJsCode();
-
-        var executorCode = document.getElementById('executorCode').innerHTML;
-        output = new Function(executorCode)();
+        
+        // pozyskuję czysty kod studenta
+        output = executorCode();
     }
 
     var result = output == correctResult ? 'Sukces' : 'Wynik nieprawidłowy';

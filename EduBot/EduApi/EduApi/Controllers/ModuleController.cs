@@ -21,6 +21,13 @@ namespace EduApi.Controllers {
 
         // PUBLIC
         // =============================================================================================
+        [HttpGet]
+        public IHttpActionResult FillMetaModules() {
+            return Ok(_moduleService.FillMetaModules());
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
         public IHttpActionResult GetSimpleModulesOfUser() {
             int userId = TokenHelper.GetUserId(User.Identity);
             return Ok(_moduleService.GetSimpleModules(userId));

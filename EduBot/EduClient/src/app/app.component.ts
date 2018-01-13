@@ -66,26 +66,13 @@ export class AppComponent implements OnInit, OnDestroy {
   }
   // --------------------------------------------------------------------------------------------------------------
   setEmoState(state: number) {
-    if (state != undefined) {
-
-      let doIt = true;
-      if (state == 3) {
-        this.messageService
-          .info('mock.fill-meta-modules', 'common.empty')
-          .then(confirmed => doIt = confirmed);
-      }
-      if (!doIt)
-        return;
-
+    if (state != undefined)
       this.http.post<string>('http://localhost:64365/api/emoservice/setemostate', state)
         .subscribe(res => {
-
           if (state == 2)
             this.moduleListComponent.clearModules();
-
           console.log(res);
         });
-    }
   }
 
 

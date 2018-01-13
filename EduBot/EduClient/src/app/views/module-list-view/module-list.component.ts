@@ -55,9 +55,20 @@ export class ModuleListComponent implements OnInit {
         // this.router.navigate(['module/' + this.modules[this.modules.length - 1].id]);
     }
 
-    
+
     // PUBLIC
     // ==============================================================================================================
+    fillMetaModules() {
+        this.messageService
+            .info('mock.fill-meta-modules', 'common.empty')
+            .then(confirm => {
+                if (confirm)
+                    this.moduleService.fillMetaModules()
+                        .subscribe(res => console.log(res));
+            });
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
     explain() {
         let currentModule = this.context.currentModule;
         let currentModuleId = currentModule.id;
@@ -183,10 +194,10 @@ export class ModuleListComponent implements OnInit {
 
             if (this.context.isEditMode)
                 this.moduleService.getModuleByIdEdit(this.context.currentModuleId)
-                    .subscribe( m => this.moduleService.refreshModule.emit(m));
+                    .subscribe(m => this.moduleService.refreshModule.emit(m));
             else
                 this.moduleService.getModuleByIdLearn(this.context.currentModuleId)
-                    .subscribe( m => this.moduleService.refreshModule.emit(m));
+                    .subscribe(m => this.moduleService.refreshModule.emit(m));
 
             // TODO - usunąć lub poprawić tak, żeby po zmianie trybu zmieniła się też treść
             // odpowiedzi na pytania i kod (w edycji: odpowiedzi prawidłowe, w learn: odpowiedzi ucznia )

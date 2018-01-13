@@ -45,15 +45,6 @@ namespace EduApi.Controllers {
                 _userService.ClearModuleHistory(userId);
                 return Ok("Wyczyszczono historię modułów, pytań i dystraktorów");
             }
-            else if (emoState == 3) {
-                _moduleService.FillMetaModules();
-                return Ok("Wyczyszczono treść meta-modułów i utworzono ją ponownie z modułów-dzieci");
-            }
-
-            // ---------------------------------------------------------------------------------------------
-
-
-
 
             return Ok("Ustawiono emostan: " + _emoState.ToString());
         }

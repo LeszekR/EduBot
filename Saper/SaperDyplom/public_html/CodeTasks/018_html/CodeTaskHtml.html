@@ -1,0 +1,74 @@
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="../000_CodeVerifier/CodeVerifier.css">
+        <script src="../000_CodeVerifier/CodeVerifier.js"></script>
+
+        <script src="CodeTaskHtml.js"></script>
+
+    </head>
+    <body>
+        <div class="buttonDiv ">
+            <button onclick="verifyCode()">Wykonaj kod</button>
+        </div>
+        <div class="main">
+            <div class="outer">            
+                <div id="result" class="visible small"></div>
+                <div id="codeOutput" class="visible big"></div>
+            </div>
+            <div class="outer">            
+
+                <!------------------------------------------------------------->
+                <div id="correctResult" class="visible small">
+                    CORRECT_RESULT
+                </div>
+
+
+                <!---SURROUNDING CODE------------------------------------------>
+                <div id="surroundingCode" class="visible big">
+<style>
+    #studentHtml {
+        height: 80%;
+        width: 80%;
+    }
+    #studentHtml > div {
+        width: 70%;
+        height: 8rem;
+        margin: 4px;
+        border: 1px solid black;
+    }
+    #studentHtml input {
+        width: 7rem;
+        height: 1.3rem;
+        margin: 4px;
+        padding: 3px;
+        border: 1px solid black;
+        float: left;
+    }
+</style>
+<div id="studentHtml">                        
+    // STUDENT_CODE_HERE
+</div>
+                </div>
+                <!------------------------------------------------------------->
+
+            </div>
+        </div>        
+
+        <!---STUDENT CODE------------------------------------------------------>
+        <div id="codeEditor" class="invisible">
+            <div id="przygotujAtak">
+                <input type="text" id="tekstCel">
+                <input type="button" id="przycAtak">
+            </div>
+        </div>
+        <!--------------------------------------------------------------------->
+
+
+        <div id="codeMode" class="invisible">
+            html
+        </div>
+    </body>
+</html>

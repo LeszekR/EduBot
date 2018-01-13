@@ -38,7 +38,7 @@ namespace EduApi.Services {
         #endregion
 
 
-        // MOCK
+        // PUBLIC
         // =============================================================================================
         public string FillMetaModules() {
 
@@ -66,8 +66,7 @@ namespace EduApi.Services {
         }
 
 
-        // PUBLIC
-        // =============================================================================================
+        // ---------------------------------------------------------------------------------------------
         public List<edumodule> SelectChildren(int? parentId) {
             var modules = _moduleRepository.All().Where(mod => mod.parent == parentId).ToList();
             modules.Sort((a, b) => SortModules(a, b));
@@ -491,13 +490,23 @@ namespace EduApi.Services {
 
             // połączenie treści i przykładów dzieci w pojedyncze stringi
             edumodule child;
-            string content = "";
-            string example = "";
+            string content = "", example = "", childContent = "", childExample = "";
+            int nContents = 0, nExamples = 0;
 
             for (var i = 0; i < moduleList.Count; i++) {
                 child = _moduleRepository.Get(moduleList[i].id);
-                content += ChildSeparator(child, i, false) + child.content;
-                example += ChildSeparator(child, i, true) + child.example;
+
+                childContent = child.content;
+                if (childContent != "") {
+                    content += ChildSeparator(child, i, nContents, false) + childContent;
+                    nContents++;
+                }
+
+                childExample = child.example;
+                if (childExample != "") {
+                    example += ChildSeparator(child, i, nExamples, true) + childExample;
+                    nExamples++;
+                }
 
                 if (newOne)
                     children.Add(child);
@@ -534,25 +543,34 @@ namespace EduApi.Services {
 
 
         // ---------------------------------------------------------------------------------------------
-        private string ChildSeparator(edumodule module, int index, bool codeSeparator) {
+        private string ChildSeparator(edumodule module, int index, int nthElem, bool code) {
 
             string separator;
-            string comment = codeSeparator ? "// " : "";
 
             // module 'medium' is being created
             if (module.difficulty == "easy") {
-                separator = comment + (index + 1).ToString() + ") ";
-                for (var i = separator.Length; i < 56; i++)
-                    separator += '-';
-                if (index > 0)
+
+                if (code) {
+                    separator = "//" + (index + 1).ToString() + ") ";
+                    for (var i = separator.Length; i < 56; i++)
+                        separator += '-';
+                }
+                else {
+                    separator = "________________________________________________________\n";
+                    separator += (index + 1).ToString() + ")";
+                }
+                if (nthElem > 0)
                     separator = "\n\n\n" + separator;
             }
 
             // module 'hard' is being created
             else {
-                separator = comment + module.title.ToUpper();
-                separator += "\n" + comment + "=====================================================\n";
-                if (index > 0)
+                string comment = code ? "// " : "";
+
+                separator = comment + module.title.ToUpper() + "\n";
+                separator += comment + "=====================================================";
+
+                if (nthElem > 0)
                     separator = "\n\n\n\n\n" + separator;
             }
 

@@ -22,7 +22,7 @@ export enum TestResult {
 // ==================================================================================================================
 export class CodeMode {
     static JAVASCRIPT = "javascript";
-    static HTML = "html";
+    static HTML = "htmlCode";
 }
 // ------------------------------------------------------------------------------------------------------------------
 export class CodeModeMapper {
@@ -31,7 +31,7 @@ export class CodeModeMapper {
         switch (mode) {
             case "javascript":
                 return CodeMode.JAVASCRIPT;
-            case "javascript":
+            case "htmlCode":
                 return CodeMode.HTML;
         }
         return null;

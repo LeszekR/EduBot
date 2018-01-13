@@ -108,11 +108,20 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
     for (var i in tasks) {
 
       // stop if unsolved code task is found
-      if (!editMode)
-        if (tasks[i].studentCode.replace(" ", '').length < 7) {
+      if (!editMode) {
+
+        let studentCode = tasks[i].studentCode;
+        let codeOk = studentCode != undefined;
+
+        if (codeOk)
+          if (studentCode.replace(" ", '').length < 7)
+            codeOk = false;
+
+        if (!codeOk) {
           this.messageService.info(msg, 'common.empty');
           return false;
         }
+      }
 
       else if (tasks[i].correctResult == "") {
         this.messageService.info(msg, 'common.empty');

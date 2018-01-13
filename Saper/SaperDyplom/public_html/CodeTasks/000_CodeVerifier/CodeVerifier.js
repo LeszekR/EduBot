@@ -6,24 +6,25 @@ function verifyCode() {
     var correctResult;
     
     var divCorrectResult = document.getElementById('correctResult');
-    var divSurrCode = document.getElementById('surroundingCode');
+//    var divSurrCode = document.getElementById('surroundingCode');
+    var divCodeOutput = document.getElementById('codeOutput');
     
     var output;
     if (codeMode === 'javascript') {
         correctResult = correctJsResult;
         divCorrectResult.innerHTML = correctResult;
         output = studentJsCode();
-        divSurrCode.innerHTML = output;
+        divCodeOutput.innerHTML = output;
     }
 
     else if (codeMode === 'html') {
         correctResult = document.getElementById('correctResult').innerHTML.trim();
 
         var surroundingCode = document.getElementById('surroundingCode').innerHTML.trim();
-        var studentHtmlCode = divSurrCode.innerHTML.trim();
-        studentHtmlCode = surroundingCode.replace('// STUDENT_CODE_HERE', studentHtmlCode).trim();
+        var studentHtmlCode = document.getElementById('codeEditor').innerHTML.trim();
+        studentHtmlCode = surroundingCode.replace('// STUDENT_CODE_HERE', studentHtmlCode);
 
-        document.getElementById('codeOutput').innerHTML = studentHtmlCode;
+        divCodeOutput.innerHTML = studentHtmlCode;
         studentJsCode();
 
         var executorCode = document.getElementById('executorCode').innerHTML;

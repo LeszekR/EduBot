@@ -88,8 +88,8 @@ export class LoginComponent {
 
     passwordCmp(): boolean {
         return (this.action === 'register' || this.action === 'passw-change') &&
-            this.fieldNewPassw.text !== this.fieldRepPassw.text ||
-            !this.regulationsApproval;
+            (this.fieldNewPassw.text !== this.fieldRepPassw.text ||
+            !this.regulationsApproval);
     }
 
     // --------------------------------------------------------------------------------------------------------------

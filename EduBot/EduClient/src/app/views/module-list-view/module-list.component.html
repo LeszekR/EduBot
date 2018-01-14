@@ -1,4 +1,4 @@
-<div class="list-group h-100 mt-1 mr-1 mt-md-0 pb-md-1 pl-md-1" [ngClass]="{'bg-white': context.isEditMode}" style="width: inherit;">
+<div class="list-group h-100 mt-1 mr-1 mt-md-0 pb-md-1 pl-md-1" style="width: inherit;">
 
 
     <!-- kontrolki w trybie: EDYCJA -->
@@ -43,9 +43,7 @@
                     (click)="selectedModuleId=module.id">
 
                     <div class="pl-2 pt-3 pb-3 pr-2">
-                        <div class="">
-                            <span class="w-100">{{ module.title }}</span>
-                        </div>
+                        <span class="w-100">{{ module.title }}</span>
                     </div>
 
                     <div 

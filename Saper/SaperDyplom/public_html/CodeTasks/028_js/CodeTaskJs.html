@@ -5,13 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="../000_CodeVerifier/CodeVerifier.css">
         <script src="../000_CodeVerifier/CodeVerifier.js"></script>
-
-        <script src="CodeTaskHtml.js"></script>
+        <script src="CodeTaskJs.js"></script>
 
     </head>
-    <body onload="verifyCode()">
+    <body>
         <div class="buttonDiv ">
-            <button onclick="verifyCode()">Wykonaj kod</button>
+            <button onclick="verifyCode()" >Wykonaj kod</button>
         </div>
         <div class="main">
             <div class="outer">            
@@ -22,9 +21,10 @@
 
                 <!------------------------------------------------------------->
                 <div id="correctResult" class="visible small">
+                    // CORRECT_RESULT
                 </div>
                 <!------------------------------------------------------------->
-                <!-- HTML CODE -->
+                <!-- JAVASCRIPT CODE -->
                 <div id="surroundingCode" class="visible big">
                     // STUDENT_CODE_HERE
                 </div>

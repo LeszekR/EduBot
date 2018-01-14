@@ -24,7 +24,7 @@
   <!-- ..................................................................................... -->
   <textarea 
     class="w-100 p-1 m-0" 
-    style="height:20%;" 
+    style="height:50%;" 
     [readonly]="readonly || difficulty!='easy'"
     [(ngModel)]="codeTasks[activeTab].question" 
   ></textarea>
@@ -35,7 +35,7 @@
   <div 
       *ngIf="!context.isEditMode"
       class="d-flex w-100 pb-1" 
-      style="height: 90%"
+      style="height: 100%"
       >
 
     <ace-editor 

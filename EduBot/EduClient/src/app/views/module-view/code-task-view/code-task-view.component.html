@@ -69,7 +69,6 @@
   </div>
 
 
-
   <!-- CODE TASK EDITION -->
   <!-- ..................................................................................... -->
   <div *ngIf="context.isEditMode && moduleDifficulty!='easy'"
@@ -83,12 +82,10 @@
       <label class="mr-2 justify-contents-left">
         rodzaj<br>kodu
       </label>
-      <textarea
-        class="h-100 p-1 mr-1" 
-        style="width: 15%;"
-        [readonly]=false
-        [(ngModel)]="codeTasks[activeTab].codeMode" 
-      ></textarea>
+      <select class="form-control" [(ngModel)]="codeTasks[activeTab].codeMode">
+        <option value="javascript">Javascript</option>
+        <option value="html">Html + Javascript</option>
+      </select>
       
       <!-- correct answer -->
       <label class="ml-5 mr-2">
@@ -121,7 +118,7 @@
 
       <!-- executor code -->
       <div class="edit h-100 w-50 p-0">
-        <label class="w-100">kod sprawdzający wynik</label>
+        <label class="w-100">kod sprawdzający wynik (powinien zawierać return)</label>
         <ace-editor
           class="h-100 w-100 p-1"
           [theme]="'eclipse'"

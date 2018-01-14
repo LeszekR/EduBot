@@ -9,13 +9,13 @@
 }
 
 .list-group-item.active span{
-    color: #3c763d !important;
+    color: #3c763d;
 }
 
 .list-group-item.active {
     background-color: #dff0d8;
     border-color: #d0e9c6;
-    color: #3c763d !important;
+    color: #3c763d;
 }
 
 .lvl-easy {
@@ -51,19 +51,19 @@
 .lvl-easy.active {
     background-color: #3c763d;
     border-color: #d0e9c6;
-    color: #dff0d8;
+    color: #dff0d8 !important;
 }
 
 .lvl-medium.active {
     background-color: #8a6d3b;
     border-color: #d0e9c6;
-    color: #fff2ae;
+    color: #fff2ae !important;
 }
 
 .lvl-hard.active {
     background-color: #a94442;
     border-color: #d0e9c6;
-    color: #f2dede;
+    color: #f2dede !important;
 }
 
 .check-absolute {

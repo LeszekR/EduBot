@@ -31,9 +31,9 @@
         <!-- WIDOK -->
         <!-- ........................................................................................... -->
         <div class="col-3 d-flex flex-row h-100 m-0 p-0 b-0 pull-left">
-            <button (click)="viewChange(CONTENT_VIEW)" class="col-4 btn btn-primary pull-right mr-1">{{ 'common.content' | translate }}</button>
-            <button (click)="viewChange(QUIZ_VIEW)" class="col-4 btn btn-primary pull-right mr-1">{{ 'common.quiz' | translate }}</button>
-            <button (click)="viewChange(CODE_VIEW)" class="col-4 btn btn-primary pull-right mr-1">{{ 'common.code' | translate }}</button>
+            <button (click)="viewChange(CONTENT_VIEW)" class="col-4 btn btn-primary pull-right mr-1 font-machine">{{ 'common.content' | translate }}</button>
+            <button (click)="viewChange(QUIZ_VIEW)" class="col-4 btn btn-primary pull-right mr-1 font-machine">{{ 'common.quiz' | translate }}</button>
+            <button (click)="viewChange(CODE_VIEW)" class="col-4 btn btn-primary pull-right mr-1 font-machine">{{ 'common.code' | translate }}</button>
         </div>
 
 
@@ -45,21 +45,21 @@
 
             <!-- przyciski 'sprawdź test' -->
             <div class="col-4 d-flex flex-row-reverse h-100 m-0 p-0 b-0">
-                <button (click)="verifyClosedTest()" *ngIf="viewType==QUIZ_VIEW && module.questions!=undefined" class="btn btn-primary mr-1">{{ 'learn.verify-test' | translate }}</button>
-                <button (click)="verifyCodeTest()" *ngIf="viewType==CODE_VIEW && module.codeTasks!=undefined" class="btn btn-primary mr-1">{{ 'learn.verify-code' | translate }}</button>
+                <button (click)="verifyClosedTest()" *ngIf="viewType==QUIZ_VIEW && module.questions!=undefined" class="btn btn-primary mr-1 font-machine">{{ 'learn.verify-test' | translate }}</button>
+                <button (click)="verifyCodeTest()" *ngIf="viewType==CODE_VIEW && module.codeTasks!=undefined" class="btn btn-primary mr-1 font-machine">{{ 'learn.verify-code' | translate }}</button>
             </div>
 
 
             <!-- porzewijanie modułów : następy, poprzedni, wyjaśnij -->
             <div class="col-8 d-flex flex-row-reverse m-0 p-0 b-0" role="group">
-                <button (click)="context.moduleList.nextModule()" type="button" class="col-3 m-0 btn btn-primary caret-right">
+                <button (click)="context.moduleList.nextModule()" type="button" class="col-3 m-0 btn btn-primary caret-right font-machine">
                     {{ 'learn.next_module' | translate }}
                 </button>
-                <button (click)="context.moduleList.prevModule()" type="button" class="col-3 mr-1 btn btn-primary">
+                <button (click)="context.moduleList.prevModule()" type="button" class="col-3 mr-1 btn btn-primary font-machine">
                     <i class="fa fa-caret-left pull-left"></i>
                     {{ 'learn.prev_module' | translate }}
                 </button>
-                <button *ngIf="explanationExists()" (click)="context.moduleList.explain()" type="button" class="mr-1 btn btn-primary">
+                <button *ngIf="explanationExists()" (click)="context.moduleList.explain()" type="button" class="mr-1 btn btn-primary font-machine">
                     {{ 'learn.explain' | translate }}
                 </button>
             </div>

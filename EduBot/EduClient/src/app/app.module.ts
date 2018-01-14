@@ -23,6 +23,7 @@ import { MessageComponent } from './shared/components/message/message.component'
 import { QuestionViewComponent } from './views/module-view/quiz-view/question-view/question-view.component';
 import { Autofocus } from './shared/directives/autofocus.directive';
 import { SpinnerComponent } from './shared/components/spinner/spinner.component';
+import { DistractorComponent } from './shared/components/distractor/distractor.component';
 import { AceEditorComponent } from 'ng2-ace-editor';
 
 //Services
@@ -72,7 +73,8 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     SelectLanguageComponent,
     MessageComponent,
     QuestionViewComponent,
-    AceEditorComponent
+    AceEditorComponent,
+    DistractorComponent
   ],
   imports: [
     SharedModule,

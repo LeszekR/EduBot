@@ -23,33 +23,33 @@ export class TestCodeService {
 
     // PUBLIC
     // ==============================================================================================================
-    /* 
-    * UWAGA: niektóre zadania nie wymagają kodu do wykonania przed oraz/lub po kodzie studenta 
+    /*
+    * UWAGA: niektóre zadania nie wymagają kodu do wykonania przed oraz/lub po kodzie studenta
     * - wówczas surroundingCode jest pustym stringiem.
     * Inne zadania wymagają wykonania czegoś przed lub po kodzie studenta
-    * - wówczas surroundingCode zawiera kod w którym gdzieś  znajduje się 
+    * - wówczas surroundingCode zawiera kod w którym gdzieś  znajduje się
     * string: '// STUDENT_CODE_GOES_HERE' - za który podstawiamy kod studenta przed wykonaniem.
-    * 
+    *
     * UWAGA: aby zweryfikować kod w trybie HTML obowiązkowe jest podanie executorCode.
     * - jako funkcję, która pobiera 1 argument - tym argumentem jest poddrzewo DOM utworzone
     * przez kod studenta (ew. umieszczony wewnątrz surroundingCode). Zadaniem executorCode
-    * jest porównanie struktury i atrybutów poddrzewa DOM utworzonego w div'ie jako rezultat 
+    * jest porównanie struktury i atrybutów poddrzewa DOM utworzonego w div'ie jako rezultat
     * wykonania kodu studenta z correctResult.
-    * 
-    * 
+    *
+    *
     * Wykonanie kodu studenta:
-    * 
+    *
     * 1. kod studenta (studentCode) wstawiamy do kodu otaczającego
-    * 
+    *
     * ACE MODE: javascript
-    * 2. wstawiamy ten kod do funkcji, wykonujemy i otrzymujemy wynik 
+    * 2. wstawiamy ten kod do funkcji, wykonujemy i otrzymujemy wynik
     * 3. wyświetlamy wynik na ekranie
-    * 
+    *
     * ACE MODE: html
     * 2. przeglądarka wykonuje html i wstawia na ekran
-    * 3. wykonujemy kod sprawdzający wynik (executorCode) na zawartości div'a w oknie wyświetlającym 
+    * 3. wykonujemy kod sprawdzający wynik (executorCode) na zawartości div'a w oknie wyświetlającym
     *    efekt działania kodu - otrzymujemy wynik
-    * 
+    *
     * 4. porównujemy wynik do prawidłowego (correctResult) i zwracamy wynik tego porównania
     */
     executeCode(codeTask: CodeTaskFront): boolean {
@@ -70,14 +70,13 @@ export class TestCodeService {
             // The code is pure JavaScript
             if (codeTask.codeMode === CodeMode.JAVASCRIPT) {
                 result = new Function(codeToExecute)();
-                // console.log(codeTask.id + ' result:', result);
             }
 
             // The code is HTML + CSS + JavaScript
             else if (codeTask.codeMode === CodeMode.HTML) {
-                let outputDiv = this.context.codeOutputDiv;
+                let outputDiv = document.getElementById('codeOutput');
                 outputDiv.innerHTML = codeToExecute;
-                result = new Function(codeTask.executorCode, outputDiv.innerHTML)();
+                result = new Function(codeTask.executorCode)();
             }
 
             else {

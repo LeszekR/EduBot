@@ -244,8 +244,8 @@ export class ModuleListComponent implements OnInit {
     private showDistractorAndModule(moduleDistr: ModulDistracDTO) {
 
         // TODO: wyświetlić otrzymany dystraktor użytkownikowi
-        if (moduleDistr.distractor != null)
-            this.distractorService.show(moduleDistr.distractor);
+        if (moduleDistr.distractor != null){}
+            //this.distractorService.show(moduleDistr.distractor);
 
         let module = moduleDistr.module;
         if (module != undefined && module != null)

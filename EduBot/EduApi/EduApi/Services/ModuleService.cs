@@ -276,7 +276,7 @@ namespace EduApi.Services {
                 }
 
                 parts = codesInParts.First(q => Int32.Parse(q[0]) == codeDTO.id);
-                codeDTO.task_answer = parts[1] + "^" + lastAnswer + "^" + parts[3];
+                codeDTO.task_answer = parts[1] + "^" + parts[2] + "^" + parts[3] + "^" + parts [4] + "^" + parts[5] + "^" + lastAnswer;
                 codeDTO.last_result = lastResult;
             }
 

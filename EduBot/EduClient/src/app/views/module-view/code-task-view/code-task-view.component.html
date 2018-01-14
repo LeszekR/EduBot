@@ -23,7 +23,7 @@
   <!-- QUESTION -->
   <!-- ..................................................................................... -->
   <textarea 
-    class="w-100 p-2 m-0" 
+    class="w-100 p-2 m-0"
     style="height:50%;" 
     [readonly]="readonly || difficulty!='easy'"
     [(ngModel)]="codeTasks[activeTab].question" 
@@ -34,12 +34,12 @@
   <!-- ..................................................................................... -->
   <div 
       *ngIf="!context.isEditMode"
-      class="d-flex w-100 p-0 m-0" 
+      class="d-flex w-100 p-0 m-0"
       style="height: 100%"
       >
 
     <!-- edytor dla studenta -->
-    <ace-editor 
+    <ace-editor
       class="w-50 h-100 p-1 mt-0 ml-0 mb-0 mr-1"
       style="min-height: 100%;"
       [(text)]="codeTasks[activeTab].studentCode"
@@ -50,12 +50,11 @@
     </ace-editor>
 
     <!-- wynik działania kodu studenta -->
-    <div 
-      #codeOutputDiv 
+    <iframe
       id="codeOutput"
-      class="w-50 h-100 p-1" 
+      class="w-50 h-100 p-1"
       style="background: white;"
-    ></div>
+    ></iframe>
   </div>
 
 

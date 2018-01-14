@@ -69,7 +69,6 @@
   </div>
 
 
-
   <!-- CODE TASK EDITION -->
   <!-- ..................................................................................... -->
   <div *ngIf="context.isEditMode && moduleDifficulty!='easy'"
@@ -121,7 +120,7 @@
 
       <!-- executor code -->
       <div class="edit h-100 w-50 p-0">
-        <label class="w-100">kod sprawdzający wynik</label>
+        <label class="w-100">kod sprawdzający wynik (powinien zawierać return)</label>
         <ace-editor
           class="h-100 w-100 p-1"
           [theme]="'eclipse'"

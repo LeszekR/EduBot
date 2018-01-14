@@ -11,7 +11,7 @@ import { GameScore } from '../../models/game-score';
 export class GameProgressComponent implements OnInit {
 
   @Input() gameScore: GameScore;
-
+  //TODO pasek życia
 
   // CONSTRUCTOR
   // ==============================================================================================================

@@ -80,8 +80,8 @@
                         <span class="w-100">{{ module.title }}</span>
                     </div>
 
-                    <div *ngIf="module.solvedQuestions && module.solvedCodes" 
-                        [ngClass]="selectedModuleId==module.id ? 'text-white' : ''" 
+                    <div *ngIf="module.solvedQuestions && module.solvedCodes"
+                        [ngClass]="selectedModuleId==module.id ? 'text-green' : ''" 
                         class="fa fa-check-circle ml-auto pr-2">
                     </div>
                 </a>

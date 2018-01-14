@@ -73,6 +73,8 @@ export const LANG_PL_TRANS = {
     'learn.progres': 'Wyświetlone moduły',
     'learn.correct-questions': 'Wynik pytań',
     'learn.correct-codes': 'Wynik kodów',
+    'learn.progres.rank': 'Stopień wojskowy: ',
+    'learn.progres.mines_unarmed': 'Rozminowane pola: ',
 
     'camera.share-error': 'W celu możliwości dostosowania poziomu trudności prosimy o odblokowanie kamery'
 };

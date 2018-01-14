@@ -4,21 +4,19 @@ import { MessageService } from '../shared/components/message/message.service';
 // Model
 import { CodeTaskFront } from '../models/code-task';
 import { CodeMode } from '../models/enums';
-import { ContextService } from './context.service';
 
 
 // ==================================================================================================================
 @Injectable()
 export class TestCodeService {
 
-    readonly STUDENT_CODE = "// STUDENT_CODE_HERE";
+    readonly STUDENT_CODE = '// STUDENT_CODE_HERE';
 
 
     // CONSTRUCTOR
     // ==============================================================================================================
     constructor(
-        private messageService: MessageService,
-        private context: ContextService) { }
+        private messageService: MessageService) { }
 
 
     // PUBLIC
@@ -54,36 +52,41 @@ export class TestCodeService {
     */
     executeCode(codeTask: CodeTaskFront): boolean {
 
+        let result: string;
+        const iframe = document.getElementById('codeOutput');
+        const scopedDocument = (iframe as HTMLIFrameElement).contentDocument;
+        scopedDocument.head.innerHTML = '';
+        scopedDocument.body.innerHTML = '';
+        const script = scopedDocument.createElement('script');
+
+
+        // Insert student's code into its surrounding code
+        let codeToExecute = '';
+        if (codeTask.surroundingCode !== '') {
+            codeToExecute = codeTask.surroundingCode
+                .replace(this.STUDENT_CODE, codeTask.studentCode);
+        } else {
+            codeToExecute = codeTask.studentCode;
+        }
+
+
+        // The code is pure JavaScript
+        if (codeTask.codeMode === CodeMode.JAVASCRIPT) {
+            script.innerHTML = 'codeToExecuteFunction = () => {' + codeToExecute + '}';
+        } else if (codeTask.codeMode === CodeMode.HTML) { // The code is HTML + CSS + JavaScript
+            scopedDocument.body.innerHTML = codeToExecute;
+            script.innerHTML = 'codeToExecuteFunction = () => {' + codeTask.executorCode + '}';
+        } else {
+            console.log('Nie rozpoznany codeMode w codeTaskFront');
+            return false;
+        }
+        scopedDocument.head.appendChild(script);
+
         try {
-            let result: string;
-
-
-            // Insert student's code into its surrounding code
-            let codeToExecute = '';
-            if (codeTask.surroundingCode != '')
-                codeToExecute = codeTask.surroundingCode
-                    .replace(this.STUDENT_CODE, codeTask.studentCode);
-            else
-                codeToExecute = codeTask.studentCode;
-
-
-            // The code is pure JavaScript
+            result = ((iframe as HTMLIFrameElement).contentWindow as any).codeToExecuteFunction();
             if (codeTask.codeMode === CodeMode.JAVASCRIPT) {
-                result = new Function(codeToExecute)();
+                scopedDocument.body.innerHTML = result;
             }
-
-            // The code is HTML + CSS + JavaScript
-            else if (codeTask.codeMode === CodeMode.HTML) {
-                let outputDiv = document.getElementById('codeOutput');
-                outputDiv.innerHTML = codeToExecute;
-                result = new Function(codeTask.executorCode)();
-            }
-
-            else {
-                console.log("Nie rozpoznany codeMode w codeTaskFront");
-                return false;
-            }
-
 
             // return the decision as to whether the code produces correct result
             return result == codeTask.correctResult;

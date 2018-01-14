@@ -127,7 +127,11 @@ input{
 .btn-primary:hover {
     background-color: #273126cc !important;
     border-color: #273126cc !important;
-  }
+}
+
+.btn-primary.focus, .btn-primary:focus {
+    box-shadow: 0 0 0 2px rgba(247,247,247,.5) !important;
+}
 
 .btn-primary-light{
     color: #273127 !important;

@@ -4,7 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { HttpModule, RequestOptions, RequestMethod, XHRBackend } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { AlertModule, TooltipModule } from 'ngx-bootstrap';
+import { AlertModule, TooltipModule, ProgressbarModule } from 'ngx-bootstrap';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
 //Components
@@ -48,6 +48,7 @@ import { CustomEventManager } from './shared/components/costum-event-manager.ser
 //Modules
 import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
+import {  } from 'ngx-bootstrap/progressbar/progressbar.module';
 
 export function httpServiceFactory(backend: XHRBackend, options: RequestOptions, router: Router) {
   return new HttpService(backend, options, router);
@@ -85,7 +86,8 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     AppRoutingModule,
     ModalModule.forRoot(),
     AlertModule.forRoot(),
-    TooltipModule.forRoot()
+    TooltipModule.forRoot(),
+    ProgressbarModule.forRoot()
   ],
   providers: [
     UserService,

@@ -73,6 +73,8 @@ export const LANG_EN_TRANS = {
     'learn.progres': 'Modules shown',
     'learn.correct-questions': 'Tests\' result:',
     'learn.correct-codes': 'Code tasks\' result',
+    'learn.progres.rank': 'Military rank: ',
+    'learn.progres.mines_unarmed': 'Unarmed fields: ',
 
     'camera.share-error': 'In order to be able to adjust difficulty level please unblock camera access'
 };

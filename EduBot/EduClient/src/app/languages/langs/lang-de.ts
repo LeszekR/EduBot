@@ -73,6 +73,8 @@ export const LANG_DE_TRANS = {
     'learn.progres': '<Modules shown>',
     'learn.correct-questions': '<Tests\' result:>',
     'learn.correct-codes': '<Code tasks\' result>',
+    'learn.progres.rank': '<brak tłumaczenia>',
+    'learn.progres.mines_unarmed': '<brak tłumaczenia>',
 
     'camera.share-error': '<brak tłumaczenia>'
 };

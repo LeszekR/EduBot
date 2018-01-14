@@ -265,7 +265,7 @@ namespace EduApi.Services {
                 userCode = userCodesAll.FirstOrDefault(c => c.code_id == codeDTO.id);
 
                 if (userCode != null) {
-                    lastAnswer = userCode.last_answer.ToString();
+                    lastAnswer = userCode.last_answer != null ? userCode.last_answer.ToString() : "";
                     lastResult = userCode.last_result;
                 }
 

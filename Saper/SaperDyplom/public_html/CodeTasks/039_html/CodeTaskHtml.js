@@ -2,13 +2,12 @@
 // CODE TASK dla JAVA SCRIPT   039
 // 
 //W twoim kodzie są już :
-//- div z id "badGuy",
+//-  div z id "badGuy",
 //- funkcja "badGuyStrikes()".
 //
-//Dodaj do div "badGuy" akcję "badGuyStrikes()".
+//Utwórz element script a w nim kod JavaScript, który dodaje do div "badGuy" akcję "badGuyStrikes()".
 //
-//(Jeśli masz mocne nerwy - możesz kliknąć.)
-
+//(Jeśli masz mocne nerwy - możesz kliknąć badGuy'a.)
 
 var correctHtmlResult = true;
 

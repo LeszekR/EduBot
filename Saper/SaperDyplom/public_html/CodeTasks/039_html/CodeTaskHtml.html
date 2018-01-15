@@ -1,0 +1,79 @@
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="../000_CodeVerifier/CodeVerifier.css">
+        <script src="../000_CodeVerifier/CodeVerifier.js"></script>
+
+        <script src="CodeTaskHtml.js"></script>
+
+    </head>
+    <body>
+        <div class="buttonDiv ">
+            <button onclick="verifyCode()">Wykonaj kod</button>
+        </div>
+        <div class="main">
+            <div class="outer">            
+                <div id="result" class="visible small"></div>
+                <div id="codeOutput" class="visible big"></div>
+            </div>
+            <div class="outer">            
+
+                <!------------------------------------------------------------->
+                <div id="correctResult" class="visible small">
+                    CORRECT_RESULT
+                </div>
+
+
+                <!---SURROUNDING CODE------------------------------------------>
+                <div id="surroundingCode" class="visible big">
+
+
+<style>
+#badGuy {width:6rem; height: 5rem;border: 4px solid black; margin: 2rem;
+         text-align: center;background-color: red;text-align: center;}
+#badAction {width: 100%; min-height: 7rem;padding: 2rem;padding-top:0;};
+</style>
+<div id ="badGuy">BAD GUY</div>
+<div id="badAction"></div>
+<script>
+function badGuyStrikes() {
+setTimeout(function(){
+document.getElementById("badAction").innerHTML = 
+"<br>PRZERWA! zara wracam!";
+setTimeout(function(){
+document.getElementById("badAction").innerHTML += 
+"<br><br>w głowach im się poprzewracało, klikajo i klikajo"
++"<br>a ty człowieku czyń zło i czyń zło i tak ciągle!"
++"<br>czuje się wypalony :(";
+setTimeout(function(){
+document.getElementById("badAction").innerHTML += 
+"<br><br>chce urlop";},2500);},2000);},1500);}
+</script>
+// STUDENT_CODE_HERE
+
+
+                </div>
+                <!------------------------------------------------------------->
+
+            </div>
+        </div>        
+
+        <!---STUDENT CODE------------------------------------------------------>
+        <div id="codeEditor" class="invisible">
+            <script>
+                function setAction() {
+                    document.getElementById("badGuy").addEventListener("click", badGuyStrikes);
+                }
+            </script>
+
+        </div>
+        <!--------------------------------------------------------------------->
+
+
+        <div id="codeMode" class="invisible">
+            html
+        </div>
+    </body>
+</html>

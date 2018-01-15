@@ -1,14 +1,13 @@
-.list-group-item { 
-    line-height: 0.2;
+.list-group-item {
     margin-bottom: 1px;
     border-radius: 0px;
 }
 
-.list-group-item span{
+.list-group-item {
     color: #636c72;
 }
 
-.list-group-item.active span{
+.list-group-item.active {
     color: #3c763d;
 }
 
@@ -72,14 +71,15 @@
 }
 
 .fa{
-    color: #273126cc;
+    color: #273126cc !important;
     font-size: 1.3rem;
 }
 
-.bg-white{
-    background-color: white;
+.text-green{
+    color: #3c763d !important;
 }
 
-.text-green{
-    color: #3c763d;
+.absolute-right{
+    position: absolute;
+    right: 0px;
 }

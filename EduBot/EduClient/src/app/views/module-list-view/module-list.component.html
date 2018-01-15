@@ -42,13 +42,13 @@
                     routerLinkActive="active"
                     (click)="selectedModuleId=module.id">
 
-                    <div class="pl-2 pt-3 pb-3 pr-2">
+                    <div class="pl-2 pr-3 py-1">
                         <span class="w-100">{{ module.title }}</span>
                     </div>
 
                     <div 
                         *ngIf="context.isEditMode && module.difficulty!='hard' && !module.parent"
-                        class="ml-auto pr-2" 
+                        class="absolute-right pr-2" 
                         (click)="selectModule(module);$event.stopPropagation();$event.preventDefault();">
 
                         <div [ngClass]="module.isSelected ? 'fa fa-check-square-o' : 'fa fa-square-o'"></div>
@@ -76,13 +76,13 @@
                     routerLinkActive="active" 
                     (click)="selectedModuleId=module.id">
                     
-                    <div class="pl-2 pt-3 pb-3 pr-2">
+                    <div class="pl-2 pr-3 py-1">
                         <span class="w-100">{{ module.title }}</span>
                     </div>
 
                     <div *ngIf="module.solvedQuestions && module.solvedCodes"
                         [ngClass]="selectedModuleId==module.id ? 'text-green' : ''" 
-                        class="fa fa-check-circle ml-auto pr-2">
+                        class="fa fa-check-circle ml-auto absolute-right pr-2">
                     </div>
                 </a>
             </div>

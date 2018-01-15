@@ -1,0 +1,15 @@
+.v-hr{ 
+    border:         none;
+    border-left:    1px solid #fff9;
+    height:         50px;
+    width:          1px;
+    margin-left:    5px;   
+}
+
+.nav-link{
+    color: #fff9 !important;
+}
+
+a.active{
+    color: white !important;
+}

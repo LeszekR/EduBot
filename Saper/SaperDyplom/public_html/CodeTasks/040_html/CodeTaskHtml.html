@@ -32,24 +32,25 @@
 
 <style>
 #badGuy {width:6rem; height: 5rem;border: 4px solid black; margin: 2rem;
-         text-align: center;background-color: red;text-align: center;}
+         text-align: center;background-color: lightgreen;text-align: center;}
 #callerId {width: 100%; min-height: 7rem;padding: 2rem;padding-top:0;};
 </style>
-<div id ="badGuy">BAD GUY</div>
+<div id ="badGuy">Holliday!</div>
 <div id="callerId"></div>
 <script>
-function badGuyStrikes() {
-setTimeout(function(){
-document.getElementById("badAction").innerHTML = 
-"<br>PRZERWA! zara wracam!";
-setTimeout(function(){
-document.getElementById("badAction").innerHTML += 
-"<br><br>w głowach im się poprzewracało, klikajo i klikajo"
-+"<br>a ty człowieku czyń zło i czyń zło i tak ciągle!"
-+"<br>czuje się wypalony :(";
-setTimeout(function(){
-document.getElementById("badAction").innerHTML += 
-"<br><br>chce urlop";},2500);},2000);},1500);}
+function setAction(){
+document.getElementById("badGuy").addEventListener("click", badGuyHolliday);}
+function holliday() {
+setTimeout(function(){document.getElementById("badAction").innerHTML = "<br><br>halo";
+setTimeout(function(){document.getElementById("badAction").innerHTML += "<br><br>Halo!";
+setTimeout(function(){document.getElementById("badAction").innerHTML += "<br><br>HALO!!";
+setTimeout(function(){document.getElementById("badAction").innerHTML += 
+"<br><br>Co to za hotel? okno sie nie otwiera,"
++"<br>dźwi sie zacieły, pokoje jakieś ciasne";
+setTimeout(function(){document.getElementById("badAction").innerHTML += 
+"<br><br>HE! Ale se wypoczne bynajmiej, 17 lat :D"
++"<br>Mało coś tu słonecznie ale za to klikać już nie bedo";
+},3000);},2500);},1500);},1000);},150);}
 </script>
 // STUDENT_CODE_HERE
 
@@ -63,8 +64,8 @@ document.getElementById("badAction").innerHTML +=
         <!---STUDENT CODE------------------------------------------------------>
         <div id="codeEditor" class="invisible">
             <script>
-                function setAction() {
-                    document.getElementById("badGuy").addEventListener("click", badGuyStrikes);
+                function badGuyHolliday(e) {
+                    holliday();
                 }
             </script>
 

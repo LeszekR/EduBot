@@ -31,25 +31,18 @@
 
 
 <style>
-#badGuy {width:6rem; height: 5rem;border: 4px solid black; margin: 2rem;
-         text-align: center;background-color: red;text-align: center;}
-#callerId {width: 100%; min-height: 7rem;padding: 2rem;padding-top:0;};
+#codeOutput div {display:block;width: 100%;height: 4rem;padding: 3rem;}
+#codeOutput button {width: 7rem; height:1.5rem;float: left;border: 2px solid gray;margin:3px;}
+#jokersDream {background-color: lightgrey;} 
+#joker{background-color: lightblue;}
+.dead {visibility: hidden;}
 </style>
-<div id ="badGuy">BAD GUY</div>
-<div id="callerId"></div>
+<div><button id="jokersDream">Batman</button><button id="joker">Joker</button></div>
 <script>
-function badGuyStrikes() {
-setTimeout(function(){
-document.getElementById("badAction").innerHTML = 
-"<br>PRZERWA! zara wracam!";
-setTimeout(function(){
-document.getElementById("badAction").innerHTML += 
-"<br><br>w głowach im się poprzewracało, klikajo i klikajo"
-+"<br>a ty człowieku czyń zło i czyń zło i tak ciągle!"
-+"<br>czuje się wypalony :(";
-setTimeout(function(){
-document.getElementById("badAction").innerHTML += 
-"<br><br>chce urlop";},2500);},2000);},1500);}
+function dieForever(e) {
+if (e.target.id === "batman") document.getElementById("joker").classList.toggle("dead");
+else document.getElementById("batman").classList.toggle("dead");
+}
 </script>
 // STUDENT_CODE_HERE
 
@@ -63,8 +56,9 @@ document.getElementById("badAction").innerHTML +=
         <!---STUDENT CODE------------------------------------------------------>
         <div id="codeEditor" class="invisible">
             <script>
-                function setAction() {
-                    document.getElementById("badGuy").addEventListener("click", badGuyStrikes);
+                function youAreHistory(){
+                    document.getElementById("batman").addEventListener("contextmenu", dieForever);
+                    document.getElementById("joker").addEventListener("contextmenu", dieForever);
                 }
             </script>
 

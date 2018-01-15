@@ -7,7 +7,7 @@
 //
 //Dodaj do div "badGuy" akcję "badGuyStrikes()".
 //
-//Jeśli masz mocne nerwy - możesz kliknąć.
+//(Jeśli masz mocne nerwy - możesz kliknąć.)
 
 
 var correctHtmlResult = true;

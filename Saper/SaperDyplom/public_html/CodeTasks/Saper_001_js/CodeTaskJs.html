@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="../000_CodeVerifier/CodeVerifier.css">
+        <script src="../000_CodeVerifier/CodeVerifier.js"></script>
+        <script src="CodeTaskJs.js"></script>
+
+    </head>
+    <body">
+        <div class="buttonDiv ">
+            <button onclick="verifyCode()" >Wykonaj kod</button>
+        </div>
+        <div class="main">
+            <div class="outer">            
+                <div id="result" class="visible small"></div>
+                <div id="codeOutput" class="visible big"></div>
+            </div>
+            <div class="outer">            
+
+                <!------------------------------------------------------------->
+                <div id="correctResult" class="visible small">
+                    // CORRECT_RESULT
+                </div>
+                <!------------------------------------------------------------->
+                <!-- JAVASCRIPT CODE -->
+                <div id="surroundingCode" class="visible big">
+                    // STUDENT_CODE_HERE
+                </div>
+
+            </div>
+        </div>        
+        <!--------------------------------------------------------------------->
+        <div id="codeEditor" class="invisible">
+        </div>
+        <!--------------------------------------------------------------------->
+        <div id="executorCode" class="invisible">
+        </div>
+        <!--------------------------------------------------------------------->
+        <div id="codeMode" class="invisible">
+            javascript
+        </div>
+        <!--------------------------------------------------------------------->
+
+    </body>
+</html>

@@ -103,6 +103,7 @@
           <Property Name="life" Type="int4" Nullable="false" />
           <Property Name="shield" Type="numeric" Precision="4" Scale="2" Nullable="false" />
           <Property Name="rank" Type="int4" Nullable="false" />
+          <Property Name="promotion" Type="int4" Nullable="false" />
         </EntityType>
         <EntityType Name="user_question">
           <Key>
@@ -471,6 +472,7 @@
           <Property Name="life" Type="Int32" Nullable="false" />
           <Property Name="shield" Type="Decimal" Precision="4" Scale="2" Nullable="false" />
           <Property Name="rank" Type="Int32" Nullable="false" />
+          <Property Name="promotion" Type="Int32" Nullable="false" />
           <NavigationProperty Name="user" Relationship="Self.user_game_user_id_fkey" FromRole="user_game" ToRole="user" />
         </EntityType>
         <EntityType Name="user_question">
@@ -801,6 +803,7 @@
                 <ScalarProperty Name="life" ColumnName="life" />
                 <ScalarProperty Name="shield" ColumnName="shield" />
                 <ScalarProperty Name="rank" ColumnName="rank" />
+                <ScalarProperty Name="promotion" ColumnName="promotion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

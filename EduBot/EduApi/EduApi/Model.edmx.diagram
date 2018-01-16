@@ -4,18 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="3eb640940fd94d99b691819f5fb82c08" Name="Diagram1">
-        <EntityTypeShape EntityType="edumaticModel.distractor" Width="1.5" PointX="5.25" PointY="14.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="edumaticModel.edumodule" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="edumaticModel.enum_diff_level" Width="1.5" PointX="0.75" PointY="9" IsExpanded="true" />
-        <EntityTypeShape EntityType="edumaticModel.enum_user_role" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="edumaticModel.test_code" Width="1.5" PointX="5.25" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="edumaticModel.test_question" Width="1.5" PointX="5.25" PointY="10.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="edumaticModel.user" Width="1.5" PointX="5.25" PointY="3.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="edumaticModel.user_code" Width="1.5" PointX="7.5" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="edumaticModel.user_distractor" Width="1.5" PointX="7.5" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="edumaticModel.user_game" Width="1.5" PointX="7.5" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="edumaticModel.user_question" Width="1.5" PointX="7.5" PointY="11" IsExpanded="true" />
+      <Diagram DiagramId="ad41c6f2d0a746edbe5f5fc56bbb0c6e" Name="Diagram1">
+        <EntityTypeShape EntityType="edumaticModel.distractor" Width="1.5" PointX="8.25" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="edumaticModel.edumodule" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="edumaticModel.enum_diff_level" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="edumaticModel.enum_user_role" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="edumaticModel.test_code" Width="1.5" PointX="5.25" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="edumaticModel.test_question" Width="1.5" PointX="5.25" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="edumaticModel.user" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="edumaticModel.user_code" Width="1.5" PointX="7.5" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="edumaticModel.user_distractor" Width="1.5" PointX="10.5" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="edumaticModel.user_game" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="edumaticModel.user_question" Width="1.5" PointX="7.5" PointY="8.625" IsExpanded="true" />
         <AssociationConnector Association="edumaticModel.user_distractor_distractor_id_fkey" ManuallyRouted="false" />
         <AssociationConnector Association="edumaticModel.edumodule_difficulty_fkey" ManuallyRouted="false" />
         <AssociationConnector Association="edumaticModel.edumodule_parent_fk" ManuallyRouted="false" />

@@ -14,6 +14,7 @@ namespace EduApi.Services {
     // =================================================================================================
     public enum GameItem { QUESTION, CODE, LOTTERY }
     public enum Lottery { GRENADE, CASINO, HOSPITAL, CANARIES, HELMET, NO_LOTTERY }
+    public enum Promotion { UP, NO_PROMOTION, DOWN }
     public enum MilitaryRank {
         Soldier,
         Corporal,
@@ -342,13 +343,17 @@ namespace EduApi.Services {
             var rankStep = Int32.Parse(ConfigurationManager.AppSettings["rankStep"]);
             var newRank = (int)(nPassedModules / rankStep);
 
-
             // assign the rank to the user
             var oldRank = user.user_game.rank;
             user.user_game.rank = newRank;
 
-            if (oldRank != newRank)
-                user.user_game.dis
+            // reord in the database that the user is to receive 'promotion' distractor
+            if (newRank > oldRank)
+                user.user_game.promotion = 1;
+            else if (newRank == oldRank)
+                user.user_game.promotion = 0;
+            else
+                user.user_game.promotion = -1;
         }
 
 

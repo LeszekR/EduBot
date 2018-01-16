@@ -18,6 +18,7 @@ namespace EduApi
         public int life { get; set; }
         public decimal shield { get; set; }
         public int rank { get; set; }
+        public int promotion { get; set; }
     
         public virtual user user { get; set; }
     }

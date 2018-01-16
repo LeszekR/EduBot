@@ -99,14 +99,14 @@ namespace EduApi.Services {
             //var correctCodes = nTotal == 0 ? 0 : 100 * nCorrect / nTotal;
 
 
-            DistractorDTO newDistractor = GamePromotionDistractor(userId, ref user);
+            DistractorDTO distractorDto = GamePromotionDistractor(userId, ref user);
 
             return new GameScoreDTO() {
                 progress = progress,
                 life = (int)(user.user_game.life / 10),
                 shield = (int)(user.user_game.shield / 50 * 100),
-                rank = user.user_game.rank,
-                distractor = newDistractor
+                rank = (MilitaryRank)user.user_game.rank,
+                distractor = distractorDto
 
                 //correctQuestions = correctAnswers,
                 //correctCodes = correctCodes

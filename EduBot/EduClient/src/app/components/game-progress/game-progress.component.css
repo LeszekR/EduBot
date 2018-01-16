@@ -7,3 +7,20 @@
 .no-wrap{
     white-space: nowrap;
 }
+
+.red-square{
+    background-color: red;
+    padding: 8px;
+    margin-right: 2px;
+}
+
+.empty-square{
+    background-color: inherit;
+    padding: 8px;
+    border: solid 1px red;
+    margin-right: 2px;
+}
+
+.life-box{
+    padding: 3px;
+}

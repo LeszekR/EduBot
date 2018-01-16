@@ -14,10 +14,9 @@ export class GameProgressComponent implements OnInit {
   @Input() gameScore: GameScore;
   
   private rank: MilitaryRank;
-  private life: number;
+  private health: number;
   private armour: number;
-
-  private numbers: number[];
+  private Math: any;
 
   // CONSTRUCTOR
   // ==============================================================================================================
@@ -25,12 +24,21 @@ export class GameProgressComponent implements OnInit {
 
   // --------------------------------------------------------------------------------------------------------------
   ngOnInit(){
-	this.numbers = new Array();
-	for(let i = 1; i <= 100; ++i)
-		this.numbers.push(i);
+    this.rank = MilitaryRank.Soldier;
+    this.health = 100;
+    this.armour = 100;
+  }
 
-	this.rank = MilitaryRank.Soldier;
-	this.life = 50;
-	this.armour = 100;
+  private getArmourWidth(num: number){
+    num = num * 20;
+    if(num <= this.armour)
+      return '32px';
+    else if(num - 20 < this.armour){
+      this.Math = Math;
+      let modulo = this.armour % 20;
+      let width = this.Math.round(32 * modulo / 20);
+      return width + 'px';
+    }
+    return '0px';
   }
 }	

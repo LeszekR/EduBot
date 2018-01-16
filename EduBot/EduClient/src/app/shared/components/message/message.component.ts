@@ -92,7 +92,6 @@ export class MessageComponent implements OnInit {
 
     // --------------------------------------------------------------------------------------------------------------
     private _show(resolve: (res: any) => any) {
-        console.log("Show");
 
         let negativeOnClick = (e: any) => resolve(false);
         let positiveOnClick = (e: any) => resolve(true);

@@ -76,13 +76,13 @@
                     routerLinkActive="active" 
                     (click)="selectedModuleId=module.id">
                     
-                    <div class="pl-2 pr-3 py-1">
+                    <div class="pl-2 pr-0 py-1" style="width: calc(100% - 2rem);">
                         <span class="w-100">{{ module.title }}</span>
                     </div>
 
                     <div *ngIf="module.solvedQuestions && module.solvedCodes"
                         [ngClass]="selectedModuleId==module.id ? 'text-green' : ''" 
-                        class="fa fa-check-circle ml-auto absolute-right pr-2">
+                        class="fa fa-check-circle ml-auto pr-2">
                     </div>
                 </a>
             </div>

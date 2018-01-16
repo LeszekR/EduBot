@@ -151,8 +151,8 @@ input{
     border-color: #273126cc !important}
 
 .loading-spinner {
-    border: 10px solid #83C8E5;
-    border-top: 10px solid #44B2E2;
+    border: 10px solid lightgray;
+    border-top: 10px solid gray;
     border-radius: 50%;
     width: 60px;
     height: 60px;

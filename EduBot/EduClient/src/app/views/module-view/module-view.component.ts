@@ -66,11 +66,11 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
 
   // --------------------------------------------------------------------------------------------------------------
   init(mod: Module) {
+    mod.questions = this.testTaskService.UnpackClosedQuestions(mod.test_questions_DTO);
+    mod.codeTasks = this.testTaskService.UnpackCodeTasks(mod.test_codes_DTO);
+    this.context.moduleViewComponent = this;
     this.module = mod;
     this.context.currentModule = mod;
-    this.context.moduleViewComponent = this;
-    this.module.questions = this.testTaskService.UnpackClosedQuestions(this.module.test_questions_DTO);
-    this.module.codeTasks = this.testTaskService.UnpackCodeTasks(this.module.test_codes_DTO);
   }
 
   // PUBLIC

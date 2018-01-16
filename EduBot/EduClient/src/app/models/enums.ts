@@ -20,11 +20,6 @@ export enum TestResult {
 }
 
 // ==================================================================================================================
-export class CodeMode {
-    static JAVASCRIPT = "javascript";
-    static HTML = "html";
-}
-
 export enum MilitaryRank {
     Soldier,
     Corporal,
@@ -35,6 +30,12 @@ export enum MilitaryRank {
     Major,
     Colonel,
     General
+}
+
+// ==================================================================================================================
+export class CodeMode {
+    static JAVASCRIPT = "javascript";
+    static HTML = "html";
 }
 
 // ------------------------------------------------------------------------------------------------------------------

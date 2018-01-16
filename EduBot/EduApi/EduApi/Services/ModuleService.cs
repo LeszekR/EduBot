@@ -135,7 +135,7 @@ namespace EduApi.Services {
 
 
 
-                // TODO dokończyć po uzupełnieniu TestCodeMappera
+                // codeTasks for the module
                 moduleCodes = CodesForModule(mod);
 
                 // this module has no code test
@@ -451,6 +451,59 @@ namespace EduApi.Services {
         }
 
 
+        // ---------------------------------------------------------------------------------------------
+        /* Pobiera z bazy wszystkie zadania z kodu  dla danego modułu. 
+         * Jeżeli to nie jest moduł 'easy' - pobiera w tym celu wszystkie zadania
+         * swoich dzieci (rekurencyjnie). 
+         */
+        public List<test_code> CodesForModule(edumodule module) {
+
+            List<test_code> codes;
+
+            // pytania dla modułu 'easy'
+            if (module.difficulty == "easy")
+                codes = module.test_code.ToList();
+
+            // pytania dla modułów 'medium' i 'hard' - rekurencyjnie
+            else {
+                codes = new List<test_code>();
+                var children = SelectChildren(module.id);
+                children.ForEach(child => {
+                    codes.AddRange(CodesForModule(child));
+                });
+            }
+
+            return codes;
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
+        /* Pobiera z bazy wszystkie pytaniadania dla danego modułu. 
+         * Jeżeli to nie jest moduł 'easy' - pobiera w tym celu wszystkie pytania
+         * swoich dzieci (rekurencyjnie). 
+         */
+        public List<test_question> QuestionsForModule(edumodule module) {
+
+            List<test_question> questions;
+
+            // pytania dla modułu 'easy'
+            if (module.difficulty == "easy")
+                //questions = _questionService.SelectQuestionsForModule(module.id).ToList();
+                questions = module.test_question.ToList();
+
+            // pytania dla modułów 'medium' i 'hard' - rekurencyjnie
+            else {
+                questions = new List<test_question>();
+                var children = SelectChildren(module.id);
+                children.ForEach(child => {
+                    questions.AddRange(QuestionsForModule(child));
+                });
+            }
+
+            return questions;
+        }
+
+
         // PRIVATE
         // =============================================================================================
         private List<ModuleDTO> FillMetaModule(ModuleDTO[] moduleGroup, edumodule newModule) {
@@ -578,61 +631,8 @@ namespace EduApi.Services {
 
 
         // ---------------------------------------------------------------------------------------------
-        /* Pobiera z bazy wszystkie zadania z kodu  dla danego modułu. 
-         * Jeżeli to nie jest moduł 'easy' - pobiera w tym celu wszystkie zadania
-         * swoich dzieci (rekurencyjnie). 
-         */
-        private List<test_code> CodesForModule(edumodule module) {
-
-            List<test_code> codes;
-
-            // pytania dla modułu 'easy'
-            if (module.difficulty == "easy")
-                codes = module.test_code.ToList();
-
-            // pytania dla modułów 'medium' i 'hard' - rekurencyjnie
-            else {
-                codes = new List<test_code>();
-                var children = SelectChildren(module.id);
-                children.ForEach(child => {
-                    codes.AddRange(CodesForModule(child));
-                });
-            }
-
-            return codes;
-        }
-
-
-        // ---------------------------------------------------------------------------------------------
         private List<TestQuestionDTO> QuestionDtosForModule(edumodule module) {
             return TestQuestionMapper.GetQuestionListDTO(QuestionsForModule(module));
-        }
-
-
-        // ---------------------------------------------------------------------------------------------
-        /* Pobiera z bazy wszystkie pytaniadania dla danego modułu. 
-         * Jeżeli to nie jest moduł 'easy' - pobiera w tym celu wszystkie pytania
-         * swoich dzieci (rekurencyjnie). 
-         */
-        private List<test_question> QuestionsForModule(edumodule module) {
-
-            List<test_question> questions;
-
-            // pytania dla modułu 'easy'
-            if (module.difficulty == "easy")
-                //questions = _questionService.SelectQuestionsForModule(module.id).ToList();
-                questions = module.test_question.ToList();
-
-            // pytania dla modułów 'medium' i 'hard' - rekurencyjnie
-            else {
-                questions = new List<test_question>();
-                var children = SelectChildren(module.id);
-                children.ForEach(child => {
-                    questions.AddRange(QuestionsForModule(child));
-                });
-            }
-
-            return questions;
         }
 
 

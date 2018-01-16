@@ -12,8 +12,14 @@ namespace EduApi
     using System;
     using System.Collections.Generic;
     
-    public partial class enum_distr_type
+    public partial class user_game
     {
-        public string type { get; set; }
+        public int user_id { get; set; }
+        public int life { get; set; }
+        public decimal shield { get; set; }
+        public int rank { get; set; }
+        public int promotion { get; set; }
+    
+        public virtual user user { get; set; }
     }
 }

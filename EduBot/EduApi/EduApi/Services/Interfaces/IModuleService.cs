@@ -7,6 +7,21 @@ namespace EduApi.Services.Interfaces {
     // =================================================================================================
     public interface IModuleService {
 
+        // ---------------------------------------------------------------------------------------------
+        /* Pobiera z bazy wszystkie zadania z kodu  dla danego modułu. 
+         * Jeżeli to nie jest moduł 'easy' - pobiera w tym celu wszystkie zadania
+         * swoich dzieci (rekurencyjnie). 
+         */
+        List<test_code> CodesForModule(edumodule module);
+
+        // ---------------------------------------------------------------------------------------------
+        /* Pobiera z bazy wszystkie pytaniadania dla danego modułu. 
+         * Jeżeli to nie jest moduł 'easy' - pobiera w tym celu wszystkie pytania
+         * swoich dzieci (rekurencyjnie). 
+         */
+        List<test_question> QuestionsForModule(edumodule module);
+
+        // ---------------------------------------------------------------------------------------------
         /* Wypełnia wszystkie meta moduły połączeniem treści, przykładów, quizów i zadań ich dzieci.
          */
         string FillMetaModules();

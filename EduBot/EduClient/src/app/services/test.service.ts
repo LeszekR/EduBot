@@ -168,7 +168,6 @@ export class TestTaskService {
             codeTask.executorCode = elements[2];
             codeTask.codeMode = CodeModeMapper.makeMode(elements[3]);
             codeTask.correctResult = elements[4];
-            // codeTask.studentCode = elements[5];
 
             codeTaskArr[codeTaskArr.length] = codeTask;
         }

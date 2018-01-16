@@ -85,26 +85,34 @@ namespace EduApi.Services {
             var progress = nTotal == 0 ? 0 : 100 * nDone / nTotal;
 
 
-            // obliczenie aktualnego wyniku pytań zamkniętych = procentu prawidłowych odpowiedzi
-            var questions = user.user_question;
-            nTotal = questions.Count();
-            var nCorrect = questions.Where(q => q.last_result == true).Count();
-            var correctAnswers = nTotal == 0 ? 0 : 100 * nCorrect / nTotal;
+            //// obliczenie aktualnego wyniku pytań zamkniętych = procentu prawidłowych odpowiedzi
+            //var questions = user.user_question;
+            //nTotal = questions.Count();
+            //var nCorrect = questions.Where(q => q.last_result == true).Count();
+            //var correctAnswers = nTotal == 0 ? 0 : 100 * nCorrect / nTotal;
 
 
-            // obliczenie aktualnego wyniku testów z kodu = procentu prawidłowych rozwiązań
-            var codes = user.user_code;
-            nTotal = codes.Count();
-            nCorrect = codes.Where(c => c.last_result == true).Count();
-            var correctCodes = nTotal == 0 ? 0 : 100 * nCorrect / nTotal;
+            //// obliczenie aktualnego wyniku testów z kodu = procentu prawidłowych rozwiązań
+            //var codes = user.user_code;
+            //nTotal = codes.Count();
+            //nCorrect = codes.Where(c => c.last_result == true).Count();
+            //var correctCodes = nTotal == 0 ? 0 : 100 * nCorrect / nTotal;
 
+
+            DistractorDTO distractorDto = GamePromotionDistractor(userId, ref user);
 
             return new GameScoreDTO() {
                 progress = progress,
-                correctQuestions = correctAnswers,
-                correctCodes = correctCodes
+                life = (int)(user.user_game.life / 10),
+                shield = (int)(user.user_game.shield / 50 * 100),
+                rank = (MilitaryRank)user.user_game.rank,
+                distractor = distractorDto
+
+                //correctQuestions = correctAnswers,
+                //correctCodes = correctCodes
             };
         }
+
 
 
         // ---------------------------------------------------------------------------------------------
@@ -130,8 +138,7 @@ namespace EduApi.Services {
             //// ********************************************************************
 
 
-            if (lastEmoStates.Count() < 5)
-            {
+            if (lastEmoStates.Count() < 5) {
                 _logger.Debug("Not providing a distractor as not enough (" + lastEmoStates.Count() + ") emotional states gathered yet for user: " + userId);
 
                 return null;
@@ -371,11 +378,32 @@ namespace EduApi.Services {
 
         // PRIVATE
         // =============================================================================================
+        /* specjalny dystraktor jeśli saper dostaje awans */
+        private DistractorDTO GamePromotionDistractor(int userId, ref user user) {
+
+            DistractorDTO newDistractor = null;
+
+            if (user.user_game.promotion > 0)
+                newDistractor = new DistractorDTO() { distr_content = "promotion" };
+
+            else if (user.user_game.promotion < 0)
+                newDistractor = new DistractorDTO() { distr_content = "downgrade" };
+
+            if (user.user_game.promotion != 0) {
+                _userService.GetUserEntity(userId).user_game.promotion = 0;
+                _userService.SaveChanges();
+            }
+
+            return newDistractor;
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
         /* 1. sprawdzenie stanu emocjonalnego i dotychczasowych wyników użytkownika
-         * 2. sprawdzenie dotychczasowych wyników 
-         * 3. decyzja czy następny moduł ma być łatwiejszy, trudniejszy, czy taki sam
-         *    plus typ dystraktora do wysłania, jeżeli ma być wysłany
-         */
+          * 2. sprawdzenie dotychczasowych wyników 
+          * 3. decyzja czy następny moduł ma być łatwiejszy, trudniejszy, czy taki sam
+          *    plus typ dystraktora do wysłania, jeżeli ma być wysłany
+          */
         private Tuple<ChangeDifficulty, DistractorType> PickNextDiffAndDistract(int userId) {
 
             // TODO: sprawdzenie stanu emocjonalnego
@@ -533,11 +561,10 @@ namespace EduApi.Services {
                 else
                     newModule = PickNextModule(parentId ?? 0, ChangeDifficulty.NO_CHANGE);
             }
-            if (newModule != null)
-            {
+            if (newModule != null) {
                 _logger.Info("Picked " + newModule.title + " as next module");
-            } else
-            {
+            }
+            else {
                 _logger.Info("No new module picked");
             }
 

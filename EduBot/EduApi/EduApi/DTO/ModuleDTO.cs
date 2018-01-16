@@ -17,7 +17,5 @@ namespace EduApi.DTO {
 
         public bool solvedQuestions { get; set; }
         public bool solvedCodes { get; set; }
-
-        //public bool isSelected { get; set; }
     }
 }

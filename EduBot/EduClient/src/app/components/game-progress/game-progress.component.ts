@@ -14,16 +14,23 @@ export class GameProgressComponent implements OnInit {
   @Input() gameScore: GameScore;
   
   private rank: MilitaryRank;
-  private life: number;	// 0 - 10
+  private life: number;
   private armour: number;
+
+  private numbers: number[];
 
   // CONSTRUCTOR
   // ==============================================================================================================
   constructor(){}
 
   // --------------------------------------------------------------------------------------------------------------
-  ngOnInit(){ 
+  ngOnInit(){
+	this.numbers = new Array();
+	for(let i = 1; i <= 100; ++i)
+		this.numbers.push(i);
+
 	this.rank = MilitaryRank.Soldier;
-	this.life = 7;
+	this.life = 50;
+	this.armour = 100;
   }
 }	

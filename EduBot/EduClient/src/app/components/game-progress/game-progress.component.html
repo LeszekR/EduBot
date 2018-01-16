@@ -1,20 +1,19 @@
 <div class="h-100 ml-5 pl-1 pr-1 d-flex align-items-center">
-    
     <div class="row w-100">
         <div class="col p-0">
-            <div class="row no-wrap life-box">
-                <div *ngFor="let number of [1,2,3,4,5,6,7,8,9,10]" [ngClass]="number<=life ? 'red-square' : 'empty-square'" ></div>
+            <div class="row no-wrap life-box justify-content-center">
+                <div *ngFor="let number of numbers" [ngStyle]="{'marginRight': number%5==0 ? '1px' : '0px'}" [ngClass]="number<=life ? 'red-line' : ''" ></div>
             </div>
-            <div class="row no-wrap">
-                {{ 'learn.progress.rank.' + rank | translate }}
+            <div class="row no-wrap justify-content-center">
+                <h3>{{ 'learn.progress.rank.' + rank | translate }}</h3>
             </div>
         </div>
-        <div class="col">
-            <div class="row no-wrap">
-                Kombinezon sapera
+        <div class="col ">
+            <div class="row no-wrap justify-content-center">
+                <span>Kombinezon sapera</span>
             </div>
-            <div class="row no-wrap">
-                Kombinezon sapera
+            <div class="row no-wrap pt-2 justify-content-center">
+                <div *ngFor="let number of numbers" [ngStyle]="{'marginRight': number%20==0 ? '3px' : '0px'}" [ngClass]="number<=armour ? 'armour-line' : ''" ></div>
             </div>
         </div>
         <div class="col">

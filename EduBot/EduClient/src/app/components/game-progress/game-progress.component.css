@@ -10,17 +10,38 @@
 
 .red-square{
     background-color: red;
-    padding: 8px;
-    margin-right: 2px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-right: 3px;
+    padding-left: 3px;
+    margin-right: 1px;
 }
 
 .empty-square{
-    background-color: inherit;
-    padding: 8px;
+    background-color: #273126e6;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-right: 3px;
+    padding-left: 3px;
     border: solid 1px red;
-    margin-right: 2px;
+    margin-right: 1px;
 }
 
 .life-box{
     padding: 3px;
 }
+
+.red-line{
+    border:         none;
+    border-left:    1px solid red;
+    height:         18px;
+    width:          1px;
+}
+
+.armour-line{
+    border:         none;
+    border-left:    1px solid cadetblue;
+    height:         18px;
+    width:          1px;
+}
+

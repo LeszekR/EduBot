@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { GameScore } from '../../models/game-score';
+import { MilitaryRank } from '../../models/enums';
 
 
 // ==================================================================================================================
@@ -11,7 +12,9 @@ import { GameScore } from '../../models/game-score';
 export class GameProgressComponent implements OnInit {
 
   @Input() gameScore: GameScore;
-  //TODO pasek życia
+  
+  private rank: MilitaryRank;
+
 
   // CONSTRUCTOR
   // ==============================================================================================================

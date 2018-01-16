@@ -22,12 +22,14 @@
             <button class="btn btn-primary-light btn-xs h-100" (click)="toggleEditMode()">
                 {{ context.isEditMode ? ('edit.exit_edit_mode' | translate) : ('edit.enter_edit_mode' | translate) }}
             </button>
-            <button class="btn btn-primary btn-xs h-100 ml-4" (click)="setEmoState(-1)">Nuda</button>
-            <button class="btn btn-primary btn-xs h-100 ml-1" (click)="setEmoState(0)">Ok</button>
-            <button class="btn btn-primary btn-xs h-100 ml-1" (click)="setEmoState(1)">Frustra</button>
-            <button class="btn btn-primary btn-xs h-100 ml-4" (click)="sendPic()">Ślij zdjęcie</button>
-            <button class="btn btn-primary btn-xs h-100 ml-1" (click)="setEmoState(2)">Czyść historie</button>
-            <button class="btn btn-primary btn-xs h-100 ml-1" (click)="moduleListComponent.fillMetaModules()">Metamoduły</button>
+            <div *ngIf="!context.isEditMode" class="icon-panel h-100 d-flex align-items-center">
+                <div class="fa fa-meh-o" (click)="setEmoState(-1)" tooltip="Nuda" placement="bottom" ></div>
+                <div class="fa fa-smile-o" (click)="setEmoState(0)" tooltip="Ok" placement="bottom"></div>
+                <div class="fa fa-frown-o" (click)="setEmoState(1)" tooltip="Frustra" placement="bottom"></div>
+                <div class="fa fa-photo" (click)="sendPic()" tooltip="Ślij zdjęcie" placement="bottom"></div>
+                <div class="fa fa-ereaser" (click)="setEmoState(2)" tooltip="Czyść historie" placement="bottom"></div>
+                <div class="fa fa-object-group" (click)="moduleListComponent.fillMetaModules()" tooltip="Metamoduły" placement="bottom"></div>
+            </div>
         </div>
 
 

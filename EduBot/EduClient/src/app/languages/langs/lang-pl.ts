@@ -29,8 +29,8 @@ export const LANG_PL_TRANS = {
     'edit.del_question_title': 'Usuwanie pytania',
     'edit.del_question_decision': 'Czy na pewno chcesz usunąć to pytanie?',
     'edit.del_code_decision': 'Czy na pewno chcesz usunąć to zadanie?',
-    'edit.enter_edit_mode': 'Włącz tryb edycji',
-    'edit.exit_edit_mode': 'Wyłącz tryb edycji',
+    'edit.enter_edit_mode': 'Włącz edycję',
+    'edit.exit_edit_mode': 'Wyłącz edycję',
     'edit.no-correct-answer': 'Aby zapisać pytania musisz przy każdym zaznaczyć prawidłową odpowiedź.',
     'edit.no-code': 'Aby zapisać test z kodu musisz wpisać prawidłowy wynik.',
 

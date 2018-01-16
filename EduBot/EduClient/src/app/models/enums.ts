@@ -24,6 +24,19 @@ export class CodeMode {
     static JAVASCRIPT = "javascript";
     static HTML = "html";
 }
+
+export enum MilitaryRank {
+    Soldier,
+    Corporal,
+    Sergeant,
+    WarrantOfficer,
+    Lieutenant,
+    Captain,
+    Major,
+    Colonel,
+    General
+}
+
 // ------------------------------------------------------------------------------------------------------------------
 export class CodeModeMapper {
 

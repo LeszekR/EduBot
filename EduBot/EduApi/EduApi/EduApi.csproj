@@ -201,8 +201,8 @@
     <Compile Include="Dto\DistractorDTO.cs" />
     <Compile Include="Dto\Mappers\DistractorMapper.cs" />
     <Compile Include="Dto\Mappers\ModuleMapper.cs" />
-    <Compile Include="Dto\Mappers\TestCodeMapper.cs" />
     <Compile Include="Dto\Mappers\TestQuestionMapper.cs" />
+    <Compile Include="Dto\Mappers\TestCodeMapper.cs" />
     <Compile Include="Dto\Mappers\UserMapper.cs" />
     <Compile Include="Dto\ModuleAndDistractorDTO.cs" />
     <Compile Include="Dto\TestCodeDTO.cs" />

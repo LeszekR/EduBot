@@ -218,66 +218,51 @@ namespace EduApi.Services {
         // ---------------------------------------------------------------------------------------------
         private List<TestCodeDTO> SetStudentCodes(int userId, List<TestCodeDTO> codeDtosOfModule) {
 
-            // rozbicie stringu code_answer na składniki i dodanie do nich 'id' pytania
-            List<List<string>> codesInParts = codeDtosOfModule
-                .Select(q => {
-                    var code = new List<string>();
-                    code.Add(q.id.ToString());
-                    code.AddRange(q.task_answer.Split('^'));
-                    return code;
-                })
-                .ToList();
-
-            //// wydobycie odpowiedzi, jakie użytkownik już udzielił na te pytania
-            //var codeIds = codeDtosOfModule.Select(q => q.id).ToList();
-            //var userCodesAll = _userService.GetUserEntity(userId).user_code.ToList()
-            //    .Where(q => codeIds.Contains(q.code_id))
+            //// rozbicie stringu code_answer na składniki i dodanie do nich 'id' zadania
+            //List<List<string>> codesInParts = codeDtosOfModule
+            //    .Select(q => {
+            //        var code = new List<string>();
+            //        code.Add(q.id.ToString());
+            //        code.AddRange(q.task_answer.Split('^'));
+            //        return code;
+            //    })
             //    .ToList();
-            // wydobycie odpowiedzi, jakie użytkownik już udzielił na te pytania
 
 
-            //// ustalenie czy użytkownik już odpowiadał na te pytania
-            //bool answered = userCodesAll.Count() > 0;
-
-
+            // wydobycie ostatnich rozwiązań, jakie użytkownik już przysłał dla tych zadań
             var userCodesAll = _userService.GetUserEntity(userId).user_code.ToList();
 
 
-            // zbudowanie z powrotem stringów code_answer zawierających tym razem
-            // już nie index prawidłowej odpowiedzi ale indeks ostatniej odpowiedzi
-            // udzielonej przez użytkownika
-            List<string> parts;
+            // zbudowanie z powrotem stringów code_answer zawierających
+            // ostatnie rozwiązania utworzone przez użytkownika
+            //List<string> parts;
             string lastAnswer;
             bool lastResult;
+            int attempts;
             user_code userCode;
 
             foreach (var codeDTO in codeDtosOfModule) {
-
-
-                // ten moduł już był zaliczany - są wszystkie odpowiedzi
-                // (choć mogą być błędne - liczy się tu że była próba odpowiedzi i jest jej wynik)
-                //if (answered) {
-                //    userCode = userCodesAll.First(q => q.code_id == code.id);
-                //    lastAnswer = userCode.last_answer.ToString();
-                //    lastResult = userCode.last_result;
-                //}
 
                 userCode = userCodesAll.FirstOrDefault(c => c.code_id == codeDTO.id);
 
                 if (userCode != null) {
                     lastAnswer = userCode.last_answer != null ? userCode.last_answer.ToString() : "";
                     lastResult = userCode.last_result;
+                    attempts = userCode.attempts;
                 }
 
-                // jeżeli te pytanie są nowe dla użytkownika - ustawienie braku odpowiedzi
+                // jeżeli to zadanie jest nowe dla użytkownika - ustawienie braku odpowiedzi
                 else {
                     lastAnswer = "";
                     lastResult = false;
+                    attempts = 0;
                 }
 
-                parts = codesInParts.First(q => Int32.Parse(q[0]) == codeDTO.id);
-                codeDTO.task_answer = parts[1] + "^" + parts[2] + "^" + parts[3] + "^" + parts [4] + "^" + parts[5] + "^" + lastAnswer;
+                //parts = codesInParts.First(q => Int32.Parse(q[0]) == codeDTO.id);
+                //codeDTO.task_answer = parts[1] + "^" + parts[2] + "^" + parts[3] + "^" + parts [4] + "^" + parts[5] + "^" + lastAnswer;
                 codeDTO.last_result = lastResult;
+                codeDTO.last_answer = lastAnswer;
+                codeDTO.attempts = attempts;
             }
 
             return codeDtosOfModule;

@@ -146,23 +146,29 @@ export class TestTaskService {
             return;
 
 
+        let codeTaskDTO: CodeTaskDTO;
         let codeTaskArr: CodeTaskFront[] = [];
         let codeTask: CodeTaskFront;
         let elements: string[];
 
         for (var i in codeTaskDtos) {
 
+            codeTaskDTO = codeTaskDtos[i];
             codeTask = new CodeTaskFront();
-            codeTask.id = codeTaskDtos[i].id;
 
-            elements = codeTaskDtos[i].task_answer.split("^");
+            codeTask.id = codeTaskDTO.id;
+            codeTask.position = codeTaskDTO.position;
+            codeTask.last_result = codeTaskDTO.last_result;
+            codeTask.studentCode = codeTaskDTO.last_answer;
+            codeTask.attempts = codeTaskDTO.attempts;
+
+            elements = codeTaskDTO.task_answer.split("^");
             codeTask.question = elements[0];
             codeTask.surroundingCode = elements[1];
             codeTask.executorCode = elements[2];
             codeTask.codeMode = CodeModeMapper.makeMode(elements[3]);
             codeTask.correctResult = elements[4];
-            codeTask.studentCode = elements[5];
-            // codeTask.correctResultType = elements[6];
+            // codeTask.studentCode = elements[5];
 
             codeTaskArr[codeTaskArr.length] = codeTask;
         }

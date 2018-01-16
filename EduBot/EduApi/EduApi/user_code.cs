@@ -19,6 +19,7 @@ namespace EduApi
         public bool first_result { get; set; }
         public bool last_result { get; set; }
         public string last_answer { get; set; }
+        public int attempts { get; set; }
     
         public virtual test_code test_code { get; set; }
         public virtual user user { get; set; }

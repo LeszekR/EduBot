@@ -104,6 +104,7 @@ namespace EduApi.Services {
             }
             solvedCode.last_answer = code.answer;
             solvedCode.last_result = code.lastResult;
+            solvedCode.attempts += 1;
 
             _userService.SaveChanges();
 

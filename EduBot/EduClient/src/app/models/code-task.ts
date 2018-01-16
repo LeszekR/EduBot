@@ -11,9 +11,11 @@ export class CodeTaskFront {
     // Mirror of the server's TestCodeDTO fields
     id: number;
     position: number;
-    module_id: number;
-    task_answer: string;
+    // module_id: number;
     last_result: boolean;
+    attempts: number;
+    task_answer: string;
+    studentCode: string = "";
 
     // Server's TestCodeDTO remaining field (task_answer) dismantled into separate fields
     question: string;
@@ -21,8 +23,6 @@ export class CodeTaskFront {
     executorCode: string;
     codeMode: CodeMode;
     correctResult: string;
-    studentCode: string = "";
-    // correctResultType: string;
 }
 
 
@@ -36,7 +36,9 @@ export class CodeTaskDTO {
     position: number;
     module_id: number;
     task_answer: string;
+    last_answer: string;
     last_result: boolean;
+    attempts: number;
 }
 
 

@@ -48,7 +48,7 @@ export class DistractorComponent implements OnDestroy {
             case DistractorType.BigExplosion:
                 return this.IMG_PATH + "logo-pg.png";
             case DistractorType.DisarmedMine:
-                return this.IMG_PATH + "logo-pg.png";
+                return this.IMG_PATH + "rozbrojona.png";
             case DistractorType.HiddenMine:
                 return this.IMG_PATH + "logo-pg.png";
             case DistractorType.Promotion:

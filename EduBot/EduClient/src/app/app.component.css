@@ -54,3 +54,13 @@ select option {
 .i-mid{
     vertical-align: middle ;
 }
+
+.icon-panel{
+    padding-left: 6px;
+    border: solid 1px #F0F6F9;
+}
+
+.icon-panel .fa{
+    padding-right: 6px;
+    font-size: 1.4rem;
+}

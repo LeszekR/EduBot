@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<title>Kolo fortuny</title>
+		<script>
+			let add;
+
+			function spinTheWheel() {
+				document.getElementById('spinButton').disabled = true;
+				add = 1;
+				let speed = 2;
+				speed = (Math.random() * 3);
+				let interval = 1000;
+				let secondsPassed = 0;
+				let delay = 0;
+				spin(speed);
+
+				var wheelSpinning = setInterval(function(){
+					prevSpeed = speed;
+					speed = adjustSpeed(speed);
+
+					secondsPassed++;
+					currentTimeFactor = (secondsPassed + delay) / prevSpeed;
+					delay = currentTimeFactor * speed - secondsPassed;
+
+					slowDownTheWheel(speed, delay);
+					if (speed > 45) {
+						let result = (secondsPassed + delay) / speed * 100 % 100 + '%';
+						let spins = Math.floor((secondsPassed + delay) / speed);
+						clearInterval(wheelSpinning);
+						document.getElementById('fortuneWheel').style.webkitAnimationPlayState = 'paused';
+						alert('obroty: ' + spins + '\nrezultat: ' + result);
+						document.getElementById('spinButton').disabled = false;
+						document.getElementById('fortuneWheel').style = {};
+					}
+				}, interval);
+			}
+			
+			function spin(speed) {
+				fortuneWheelStyles = document.getElementById('fortuneWheel').style;
+				fortuneWheelStyles.position = 'fixed';
+				fortuneWheelStyles.webkitAnimationDuration = speed + 's';
+				fortuneWheelStyles.webkitAnimationTimingFunction = 'linear';
+				fortuneWheelStyles.webkitAnimationIterationCount = 'infinite';
+				fortuneWheelStyles.webkitAnimationName = 'spinnerRotate';
+			}
+			
+			function slowDownTheWheel(speed, delay) {
+				fortuneWheelStyles = document.getElementById('fortuneWheel').style;
+				fortuneWheelStyles.webkitAnimationDuration = speed + 's';
+				fortuneWheelStyles.webkitAnimationDelay = '-' + delay + 's';
+			}
+			
+			function adjustSpeed(speed) {
+				speed += add;
+				add++;
+				return speed;
+			}
+		</script>
+		<style>
+			@-webkit-keyframes spinnerRotate
+			{
+				from{-webkit-transform:rotate(0deg);}
+				to{-webkit-transform:rotate(360deg);}
+			}
+			@-moz-keyframes spinnerRotate
+			{
+				from{-moz-transform:rotate(0deg);}
+				to{-moz-transform:rotate(360deg);}
+			}
+			@-ms-keyframes spinnerRotate
+			{
+				from{-ms-transform:rotate(0deg);}
+				to{-ms-transform:rotate(360deg);}
+			}
+		</style>
+	</head>
+	<body>
+		<button id="spinButton" onclick="spinTheWheel();">Krec</button>
+		<div id="fortuneWheel">
+			<img src="fortuneWheel.png" height="400px;"/>
+		</div>
+	</body>
+</html>

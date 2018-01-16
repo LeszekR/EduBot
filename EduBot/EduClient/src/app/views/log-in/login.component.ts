@@ -1,4 +1,5 @@
-import { Component, Output, EventEmitter, } from '@angular/core'
+import { Component, Output, EventEmitter, ViewChild } from '@angular/core'
+import { ModalModule, ModalDirective } from 'ngx-bootstrap';
 
 import { LoginService } from '../../services/login.service';
 import { UserService } from '../../services/user.service';
@@ -20,7 +21,7 @@ import { Observable } from 'rxjs/Observable';
  */
 // ==================================================================================================================
 @Component({
-    selector: 'login',
+    selector: 'login-window',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css'],
     providers: [LoginService]
@@ -28,7 +29,7 @@ import { Observable } from 'rxjs/Observable';
 
 export class LoginComponent {
 
-    @Output() onClose = new EventEmitter();
+    @ViewChild('loginModal') lgModal: ModalDirective;
 
     public loggedIn: boolean = false;
 
@@ -60,6 +61,13 @@ export class LoginComponent {
 
         this.action = 'logging-in';
         this.initializeRegisterForm();
+    }
+
+    show(){
+        this.lgModal.show();
+        setTimeout(() => { 
+            document.getElementById('login').getElementsByTagName('input')[0].focus(); 
+        },500);
     }
 
 
@@ -107,7 +115,7 @@ export class LoginComponent {
                 sessionStorage.setItem('user_role', decoded.role);
                 this.context.userRole = Role[<string>decoded.role];
                 this.spinner.stop();
-                this.onClose.emit();
+                this.lgModal.hide();
             },
             err => {
                 this.setLoginError(err.status < 500 ? 'err_credentials' : 'err_server');

@@ -76,5 +76,15 @@ export const LANG_EN_TRANS = {
     'learn.progres.rank': 'Military rank: ',
     'learn.progres.mines_unarmed': 'Unarmed fields: ',
 
+    'learn.progress.rank.0': 'Soldier',
+    'learn.progress.rank.1': 'Corporal',
+    'learn.progress.rank.2': 'Sergeant',
+    'learn.progress.rank.3': 'WarrantOfficer',
+    'learn.progress.rank.4': 'Lieutenant',
+    'learn.progress.rank.5': 'Captain',
+    'learn.progress.rank.6': 'Major',
+    'learn.progress.rank.7': 'Colonel',
+    'learn.progress.rank.8': 'General',
+
     'camera.share-error': 'In order to be able to adjust difficulty level please unblock camera access'
 };

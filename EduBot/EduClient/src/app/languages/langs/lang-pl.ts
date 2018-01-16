@@ -76,5 +76,15 @@ export const LANG_PL_TRANS = {
     'learn.progres.rank': 'Stopień wojskowy: ',
     'learn.progres.mines_unarmed': 'Rozminowane pola: ',
 
+    'learn.progress.rank.0': 'Szeregowy',
+    'learn.progress.rank.1': 'Kapral',
+    'learn.progress.rank.2': 'Sierżant',
+    'learn.progress.rank.3': 'Chorąży',
+    'learn.progress.rank.4': 'Porucznik',
+    'learn.progress.rank.5': 'Kapitan',
+    'learn.progress.rank.6': 'Major',
+    'learn.progress.rank.7': 'Pułkownik',
+    'learn.progress.rank.8': 'Generał',
+
     'camera.share-error': 'W celu możliwości dostosowania poziomu trudności prosimy o odblokowanie kamery'
 };

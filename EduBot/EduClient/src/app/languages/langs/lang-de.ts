@@ -76,5 +76,15 @@ export const LANG_DE_TRANS = {
     'learn.progres.rank': '<brak tłumaczenia>',
     'learn.progres.mines_unarmed': '<brak tłumaczenia>',
 
+    'learn.progress.rank.0': 'Soldier',
+    'learn.progress.rank.1': 'Corporal',
+    'learn.progress.rank.2': 'Sergeant',
+    'learn.progress.rank.3': 'WarrantOfficer',
+    'learn.progress.rank.4': 'Lieutenant',
+    'learn.progress.rank.5': 'Captain',
+    'learn.progress.rank.6': 'Major',
+    'learn.progress.rank.7': 'Colonel',
+    'learn.progress.rank.8': 'General',
+
     'camera.share-error': '<brak tłumaczenia>'
 };

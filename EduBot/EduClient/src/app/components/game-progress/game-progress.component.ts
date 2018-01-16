@@ -15,12 +15,12 @@ export class GameProgressComponent implements OnInit {
   
   private rank: MilitaryRank;
 
-
   // CONSTRUCTOR
   // ==============================================================================================================
   constructor(){}
 
   // --------------------------------------------------------------------------------------------------------------
-  ngOnInit(){  
+  ngOnInit(){ 
+	this.rank = MilitaryRank.Soldier;
   }
-}
+}	

@@ -14,7 +14,7 @@
 
 
 .main-container{
-    height: calc(100vh - 54px);
+    height: calc(100vh - 64px);
     background-image: url("../assets/img/moro-bg2.jpg");
     background-repeat: no-repeat;
     background-size: cover;

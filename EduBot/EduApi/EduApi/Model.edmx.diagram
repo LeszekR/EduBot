@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="43d6de1631d346739e5f7f8c5062d1e3" Name="Diagram1">
+      <Diagram DiagramId="3eb640940fd94d99b691819f5fb82c08" Name="Diagram1">
         <EntityTypeShape EntityType="edumaticModel.distractor" Width="1.5" PointX="5.25" PointY="14.75" IsExpanded="true" />
         <EntityTypeShape EntityType="edumaticModel.edumodule" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
         <EntityTypeShape EntityType="edumaticModel.enum_diff_level" Width="1.5" PointX="0.75" PointY="9" IsExpanded="true" />

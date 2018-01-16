@@ -10,6 +10,24 @@ using System.Linq;
 
 namespace EduApi.Services {
 
+
+    // =================================================================================================
+    public enum GameItem { QUESTION, CODE, LOTTERY }
+    public enum Lottery { GRENADE, CASINO, HOSPITAL, CANARIES, HELMET }
+    public enum MilitaryRank {
+        Soldier,
+        Corporal,
+        Sergeant,
+        WarrantOfficer,
+        Lieutenant,
+        Captain,
+        Major,
+        Colonel,
+        General
+    }
+
+
+
     // =================================================================================================
     public class QuizService : IQuizService {
 
@@ -203,8 +221,65 @@ namespace EduApi.Services {
 
         // PRIVATE
         // =============================================================================================
-        private GameScoreDTO CalculateGame(int userId, bool? answer, bool? code, int? lottery) {
+        private void CalculateGame(int userId, GameItem item, bool correct, Lottery lottery) {
 
+            string change = null;
+
+            // QUESTION has been answered
+            if (item == GameItem.QUESTION)
+                if (correct)
+                    change = ConfigurationManager.AppSettings["answerGood"];
+                else
+                    change = ConfigurationManager.AppSettings["answerBad"];
+
+
+            // CODE TASK solution has been attempted
+            if (item == GameItem.CODE)
+                if (correct)
+                    change = ConfigurationManager.AppSettings["codeGood"];
+                else
+                    change = ConfigurationManager.AppSettings["codeBad"];
+
+
+            // LOTTERY has been run
+            if (item == GameItem.LOTTERY)
+                switch (lottery) {
+                    case Lottery.CANARIES:
+                        change = ConfigurationManager.AppSettings["kanary"];
+                        break;
+                    case Lottery.CASINO:
+                        change = ConfigurationManager.AppSettings["kasyno"];
+                        break;
+                    case Lottery.GRENADE:
+                        change = ConfigurationManager.AppSettings["granat"];
+                        break;
+                    case Lottery.HELMET:
+                        change = ConfigurationManager.AppSettings["helm"];
+                        break;
+                    case Lottery.HOSPITAL:
+                        change = ConfigurationManager.AppSettings["szpital"];
+                        break;
+                }
+
+
+            // read current game score of the user
+            var score = _userService.GetUserEntity(userId).user_game;
+
+
+            // life & shield
+            var changeElems = change.Split('*');
+            if (changeElems[0] == "life")
+                score.life += Int32.Parse(changeElems[1]);
+            else
+                score.shield += (Decimal)Double.Parse(changeElems[1]);
+
+
+
+
+            // dath or maybe promotion
+
+
+            // save new score
         }
     }
 }

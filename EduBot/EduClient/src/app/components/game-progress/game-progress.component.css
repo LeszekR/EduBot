@@ -54,6 +54,8 @@
 
 .life-box{
     padding: 3px;
+    border: solid 1px lightgray;
+    width: 148px;
 }
 
 .red-line{

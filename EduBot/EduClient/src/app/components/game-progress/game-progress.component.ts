@@ -25,7 +25,7 @@ export class GameProgressComponent implements OnInit {
   // --------------------------------------------------------------------------------------------------------------
   ngOnInit(){
     this.rank = MilitaryRank.Soldier;
-    this.health = 100;
+    this.health = 70;
     this.armour = 100;
   }
 

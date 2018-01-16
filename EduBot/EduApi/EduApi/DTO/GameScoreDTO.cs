@@ -3,7 +3,7 @@
 
         public int life;
         public int rank;
-        public double shield;
+        public int shield;
         public int progress;
         public DistractorDTO distractor { get; set; }
 

@@ -85,24 +85,27 @@ namespace EduApi.Services {
             var progress = nTotal == 0 ? 0 : 100 * nDone / nTotal;
 
 
-            // obliczenie aktualnego wyniku pytań zamkniętych = procentu prawidłowych odpowiedzi
-            var questions = user.user_question;
-            nTotal = questions.Count();
-            var nCorrect = questions.Where(q => q.last_result == true).Count();
-            var correctAnswers = nTotal == 0 ? 0 : 100 * nCorrect / nTotal;
+            //// obliczenie aktualnego wyniku pytań zamkniętych = procentu prawidłowych odpowiedzi
+            //var questions = user.user_question;
+            //nTotal = questions.Count();
+            //var nCorrect = questions.Where(q => q.last_result == true).Count();
+            //var correctAnswers = nTotal == 0 ? 0 : 100 * nCorrect / nTotal;
 
 
-            // obliczenie aktualnego wyniku testów z kodu = procentu prawidłowych rozwiązań
-            var codes = user.user_code;
-            nTotal = codes.Count();
-            nCorrect = codes.Where(c => c.last_result == true).Count();
-            var correctCodes = nTotal == 0 ? 0 : 100 * nCorrect / nTotal;
+            //// obliczenie aktualnego wyniku testów z kodu = procentu prawidłowych rozwiązań
+            //var codes = user.user_code;
+            //nTotal = codes.Count();
+            //nCorrect = codes.Where(c => c.last_result == true).Count();
+            //var correctCodes = nTotal == 0 ? 0 : 100 * nCorrect / nTotal;
 
 
             return new GameScoreDTO() {
                 progress = progress,
-                correctQuestions = correctAnswers,
-                correctCodes = correctCodes
+                life = (int)(user.user_game.life / 10),
+                shield = (int)(user.user_game.shield / 50 * 100),
+                rank = user.user_game.rank
+                //correctQuestions = correctAnswers,
+                //correctCodes = correctCodes
             };
         }
 

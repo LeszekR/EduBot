@@ -13,7 +13,7 @@ namespace EduApi.Services {
 
     // =================================================================================================
     public enum GameItem { QUESTION, CODE, LOTTERY }
-    public enum Lottery { GRENADE, CASINO, HOSPITAL, CANARIES, HELMET }
+    public enum Lottery { GRENADE, CASINO, HOSPITAL, CANARIES, HELMET, NO_LOTTERY }
     public enum MilitaryRank {
         Soldier,
         Corporal,
@@ -33,6 +33,7 @@ namespace EduApi.Services {
 
         private readonly IUserService _userService;
         private readonly ITestQuestionRepository _questionRepository;
+        private readonly IModuleService _moduleService;
 
 
         // CONSTRUCTOR
@@ -40,10 +41,12 @@ namespace EduApi.Services {
         #region Constructor
         public QuizService(
             IUserService userService,
-            ITestQuestionRepository questionRepository) {
+            ITestQuestionRepository questionRepository,
+            IModuleService moduleService) {
 
             _userService = userService;
             _questionRepository = questionRepository;
+            _moduleService = moduleService;
         }
         #endregion
 
@@ -126,6 +129,9 @@ namespace EduApi.Services {
 
             _userService.SaveChanges();
 
+            // przeliczenie życia, ochrony i awansu sapera
+            CalculateGame(ref user, GameItem.CODE, code.lastResult, Lottery.NO_LOTTERY);
+
             return code.lastResult;
         }
 
@@ -179,6 +185,10 @@ namespace EduApi.Services {
                 }
                 answeredQuestion.last_result = result;
                 answeredQuestion.last_answer = lastAnswer;
+
+
+                // przeliczenie życia, ochrony i awansu sapera
+                CalculateGame(ref user, GameItem.QUESTION, result, Lottery.NO_LOTTERY);
             }
 
             _userService.SaveChanges();
@@ -221,7 +231,7 @@ namespace EduApi.Services {
 
         // PRIVATE
         // =============================================================================================
-        private void CalculateGame(int userId, GameItem item, bool correct, Lottery lottery) {
+        private void CalculateGame(ref user user, GameItem item, bool correct, Lottery lottery) {
 
             string change = null;
 
@@ -263,23 +273,121 @@ namespace EduApi.Services {
 
 
             // read current game score of the user
-            var score = _userService.GetUserEntity(userId).user_game;
+            var score = user.user_game;
 
-
-            // life & shield
             var changeElems = change.Split('*');
-            if (changeElems[0] == "life")
-                score.life += Int32.Parse(changeElems[1]);
+            var changeWhat = changeElems[0];
+            var changeValue = changeElems[1];
+
+
+            // LIFE  & SHIELD 
+            if (changeWhat == "life")
+                SetLife(ref score, changeValue);
             else
-                score.shield += (Decimal)Double.Parse(changeElems[1]);
+                SetShield(ref score, changeValue);
 
 
+            // PROMOTION
+            Promotion(ref user);
 
 
-            // dath or maybe promotion
+            // do NOT save new score - it will be saved in the method calling this one
+        }
 
 
-            // save new score
+        // ---------------------------------------------------------------------------------------------
+        private void Promotion(ref user user) {
+
+            var userQuestions = user.user_question.ToList();
+            var userCodes = user.user_code.ToList();
+            var hardUserModules = user.edumodule.Where(m => m.difficulty == "hard");
+
+
+            // check each 'hard' module the user has worked on
+            List<test_question> moduleQuestions;
+            List<test_code> moduleCodes;
+            int nPassedModules = 0;
+
+            foreach (var module in hardUserModules) {
+
+                // get all questions for the module 
+                moduleQuestions = _moduleService.QuestionsForModule(module);
+
+                // the user has not answered the question yet
+                if (moduleQuestions.Exists(q => !userQuestions.Exists(uq => q.id == uq.question_id)))
+                    continue;
+
+                // the user answered incorrectly
+                if (userQuestions.Exists(uq => uq.last_result == false))
+                    continue;
+
+
+                // get all codeTasks
+                moduleCodes = _moduleService.CodesForModule(module);
+
+                // the user has not tried this code yet
+                if (moduleCodes.Exists(c => !userCodes.Exists(uc => c.id == uc.code_id)))
+                    continue;
+
+                // the user answered incorrectly
+                if (userCodes.Exists(uc => uc.last_result == false))
+                    continue;
+
+                // if number of incorrect answers+codes == 0 - increment nPassed 'hard' modules
+                nPassedModules++;
+            }
+
+
+            // find the rank assiged to this number of passed 'hard' modules
+            var rankStep = Int32.Parse(ConfigurationManager.AppSettings["rankStep"]);
+            var newRank = (int)(nPassedModules / rankStep);
+
+
+            // assign the rank to the user
+            var oldRank = user.user_game.rank;
+            user.user_game.rank = newRank;
+
+            if (oldRank != newRank)
+                user.user_game.dis
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
+        private static void SetLife(ref user_game score, string change) {
+
+            var maxLife = Int32.Parse(ConfigurationManager.AppSettings["maxLife"]);
+            var lifeChange = (int)(Int32.Parse(change));
+
+            // shield reduces loss of life
+            if (lifeChange < 0) {
+                double shieldFactor = (double)(1 - Math.Floor(score.shield / 10) / 10);
+                lifeChange = (int)(lifeChange * shieldFactor / 100 * maxLife);
+            }
+
+            // life in database counts from 0 to "maxLife" as set in Web.config (now: 1000)
+            score.life += lifeChange;
+
+            // death
+            if (score.life < 0) {
+                score.life = 0;
+                score.shield = 0;
+                score.rank = 0;
+            }
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
+        private static void SetShield(ref user_game score, string change) {
+
+            score.shield += (Decimal)Double.Parse(change);
+
+            // keep the shield within proper boudaries
+            var maxShield = Int32.Parse(ConfigurationManager.AppSettings["maxShield"]);
+
+            if (score.shield > maxShield)
+                score.shield = maxShield;
+            else if (score.shield < 0)
+                score.shield = 0;
         }
     }
 }

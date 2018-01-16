@@ -170,6 +170,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Model.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model.edmx</DependentUpon>
+      <LastGenOutput>Model.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model.edmx</DependentUpon>
+      <LastGenOutput>Model.cs</LastGenOutput>
+    </Content>
     <Content Include="Skroty_klawiaturowe.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -185,6 +195,9 @@
     <Compile Include="Controllers\ModuleController.cs" />
     <Compile Include="Controllers\QuizController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="distractor.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Dto\DistractorDTO.cs" />
     <Compile Include="Dto\Mappers\DistractorMapper.cs" />
     <Compile Include="Dto\Mappers\ModuleMapper.cs" />
@@ -197,8 +210,32 @@
     <Compile Include="Dto\TestCodeAnswDTO.cs" />
     <Compile Include="Dto\TestQuestionAnswDTO.cs" />
     <Compile Include="Dto\TestQuestionDTO.cs" />
+    <Compile Include="edumodule.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="enum_diff_level.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="enum_user_role.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Log\GlobalExceptionFilter.cs" />
     <Compile Include="Log\NLogger.cs" />
+    <Compile Include="Model.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\Core\IRepository.cs" />
     <Compile Include="Repositories\Core\Repository.cs" />
     <Compile Include="Repositories\Interfaces\IDistractorRepository.cs" />
@@ -238,10 +275,38 @@
     <Compile Include="Services\ModuleService.cs" />
     <Compile Include="Services\DistractorService.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="test_code.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="test_question.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="user.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="user_code.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="user_distractor.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="user_game.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="user_question.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
       <SubType>Designer</SubType>
+    </Content>
+    <EntityDeploy Include="Model.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Model.edmx.diagram">
+      <DependentUpon>Model.edmx</DependentUpon>
     </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

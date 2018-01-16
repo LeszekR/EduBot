@@ -213,13 +213,7 @@
     <Compile Include="edumodule.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="edumodule_gamecontext.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="enum_diff_level.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="enum_distr_type.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="enum_user_role.cs">
@@ -294,6 +288,9 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="user_distractor.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="user_game.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="user_question.cs">

@@ -149,11 +149,6 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
   // ==============================================================================================================
   private verifyCodeTest() {
 
-    // // check if all answers have been given
-    // if (!this.hasAllCodes('learn.unfinished-code'))
-    //   return;
-
-
     this.testTaskService.verifyCodeTest(this.context.currentCodeTask)
       .subscribe(codeExecResult => {
 

@@ -8,7 +8,8 @@ namespace EduApi.Services.Interfaces {
 
 
         // ---------------------------------------------------------------------------------------------
-        /* 1. Oblicza na jaki procent ostatnich pytań testowych użytkownik odpowiedział prawidłowo 
+        /* Służy serwerowi do wyznaczenia poziomu trudności kolejnego modułu.
+         * 1. Oblicza na jaki procent ostatnich pytań testowych użytkownik odpowiedział prawidłowo 
          *    za pierwszym razem (użytkownik  może dowolnie poprawiać odpowiedzi, ale pierwsza odpowiedź 
          *    jest zapamiętywana - to pozwala na ocenę trudności, jaką sprawia mu uczenie się tego materiału).
          * 2. Liczbą pytań, która musi zostać wzięta pod uwagę steruje parametr programu

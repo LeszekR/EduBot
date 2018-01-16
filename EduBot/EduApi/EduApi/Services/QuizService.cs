@@ -199,5 +199,12 @@ namespace EduApi.Services {
         public test_question GetQuestionEntity(int id) {
             return _questionRepository.Get(id);
         }
+
+
+        // PRIVATE
+        // =============================================================================================
+        private GameScoreDTO CalculateGame(int userId, bool? answer, bool? code, int? lottery) {
+
+        }
     }
 }

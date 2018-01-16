@@ -32,7 +32,6 @@ namespace EduApi
         public int group_position { get; set; }
     
         public virtual enum_diff_level enum_diff_level { get; set; }
-        public virtual edumodule_gamecontext edumodule_gamecontext { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<edumodule> edumodule1 { get; set; }
         public virtual edumodule edumodule2 { get; set; }

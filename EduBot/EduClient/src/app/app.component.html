@@ -82,19 +82,4 @@
 <!-- ........................................................................................... -->
 <!-- LOGIN WINDOW -->
 <!-- ........................................................................................... -->
-<div class="modal fade" bsModal #loginModal="bs-modal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content primary-color-dark">
-            <div class="modal-header">
-                <h4 class="modal-title pull-left">
-                    <i class="fa fa-user-circle-o"></i> {{ 'login' | translate }} </h4>
-                <button type="button" class="close pull-right" title="Close" (click)="loginModal.hide()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <login (onClose)="loginModal.hide()"></login>
-            </div>
-        </div>
-    </div>
-</div>
+<login-window></login-window>

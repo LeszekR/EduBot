@@ -74,12 +74,12 @@ a.disabled {
 
 ::-webkit-scrollbar-track
 {
-  background: #FFF /*#B5CCF6*/;
+  background: lightgray ;
 }
 
 ::-webkit-scrollbar-thumb
 {
-  background: #017EB5;
+  background: gray;
 }
 
 
@@ -193,7 +193,7 @@ quiz-view{
 }
 
 .box{
-    background: rgba(0, 0, 0, 0.65);
+    background: rgba(0, 0, 0, 0.75);
     padding: 4px 8px;
     color: white;
     margin: 0;

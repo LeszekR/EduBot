@@ -5,6 +5,7 @@ import { ContextService } from './services/context.service';
 import { EmoService } from './services/emo.service';
 import { MessageService } from './shared/components/message/message.service';
 import { ModuleListComponent } from './views/module-list-view/module-list.component';
+import { LoginComponent } from './views/log-in/login.component';
 
 import { EduService } from './services/edu.service';
 import { HttpService } from './services/http.service';
@@ -18,8 +19,8 @@ import { LoginService } from './services/login.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
-  @ViewChild('loginModal')
-  loginModal: ModalDirective;
+  @ViewChild(LoginComponent)
+  loginWindow: LoginComponent;
 
   @ViewChild(ModuleListComponent)
   moduleListComponent: ModuleListComponent;
@@ -85,7 +86,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   // --------------------------------------------------------------------------------------------------------------
   openLoginWindow() {
-    this.loginModal.show();
+    this.loginWindow.show();
   }
 
 

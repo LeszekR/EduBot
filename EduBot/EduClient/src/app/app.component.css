@@ -14,7 +14,7 @@
 
 
 .main-container{
-    height: calc(100vh - 54px);
+    height: calc(100vh - 85px);
     background-image: url("../assets/img/moro-bg2.jpg");
     background-repeat: no-repeat;
     background-size: cover;
@@ -63,4 +63,8 @@ select option {
 .icon-panel .fa{
     padding-right: 6px;
     font-size: 1.4rem;
+}
+
+progress-comp{
+    width: 650px;
 }

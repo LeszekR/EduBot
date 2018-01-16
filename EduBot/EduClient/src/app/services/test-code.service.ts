@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { MessageService } from '../shared/components/message/message.service';
 
 // Model
 import { CodeTaskFront } from '../models/code-task';
@@ -11,12 +10,6 @@ import { CodeMode } from '../models/enums';
 export class TestCodeService {
 
     readonly STUDENT_CODE = '// STUDENT_CODE_HERE';
-
-
-    // CONSTRUCTOR
-    // ==============================================================================================================
-    constructor(
-        private messageService: MessageService) { }
 
 
     // PUBLIC
@@ -92,7 +85,7 @@ export class TestCodeService {
             return result == codeTask.correctResult;
 
         } catch (e) {
-            this.messageService.error(e.message, 'common.error');
+            scopedDocument.body.innerHTML = '<span style="color:red;">' + e.message + '</span>';
             return false;
         }
     }

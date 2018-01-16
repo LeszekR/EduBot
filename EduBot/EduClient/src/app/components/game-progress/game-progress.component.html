@@ -1,19 +1,24 @@
-<div class="bg-faded h-100 ml-5 pl-1 pr-1 d-flex align-items-center rounded primary-color-dark">
-    
-    <div class="ml-1">
-        <progressbar class="progress" [value]="7" [max]="10" type="danger" ></progressbar>
-        <progressbar class="progress mt-1" [value]="4" [max]="10" ></progressbar>
-    </div>
+<div class="h-100 ml-5 pl-1 pr-1 d-flex align-items-center">
+    <div class="row w-100">
+        <div class="col p-0">
+            <div class="row no-wrap life-box justify-content-center">
+                <div *ngFor="let number of numbers" [ngStyle]="{'marginRight': number%5==0 ? '1px' : '0px'}" [ngClass]="number<=life ? 'red-line' : ''" ></div>
+            </div>
+            <div class="row no-wrap justify-content-center">
+                <h3>{{ 'learn.progress.rank.' + rank | translate }}</h3>
+            </div>
+        </div>
+        <div class="col ">
+            <div class="row no-wrap justify-content-center">
+                <span>Kombinezon sapera</span>
+            </div>
+            <div class="row no-wrap pt-2 justify-content-center">
+                <div *ngFor="let number of numbers" [ngStyle]="{'marginRight': number%20==0 ? '3px' : '0px'}" [ngClass]="number<=armour ? 'armour-line' : ''" ></div>
+            </div>
+        </div>
+        <div class="col">
 
-    <div class="mx-2" style="display: grid" >
-        <small>
-            {{ 'learn.progres.rank' | translate}} Major
-        </small>
-        <small >
-            {{ 'learn.progres.mines_unarmed' | translate}} {{gameScore.progress}}%
-        </small>
+        </div>
     </div>
-
-    
 
 </div>

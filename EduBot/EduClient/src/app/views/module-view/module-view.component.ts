@@ -154,7 +154,6 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
     this.testTaskService.verifyCodeTest(this.context.currentCodeTask)
       .subscribe(codeAttempt => {
 
-        console.log(codeAttempt);
         switch(codeAttempt){
           case CodeAttempt.ATTEMPT_1:
             this.distractorService.show(DistractorType.SmallExplosion);

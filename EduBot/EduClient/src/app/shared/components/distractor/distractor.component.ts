@@ -13,6 +13,8 @@ export class DistractorComponent implements OnDestroy {
     private IMG_PATH = '/assets/img/';
 
     private showDistractor: boolean;
+    private showWheelOfFortune: boolean;
+    private showCardsDraw: boolean;
     private distractorSubsciption: any;
     private imgSrc;
 
@@ -25,8 +27,17 @@ export class DistractorComponent implements OnDestroy {
     }
 
     private show(type: DistractorType){
-        this.imgSrc = this.getImgSrc(type);
-        this.showDistractor = true;
+
+        if(type == DistractorType.WheelOfFortune){
+            this.showWheelOfFortune = true;
+        }
+        else if(type == DistractorType.CardsDraw){
+            this.showCardsDraw = true;
+        }
+        else{
+            this.imgSrc = this.getImgSrc(type);
+            this.showDistractor = true;
+        } 
 
         document.onkeydown = (e:any) => {
             if(e.which == this.KEY_ESC){
@@ -38,6 +49,8 @@ export class DistractorComponent implements OnDestroy {
     private hide(){
         this.imgSrc = null;
         this.showDistractor = false;
+        this.showWheelOfFortune = false;
+        this.showCardsDraw = false;
     }
 
     private getImgSrc(type: DistractorType): string{

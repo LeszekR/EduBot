@@ -26,7 +26,7 @@ namespace EduApi.Services.Interfaces {
          * 2. porównuje otrzymany wynik z prawidłowym wynikiem podanym przez nauczyciela
          * 3. zwraca wynik: true | false
          */
-        bool VerifyCodeTest(TestCodeAnswDTO code, int userId);
+        CodeAttempt VerifyCodeTest(TestCodeAnswDTO code, int userId);
 
         // ---------------------------------------------------------------------------------------------
         /* 1. Sprawdza odpowiedzi udzielone przez użytkownika w teście.

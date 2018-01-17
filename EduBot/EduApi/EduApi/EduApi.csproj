@@ -199,6 +199,7 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Dto\DistractorDTO.cs" />
+    <Compile Include="Dto\Enums.cs" />
     <Compile Include="Dto\Mappers\DistractorMapper.cs" />
     <Compile Include="Dto\Mappers\ModuleMapper.cs" />
     <Compile Include="Dto\Mappers\TestQuestionMapper.cs" />

@@ -23,15 +23,15 @@
         <!-- SHIELD -->
         <div class="col mr-3">
             <div class="row no-wrap m-0 p-0 justify-content-left" style="height: 30%;">
-                <span>Kombinezon sapera</span>
+                <span class="p-0">Kombinezon sapera</span>
             </div>
             <div class="row no-wrap m-0 pt-2 justify-content-left" style="height: 70%;">
                 <div 
                     *ngFor="let segment of shieldSegments;"
-                    class="life h-100 p-0 col"
+                    class="life h-100 p-0 col container"
                     [ngClass]="segment > context.gameScore.shield ? shield-empty : ''" 
                 >
-                    <div class="h-100 p-0 m-0 shield"
+                    <div class="h-100 p-0 m-0 shield col"
                         [ngStyle]="{'width.%': segmentWidth(shieldMax, nShield, context.gameScore.shield, segment)}">
                     </div>
                 </div>

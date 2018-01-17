@@ -5,6 +5,7 @@ using System.Linq;
 using System;
 using System.Configuration;
 using NLog;
+using EduApi.Dto;
 
 namespace EduApi.Services {
 

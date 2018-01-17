@@ -1,6 +1,7 @@
 ﻿using NLog;
 using System;
 using Newtonsoft.Json.Linq;
+using EduApi.Dto;
 
 namespace EduApi.Services {
 

@@ -8,6 +8,6 @@
         public string task_answer { get; set; }
         public string last_answer { get; set; }
         public bool last_result { get; set; }
-        public int attempts { get; set; }
+        //public int attempts { get; set; }
     }
 }

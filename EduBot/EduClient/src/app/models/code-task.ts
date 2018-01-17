@@ -38,7 +38,6 @@ export class CodeTaskDTO {
     task_answer: string;
     last_answer: string;
     last_result: boolean;
-    attempts: number;
 }
 
 

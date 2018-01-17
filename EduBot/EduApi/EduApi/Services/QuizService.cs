@@ -7,26 +7,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 
-
 namespace EduApi.Services {
-
-
-    // =================================================================================================
-    public enum GameItem { QUESTION, CODE, LOTTERY }
-    public enum Lottery { GRENADE, CASINO, HOSPITAL, CANARIES, HELMET, NO_LOTTERY }
-    public enum Promotion { UP, NO_PROMOTION, DOWN }
-    public enum MilitaryRank {
-        Soldier,
-        Corporal,
-        Sergeant,
-        WarrantOfficer,
-        Lieutenant,
-        Captain,
-        Major,
-        Colonel,
-        General
-    }
-
 
 
     // =================================================================================================
@@ -106,17 +87,24 @@ namespace EduApi.Services {
 
 
         // ---------------------------------------------------------------------------------------------
-        public bool VerifyCodeTest(TestCodeAnswDTO code, int userId) {
+        public CodeAttempt VerifyCodeTest(TestCodeAnswDTO code, int userId) {
 
             var user = _userService.GetUserEntity(userId);
+            bool prevResult;
 
             // Pobranie kodu z listy kodów, na które użytkownik już odpowiadał ...
             user_code solvedCode = user.user_code.ToList()
                 .Where(c => c.code_id == code.codeTaskId)
                 .FirstOrDefault();
 
+            if (solvedCode != null)
+                prevResult = solvedCode.last_result;
+
+
             // ... lub dodanie nowego kodu do listy kodów, na które użytkownik odpowiedział
-            if (solvedCode == null) {
+            else {
+                prevResult = false;
+
                 solvedCode = new user_code() {
                     user_id = userId,
                     code_id = code.codeTaskId,
@@ -124,16 +112,28 @@ namespace EduApi.Services {
                 };
                 user.user_code.Add(solvedCode);
             }
-            solvedCode.last_answer = code.answer;
+
             solvedCode.last_result = code.lastResult;
+            solvedCode.last_answer = code.answer;
             solvedCode.attempts += 1;
 
+
+            // sprawdzenie czy to trzecia próba rozwiązania kodu
+            // jesli trzecia - index wyniesie 0
+            var attemptIndex = solvedCode.attempts % 3;
+
             // przeliczenie życia, ochrony i awansu sapera
-            CalculateGame(ref user, GameItem.CODE, code.lastResult, Lottery.NO_LOTTERY);
+            if (!prevResult || !solvedCode.last_result)
+                if (solvedCode.last_result == true || attemptIndex == 0)
+                    CalculateGame(ref user, GameItem.CODE, code.lastResult, Lottery.NO_LOTTERY);
+
 
             _userService.SaveChanges();
 
-            return code.lastResult;
+            if (code.lastResult == true)
+                return CodeAttempt.CORRECT;
+            else
+                return (CodeAttempt)(attemptIndex);
         }
 
 
@@ -145,6 +145,7 @@ namespace EduApi.Services {
 
             string questionDataStr;
             int correctAnswer;
+            bool prevResult;
 
             foreach (var ans in answersList) {
 
@@ -152,7 +153,6 @@ namespace EduApi.Services {
                 test_question question = GetQuestionEntity(ans.question_id);
                 questionDataStr = question.question_answer;
                 correctAnswer = Int32.Parse(questionDataStr.Split('^')[1]);
-
 
 
                 // Ustawienie :
@@ -170,13 +170,21 @@ namespace EduApi.Services {
                 }
 
 
+                // Domyślny poprzedni wynik odpowiedzi na to pytanie
+                prevResult = false;
+
                 // Pobranie pytania z listy pytań, na które użytkownik już odpowiadał ...
                 user_question answeredQuestion = user.user_question.ToList()
                     .Where(q => q.question_id == ans.question_id)
                     .FirstOrDefault();
 
+                if (answeredQuestion != null)
+                    prevResult = answeredQuestion.last_result;
+
                 // ... lub dodanie nowego pytania do listy pytań, na które użytkownik odpowiedział
-                if (answeredQuestion == null) {
+                else {
+                    prevResult = false;
+
                     answeredQuestion = new user_question() {
                         user_id = userId,
                         question_id = ans.question_id,
@@ -184,12 +192,14 @@ namespace EduApi.Services {
                     };
                     user.user_question.Add(answeredQuestion);
                 }
+
                 answeredQuestion.last_result = result;
                 answeredQuestion.last_answer = lastAnswer;
 
 
                 // przeliczenie życia, ochrony i awansu sapera
-                CalculateGame(ref user, GameItem.QUESTION, result, Lottery.NO_LOTTERY);
+                if (!prevResult || !answeredQuestion.last_result)
+                    CalculateGame(ref user, GameItem.QUESTION, result, Lottery.NO_LOTTERY);
             }
 
             _userService.SaveChanges();
@@ -245,15 +255,17 @@ namespace EduApi.Services {
 
 
             // CODE TASK solution has been attempted
-            if (item == GameItem.CODE)
-                if (correct)
+            else if (item == GameItem.CODE)
+                if (correct) {
                     change = ConfigurationManager.AppSettings["codeGood"];
+                    //TODO - zresetować attempts gdy przychodzi prawidłowe rozwiązanie
+                }
                 else
                     change = ConfigurationManager.AppSettings["codeBad"];
 
 
             // LOTTERY has been run
-            if (item == GameItem.LOTTERY)
+            else if (item == GameItem.LOTTERY)
                 switch (lottery) {
                     case Lottery.CANARIES:
                         change = ConfigurationManager.AppSettings["kanary"];
@@ -301,7 +313,15 @@ namespace EduApi.Services {
 
             var userQuestions = user.user_question.ToList();
             var userCodes = user.user_code.ToList();
-            var hardUserModules = user.edumodule.Where(m => m.difficulty == "hard");
+            var hardUserModules = user.edumodule
+                .Select(m => {
+                    if (m.difficulty == "hard")
+                        return m;
+                    if (m.difficulty == "medium")
+                        return m.edumodule2;
+                    return m.edumodule2.edumodule2;
+                })
+                .Distinct().ToList();
 
 
             // check each 'hard' module the user has worked on

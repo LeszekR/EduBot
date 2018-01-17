@@ -25,36 +25,30 @@ namespace EduApi.Services {
         #endregion
 
 
-        // MOCK
+
+        // PUBLIC
         // =============================================================================================
         public void ClearQuestionHistory(int userId) {
-            var questions = _userRepository.Get(userId).user_question;
-            questions.Clear();
+            _userRepository.Get(userId).user_question.Clear();
             _userRepository.SaveChanges();
         }
 
         // ---------------------------------------------------------------------------------------------
         public void ClearModuleHistory(int userId) {
             var user = _userRepository.Get(userId);
+
             user.edumodule.Clear();
-            user.user_question.Clear();
+            user.user_code.Clear();
             user.user_distractor.Clear();
+
+            var game = user.user_game;
+            game.life = 1000;
+            game.shield = 0;
+            game.rank = 0;
+            game.promotion = 0;
+
             _userRepository.SaveChanges();
         }
-
-
-        // PUBLIC
-        // =============================================================================================
-        //public user_game CreateUserGame(user user) {
-        //    return new user_game() {
-        //        user = user,
-        //        user_id = user.id,
-        //        life = 1000,
-        //        shield = 0,
-        //        rank = 0,
-        //        promotion = 0
-        //    };
-        //}
 
         // ---------------------------------------------------------------------------------------------
         public void SaveChanges() {
@@ -70,7 +64,6 @@ namespace EduApi.Services {
         public IList<UserDTO> GetUsers() {
             return _userRepository.All().Select(x => UserMappper.GetSimpleDTO(x)).ToList();
         }
-
 
         // ---------------------------------------------------------------------------------------------
         public int SaveUser(UserDTO user) {

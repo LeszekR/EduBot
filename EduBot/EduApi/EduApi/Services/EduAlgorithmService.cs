@@ -13,10 +13,10 @@ using NLog;
 namespace EduApi.Services {
 
 
-    // =================================================================================================
-    public enum EmoState { UNDEFINED, BORED, FRUSTRATED, OK };
-    public enum ChangeDifficulty { NO_CHANGE, UP, DOWN };
-    public enum DistractorType { NO_DISTRACTOR, KICK, REWARD };
+    //// =================================================================================================
+    //public enum EmoState { UNDEFINED, BORED, FRUSTRATED, OK };
+    //public enum ChangeDifficulty { NO_CHANGE, UP, DOWN };
+    //public enum DistractorType { NO_DISTRACTOR, KICK, REWARD };
 
 
     // =================================================================================================

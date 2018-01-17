@@ -1,6 +1,4 @@
-﻿using EduApi.Services;
-
-namespace EduApi.Dto {
+﻿namespace EduApi.Dto {
     public class GameScoreDTO {
 
         public int life  { get; set; }

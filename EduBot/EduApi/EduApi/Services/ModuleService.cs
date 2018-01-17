@@ -218,24 +218,10 @@ namespace EduApi.Services {
         // ---------------------------------------------------------------------------------------------
         private List<TestCodeDTO> SetStudentCodes(int userId, List<TestCodeDTO> codeDtosOfModule) {
 
-            //// rozbicie stringu code_answer na składniki i dodanie do nich 'id' zadania
-            //List<List<string>> codesInParts = codeDtosOfModule
-            //    .Select(q => {
-            //        var code = new List<string>();
-            //        code.Add(q.id.ToString());
-            //        code.AddRange(q.task_answer.Split('^'));
-            //        return code;
-            //    })
-            //    .ToList();
-
-
             // wydobycie ostatnich rozwiązań, jakie użytkownik już przysłał dla tych zadań
             var userCodesAll = _userService.GetUserEntity(userId).user_code.ToList();
 
 
-            // zbudowanie z powrotem stringów code_answer zawierających
-            // ostatnie rozwiązania utworzone przez użytkownika
-            //List<string> parts;
             string lastAnswer;
             bool lastResult;
             int attempts;
@@ -258,11 +244,8 @@ namespace EduApi.Services {
                     attempts = 0;
                 }
 
-                //parts = codesInParts.First(q => Int32.Parse(q[0]) == codeDTO.id);
-                //codeDTO.task_answer = parts[1] + "^" + parts[2] + "^" + parts[3] + "^" + parts [4] + "^" + parts[5] + "^" + lastAnswer;
                 codeDTO.last_result = lastResult;
                 codeDTO.last_answer = lastAnswer;
-                codeDTO.attempts = attempts;
             }
 
             return codeDtosOfModule;

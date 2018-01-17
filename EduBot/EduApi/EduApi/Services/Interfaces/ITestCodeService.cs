@@ -1,5 +1,4 @@
 ﻿using EduApi.Dto;
-using System.Collections.Generic;
 
 namespace EduApi.Services.Interfaces {
 

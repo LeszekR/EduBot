@@ -11,7 +11,8 @@ import { CodeTaskFront, CodeTaskDTO, CodeTaskAnswDTO } from '../models/code-task
 
 // Components
 import { QuizViewComponent } from '../views/module-view/quiz-view/quiz-view.component';
-import { CodeMode, CodeModeMapper } from '../models/enums';
+import { CodeMode, CodeModeMapper, CodeAttempt } from '../models/enums';
+import { Distractor } from '../models/distractor';
 
 
 // ==================================================================================================================
@@ -28,11 +29,11 @@ export class TestTaskService {
 
     // PUBLIC
     // ==============================================================================================================
-    verifyCodeTest(codeTask: CodeTaskFront): Observable<boolean> {
+    verifyCodeTest(codeTask: CodeTaskFront): Observable<CodeAttempt> {
         let result = this.testCodeService.executeCode(codeTask);
 
         let codeTaskAnswDTO = new CodeTaskAnswDTO(codeTask, result);
-        return this.http.post<boolean>(this.quizUrl + '/verifycodetest', codeTaskAnswDTO);
+        return this.http.post<CodeAttempt>(this.quizUrl + '/verifycodetest', codeTaskAnswDTO);
     }
 
     // --------------------------------------------------------------------------------------------------------------
@@ -160,7 +161,6 @@ export class TestTaskService {
             codeTask.position = codeTaskDTO.position;
             codeTask.last_result = codeTaskDTO.last_result;
             codeTask.studentCode = codeTaskDTO.last_answer;
-            codeTask.attempts = codeTaskDTO.attempts;
 
             elements = codeTaskDTO.task_answer.split("^");
             codeTask.question = elements[0];

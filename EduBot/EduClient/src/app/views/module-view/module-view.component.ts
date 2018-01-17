@@ -150,11 +150,11 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
   private verifyCodeTest() {
 
     this.testTaskService.verifyCodeTest(this.context.currentCodeTask)
-      .subscribe(codeExecResult => {
+      .subscribe(codeAttempt => {
 
         // show the result
-        // TODO - zmienić kolor zakładki na zielony | czerwony
-        console.log(codeExecResult);
+        // TODO - wyświetlić obrazek odpowiadający otrzymanemu enum: CodeAttempt
+        // TODO - zazanaczyć zakładkę tabpane -rozwiązanie prawidłowe lub nieprawidłowe
 
         // showing the updated game score
         this.context.appComponent.showGameScore();

@@ -2,8 +2,6 @@
 using EduApi.Dto.Mappers;
 using EduApi.Repositories.Interfaces;
 using EduApi.Services.Interfaces;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace EduApi.Services {
 

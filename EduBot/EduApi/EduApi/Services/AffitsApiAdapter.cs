@@ -1,4 +1,5 @@
-﻿using NLog;
+﻿using EduApi.Dto;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;

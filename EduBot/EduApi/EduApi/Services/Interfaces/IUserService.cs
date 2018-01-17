@@ -1,4 +1,5 @@
-﻿using EduApi.DTO;
+﻿using EduApi.Dto;
+using EduApi.DTO;
 using System.Collections.Generic;
 
 namespace EduApi.Services.Interfaces {
@@ -8,9 +9,6 @@ namespace EduApi.Services.Interfaces {
         void ClearModuleHistory(int userId);
         void ClearQuestionHistory(int userId);
 
-        //user_game CreateUserGame(user user);
-
-        //List<user_question> GetQuestionsOfUser(int userId);
         void SaveChanges();
         user GetUserEntity(int id);
         IList<UserDTO> GetUsers();

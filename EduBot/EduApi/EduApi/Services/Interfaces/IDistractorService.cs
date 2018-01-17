@@ -1,4 +1,6 @@
-﻿namespace EduApi.Services {
+﻿using EduApi.Dto;
+
+namespace EduApi.Services {
 
     public interface IDistractorService {
 

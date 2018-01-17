@@ -1,14 +1,17 @@
-<div class="w-100 h-100 ml-6 mr-6 pt-1 p-2 d-flex align-items-center pull-right">
+<div class="w-100 h-100 ml-auto mr-6 d-flex align-items-center pull-right">
 
     <div class="row w-100 m-0 p-0">
     
         <!-- LIFE -->
-        <div class="col-4 mr-3">
-            <div class="row no-wrap life-box justify-content-left p-1" style="border: 2px solid lightgray;">
+        <div class="col mr-3">
+            <div 
+                class="row no-wrap life-box justify-content-right p-0" 
+                style="height: 30%;">
                 <div 
-                    *ngFor="let number of numbers" 
-                    [ngStyle]="{'marginRight': number%5==0 ? '1px' : '0px'}" 
-                    [ngClass]="number<=life ? 'red-line' : ''" >
+                    *ngFor="let segment of lifeSegments; let i=index"
+                    class="life h-100 p-0 col" 
+                    [ngClass]="segment <= score.life ? 'life-full' : ''" 
+                    >
                 </div>
             </div>
             <div class="row no-wrap justify-content-left pt-2">
@@ -18,22 +21,27 @@
     
 
         <!-- SHIELD -->
-        <div class="col-4 mr-3" style="border: 2px solid lightgray;">
+        <div class="col mr-3">
             <div class="row no-wrap m-0 p-0 justify-content-left" style="height: 30%;">
                 <span>Kombinezon sapera</span>
             </div>
-            <div class="row no-wrap m-0 pt-2 justify-content-left" style="height: 60%;">
-                <div *ngFor="let number of numbers"
-                    class="h-100"
-                    [ngStyle]="{'marginRight': number%20==0 ? '3px' : '0px'}" 
-                    [ngClass]="number<=armour ? 'armour-line' : ''" >
+            <div class="row no-wrap m-0 pt-2 justify-content-left" style="height: 70%;">
+                <div 
+                    *ngFor="let segment of shieldSegments;"
+                    class="life h-100 p-0 col"
+                    [ngClass]="segment > score.shield ? shield-empty : ''" 
+                >
+                    <div class="h-100 p-0 m-0 shield"
+                        [ngStyle]="{'width.%': segmentWidth(shieldMax, nShield, score.shield, segment)}">
+                    </div>
                 </div>
             </div>
         </div>
     
 
         <!-- MINEFIELD PROGRESS -->
-        <div class="col-4 m-0 p-0">
+        <div class="col h-100 m-0 p-0 progres">d
+            <div class="row h-100"></div>
 
         </div>
     </div>

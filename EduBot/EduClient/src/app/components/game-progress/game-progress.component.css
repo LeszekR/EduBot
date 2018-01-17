@@ -32,13 +32,32 @@
     padding: 3px;
 }
 
-.red-line{
+/* .red-line{
     border:         none;
-    /* border-left:    1px solid red; */
     border-left:    1px solid lightgray;
     height:         18px;
     width:          1px;
+} */
+.life {
+    border: 1px solid lightgray;
+    height: 100%;    
+    width: 15px;
 }
+.life-full{
+    background-color: lightgray;
+    border-left: 1px solid black;
+}
+.shield-empty {
+    border-left: 1px solid lightgray;
+}
+.shield {
+    background-color: lightgray;
+    border-left: 1px solid black;
+}
+.progres {
+    border: 2px solid lightgray;
+}
+
 
 .armour-line{
     border:         none;

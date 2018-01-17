@@ -7,7 +7,7 @@
 <!-- ........................................................................................... -->
 <nav class="navbar navbar-default navbar-static-top d-flex align-items-center">
 
-    <div class="container-fluid d-flex w-100 h-100 p-0 m-0 align-items-center">
+    <div class="container-fluid w-100 h-100 p-0 m-0 d-flex justify-contents-start align-items-center">
 
 
         <!-- LOGO -->
@@ -50,7 +50,7 @@
         <progress-comp 
             *ngIf="context.userRole" 
             [gameScore]="context.gameScore"
-            class="h-100 pull-right"
+            class="h-100 ml-auto p-0"
             style="width: 65%;"
             >
         </progress-comp>
@@ -58,7 +58,13 @@
 
         <!-- USER MANAGEMENT -->
         <div>
-            <a *ngIf="context.userRole == 1" routerLink="/user-management" class="navbar-link pr-2" routerLinkActive="active" title="{{ 'toolbar.manage_users' | translate }}">
+            <a 
+                *ngIf="context.userRole == 1" 
+                routerLink="/user-management" 
+                class="navbar-link pr-2"   
+                [ngClass]="context.userRole ? 'ml-2' : 'ml-auto'"
+                routerLinkActive="active" 
+                title="{{ 'toolbar.manage_users' | translate }}">
                 <i class="fa fa-user-circle-o fa-2x i-mid"></i>
             </a>
         </div>
@@ -71,8 +77,16 @@
 
 
         <!-- LOG IN -->
-        <div class="pull-right p-0 ml-2" style="width: 3rem;">
-            <a *ngIf="!context.userRole" class="nvbar-link pr-2" title="{{ 'toolbar.log_in' | translate }}" (click)="openLoginWindow()">
+        <div 
+            class="pull-right pl-2" 
+            style="width: 3rem;"
+            [ngClass]="context.userRole ? 'ml-2' : 'ml-auto'">
+
+            <a 
+                *ngIf="!context.userRole" 
+                class="nvbar-link pr-2" 
+                title="{{ 'toolbar.log_in' | translate }}" 
+                (click)="openLoginWindow()">
                 <i class="fa fa-sign-in fa-2x"></i>
             </a>
             <a *ngIf="context.userRole" class="nvbar-link pr-2" title="{{ 'toolbar.log_out' | translate }}" (click)="loginService.logout()">

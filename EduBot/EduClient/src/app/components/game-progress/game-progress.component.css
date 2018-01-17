@@ -1,75 +1,15 @@
 
-.progress{
+/* .progress{
     height: 0.6rem;
     min-width: 100px;
-}
+} */
 
 .no-wrap{
     white-space: nowrap;
 }
 
-<<<<<<< HEAD
-.red-square{
-    /* background-color: red; */
-    background-color: lightgray;
-=======
-.health-square{
-    background-color: red;
->>>>>>> c07025722eab624a73ad15897e16fb17dedd5513
-    padding-top: 8px;
-    padding-bottom: 8px;
-    padding-right: 3px;
-    padding-left: 3px;
-    margin-right: 1px;
-}
 
-.health-half-square{
-    background-color: red;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    padding-right: 1px;
-    padding-left: 2px;
-    margin-right: 1px;
-}
 
-.armour-square{
-    background-color: cadetblue;
-    padding-top: 16px;
-    padding-bottom: 16px;
-    margin-right: 3px;
-}
-
-.armour-half-square{
-    background-color: cadetblue;
-    padding-top: 16px;
-    padding-bottom: 16px;
-    padding-right: 8px;
-    padding-left: 8px;
-    margin-right: 3px;
-}
-
-.empty-square{
-    background-color: #273126e6;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    padding-right: 3px;
-    padding-left: 3px;
-    border: solid 1px red;
-    margin-right: 1px;
-}
-
-.life-box{
-    padding: 3px;
-    border: solid 1px lightgray;
-    width: 148px;
-}
-
-/* .red-line{
-    border:         none;
-    border-left:    1px solid lightgray;
-    height:         18px;
-    width:          1px;
-} */
 .life {
     border: 1px solid lightgray;
     height: 100%;    
@@ -87,15 +27,5 @@
     border-left: 1px solid black;
 }
 .progres {
-    border: 2px solid lightgray;
+    border: 1px solid lightgray;
 }
-
-
-.armour-line{
-    border:         none;
-    /* border-left:    1px solid cadetblue; */
-    border-left:    1px solid lightgray;
-    height:         18px;
-    width:          1px;
-}
-

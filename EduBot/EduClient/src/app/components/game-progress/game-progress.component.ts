@@ -15,7 +15,6 @@ export class GameProgressComponent implements OnInit {
   @Input() gameScore: GameScore;
 
   private rank: MilitaryRank;
-<<<<<<< HEAD
   // private life: number;
   // private armour: number;
   // private numbers: number[];
@@ -29,18 +28,12 @@ export class GameProgressComponent implements OnInit {
   private readonly nShield = 5;
   private shieldSegments: number[] = [this.nShield];
 
-=======
-  private health: number;
-  private armour: number;
-  private Math: any;
->>>>>>> c07025722eab624a73ad15897e16fb17dedd5513
 
   // CONSTRUCTOR
   // ==============================================================================================================
   constructor(private context: ContextService) { }
 
   // --------------------------------------------------------------------------------------------------------------
-<<<<<<< HEAD
   ngOnInit() {
     // this.numbers = new Array();
     // for (let i = 1; i <= 100; ++i)
@@ -77,24 +70,5 @@ export class GameProgressComponent implements OnInit {
       return (x-diff) / x * 100;
 
     return 0;
-=======
-  ngOnInit(){
-    this.rank = MilitaryRank.Soldier;
-    this.health = 70;
-    this.armour = 100;
-  }
-
-  private getArmourWidth(num: number){
-    num = num * 20;
-    if(num <= this.armour)
-      return '32px';
-    else if(num - 20 < this.armour){
-      this.Math = Math;
-      let modulo = this.armour % 20;
-      let width = this.Math.round(32 * modulo / 20);
-      return width + 'px';
-    }
-    return '0px';
->>>>>>> c07025722eab624a73ad15897e16fb17dedd5513
   }
 }	

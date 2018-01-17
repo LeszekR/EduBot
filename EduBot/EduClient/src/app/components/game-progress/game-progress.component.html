@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <div class="w-100 h-100 ml-auto mr-6 d-flex align-items-center pull-right">
 
     <div class="row w-100 m-0 p-0">
@@ -6,7 +5,7 @@
         <!-- LIFE -->
         <div class="col mr-3">
             <div 
-                class="row no-wrap life-box justify-content-right p-0" 
+                class="row no-wrap justify-content-right p-0" 
                 style="height: 30%;">
                 <div 
                     *ngFor="let segment of lifeSegments; let i=index"
@@ -36,36 +35,13 @@
                         [ngStyle]="{'width.%': segmentWidth(shieldMax, nShield, score.shield, segment)}">
                     </div>
                 </div>
-=======
-<div class="h-100 ml-5 pl-1 pr-1 d-flex align-items-center">
-    <div class="row w-100">
-        <div class="col p-0">
-            <div class="row pb-2">
-                <div class="life-box d-flex">
-                    <div *ngFor="let number of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]" 
-                        [ngClass]="number*5<=health ? 'health-square' : ''" >
-                    </div>
-                </div>
-            </div>
-            <div class="row no-wrap">
-                <h3>{{ 'learn.progress.rank.' + rank | translate }}</h3>
-            </div>
-        </div>
-        <div class="col">
-            <div class="row no-wrap">
-                <span>Kombinezon sapera</span>
-            </div>
-            <div class="row no-wrap pt-2">
-                <div *ngFor="let number of [1,2,3,4,5]" class="armour-square" [style.width]="getArmourWidth(number)" ></div>
->>>>>>> c07025722eab624a73ad15897e16fb17dedd5513
             </div>
         </div>
     
 
         <!-- MINEFIELD PROGRESS -->
-        <div class="col h-100 m-0 p-0 progres">d
-            <div class="row h-100"></div>
-
+        <div class="col h-100 m-0 p-0 progres">
+            <br><br>
         </div>
     </div>
 

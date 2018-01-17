@@ -32,8 +32,8 @@
         <!-- ........................................................................................... -->
         <div class="col-3 d-flex flex-row h-100 m-0 p-0 b-0 pull-left">
             <button (click)="viewChange(CONTENT_VIEW)" class="col-4 btn btn-primary pull-right mr-1 font-machine">{{ 'common.content' | translate }}</button>
-            <button (click)="viewChange(QUIZ_VIEW)" class="col-4 btn btn-primary pull-right mr-1 font-machine" [disabled]="!module.questions" >{{ 'common.quiz' | translate }}</button>
-            <button (click)="viewChange(CODE_VIEW)" class="col-4 btn btn-primary pull-right mr-1 font-machine" [disabled]="!module.codeTasks" >{{ 'common.code' | translate }}</button>
+            <button (click)="viewChange(QUIZ_VIEW)" class="col-4 btn btn-primary pull-right mr-1 font-machine" [disabled]="!module.questions && !context.isEditMode" >{{ 'common.quiz' | translate }}</button>
+            <button (click)="viewChange(CODE_VIEW)" class="col-4 btn btn-primary pull-right mr-1 font-machine" [disabled]="!module.codeTasks && !context.isEditMode" >{{ 'common.code' | translate }}</button>
         </div>
 
 

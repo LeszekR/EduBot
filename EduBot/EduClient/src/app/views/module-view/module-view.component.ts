@@ -17,6 +17,7 @@ import { MessageService } from '../../shared/components/message/message.service'
 
 //Components
 import { AppComponent } from '../../app.component'
+import { DistractorService, DistractorType } from '../../services/distractor.service';
 
 
 // ==================================================================================================================
@@ -43,6 +44,7 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private moduleService: ModuleService,
     private context: ContextService,
+    private distractorService: DistractorService,
     private testTaskService: TestTaskService,
     private testCodeService: TestCodeService,
     private messageService: MessageService) { }
@@ -151,6 +153,9 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
 
     this.testTaskService.verifyCodeTest(this.context.currentCodeTask)
       .subscribe(codeAttempt => {
+
+        //Dystraktor
+        //this.distractorService.show(DistractorType.DisarmedMine);
 
         // show the result
         // TODO - wyświetlić obrazek odpowiadający otrzymanemu enum: CodeAttempt

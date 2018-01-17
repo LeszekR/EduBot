@@ -31,6 +31,9 @@ export class LoginComponent {
 
     @ViewChild('loginModal') lgModal: ModalDirective;
 
+    public KEY_ENTER = 13;
+    public KEY_ESC = 27;
+
     public loggedIn: boolean = false;
 
     private title: string;
@@ -68,6 +71,19 @@ export class LoginComponent {
         setTimeout(() => { 
             document.getElementById('login').getElementsByTagName('input')[0].focus(); 
         },500);
+
+        document.onkeydown = (e:any) => {
+            console.log("Key event");
+            switch (e.which) {
+                case this.KEY_ESC:
+                    this.lgModal.hide();
+                    break;
+            
+                case this.KEY_ENTER:
+                    this.submitLogin();
+                    break;
+            }
+        }
     }
 
 

@@ -4,7 +4,8 @@ import { DistractorService, DistractorType } from '../../../services/distractor.
 @Component({
     moduleId: module.id,
     selector: 'distractor-component',
-    templateUrl: `./distractor.component.html`
+    templateUrl: `./distractor.component.html`,
+    styleUrls: ['distractor.component.css']
 })
 export class DistractorComponent implements OnDestroy {
 

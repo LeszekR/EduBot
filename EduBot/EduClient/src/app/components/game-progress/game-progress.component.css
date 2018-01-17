@@ -9,7 +9,8 @@
 }
 
 .red-square{
-    background-color: red;
+    /* background-color: red; */
+    background-color: lightgray;
     padding-top: 8px;
     padding-bottom: 8px;
     padding-right: 3px;
@@ -33,14 +34,16 @@
 
 .red-line{
     border:         none;
-    border-left:    1px solid red;
+    /* border-left:    1px solid red; */
+    border-left:    1px solid lightgray;
     height:         18px;
     width:          1px;
 }
 
 .armour-line{
     border:         none;
-    border-left:    1px solid cadetblue;
+    /* border-left:    1px solid cadetblue; */
+    border-left:    1px solid lightgray;
     height:         18px;
     width:          1px;
 }

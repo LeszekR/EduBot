@@ -44,8 +44,15 @@ namespace EduApi.Services {
 
         // PUBLIC
         // =============================================================================================
-        //public List<user_question> GetQuestionsOfUser(int userId) {
-        //    return _userRepository.Get(userId).user_question.ToList();
+        //public user_game CreateUserGame(user user) {
+        //    return new user_game() {
+        //        user = user,
+        //        user_id = user.id,
+        //        life = 1000,
+        //        shield = 0,
+        //        rank = 0,
+        //        promotion = 0
+        //    };
         //}
 
         // ---------------------------------------------------------------------------------------------
@@ -69,6 +76,7 @@ namespace EduApi.Services {
             user entity = new user();
             UserMappper.MapDtoToEntity(user, entity);
             entity.role = "student";
+            entity.user_game = new user_game();
             return _userRepository.Add(entity).id;
         }
 

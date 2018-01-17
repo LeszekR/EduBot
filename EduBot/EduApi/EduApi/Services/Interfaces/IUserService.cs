@@ -5,11 +5,10 @@ namespace EduApi.Services.Interfaces {
 
     public interface IUserService {
 
-        // =============================================================================================
-        // TODO: po testach usunąc - MOCK
         void ClearModuleHistory(int userId);
         void ClearQuestionHistory(int userId);
-        // =============================================================================================
+
+        //user_game CreateUserGame(user user);
 
         //List<user_question> GetQuestionsOfUser(int userId);
         void SaveChanges();

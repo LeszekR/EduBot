@@ -383,6 +383,9 @@ namespace EduApi.Services {
 
             DistractorDTO newDistractor = null;
 
+            //if (user.user_game == null)
+            //    user.user_game = _userService.CreateUserGame(user);
+
             if (user.user_game.promotion > 0)
                 newDistractor = new DistractorDTO() { distr_content = "promotion" };
 

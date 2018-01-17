@@ -1,22 +1,39 @@
-<div class="h-100 ml-5 pl-1 pr-1 d-flex align-items-center">
-    <div class="row w-100">
-        <div class="col p-0">
-            <div class="row no-wrap life-box justify-content-center">
-                <div *ngFor="let number of numbers" [ngStyle]="{'marginRight': number%5==0 ? '1px' : '0px'}" [ngClass]="number<=life ? 'red-line' : ''" ></div>
+<div class="w-100 h-100 ml-6 mr-6 pt-1 p-2 d-flex align-items-center pull-right">
+
+    <div class="row w-100 m-0 p-0">
+    
+        <!-- LIFE -->
+        <div class="col-4 mr-3">
+            <div class="row no-wrap life-box justify-content-left p-1" style="border: 2px solid lightgray;">
+                <div 
+                    *ngFor="let number of numbers" 
+                    [ngStyle]="{'marginRight': number%5==0 ? '1px' : '0px'}" 
+                    [ngClass]="number<=life ? 'red-line' : ''" >
+                </div>
             </div>
-            <div class="row no-wrap justify-content-center">
+            <div class="row no-wrap justify-content-left pt-2">
                 <h3>{{ 'learn.progress.rank.' + rank | translate }}</h3>
             </div>
         </div>
-        <div class="col ">
-            <div class="row no-wrap justify-content-center">
+    
+
+        <!-- SHIELD -->
+        <div class="col-4 mr-3" style="border: 2px solid lightgray;">
+            <div class="row no-wrap m-0 p-0 justify-content-left" style="height: 30%;">
                 <span>Kombinezon sapera</span>
             </div>
-            <div class="row no-wrap pt-2 justify-content-center">
-                <div *ngFor="let number of numbers" [ngStyle]="{'marginRight': number%20==0 ? '3px' : '0px'}" [ngClass]="number<=armour ? 'armour-line' : ''" ></div>
+            <div class="row no-wrap m-0 pt-2 justify-content-left" style="height: 60%;">
+                <div *ngFor="let number of numbers"
+                    class="h-100"
+                    [ngStyle]="{'marginRight': number%20==0 ? '3px' : '0px'}" 
+                    [ngClass]="number<=armour ? 'armour-line' : ''" >
+                </div>
             </div>
         </div>
-        <div class="col">
+    
+
+        <!-- MINEFIELD PROGRESS -->
+        <div class="col-4 m-0 p-0">
 
         </div>
     </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { GameScore } from '../../models/game-score';
 import { MilitaryRank } from '../../models/enums';
+import { ContextService } from '../../services/context.service';
 
 
 // ==================================================================================================================
@@ -19,9 +20,14 @@ export class GameProgressComponent implements OnInit {
 
   private numbers: number[];
 
+  private score = this.context.gameScore;
+  private lifeSects = 20;
+  private shieldSects = 5;
+  
+
   // CONSTRUCTOR
   // ==============================================================================================================
-  constructor(){}
+  constructor(private context: ContextService){}
 
   // --------------------------------------------------------------------------------------------------------------
   ngOnInit(){

@@ -5,36 +5,55 @@
 
 <!-- HEADER -->
 <!-- ........................................................................................... -->
-<!-- <nav class="navbar navbar-default navbar-static-top d-flex pl-1 pr-2 pt-0"> -->
 <nav class="navbar navbar-default navbar-static-top d-flex align-items-center">
 
     <div class="container-fluid d-flex w-100 h-100 p-0 m-0 align-items-center">
 
+
+        <!-- LOGO -->
+        <div class="m-0 mr-5 p-0 " style="height: 100%; width: 4rem;"  routerLink="/">
+            <img src="../assets/img/patrol-logo1.jpg" style="height:inherit; object-fit: scale-down;">
+        </div>
+
         <!-- POLITECHNIKA GDAŃSKA -->
-        <a class="navbar-brand text-white pl-0 ml-0" routerLink="/">
-            <span style="margin-left: 55px;"><strong>Patrol saperski</strong></span>
-        </a>
+        <!-- <a class="navbar-brand text-white pl-0 ml-0" routerLink="/">
+            <span style="margin-left: 20px;float: left;">
+                <strong>Patrol saperski</strong>
+            </span>
+        </a> -->
 
 
         <!-- EDIT mode buttons -->
-        <div *ngIf="context.userRole == 1 || context.userRole == 2" class="ml-auto h-100 d-flex justify-content-center align-items-center p-0">
+        <div 
+            *ngIf="context.userRole == 1 || context.userRole == 2" 
+            class="h-100 d-flex justify-content-center align-items-center ml-6 mr-6 p-0" 
+            style="float:left;"
+            >
 
-            <button class="btn btn-primary-light btn-xs h-100" (click)="toggleEditMode()">
-                {{ context.isEditMode ? ('edit.exit_edit_mode' | translate) : ('edit.enter_edit_mode' | translate) }}
-            </button>
-            <div *ngIf="!context.isEditMode" class="icon-panel h-100 d-flex align-items-center">
-                <div class="fa fa-meh-o" (click)="setEmoState(-1)" tooltip="Nuda" placement="bottom" ></div>
-                <div class="fa fa-smile-o" (click)="setEmoState(0)" tooltip="Ok" placement="bottom"></div>
-                <div class="fa fa-frown-o" (click)="setEmoState(1)" tooltip="Frustra" placement="bottom"></div>
-                <div class="fa fa-photo" (click)="sendPic()" tooltip="Ślij zdjęcie" placement="bottom"></div>
-                <div class="fa fa-ereaser" (click)="setEmoState(2)" tooltip="Czyść historie" placement="bottom"></div>
-                <div class="fa fa-object-group" (click)="moduleListComponent.fillMetaModules()" tooltip="Metamoduły" placement="bottom"></div>
+            <div class="h-100 p-0 m-0" >
+                <div class="icon-panel w-100 h-50 d-flex align-items-center border border-0">
+                    <div class="fa fa-cogs" (click)="toggleEditMode()" tooltip="Tryb edycji" placement="bottom"></div>
+                    <div class="fa fa-eraser" (click)="setEmoState(2)" tooltip="Czyść historie modułów" placement="bottom"></div>
+                    <div class="fa fa-object-group" (click)="moduleListComponent.fillMetaModules()" tooltip="Ponownie utwórz metamoduły" placement="bottom"></div>
+                </div>
+                <div class="icon-panel w-100 h-50 d-flex align-items-center border border-0">
+                    <div class="fa fa-meh-o" (click)="setEmoState(-1)" tooltip="Nuda" placement="bottom"></div>
+                    <div class="fa fa-smile-o" (click)="setEmoState(0)" tooltip="Ok" placement="bottom"></div>
+                    <div class="fa fa-frown-o" (click)="setEmoState(1)" tooltip="Frustra" placement="bottom"></div>
+                    <div class="fa fa-photo" (click)="sendPic()" tooltip="Ślij zdjęcie" placement="bottom"></div>
+                </div>
             </div>
         </div>
 
 
         <!-- GAME PROGRESS -->
-        <progress-comp *ngIf="context.userRole" [gameScore]="context.gameScore"></progress-comp>
+        <progress-comp 
+            *ngIf="context.userRole" 
+            [gameScore]="context.gameScore"
+            class="h-100 pull-right"
+            style="width: 65%;"
+            >
+        </progress-comp>
 
 
         <!-- USER MANAGEMENT -->
@@ -46,13 +65,13 @@
 
 
         <!-- LANGUAGE CHOOSERS -->
-        <div class="ml-auto d-flex align-items-center">
+        <!-- <div class="ml-auto d-flex align-items-center">
             <select-language></select-language>
-        </div>
+        </div> -->
 
 
         <!-- LOG IN -->
-        <div class="pull-right w-10 p-0 ml-2">
+        <div class="pull-right p-0 ml-2" style="width: 3rem;">
             <a *ngIf="!context.userRole" class="nvbar-link pr-2" title="{{ 'toolbar.log_in' | translate }}" (click)="openLoginWindow()">
                 <i class="fa fa-sign-in fa-2x"></i>
             </a>

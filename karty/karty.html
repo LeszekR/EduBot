@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Karty</title>
+		<script src="cards-conf.js"></script>
+		<script>
+            function shuffle(array) {
+                let counter = array.length;
+
+                while (counter > 0) {
+                    let index = Math.floor(Math.random() * counter);
+                    counter--;
+                    let temp = array[counter];
+                    array[counter] = array[index];
+                    array[index] = temp;
+                }
+
+                return array;
+            }
+
+            function pickCard(event) {
+                let card = event.target;
+                card.parentNode.classList.add('flipped');
+                card.parentNode.getElementsByClassName('back')[0].innerHTML = shuffle(cardsConfig)[card.parentNode.dataset.card];
+                Array.from(document.getElementsByClassName('card')).forEach(element =>
+					element.removeEventListener('click', pickCard)
+				);
+			}
+
+			document.onreadystatechange = () => {
+                if (document.readyState == 'complete') {
+                    cardsConfig.forEach((el, id) => document.body.innerHTML += document.getElementById('card-template').innerHTML.replace('{id}', id));
+                    Array.from(document.getElementsByClassName('card')).forEach(element =>
+						element.addEventListener('click', pickCard)
+					);
+				}
+            };
+		</script>
+		<style>
+			.container {
+				width: 200px;
+				height: 300px;
+				float: left;
+				margin: 20px;
+				-webkit-perspective: 800px;
+				-moz-perspective: 800px;
+				-o-perspective: 800px;
+				perspective: 800px;
+			}
+			.card {
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				-webkit-transition: -webkit-transform 1s;
+				-moz-transition: -moz-transform 1s;
+				-o-transition: -o-transform 1s;
+				transition: transform 1s;
+				-webkit-transform-style: preserve-3d;
+				-moz-transform-style: preserve-3d;
+				-o-transform-style: preserve-3d;
+				transform-style: preserve-3d;
+				-webkit-transform-origin: 50% 50%;
+			}
+			.card div {
+				display: block;
+				height: 100%;
+				width: 100%;
+				line-height: 300px;
+				color: white;
+				text-align: center;
+				font-weight: bold;
+				font-size: 30px;
+				position: absolute;
+				-webkit-backface-visibility: hidden;
+				-moz-backface-visibility: hidden;
+				-o-backface-visibility: hidden;
+				backface-visibility: hidden;
+			}
+			.card .front {
+				background: red;
+			}
+			.card .back {
+				background: blue;
+				-webkit-transform: rotateY( 180deg );
+				-moz-transform: rotateY( 180deg );
+				-o-transform: rotateY( 180deg );
+				transform: rotateY( 180deg );
+			}
+			.card.flipped {
+				-webkit-transform: rotateY( 180deg );
+				-moz-transform: rotateY( 180deg );
+				-o-transform: rotateY( 180deg );
+				transform: rotateY( 180deg );
+			}
+		</style>
+	</head>
+	<body>
+		<div id="card-template" style="display: none;">
+			<section class="container">
+				<div class="card" data-card="{id}">
+					<div class="front"></div>
+					<div class="back"></div>
+				</div>
+			</section>
+		</div>
+	</body>
+</html>

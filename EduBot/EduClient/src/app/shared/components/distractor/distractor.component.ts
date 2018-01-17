@@ -43,13 +43,13 @@ export class DistractorComponent implements OnDestroy {
     private getImgSrc(type: DistractorType): string{
         switch(type){
             case DistractorType.SmallExplosion:
-                return this.IMG_PATH + "logo-pg.png";
+                return this.IMG_PATH + "small-explosion.png";
             case DistractorType.MediumExplosion:
-                return this.IMG_PATH + "logo-pg.png";
+                return this.IMG_PATH + "medium-explosion.png";
             case DistractorType.BigExplosion:
-                return this.IMG_PATH + "logo-pg.png";
+                return this.IMG_PATH + "big-explosion.png";
             case DistractorType.DisarmedMine:
-                return this.IMG_PATH + "rozbrojona.png";
+                return this.IMG_PATH + "disarmed.png";
             case DistractorType.HiddenMine:
                 return this.IMG_PATH + "logo-pg.png";
             case DistractorType.Promotion:

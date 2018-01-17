@@ -9,7 +9,9 @@ export enum DistractorType{
     BigExplosion,
     DisarmedMine,
     HiddenMine,
-    Promotion
+    Promotion,
+    WheelOfFortune,
+    CardsDraw
 }
 // ==================================================================================================================
 

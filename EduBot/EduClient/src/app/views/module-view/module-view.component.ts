@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, Output, EventEmitter, OnDestroy } from '@
 import { ActivatedRoute } from '@angular/router';
 
 //Models
-import { DiffLevel } from '../../models/enums';
+import { DiffLevel, CodeAttempt } from '../../models/enums';
 import { Module } from '../../models/module';
 import { ClosedQuestionAnswDTO } from '../../models/closed-question';
 import { ClosedQuestion } from '../../models/closed-question';
@@ -154,11 +154,23 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
     this.testTaskService.verifyCodeTest(this.context.currentCodeTask)
       .subscribe(codeAttempt => {
 
-        //Dystraktor
-        //this.distractorService.show(DistractorType.DisarmedMine);
+        console.log(codeAttempt);
+        switch(codeAttempt){
+          case CodeAttempt.ATTEMPT_1:
+            this.distractorService.show(DistractorType.SmallExplosion);
+            break;
+          case CodeAttempt.ATTEMPT_2:
+            this.distractorService.show(DistractorType.MediumExplosion);
+            break;
+          case CodeAttempt.INCORRECT:
+            this.distractorService.show(DistractorType.BigExplosion);
+            break;
+          case CodeAttempt.CORRECT:
+            this.distractorService.show(DistractorType.DisarmedMine);
+            break;
+        }
 
         // show the result
-        // TODO - wyświetlić obrazek odpowiadający otrzymanemu enum: CodeAttempt
         // TODO - zazanaczyć zakładkę tabpane -rozwiązanie prawidłowe lub nieprawidłowe
 
         // showing the updated game score

@@ -5,6 +5,7 @@ using EduApi.Services.Interfaces;
 using System.Linq;
 using EduApi.Dto.Mappers;
 using System;
+using System.Configuration;
 
 namespace EduApi.Services {
 
@@ -75,8 +76,11 @@ namespace EduApi.Services {
         public int SaveUser(UserDTO user) {
             user entity = new user();
             UserMappper.MapDtoToEntity(user, entity);
+
+            var maxLife = Int32.Parse(ConfigurationManager.AppSettings["maxLife"]);
+            entity.user_game = new user_game() { life = maxLife };
             entity.role = "student";
-            entity.user_game = new user_game();
+
             return _userRepository.Add(entity).id;
         }
 

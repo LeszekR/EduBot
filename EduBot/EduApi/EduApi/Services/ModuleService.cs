@@ -84,7 +84,7 @@ namespace EduApi.Services {
             // Jeżeli użytkownik jeszcze nie pobrał żadnych modułów - otrzyma pierwszy
             if (modules.Count() == 0) {
 
-                var introductionModule = _moduleRepository.Get(1);
+                var introductionModule = _moduleRepository.Get(2);
                 modules.Add(introductionModule);
 
                 // zapisanie modułu na liście modułów użytkownika

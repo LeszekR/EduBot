@@ -6,5 +6,6 @@ namespace EduApi.Dto {
 
         public ModuleDTO module { get; set; }
         public DistractorDTO distractor { get; set; }
+        //public string distractor { get; set; }
     }
 }

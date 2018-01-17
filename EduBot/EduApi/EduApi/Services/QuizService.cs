@@ -128,10 +128,10 @@ namespace EduApi.Services {
             solvedCode.last_result = code.lastResult;
             solvedCode.attempts += 1;
 
-            _userService.SaveChanges();
-
             // przeliczenie życia, ochrony i awansu sapera
             CalculateGame(ref user, GameItem.CODE, code.lastResult, Lottery.NO_LOTTERY);
+
+            _userService.SaveChanges();
 
             return code.lastResult;
         }

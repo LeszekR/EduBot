@@ -10,7 +10,7 @@
                 <div 
                     *ngFor="let segment of lifeSegments; let i=index"
                     class="life h-100 p-0 col" 
-                    [ngClass]="segment <= score.life ? 'life-full' : ''" 
+                    [ngClass]="segment <= context.gameScore.life ? 'life-full' : ''" 
                     >
                 </div>
             </div>
@@ -29,10 +29,10 @@
                 <div 
                     *ngFor="let segment of shieldSegments;"
                     class="life h-100 p-0 col"
-                    [ngClass]="segment > score.shield ? shield-empty : ''" 
+                    [ngClass]="segment > context.gameScore.shield ? shield-empty : ''" 
                 >
                     <div class="h-100 p-0 m-0 shield"
-                        [ngStyle]="{'width.%': segmentWidth(shieldMax, nShield, score.shield, segment)}">
+                        [ngStyle]="{'width.%': segmentWidth(shieldMax, nShield, context.gameScore.shield, segment)}">
                     </div>
                 </div>
             </div>

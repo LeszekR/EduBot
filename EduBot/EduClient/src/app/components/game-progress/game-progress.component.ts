@@ -15,12 +15,8 @@ export class GameProgressComponent implements OnInit {
   @Input() gameScore: GameScore;
 
   private rank: MilitaryRank;
-  // private life: number;
-  // private armour: number;
-  // private numbers: number[];
 
-  private score = this.context.gameScore;
-
+  private readonly lifeMax = 100;
   private readonly nLife = 20;
   private lifeSegments: number[] = [];
 
@@ -39,10 +35,10 @@ export class GameProgressComponent implements OnInit {
     // for (let i = 1; i <= 100; ++i)
     //   this.numbers.push(i);
 
-    // mMOCK =======================
-    this.context.gameScore.life = 28;
-    this.context.gameScore.shield = 43;
-    // mMOCK =======================
+    // // mMOCK =======================
+    // this.context.gameScore.life = 28;
+    // this.context.gameScore.shield = 43;
+    // // mMOCK =======================
 
     this.lifeSegments = new Array();
     for (let i = 1; i <= this.nLife; i++)

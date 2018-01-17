@@ -8,8 +8,9 @@ export class GameScore {
     // correctCodes: number;
 
     life: number;
-    progress: number;
-    rank: MilitaryRank;
     shield: number;
+    rank: MilitaryRank;
+    progress: number;
+    // distractor: string;
     distractor: Distractor;
 }

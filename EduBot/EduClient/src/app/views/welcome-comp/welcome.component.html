@@ -1,15 +1,15 @@
 <div class="p-5 h-100 w-100">
 
     <div class="box h-100 w-100">
-    
+
         <div class="row mb-2 d-flex" style="height: 3rem;">
             <a class="nav-link" [class.active]="activeTab==1" (click)="activeTab=1">
                 <h2>Sytuacja</h2>
             </a>
-            <!-- <span class="v-hr"></span>
+            <span class="v-hr"></span>
             <a class="nav-link" [class.active]="activeTab==2" (click)="activeTab=2">
                 <h2>Zasady gry</h2>
-            </a> -->
+            </a>
             <span class="v-hr"></span>
             <a class="nav-link" [class.active]="activeTab==3" (click)="activeTab=3">
                 <h2>Punktacja</h2>
@@ -19,40 +19,90 @@
         <!-- FABUŁA -->
         <div [ngSwitch]="activeTab" class="p-4" style="height: calc(100% - 3rem); overflow-y: auto;">
             <ng-template [ngSwitchCase]="1">
+                <p>Jesteś saperem w stopniu szeregowego. Prowadzisz misję rozminowania pola minowego. Pole rozminowujesz oczyszczając
+                    kolejne strefy.
+                    <br>
+                    <br>Twoim celem jest rozminowanie całego pola oraz uzyskanie w trakcie tego zadania jak najwyższego stopnia
+                    wojskowego.
+                    <br>
+                    <br>Jeśli rozminujesz całe pole otrzymasz program "Saper" w postaci pliku do otwarcia w przeglądarce, który
+                    napisałes samodzielnie. Celem kursu jest nauczyć cię podstaw programowania i poprowadzić przez napisanie
+                    odpowiedniego kodu.</p>
                 <p>
-                    Jesteś saperem w stopniu szeregowego. Prowadzisz misję rozminowania pola minowego. Pole rozminowujesz oczyszczając kolejne
-                    strefy. Twoim celem jest rozminowanie całego pola oraz uzyskanie w trakcie tego zadania jak najwyższego
-                    stopnia wojskowego. Jeśli rozminujesz całe pole otrzymasz program "Saper" w postaci pliku do otwarcia
-                    w przeglądarce, który napisałes samodzielnie. Celem kursu jest nauczyć cię podstaw programowania i poprowadzić
-                    przez napisanie odpowiedniego kodu.
+                    <br>Oczyszczaniu z min kolejnych stref pola minowego polega na rozwiązywaniu krótkich testów (pytań zamkniętych)
+                    oraz rozwiązywaniu małych zadań z pisania kodu.
+                    <br>
+                    <br>W każdej strefie znajduje się wiele min. Miny dzielą się na przeciwpiechotne (1 pytanie zamknięte) i
+                    przeciwpancerne (1 zadanie z kodu).
+                    <br>
+                    <br>Źle wykonane zadanie to eksplozja miny. Powoduje ona utratę części życia.
+                    <br>
+                    <br>Bezpieczne rozbrojenie miny powoduje wzrost mocy twojego kombinezonu sapera - im lepszy kombinezon tym
+                    mniej życia tracisz przy każdej eksplozji.</p>
                 <p>
-                    Oczyszczaniu z min kolejnych stref pola minowego polega na rozwiązywaniu krótkich testów (pytań zamkniętych) oraz rozwiązywaniu
-                    małych zadań z pisania kodu. W każdej strefie znajduje się wiele min. Miny dzielą się na przeciwpiechotne
-                    (1 pytanie zamknięte) i przeciwpancerne (1 zadanie z kodu). Źle wykonane zadanie to eksplozja miny. Powoduje
-                    ona utratę części życia. Bezpieczne rozbrojenie miny powoduje wzrost mocy twojego kombinezonu sapera
-                    - im lepszy kombinezon tym mniej życia tracisz przy każdej eksplozji.
-                <p>
-                    Każde w pełni rozminowane pole daje ci awans na wyższy stopień wojskowy oraz przywrócenie części utraconego życia. Można
-                    utracić całe życie w wyniku wielu eksplozji. Wówczas otrzymujesz nowe życie ale tracisz całą zdobytą
+                    <br>Każde w pełni rozminowane pole daje ci awans na wyższy stopień wojskowy oraz przywrócenie części utraconego
+                    życia.
+                    <br>
+                    <br>Można utracić całe życie w wyniku wielu eksplozji. Wówczas otrzymujesz nowe życie ale tracisz całą zdobytą
                     ochronę i wszystkie stopnie wojskowe. Wszystkie rozbrojone miny pozostają jednak rozbrojone i ruszasz
                     dalej.
+                </p>
                 <p>
-                    Każda strefa pola minowego dzieli się na pewną liczbę kwadratów gdzie zakopano miny różnych typów. Przed wejściem na każdy
-                    kwadrat otrzymujesz szkolenie minowe. Każde szkolenie zawiera materiał i przykłady do niego. Jeśli zrozumiesz
-                    i zapamiętasz szkolenie - uda ci się rozbroić wszystkie miny na tym kwadracie pola.
+                    <br>Każda strefa pola minowego dzieli się na pewną liczbę kwadratów gdzie zakopano miny różnych typów.
+                    <br>
+                    <br>Przed wejściem na każdy kwadrat otrzymujesz szkolenie minowe. Każde szkolenie zawiera materiał i przykłady
+                    do niego. Jeśli zrozumiesz i zapamiętasz szkolenie - uda ci się rozbroić wszystkie miny na tym kwadracie
+                    pola.
+                </p>
                 <p>
-                    Uwaga - jeśli praca cię znudzi i ulegniesz dekoncentracji możesz niechcący nadepnąć na niewidoczną minę. Niestety jej eksplozja
-                    pozbawi cię pewnej cześci życia.
+                    <br>
+                    <br>
+                    <br>Uwaga - jeśli praca cię znudzi i ulegniesz dekoncentracji możesz niechcący nadepnąć na niewidoczną minę.
+                    Niestety jej eksplozja pozbawi cię pewnej cześci życia.</p>
                 <p>
-                    Uwaga - czasem zamiast miny znajdziesz w piasku skrzynkę sprzętu wroga. Możesz z niej wylosować coś co wzmocni twoją ochronę,
-                    a nawet tajne materiały, które przyniosą ci dodatkowy awans. Losowanie nie jest jednak całłkiem bezpieczne,
-                    niektóre skrzynki to pułapki choć ryzyko jest małe.
+                    <br>Uwaga - czasem zamiast miny znajdziesz w piasku skrzynkę sprzętu wroga. Możesz z niej wylosować coś co
+                    wzmocni twoją ochronę, a nawet tajne materiały, które przyniosą ci dodatkowy awans.
+                    <br>
+                    <br>Losowanie nie jest jednak całłkiem bezpieczne, niektóre skrzynki to pułapki choć ryzyko jest małe.
+                    <br>
+                    <br>
             </ng-template>
 
-            <!-- ZASADY
+            <!-- NAWIGACJA   -->
             <ng-template [ngSwitchCase]="2">
-
-            </ng-template> -->
+                <p>
+                    <h4>Życie, ochrona, stopień wojskowy i mapa</h4>U góry zaczynając od lewej będziesz widzieć:
+                    <br>    - swój pasek życia, a pod nim Twój aktualny stopień wojskowy
+                    <br>    - siłę ochrony jaką daje Ci aktualnie twój kombinezon
+                    <br>    - mapkę pola minowego z zaznaczonymi kwadratami oczyszczonymi z min
+                    <p>
+                        <br>
+                        <h4>Treść, Pytania, Kody</h4>Te przyciski przełączają między widokiem treści z przykładem oraz pytaniami
+                        i zadaniami.
+                        <br>Edytor kodu to prawe dolne okienko, gdy klikniesz 'Kody'.
+                        <br>Wynik działani Twojego kodu pojawi się w lewym dolnym oknie.
+                        <p>
+                            <br>
+                            <h4>Dalej</h4>Aby wejść na kolejny sektor pola minowego - kliknij 'Dalej'.
+                            <p>
+                                <br>
+                                <h4>Wstecz</h4>Aby się cofnąć do poprzedniego sektora - kliknij 'Wstecz'.
+                                <p>
+                                    <br>
+                                    <h4>Wyjaśnij dokładniej</h4>Aby rozłożyć sektor na mniejsze - kliknij 'Wyjaśnij dokładniej'.
+                                    <p>
+                                        <br>
+                                        <h4>Powrót do wczesniejszego modułu</h4>Aby wrócić do kwadratu, na którym już byłeś -
+                                        kliknij go na liście po prawej stronie. Ta lista będzie coraz dłuższa wmiarę, jak
+                                        bedziesz rozminowywać kolejne kwadraty pola minowego.
+                                        <p>
+                                            <br>
+                                            <h4>Powrót do 'Zasad' i 'Punktacji'</h4>Aby ponownie przeczytać 'Sytuację', "Punktację'
+                                            lub 'Zasady' - kliknij logo 'Patrol saperski'. Możesz potem wrócić do ostatniego
+                                            sektora klikając go na liście po prawej stronie.
+                                            <p>
+                                                <br>
+            </ng-template>
 
 
             <!-- PUNKTACJA -->
@@ -61,37 +111,37 @@
                     <h4>Mina przeciwpiechotna</h4>
                     wybuch : minus 3% życia
                     <br>rozbrojenie : plus 0,25% ochrony
-                <p>
-                    <br>
-                    <h4>Mina przeciwpancerna</h4>
-                    wybuch : minus 4% życia
-                    <br>rozbrojenie : plus 3% ochrony
-                <p>
-                    <br>
-                    <h4>Kombinezon sapera</h4>
-                    stopnie ochrony 10-20-30-40-50%
-                <p>
-                    <br>
-                    <h4>Skrzynka wroga (losowanie)</h4>
-                    granat : minus 3% życia
-                    <br>urlop w kasynie (przegrywasz osłonę w karty) : minus 15% ochrony
-                    <br>szpital polowy : plus 10% życia
-                    <br>urlop na Kanarach : plus 20% życia
-                    <br>tarcza osłaniająca : plus 5% ochrony
-                <p>
-                    <br>
-                    <h4>Awans</h4>
-                    2 rozminowane sektory dają awans na wyższy stopień wojskowy
-                    <br>- szeregowy
-                    <br>- kapral
-                    <br>- sierżant
-                    <br>- chorąży
-                    <br>- porucznik
-                    <br>- kapitan
-                    <br>- major
-                    <br>- pułkownik
-                    <br>- generał
-                    <br>
+                    <p>
+                        <br>
+                        <h4>Mina przeciwpancerna</h4>
+                        wybuch : minus 4% życia
+                        <br>rozbrojenie : plus 3% ochrony
+                        <p>
+                            <br>
+                            <h4>Kombinezon sapera</h4>
+                            stopnie ochrony 10-20-30-40-50%
+                            <p>
+                                <br>
+                                <h4>Skrzynka wroga (losowanie)</h4>
+                                granat : minus 3% życia
+                                <br>urlop w kasynie (przegrywasz osłonę w karty) : minus 15% ochrony
+                                <br>szpital polowy : plus 10% życia
+                                <br>urlop na Kanarach : plus 20% życia
+                                <br>tarcza osłaniająca : plus 5% ochrony
+                                <p>
+                                    <br>
+                                    <h4>Awans</h4>
+                                    Dwa rozminowane sektory dają awans na wyższy stopień wojskowy
+                                    <br>- szeregowy
+                                    <br>- kapral
+                                    <br>- sierżant
+                                    <br>- chorąży
+                                    <br>- porucznik
+                                    <br>- kapitan
+                                    <br>- major
+                                    <br>- pułkownik
+                                    <br>- generał
+                                    <br>
 
             </ng-template>
         </div>

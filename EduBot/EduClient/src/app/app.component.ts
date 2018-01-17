@@ -81,7 +81,15 @@ export class AppComponent implements OnInit, OnDestroy {
   // ==============================================================================================================
   showGameScore() {
     this.eduService.getScore()
-      .subscribe(score => this.context.gameScore = score);
+      .subscribe(score => {
+
+        this.context.gameScore = score;
+
+        // TODO: wyświetlić otrzymany dystraktor użytkownikowi
+        // if (score.distractor != null)
+        //   var n = 0;
+        //this.distractorService.show(moduleDistr.distractor);          
+      });
   }
 
   // --------------------------------------------------------------------------------------------------------------

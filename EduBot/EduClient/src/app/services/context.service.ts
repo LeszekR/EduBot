@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 
 //Models
-import { Role } from '../models/enums';
+import { Role, MilitaryRank } from '../models/enums';
 import { Module } from '../models/module'
 import { ModuleViewComponent } from '../views/module-view/module-view.component'
 import { ModuleListComponent } from '../views/module-list-view/module-list.component'
@@ -39,8 +39,9 @@ export class ContextService {
             this.userRole = Role[<string>role];
 
         this.gameScore = new GameScore();
+        this.gameScore.life = 0;
+        this.gameScore.shield = 0;
         this.gameScore.progress = 0;
-        // this.gameScore.correctQuestions = 0;
-        // this.gameScore.correctCodes = 0;
+        this.gameScore.rank = MilitaryRank.Soldier;
     }
 }

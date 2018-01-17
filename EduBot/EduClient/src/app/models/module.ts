@@ -30,7 +30,7 @@ export class Module {
     // ==============================================================================================================
     constructor() {
         this.difficulty = "easy";
-        this.title = "<podaj tytuł>";
+        this.title = "-";
         this.content = "";
         this.isSelected = false;
     }

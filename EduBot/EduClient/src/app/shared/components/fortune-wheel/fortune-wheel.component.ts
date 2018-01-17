@@ -1,9 +1,20 @@
-import { Injectable } from '@angular/core';
+import {Component, ElementRef} from '@angular/core';
+import { FortuneWheelConfig } from './config/fortune-wheel.config';
+import { ViewChild } from '@angular/core';
 
 
-// ==================================================================================================================
-@Injectable()
-export class FortuneWheelService {
+@Component({
+    selector: 'app-fortune-wheel',
+    templateUrl: `./fortune-wheel.component.html`,
+    styleUrls: ['fortune-wheel.component.css']
+})
+export class FortuneWheelComponent {
+
+    private static readonly interval = 1000;
+    private static readonly minimalSpeed = 60;
+
+    @ViewChild('fortuneWheel') fortuneWheel: ElementRef;
+    @ViewChild('spinButton') spinButton: ElementRef;
 
     private add: number;
     private speed: number;
@@ -13,35 +24,34 @@ export class FortuneWheelService {
     // PUBLIC
     // ==============================================================================================================
     public letItRole(): void {
-        (document.getElementById('spinButton') as any).disabled = true;
+        this.spinButton.nativeElement.disabled = true;
         this.add = 1;
-        const interval = 1000;
-        let secondsPassed =  (new Date().getTime() - this.time) / 1000;
+        let secondsPassed = (new Date().getTime() - this.time) / 1000;
         let delay = 0;
 
         const wheelSpinning = setInterval(() => {
             const prevSpeed = this.speed;
             this.speed = this.adjustSpeed(this.speed);
 
-            secondsPassed += interval / 1000;
+            secondsPassed += FortuneWheelComponent.interval / 1000;
             const currentTimeFactor = (secondsPassed + delay) / prevSpeed;
             delay = currentTimeFactor * this.speed - secondsPassed;
 
             this.slowDownTheWheel(this.speed, delay);
-            if (this.speed > 60) {
+            if (this.speed > FortuneWheelComponent.minimalSpeed) {
                 const result = 360 - ((secondsPassed + delay) / this.speed * 100 % 100 * 3.6);
-                const drawn = (window as any).wheelConfig
+                const drawn = FortuneWheelConfig.config
                     .filter(obj => obj.from < result && obj.to >= result)
                     .shift();
                 clearInterval(wheelSpinning);
-                document.getElementById('fortuneWheel').style.webkitAnimationPlayState = 'paused';
-                (document.getElementById('spinButton') as any).disabled = false;
+                this.fortuneWheel.nativeElement.style.webkitAnimationPlayState = 'paused';
+                this.spinButton.nativeElement.disabled = false;
                 setTimeout(() => {
                     alert('rezultat: ' + drawn.name);
-                    (document.getElementById('fortuneWheel') as any).style = {};
+                    (this.fortuneWheel.nativeElement as any).style = {};
                 }, 200);
             }
-        }, interval);
+        }, FortuneWheelComponent.interval);
     }
 
 
@@ -50,8 +60,8 @@ export class FortuneWheelService {
     public spinTheWheel() {
         this.speed = (Math.random() * 3);
         this.time = (new Date()).getTime();
-        const fortuneWheelStyles = document.getElementById('fortuneWheel').style;
-        fortuneWheelStyles.position = 'fixed';
+        const fortuneWheelStyles = this.fortuneWheel.nativeElement.style;
+        fortuneWheelStyles.position = 'absolute';
         fortuneWheelStyles.webkitAnimationDuration = this.speed + 's';
         fortuneWheelStyles.webkitAnimationTimingFunction = 'linear';
         fortuneWheelStyles.webkitAnimationIterationCount = 'infinite';
@@ -61,7 +71,7 @@ export class FortuneWheelService {
 
     // --------------------------------------------------------------------------------------------------------------
     private slowDownTheWheel(speed, delay) {
-        const fortuneWheelStyles = document.getElementById('fortuneWheel').style;
+        const fortuneWheelStyles = this.fortuneWheel.nativeElement.style;
         fortuneWheelStyles.webkitAnimationDuration = speed + 's';
         fortuneWheelStyles.webkitAnimationDelay = '-' + delay + 's';
     }

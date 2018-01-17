@@ -86,5 +86,8 @@ export const LANG_DE_TRANS = {
     'learn.progress.rank.7': 'Colonel',
     'learn.progress.rank.8': 'General',
 
-    'camera.share-error': '<brak tłumaczenia>'
+    'camera.share-error': '<brak tłumaczenia>',
+
+    'fortune-wheel.spin': 'Dreh',
+    'fortune-wheel.explanation': '<brak tłumaczenia>'
 };

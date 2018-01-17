@@ -86,5 +86,8 @@ export const LANG_PL_TRANS = {
     'learn.progress.rank.7': 'Pułkownik',
     'learn.progress.rank.8': 'Generał',
 
-    'camera.share-error': 'W celu możliwości dostosowania poziomu trudności prosimy o odblokowanie kamery'
+    'camera.share-error': 'W celu możliwości dostosowania poziomu trudności prosimy o odblokowanie kamery',
+
+    'fortune-wheel.spin': 'Kręć',
+    'fortune-wheel.explanation': 'Przytrzymaj jak długo chcesz. Gdy puścisz koło zacznie zwalniać.'
 };

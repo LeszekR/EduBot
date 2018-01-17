@@ -1,0 +1,8 @@
+<div class="col-6 m-0 p-0 b-0" style="color: black; height: 500px;">
+    <button #spinButton (mousedown)="spinTheWheel();" (mouseup)="letItRole();" class="col-4 btn btn-primary mr-1 font-machine">{{ 'fortune-wheel.spin' | translate }}</button>
+    * {{ 'fortune-wheel.explanation' | translate }}
+    <div class="fortune-pointer">\/</div>
+    <div #fortuneWheel>
+        <img src="/assets/img/fortune-wheel.png"/>
+    </div>
+</div>

@@ -86,5 +86,8 @@ export const LANG_EN_TRANS = {
     'learn.progress.rank.7': 'Colonel',
     'learn.progress.rank.8': 'General',
 
-    'camera.share-error': 'In order to be able to adjust difficulty level please unblock camera access'
+    'camera.share-error': 'In order to be able to adjust difficulty level please unblock camera access',
+
+    'fortune-wheel.spin': 'Spin',
+    'fortune-wheel.explanation': 'You can hold the button as long as You want. After release wheel will start slowing down.'
 };

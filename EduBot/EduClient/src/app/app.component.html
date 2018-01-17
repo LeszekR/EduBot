@@ -24,6 +24,7 @@
 
 
         <!-- EDIT mode buttons -->
+<<<<<<< HEAD
         <div 
             *ngIf="context.userRole == 1 || context.userRole == 2" 
             class="h-100 d-flex justify-content-center align-items-center ml-6 mr-6 p-0" 
@@ -41,6 +42,23 @@
                     <div class="fa fa-smile-o" (click)="setEmoState(0)" tooltip="Ok" placement="bottom"></div>
                     <div class="fa fa-frown-o" (click)="setEmoState(1)" tooltip="Frustra" placement="bottom"></div>
                     <div class="fa fa-photo" (click)="sendPic()" tooltip="Ślij zdjęcie" placement="bottom"></div>
+=======
+        <div *ngIf="context.userRole == 1 || context.userRole == 2" class="ml-auto h-100 d-flex justify-content-center align-items-center p-0">
+
+            <button class="btn btn-primary-light btn-xs h-100" (click)="toggleEditMode()">
+                {{ context.isEditMode ? ('edit.exit_edit_mode' | translate) : ('edit.enter_edit_mode' | translate) }}
+            </button>
+            <div *ngIf="!context.isEditMode" class="icon-panel h-100 ">
+                <div class="w-100 h-50 d-flex align-items-center">
+                    <div class="fa fa-meh-o pl-2" (click)="setEmoState(-1)" tooltip="Nuda" placement="bottom" ></div>
+                    <div class="fa fa-smile-o" (click)="setEmoState(0)" tooltip="Ok" placement="bottom"></div>
+                    <div class="fa fa-frown-o" (click)="setEmoState(1)" tooltip="Frustra" placement="bottom"></div>
+                </div>
+                <div class="w-100 h-50 d-flex align-items-center">
+                    <div class="fa fa-photo" (click)="sendPic()" tooltip="Ślij zdjęcie" placement="bottom"></div>
+                    <div class="fa fa-eraser" (click)="setEmoState(2)" tooltip="Czyść historie" placement="bottom"></div>
+                    <div class="fa fa-object-group" (click)="moduleListComponent.fillMetaModules()" tooltip="Metamoduły" placement="bottom"></div>
+>>>>>>> c07025722eab624a73ad15897e16fb17dedd5513
                 </div>
             </div>
         </div>

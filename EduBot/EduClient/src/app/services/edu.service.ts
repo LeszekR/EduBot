@@ -12,6 +12,8 @@ import { GameScore } from '../models/game-score';
 import { dictionary } from '../languages/index';
 import { DistractorService } from './distractor.service';
 import { MessageService } from '../shared/components/message/message.service';
+import { ContextService } from './context.service';
+// import { Lottery } from '../models/enums';
 
 
 // ==================================================================================================================
@@ -26,7 +28,8 @@ export class EduService {
     constructor(
         private http: HttpService,
         private distractorService: DistractorService,
-        private msgService: MessageService
+        private msgService: MessageService,
+        private context: ContextService
     ) { }
 
 
@@ -42,9 +45,9 @@ export class EduService {
         let unobligatory = Object.keys(Distractors.rewardPrograms);
         if (unobligatory.indexOf(distractor.distr_content) > -1)
             this.msgService.confirm('edu.want-a-distractor', 'edu.sth-for-you')
-                .then(decision => { 
-                    if (decision == false) 
-                    return; 
+                .then(decision => {
+                    if (decision == false)
+                        return;
                 })
 
         //if not asking or the user wants it - show the distractor

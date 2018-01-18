@@ -11,8 +11,10 @@ import { CodeTaskFront, CodeTaskDTO, CodeTaskAnswDTO } from '../models/code-task
 
 // Components
 import { QuizViewComponent } from '../views/module-view/quiz-view/quiz-view.component';
-import { CodeMode, CodeModeMapper, CodeAttempt } from '../models/enums';
+import { CodeMode, CodeModeMapper, CodeAttempt, Lottery } from '../models/enums';
 import { Distractor } from '../models/distractor';
+import { GameScore } from '../models/game-score';
+import { ContextService } from './context.service';
 
 
 // ==================================================================================================================
@@ -24,11 +26,21 @@ export class TestTaskService {
 
     // CONSTRUCTOR
     // ==============================================================================================================
-    constructor(private http: HttpService, private testCodeService: TestCodeService) { }
+    constructor(
+        private http: HttpService, 
+        private testCodeService: TestCodeService,
+        private context: ContextService
+    ) { }
 
 
     // PUBLIC
     // ==============================================================================================================
+    recordLotteryResult(drawnPrize: Lottery) {
+        this.http.post<GameScore>(this.quizUrl + '/lottery', drawnPrize)
+            .subscribe(gameScore => this.context.appComponent.showGameScore(gameScore));
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
     verifyCodeTest(codeTask: CodeTaskFront): Observable<CodeAttempt> {
         let result = this.testCodeService.executeCode(codeTask);
 

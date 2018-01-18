@@ -88,10 +88,8 @@ namespace EduApi.Services {
             // ostatni dystraktor był wysłany zbyt niedawno, trzeba jeszcze poczekać z następnym
             if (!TimeForDistractor(ref userDistractsAll)) {
                 _logger.Debug("Not providing a distractor as user (" + userId + ") had one quiet recently.");
-
                 return null;
             }
-
 
             // już czas na nastepny dystraktor
             string typeStr = "";

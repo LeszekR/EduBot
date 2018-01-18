@@ -188,7 +188,7 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
         // TODO - zazanaczyć zakładkę tabpane -rozwiązanie prawidłowe lub nieprawidłowe
 
         // update the game score
-        this.context.appComponent.showGameScore();
+        this.context.appComponent.refreshGameScore();
       });
   }
 
@@ -225,7 +225,7 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
         })
 
         // showing the updated game score
-        this.context.appComponent.showGameScore();
+        this.context.appComponent.refreshGameScore();
       });
   }
 

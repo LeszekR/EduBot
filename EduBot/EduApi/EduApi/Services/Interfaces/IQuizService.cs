@@ -6,6 +6,10 @@ namespace EduApi.Services.Interfaces {
     // =================================================================================================
     public interface IQuizService {
 
+        // ---------------------------------------------------------------------------------------------
+        /* Rejestruje wynik losowania z koła fortuny lub 5 kart.
+        */
+        void RecordLottery(int userId, Lottery lottery);
 
         // ---------------------------------------------------------------------------------------------
         /* Służy serwerowi do wyznaczenia poziomu trudności kolejnego modułu.

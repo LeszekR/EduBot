@@ -3,6 +3,8 @@ import { FortuneWheelConfig } from './config/fortune-wheel.config';
 import { ViewChild } from '@angular/core';
 import { MessageService } from '../message/message.service';
 import { Images } from '../../../models/distractor';
+import { TestService } from '../../../mock/test.service';
+import { TestTaskService } from '../../../services/test.service';
 
 
 // ==================================================================================================================
@@ -31,8 +33,10 @@ export class FortuneWheelComponent {
     // CONSTRUCTOR
     // ==============================================================================================================
     constructor(
-        private messageService: MessageService
-    ) {}
+        private messageService: MessageService,
+        private testTaskService: TestTaskService
+    ) { }
+
 
     // PUBLIC
     // ==============================================================================================================
@@ -74,8 +78,14 @@ export class FortuneWheelComponent {
                 clearInterval(wheelSpinning);
                 this.fortuneWheel.nativeElement.style.webkitAnimationPlayState = 'paused';
                 // this.spinButton.nativeElement.disabled = false;
+
+
+                // recording the result and recalculating the game score
+                this.testTaskService.recordLotteryResult(drawn.name);
+
+                // info for the player
                 setTimeout(() => {
-                    this.messageService.info(drawn.name, 'common.result');
+                    this.messageService.info(drawn.msg, 'common.result');
                     // (this.fortuneWheel.nativeElement as any).style = {};
                 }, 200);
             }

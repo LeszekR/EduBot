@@ -1,35 +1,52 @@
+import { Lottery } from "../../../../models/enums";
+
+
+// ==================================================================================================================
 export class FortuneWheelConfig {
 
     public static readonly prizes = [
         {
-            from: 350,
-            to: 360,
-            name: 'szpital'
-        },
-        {
+            name: Lottery.HOSPITAL,
+            // name: "szpital",
             from: 0,
-            to: 118,
-            name: 'szpital'
+            to: 70,
+            msg: "W skrzyce wroga była podejrzana fiolka z jakmś płynem."
+                + "<br>Skierowano cię do szpitala na 5 dni."
+                + "<br>Odzyskujesz 10% życia."
         },
         {
-            from: 118,
-            to: 188,
-            name: 'kasyno'
+            name: Lottery.GRANADE,
+            // name: 'granat',
+            from: 70,
+            to: 88,
+            msg: "GRANAT!!"
+                + "<br>Tracisz 3% życia."
         },
         {
-            from: 188,
-            to: 206,
-            name: 'granat'
+            name: Lottery.SHIELD,
+            // name: 'helm',
+            from: 88,
+            to: 159,
+            msg: "Znajdujesz saperski hełm wroga."
+                + "<br>Zyskujesz 5% mocy swojej ochrony."
         },
         {
-            from: 206,
-            to: 277,
-            name: 'tarcza'
+            name: Lottery.CASSINO,
+            // name: 'kasyno',
+            from: 159,
+            to: 232,
+            msg: "Odkryłeś mapę pola minowego. W nagroę dostałeś urlop."
+                + "<br>Niestety, postanowiłeś spędzić go w obozowym kasynie."
+                + "<br>Przegrywasz 15% mocy swojego kombinezonu."
         },
         {
-            from: 277,
-            to: 350,
-            name: 'kanary'
+            name: Lottery.CANARIES,
+            // name: 'kanary',
+            from: 232,
+            to: 360,
+            msg: "Materiały znalezione w skrzynce wroga są tak cenne,"
+                + "że otrzymujesz 2-tygodniowy urlop na Kanarach."
+                + "Odzyskujesz 20% życia."
         },
     ];
 }

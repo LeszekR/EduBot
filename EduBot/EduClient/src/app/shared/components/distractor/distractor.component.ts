@@ -1,6 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
 import { DistractorService } from '../../../services/distractor.service';
-// import { DistractorType } from '../../../models/enums';
 import { Distractors, Distractor } from '../../../models/distractor';
 
 
@@ -41,16 +40,13 @@ export class DistractorComponent implements OnDestroy {
 
         let type = distractor.distr_content;
 
-        // if (type == DistractorType.WheelOfFortune) {
         if (type == Distractors.rewardPrograms.fortuneWheel) {
             this.showWheelOfFortune = true;
         }
-        // else if (type == DistractorType.CardsDraw) {
         else if (type == Distractors.rewardPrograms.drawCards) {
             this.showCardsDraw = true;
         }
         else {
-            // this.imgSrc = this.getImgSrc(type);
             this.imgSrc = this.IMG_PATH + Distractors.mixed[type];
             this.showDistractor = true;
         }
@@ -69,23 +65,4 @@ export class DistractorComponent implements OnDestroy {
         this.showWheelOfFortune = false;
         this.showCardsDraw = false;
     }
-
-    // // --------------------------------------------------------------------------------------------------------------
-    // private getImgSrc(type: DistractorType): string {
-    //     switch (type) {
-    //         case DistractorType.SmallExplosionThreat:
-    //             return this.IMG_PATH + "small-explosion.png";
-    //         case DistractorType.BigExplosionThreat:
-    //             return this.IMG_PATH + "medium-explosion.png";
-    //         case DistractorType.BigExplosion:
-    //             return this.IMG_PATH + "big-explosion.png";
-    //         case DistractorType.DisarmedMine:
-    //             return this.IMG_PATH + "disarmed.png";
-    //         case DistractorType.HiddenMine:
-    //             return this.IMG_PATH + "logo-pg.png";
-    //         case DistractorType.Promotion:
-    //             return this.IMG_PATH + "logo-pg.png";
-    //         default:
-    //             return null;
-    //     }
 }

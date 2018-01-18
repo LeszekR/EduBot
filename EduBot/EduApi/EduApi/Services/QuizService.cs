@@ -35,6 +35,14 @@ namespace EduApi.Services {
 
         // PUBLIC
         // =============================================================================================
+        public void RecordLottery(int userId, Lottery lottery) {
+            var user = _userService.GetUserEntity(userId);
+            CalculateGame(ref user, GameItem.LOTTERY, true, lottery);
+            _userService.SaveChanges();
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
         public int GetRecentResults(int userId) {
 
             // Assumptions:

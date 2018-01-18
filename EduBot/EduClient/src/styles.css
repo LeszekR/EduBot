@@ -29,6 +29,10 @@ nav{
     border-bottom-color: #273126 !important;
 }
 
+.modal{
+    z-index:13000!important;
+}
+
 .primary-color-light{
     color: white !important;
 }

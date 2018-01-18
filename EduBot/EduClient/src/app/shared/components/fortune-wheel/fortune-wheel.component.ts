@@ -1,8 +1,8 @@
 import { Component, ElementRef, Input } from '@angular/core';
 import { FortuneWheelConfig } from './config/fortune-wheel.config';
 import { ViewChild } from '@angular/core';
-import { DistractorComponent } from '../distractor/distractor.component';
-import { Distractors, Images } from '../../../models/distractor';
+import { MessageService } from '../message/message.service';
+import { Images } from '../../../models/distractor';
 
 
 // ==================================================================================================================
@@ -13,22 +13,26 @@ import { Distractors, Images } from '../../../models/distractor';
 })
 export class FortuneWheelComponent {
 
+    private static readonly interval = 1000;
+    private static readonly minimalSpeed = 60;
+
     @ViewChild('fortuneWheel') fortuneWheel: ElementRef;
     @ViewChild('spinButton') spinButton: ElementRef;
-    
+
     private IMG_PATH = '/assets/img/';
     @Input() private readonly bckgrAddress = this.IMG_PATH + Images.list.fortuneWheelBckgr;
     @Input() private readonly wheelAddress = this.IMG_PATH + Images.list.fortuneWheel;
-    
-    private static readonly interval = 1000;
-    private static readonly minimalSpeed = 60;
-    
+
     private add: number;
     private speed: number;
     private time: number;
 
 
-    // PUBLIC
+    constructor(
+        private messageService: MessageService
+    ) {}
+
+// PUBLIC
     // ==============================================================================================================
     public spinTheWheel() {
         this.speed = (Math.random() * 3);
@@ -67,10 +71,10 @@ export class FortuneWheelComponent {
 
                 clearInterval(wheelSpinning);
                 this.fortuneWheel.nativeElement.style.webkitAnimationPlayState = 'paused';
-                this.spinButton.nativeElement.disabled = false;
+                // this.spinButton.nativeElement.disabled = false;
                 setTimeout(() => {
-                    alert('rezultat: ' + drawn.name);
-                    (this.fortuneWheel.nativeElement as any).style = {};
+                    this.messageService.info(drawn.name, 'common.result');
+                    // (this.fortuneWheel.nativeElement as any).style = {};
                 }, 200);
             }
         }, FortuneWheelComponent.interval);

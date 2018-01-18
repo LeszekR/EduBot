@@ -12,6 +12,7 @@ export const LANG_DE_TRANS = {
     'common.code': '<brak tłuamcz>',
     'common.empty': '',
     'common.error': 'Fehler',
+    'common.result': 'Wirkung',
 
     'view.content': '<Content>',
     'view.example': '<Example>',

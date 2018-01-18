@@ -12,6 +12,7 @@ export const LANG_PL_TRANS = {
     'common.code': 'Koduj',
     'common.empty': ' ',
     'common.error': 'Błąd',
+    'common.result': 'Rezultat',
 
     'view.content': 'MATERIAŁ',
     'view.example': 'PRZYKŁAD',

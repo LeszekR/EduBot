@@ -26,6 +26,7 @@ import { SpinnerComponent } from './shared/components/spinner/spinner.component'
 import { DistractorComponent } from './shared/components/distractor/distractor.component';
 import { AceEditorComponent } from 'ng2-ace-editor';
 import { FortuneWheelComponent } from './shared/components/fortune-wheel/fortune-wheel.component';
+import { DrawingCardsComponent } from './shared/components/drawing-cards/drawing-cards.component';
 
 //Services
 import { TestService } from './mock/test.service';
@@ -77,7 +78,8 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     QuestionViewComponent,
     AceEditorComponent,
     DistractorComponent,
-    FortuneWheelComponent
+    FortuneWheelComponent,
+    DrawingCardsComponent
   ],
   imports: [
     SharedModule,

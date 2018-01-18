@@ -1,0 +1,14 @@
+
+<div class="drawing-cards">
+    {{ 'drawing-cards.explanation' | translate }}
+    <div *ngFor="let prize of prizes; let i = index;">
+        <section class="container">
+            <div class="card" (click)="picked || pickCard($event, i)">
+                <div class="front">
+                    <img src="/assets/img/patrol-logo1.jpg" height="69px"/>
+                </div>
+                <div class="back"></div>
+            </div>
+        </section>
+    </div>
+</div>

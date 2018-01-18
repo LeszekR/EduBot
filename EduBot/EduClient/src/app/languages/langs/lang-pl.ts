@@ -89,8 +89,16 @@ export const LANG_PL_TRANS = {
 
     'camera.share-error': 'W celu możliwości dostosowania poziomu trudności prosimy o odblokowanie kamery',
 
+    'lottery.hospital': 'W skrzyce wroga była podejrzana fiolka z jakimś płynem. Skierowano cię do szpitala na 5 dni. Odzyskujesz 10% życia.',
+    'lottery.granade': 'GRANAT!! Tracisz 3% życia.',
+    'lottery.shield': 'Znajdujesz saperski hełm wroga. Zyskujesz 5% mocy swojej ochrony.',
+    'lottery.cassino': 'Odkryłeś mapę pola minowego. W nagrodę dostałeś urlop. Niestety, postanowiłeś spędzić go w obozowym kasynie. Przegrywasz 15% mocy swojego kombinezonu.',
+    'lottery.canaries': 'Materiały znalezione w skrzynce wroga są tak cenne, że otrzymujesz 2-tygodniowy urlop na Kanarach. Odzyskujesz 20% życia.',
+
     'fortune-wheel.spin': 'Kręć',
     'fortune-wheel.explanation': 'Przytrzymaj jak długo chcesz. Gdy puścisz koło zacznie zwalniać.',
+
+    'drawing-cards.explanation': 'Wybierz jedną z kart.',
 
     'edu.want-a-distractor': 'Czy chcesz otworzyć niespodziankę?',
     'edu.sth-for-you': 'NIESPODZANKA'

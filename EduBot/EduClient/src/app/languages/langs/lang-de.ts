@@ -89,8 +89,16 @@ export const LANG_DE_TRANS = {
 
     'camera.share-error': '<brak tłumaczenia>',
 
+    'lottery.hospital': '<brak tłumaczenia>',
+    'lottery.granade': '<brak tłumaczenia>',
+    'lottery.shield': '<brak tłumaczenia>',
+    'lottery.cassino': '<brak tłumaczenia>',
+    'lottery.canaries': '<brak tłumaczenia>',
+
     'fortune-wheel.spin': 'Dreh',
     'fortune-wheel.explanation': '<brak tłumaczenia>',
+
+    'drawing-cards.explanation': '<brak tłumaczenia>',
 
     'edu.want-a-distractor': '<brak tłumaczenia>',
     'edu.sth-for-you': '<brak tłumaczenia>'

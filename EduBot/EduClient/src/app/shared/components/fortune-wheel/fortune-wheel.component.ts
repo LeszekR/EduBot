@@ -3,7 +3,6 @@ import { FortuneWheelConfig } from './config/fortune-wheel.config';
 import { ViewChild } from '@angular/core';
 import { MessageService } from '../message/message.service';
 import { Images } from '../../../models/distractor';
-import { TestService } from '../../../mock/test.service';
 import { TestTaskService } from '../../../services/test.service';
 
 

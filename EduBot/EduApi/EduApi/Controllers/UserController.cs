@@ -32,7 +32,11 @@ namespace EduApi.Controllers {
         [HttpPost]
         [OverrideAuthorization]
         public IHttpActionResult CreateUser(UserDTO user) {
-            return Ok(_userService.SaveUser(user));
+            int id = _userService.SaveUser(user);
+            if (id < 0) {
+                return BadRequest("User exists");
+            }
+            return Ok(id);
         }
 
         // ---------------------------------------------------------------------------------------------

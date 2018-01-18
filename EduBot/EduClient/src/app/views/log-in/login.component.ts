@@ -52,6 +52,7 @@ export class LoginComponent {
     private action: string;
 
     private registerSuccess = false;
+    private registerFailure = false;
 
 
     // CONSTRUCTOR
@@ -68,9 +69,9 @@ export class LoginComponent {
 
     show(){
         this.lgModal.show();
-        setTimeout(() => { 
-            document.getElementById('login').getElementsByTagName('input')[0].focus(); 
-        },500);
+        setTimeout(() => {
+            document.getElementById('login').getElementsByTagName('input')[0].focus();
+        }, 500);
 
         document.onkeydown = (e:any) => {
             console.log("Key event");
@@ -78,12 +79,12 @@ export class LoginComponent {
                 case this.KEY_ESC:
                     this.lgModal.hide();
                     break;
-            
+
                 case this.KEY_ENTER:
                     this.submitLogin();
                     break;
             }
-        }
+        };
     }
 
 
@@ -97,14 +98,17 @@ export class LoginComponent {
      */
     submitLogin(): void {
         this.registerSuccess = false;
+        this.registerFailure = false;
         if (this.action === 'logging-in')
             this.logIn();
         else if (this.action === 'register') {
             this.registerUser().subscribe(() => {
                 this.initializeRegisterForm();
+                this.action = 'logging-in';
+                this.registerSuccess = true;
+            }, response => {
+                this.registerFailure = true;
             });
-            this.action = 'logging-in';
-            this.registerSuccess = true;
         }
         else if (this.action === 'passw-change')
             this.passwChange();

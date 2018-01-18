@@ -9,9 +9,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="19.651514mm"
-   height="6.1453614mm"
-   viewBox="0 0 19.651514 6.1453614"
+   width="297mm"
+   height="210mm"
+   viewBox="0 0 297 210"
    version="1.1"
    id="svg3962"
    inkscape:version="0.92.1 r15371"
@@ -37,8 +37,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="-105.03975"
-     inkscape:cy="-118.77863"
+     inkscape:cx="536.87485"
+     inkscape:cy="376.65402"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -46,7 +46,8 @@
      inkscape:window-height="1047"
      inkscape:window-x="-10"
      inkscape:window-y="-10"
-     inkscape:window-maximized="1" />
+     inkscape:window-maximized="1"
+     units="mm" />
   <metadata
      id="metadata3959">
     <rdf:RDF>
@@ -63,115 +64,118 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-99.401012,-187.74864)">
+     transform="translate(-99.401012,16.105999)">
     <ellipse
        style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
        id="path4034"
-       cx="75"
-       cy="222"
+       cx="-37.89373"
+       cy="-260.61682"
        rx="67.071877"
-       ry="66.807289" />
+       ry="66.807289"
+       transform="rotate(118)" />
     <ellipse
        style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
        id="path4038"
-       cx="75"
-       cy="222"
+       cx="-37.89373"
+       cy="-260.61682"
        rx="62.838539"
-       ry="63.103127" />
+       ry="63.103127"
+       transform="rotate(118)" />
     <rect
        style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
        id="rect4058"
        width="65.087502"
        height="2.1166666"
-       x="75.40625"
-       y="220.53542" />
+       x="-37.48748"
+       y="-262.08139"
+       transform="rotate(118)" />
     <rect
        style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
        id="rect4058-9"
        width="65.087502"
        height="2.1166666"
-       x="3.5136521"
-       y="233.18562"
-       transform="rotate(-18)" />
+       x="45.282116"
+       y="-260.69635"
+       transform="rotate(100)" />
     <rect
        style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
        id="rect4058-9-5"
        width="65.087502"
        height="2.1166666"
-       x="-222.5"
-       y="75.400002"
-       transform="rotate(-89.999999)" />
+       x="260.11682"
+       y="-37.493706"
+       transform="rotate(28.000001)" />
     <rect
        style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
        id="rect4058-9-5-3"
        width="65.087502"
        height="2.1166666"
-       x="68.33564"
-       y="-225.05812"
-       transform="rotate(144)" />
+       x="-124.00648"
+       y="231.74434"
+       transform="rotate(-98)" />
     <rect
        style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
        id="rect4058-0"
        width="65.087502"
        height="2.1166666"
-       x="234.18823"
-       y="-5.3045573"
-       transform="rotate(72)" />
+       x="-259.69373"
+       y="-47.073009"
+       transform="rotate(-170)" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.3499999px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="219.31689"
-       y="-129.73842"
+       x="222.10837"
+       y="-176.26711"
        id="text4122"
-       transform="rotate(105)"><tspan
+       transform="rotate(63)"><tspan
          sodipodi:role="line"
          id="tspan4120"
-         x="219.31689"
-         y="-129.73842"
+         x="222.10837"
+         y="-176.26711"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.3499999px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.26458332">kasyno</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.3499999px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="86.247093"
-       y="228.38414"
+       x="24.418989"
+       y="-263.38947"
        id="text4122-8"
-       transform="rotate(-6)"><tspan
+       transform="rotate(112)"><tspan
          sodipodi:role="line"
          id="tspan4165"
-         x="86.247093"
-         y="228.38414">granat</tspan></text>
+         x="24.418989"
+         y="-263.38947">granat</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.3499999px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="-123.23185"
-       y="-176.58212"
+       x="-211.41177"
+       y="117.09472"
        id="text4122-8-5"
-       transform="rotate(-160)"><tspan
+       transform="rotate(-134)"><tspan
          sodipodi:role="line"
          id="tspan4185"
-         x="-123.23185"
-         y="-176.58212">kanary</tspan></text>
+         x="-211.41177"
+         y="117.09472">kanary</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.3499999px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="-92.153206"
-       y="200.84357"
+       x="186.45497"
+       y="216.17987"
        id="text4122-8-6"
-       transform="rotate(-50)"><tspan
+       transform="rotate(-34)"><tspan
          sodipodi:role="line"
          id="tspan4223"
-         x="-92.153206"
-         y="200.84357">szpital</tspan></text>
+         x="186.45497"
+         y="216.17987">szpital</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.3499999px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="207.65816"
-       y="158.54279"
+       x="-131.41913"
+       y="-202.96878"
        id="text4122-8-6-0"
-       transform="rotate(30)"><tspan
+       transform="rotate(148)"><tspan
          sodipodi:role="line"
          id="tspan4243"
-         x="207.65816"
-         y="158.54279">tarcza</tspan></text>
+         x="-131.41913"
+         y="-202.96878">tarcza</tspan></text>
   </g>
 </svg>

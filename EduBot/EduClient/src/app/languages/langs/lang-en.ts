@@ -12,6 +12,7 @@ export const LANG_EN_TRANS = {
     'common.code': 'Code task',
     'common.empty': ' ',
     'common.error': 'Error',
+    'common.result': 'Result',
 
     'view.content': 'CONTENT',
     'view.example': 'EXAMPLE',

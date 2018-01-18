@@ -2,69 +2,29 @@ export class FortuneWheelConfig {
 
     public static readonly prizes = [
         {
-            from: 345,
-            to: 360,
-            name: 'Styczeń'
-        },
-        {
             from: 0,
-            to: 15,
-            name: 'Styczeń'
+            to: 70,
+            name: 'szpital'
         },
         {
-            from: 15,
-            to: 45,
-            name: 'Luty'
+            from: 70,
+            to: 88,
+            name: 'granat'
         },
         {
-            from: 45,
-            to: 75,
-            name: 'Marzec'
+            from: 88,
+            to: 159,
+            name: 'tarcza'
         },
         {
-            from: 75,
-            to: 105,
-            name: 'Kwiecień'
+            from: 159,
+            to: 232,
+            name: 'kasyno'
         },
         {
-            from: 105,
-            to: 135,
-            name: 'Maj'
-        },
-        {
-            from: 135,
-            to: 165,
-            name: 'Czerwiec'
-        },
-        {
-            from: 165,
-            to: 195,
-            name: 'Lipiec'
-        },
-        {
-            from: 195,
-            to: 225,
-            name: 'Sierpień'
-        },
-        {
-            from: 225,
-            to: 255,
-            name: 'Wrzesień'
-        },
-        {
-            from: 255,
-            to: 285,
-            name: 'Październik'
-        },
-        {
-            from: 285,
-            to: 315,
-            name: 'Listopad'
-        },
-        {
-            from: 315,
-            to: 345,
-            name: 'Grudzień'
+            from: 232,
+            to: 360,
+            name: 'kanary'
         },
     ];
 }

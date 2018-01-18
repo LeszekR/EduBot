@@ -18,7 +18,7 @@ export class Images {
 
         codeFirstError: "code-mine-awaken.png",
         codeSecondError: "code-mine-critical.png",
-        codeThirdError: "code-explosion.png",
+        codeThirdError: "code-mine-explosion.png",
         codeSuccess: "code-disarmed.png",
 
         promotion_01: "promotion-01.png",

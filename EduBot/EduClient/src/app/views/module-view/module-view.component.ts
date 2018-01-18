@@ -64,6 +64,12 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
     this.sub = this.moduleService.refreshModule.subscribe(m => {
       this.init(m);
     });
+
+    document.onkeydown = (e: any) => {
+      if (e.which == '27') {
+          this.hideImage();
+      }
+    }
   }
 
   // --------------------------------------------------------------------------------------------------------------

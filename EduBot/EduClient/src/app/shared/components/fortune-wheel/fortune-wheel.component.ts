@@ -28,11 +28,13 @@ export class FortuneWheelComponent {
     private time: number;
 
 
+    // CONSTRUCTOR
+    // ==============================================================================================================
     constructor(
         private messageService: MessageService
     ) {}
 
-// PUBLIC
+    // PUBLIC
     // ==============================================================================================================
     public spinTheWheel() {
         this.speed = (Math.random() * 3);

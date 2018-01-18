@@ -2,6 +2,7 @@
 using EduApi.Dto.Mappers;
 using EduApi.Repositories.Interfaces;
 using EduApi.Services.Interfaces;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -16,6 +17,7 @@ namespace EduApi.Services {
         private readonly IUserService _userService;
         private readonly ITestQuestionRepository _questionRepository;
         private readonly IModuleService _moduleService;
+        private Logger _logger;
 
 
         // CONSTRUCTOR
@@ -29,6 +31,7 @@ namespace EduApi.Services {
             _userService = userService;
             _questionRepository = questionRepository;
             _moduleService = moduleService;
+            _logger = LogManager.GetCurrentClassLogger();
         }
         #endregion
 
@@ -139,7 +142,11 @@ namespace EduApi.Services {
             _userService.SaveChanges();
 
             if (code.lastResult == true)
+            {
+                _logger.Debug("User (" + userId + ") coded succesfully on " + solvedCode.attempts + " attempt");
+
                 return CodeAttempt.CORRECT;
+            }
             else
                 return (CodeAttempt)(attemptIndex);
         }

@@ -254,6 +254,7 @@ namespace EduApi.Services {
             foreach (var child in newModules)
                 child.user.Add(user);
             _moduleRepository.SaveChanges();
+            _logger.Debug("User (" + userId + ") asked for module explanation: " + moduleId);
 
             // Przekazanie listy modułów wyjaśniających moduł nadrzędny
             return newModules.GetSimpleDTOList();

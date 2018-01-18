@@ -347,11 +347,11 @@ namespace EduApi.Services {
                 _userService.SaveChanges();
             }
 
-            // Dopisanie kolejnego dystraktora na liście wysłanych użytkownikowi
-            // lub zaktualizowanie timestamp z chwili jego wysłania, jesli jest wysyłany
-            // po raz kolejny.
-            if (newDistractor != null)
-                _distractorService.UpsertUserDistractor(user, newDistractor);
+            //// Dopisanie kolejnego dystraktora na liście wysłanych użytkownikowi
+            //// lub zaktualizowanie timestamp z chwili jego wysłania, jesli jest wysyłany
+            //// po raz kolejny.
+            //if (newDistractor != null)
+            //    _distractorService.UpsertUserDistractor(user, newDistractor);
 
 
             return new ModuleAndDistractorDTO() {

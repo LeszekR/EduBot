@@ -18,6 +18,10 @@ namespace EduApi.Services {
         private readonly IDistractorRepository _distractorRepository;
         private Logger _logger;
 
+        public static readonly string KICK = "kick";
+        public static readonly string REWARD = "reward";
+
+
 
         // CONSTRUCTOR
         // =============================================================================================
@@ -73,7 +77,7 @@ namespace EduApi.Services {
         public distractor NextDistractor(int userId, DistractorType type) {
 
             user user = _userService.GetUserEntity(userId);
-            List<user_distractor> userToDistracts = user.user_distractor.ToList();
+            List<user_distractor> userDistractsAll = user.user_distractor.ToList();
 
 
             // nie wysyłamy dystraktora
@@ -82,7 +86,7 @@ namespace EduApi.Services {
 
 
             // ostatni dystraktor był wysłany zbyt niedawno, trzeba jeszcze poczekać z następnym
-            if (!TimeForDistractor(ref userToDistracts)) {
+            if (!TimeForDistractor(ref userDistractsAll)) {
                 _logger.Debug("Not providing a distractor as user (" + userId + ") had one quiet recently.");
 
                 return null;
@@ -92,42 +96,54 @@ namespace EduApi.Services {
             // już czas na nastepny dystraktor
             string typeStr = "";
             if (type == DistractorType.KICK)
-                typeStr = "kick";
+                typeStr = KICK;
             else if (type == DistractorType.REWARD)
-                typeStr = "reward";
+                typeStr = REWARD;
 
 
             // pobranie wszystkich dystraktorów wymaganego typu
             var distractsAll = _distractorRepository.All().ToList();
-            var distractsOfType = distractsAll.Where(d => d.type == typeStr).ToList();
+            var distractsOfTypeAll = distractsAll.Where(d => d.type == typeStr).ToList();
 
 
             // wybranie tylko tych, których użytkownik jeszcze nie widział
-            var userDistractors = userToDistracts
+            var userDistractsOfType = userDistractsAll
                 .Select(ud => ud.distractor)
                 .Where(d => d.type == typeStr)
                 .ToList();
-            var newDistractors = distractsOfType.Except(userDistractors).ToList();
+            var unseenDistracts = distractsOfTypeAll.Except(userDistractsOfType).ToList();
+            int nDistracts = unseenDistracts.Count();
 
 
             // jeżeli widział już wszystkie - pobranie najstarszej połowy
-            int nDistractors = newDistractors.Count();
-            if (nDistractors == 0) {
-                userToDistracts.Sort((a, b) => DateTime.Compare(a.time_last_used, b.time_last_used));
-                nDistractors = userToDistracts.Count();
-                int nHalf = nDistractors == 1 ? 1 : nDistractors / 2;
-                newDistractors = userToDistracts.Take(nHalf).Select(ud => ud.distractor).ToList();
+            if (nDistracts == 0) {
+                nDistracts = userDistractsOfType.Count();
+                nDistracts = nDistracts == 1 ? 1 : nDistracts / 2;
+
+                unseenDistracts = userDistractsAll
+                    .OrderBy(a => a.time_last_used)
+                    .Select(ud => ud.distractor)
+                    .Where(d => d.type == typeStr)
+                    .Take(nDistracts)
+                    .ToList();
             }
 
             // w bazie nie ma jeszcze dystraktorów
-            if (nDistractors == 0)
+            if (nDistracts == 0)
                 return null;
 
             // losowanie jednego dystraktora
-            var index = (Int32)(new Random().Next(0, nDistractors));
-            _logger.Info("Distractor of type \"" + newDistractors[index].type + "\" was drawn for a user (" + userId + ") with content: " + newDistractors[index].distr_content);
+            var index = (Int32)(new Random().Next(0, nDistracts));
+            var newDistractor = unseenDistracts[index];
 
-            return newDistractors[index];
+
+            // Dopisanie kolejnego dystraktora do litsy wysłanych użytkownikowi
+            // lub zaktualizowanie timestamp z chwili jego wysłania, jesli jest wysyłany po raz kolejny.
+            UpsertUserDistractor(user, newDistractor);
+
+
+            _logger.Info("Distractor of type \"" + newDistractor.type + "\" was drawn for a user (" + userId + ") with content: " + newDistractor.distr_content);
+            return newDistractor;
         }
 
 

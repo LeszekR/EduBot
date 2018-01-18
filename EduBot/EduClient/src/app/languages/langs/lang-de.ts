@@ -51,6 +51,7 @@ export const LANG_DE_TRANS = {
     'login.repeat_password': 'Passwort wiederholen',
     'login.success': '<brak tłumaczenia>',
     'login.success_register': '<brak tłumaczenia>',
+    'login.success_failure': '<brak tłumaczenia>',
 
     'module.diff-level.Easy': 'Einfach',
     'module.diff-level.Medium': 'Mittel',

@@ -29,6 +29,9 @@
                         <div class="text-danger">
                             <p>{{ errPasswChange | translate }}</p>
                         </div>
+                        <div *ngIf="registerFailure" class='text-danger'>
+                            <p>{{ 'login.success_failure' | translate }}</p>
+                        </div>
                         <div class="form-group row">
                             <label class="col-4" tooltip="Wyrażam zgodę na wysyłanie mojej brzydkiej twarzy do internetu" >
                                 <strong>

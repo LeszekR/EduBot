@@ -248,8 +248,11 @@ export class ModuleListComponent implements OnInit {
             //this.distractorService.show(moduleDistr.distractor);
 
         let module = moduleDistr.module;
+
         if (module != undefined && module != null)
             this.router.navigate(['module/' + moduleDistr.module.id]);
+        
+        setTimeout(() => {document.getElementsByClassName("active")[0].scrollIntoView();})
     }
 
     // --------------------------------------------------------------------------------------------------------------

@@ -3,7 +3,6 @@ import { FortuneWheelConfig } from './config/fortune-wheel.config';
 import { ViewChild } from '@angular/core';
 import { MessageService } from '../message/message.service';
 import { Images } from '../../../models/distractor';
-import { TestService } from '../../../mock/test.service';
 import { TestTaskService } from '../../../services/test.service';
 
 
@@ -86,7 +85,6 @@ export class FortuneWheelComponent {
                 // info for the player
                 setTimeout(() => {
                     this.messageService.info(drawn.msg, 'common.result');
-                    // (this.fortuneWheel.nativeElement as any).style = {};
                 }, 200);
             }
         }, FortuneWheelComponent.interval);

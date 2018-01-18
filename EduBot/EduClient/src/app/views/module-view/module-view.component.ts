@@ -181,7 +181,8 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
             break;
           case CodeAttempt.CORRECT:
             this.imgSrc = Images.list.codeSuccess;
-            this.context.currentCodeTask.last_result = true;
+            let idx = this.module.codeTasks.findIndex(ct => ct.id == this.context.currentCodeTask.id);
+            this.module.codeTasks[idx].last_result = true;
             this.imgClass = 'img-pos-large';
             break;
         }

@@ -10,7 +10,7 @@ export class FortuneWheelConfig {
             // name: "szpital",
             from: 0,
             to: 70,
-            msg: "W skrzyce wroga była podejrzana fiolka z jakmś płynem."
+            msg: "W skrzyce wroga była podejrzana fiolka z jakimś płynem."
                 + "<br>Skierowano cię do szpitala na 5 dni."
                 + "<br>Odzyskujesz 10% życia."
         },
@@ -35,7 +35,7 @@ export class FortuneWheelConfig {
             // name: 'kasyno',
             from: 159,
             to: 232,
-            msg: "Odkryłeś mapę pola minowego. W nagroę dostałeś urlop."
+            msg: "Odkryłeś mapę pola minowego. W nagrodę dostałeś urlop."
                 + "<br>Niestety, postanowiłeś spędzić go w obozowym kasynie."
                 + "<br>Przegrywasz 15% mocy swojego kombinezonu."
         },

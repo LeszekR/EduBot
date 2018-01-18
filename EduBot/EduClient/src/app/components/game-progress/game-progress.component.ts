@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { GameScore } from '../../models/game-score';
-import { MilitaryRank } from '../../models/enums';
+// import { MilitaryRank } from '../../models/enums';
 import { ContextService } from '../../services/context.service';
 
 
@@ -14,9 +14,6 @@ export class GameProgressComponent implements OnInit {
 
   @Input() gameScore: GameScore;
 
-  private rank: MilitaryRank;
-
-  // private readonly lifeMax = 100;
   private readonly nLife = 20;
   private lifeSegments: number[] = [];
 
@@ -38,8 +35,6 @@ export class GameProgressComponent implements OnInit {
     this.shieldSegments = new Array();
     for (let i = 1; i <= this.nShield; i++)
       this.shieldSegments.push(i * 50 / this.nShield);
-
-    this.rank = MilitaryRank.Soldier;
   }
 
 

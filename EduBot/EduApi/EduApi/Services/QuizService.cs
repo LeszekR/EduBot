@@ -123,7 +123,7 @@ namespace EduApi.Services {
 
             solvedCode.last_result = code.lastResult;
             solvedCode.last_answer = code.answer;
-            solvedCode.attempts += 1;
+            solvedCode.attempts = code.lastResult ? 0 : solvedCode.attempts + 1;
 
 
             // sprawdzenie czy to trzecia próba rozwiązania kodu

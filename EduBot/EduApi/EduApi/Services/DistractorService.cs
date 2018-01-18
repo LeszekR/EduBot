@@ -135,7 +135,7 @@ namespace EduApi.Services {
             var newDistractor = unseenDistracts[index];
 
 
-            // Dopisanie kolejnego dystraktora do litsy wysłanych użytkownikowi
+            // Dopisanie kolejnego dystraktora do listy wysłanych użytkownikowi
             // lub zaktualizowanie timestamp z chwili jego wysłania, jesli jest wysyłany po raz kolejny.
             UpsertUserDistractor(user, newDistractor);
 

@@ -85,7 +85,6 @@ export class FortuneWheelComponent {
                 // info for the player
                 setTimeout(() => {
                     this.messageService.info(drawn.msg, 'common.result');
-                    // (this.fortuneWheel.nativeElement as any).style = {};
                 }, 200);
             }
         }, FortuneWheelComponent.interval);

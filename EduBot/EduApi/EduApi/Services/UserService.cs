@@ -38,6 +38,7 @@ namespace EduApi.Services {
             var user = _userRepository.Get(userId);
 
             user.edumodule.Clear();
+            user.user_question.Clear();
             user.user_code.Clear();
             user.user_distractor.Clear();
 

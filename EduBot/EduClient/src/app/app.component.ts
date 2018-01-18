@@ -74,7 +74,7 @@ export class AppComponent implements OnInit, OnDestroy {
   // --------------------------------------------------------------------------------------------------------------
   refreshGameScore() {
     this.eduService.getScore()
-      .subscribe(score => this.showGameScore);
+      .subscribe(score => this.showGameScore(score));
   }
 
   // --------------------------------------------------------------------------------------------------------------

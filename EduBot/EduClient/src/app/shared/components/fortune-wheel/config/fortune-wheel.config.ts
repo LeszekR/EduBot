@@ -19,21 +19,21 @@ export class FortuneWheelConfig {
             msg: 'lottery.hospital'
         },
         {
-            name: Lottery.CASSINO,
+            name: Lottery.CASINO,
             // name: 'kasyno',
             from: 118,
             to: 188,
             msg: 'lottery.cassino'
         },
         {
-            name: Lottery.GRANADE,
+            name: Lottery.GRENADE,
             // name: 'granat',
             from: 188,
             to: 206,
             msg: 'lottery.granade'
         },
         {
-            name: Lottery.SHIELD,
+            name: Lottery.HELMET,
             // name: 'helm',
             from: 206,
             to: 277,

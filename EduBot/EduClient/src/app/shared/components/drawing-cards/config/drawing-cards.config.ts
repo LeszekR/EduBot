@@ -10,17 +10,17 @@ export class DrawingCardsConfig {
             msg: 'lottery.hospital'
         },
         {
-            name: Lottery.CASSINO,
+            name: Lottery.CASINO,
             textName: 'kasyno',
             msg: 'lottery.cassino'
         },
         {
-            name: Lottery.GRANADE,
+            name: Lottery.GRENADE,
             textName: 'granat',
             msg: 'lottery.granade'
         },
         {
-            name: Lottery.SHIELD,
+            name: Lottery.HELMET,
             textName: 'tarcza',
             msg: 'lottery.shield'
         },

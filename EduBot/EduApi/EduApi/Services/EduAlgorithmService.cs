@@ -13,12 +13,6 @@ using NLog;
 namespace EduApi.Services {
 
 
-    //// =================================================================================================
-    //public enum EmoState { UNDEFINED, BORED, FRUSTRATED, OK };
-    //public enum ChangeDifficulty { NO_CHANGE, UP, DOWN };
-    //public enum DistractorType { NO_DISTRACTOR, KICK, REWARD };
-
-
     // =================================================================================================
     public class EduAlgorithmService : IEduAlgorithmService {
 
@@ -53,7 +47,6 @@ namespace EduApi.Services {
 
         // PUBLIC
         // =============================================================================================
-        //public DistractorDTO KickTheStudent(int userId, List<Pad> lastEmoStates) {
         public GameScoreDTO GetScore(int userId) {
 
             var user = _userService.GetUserEntity(userId);
@@ -99,7 +92,6 @@ namespace EduApi.Services {
 
 
         // ---------------------------------------------------------------------------------------------
-        //public DistractorDTO KickTheStudent(int userId, List<Pad> lastEmoStates) {
         public DistractorDTO KickTheStudent(int userId, List<Pad> lastEmoStates) {
 
 
@@ -254,6 +246,7 @@ namespace EduApi.Services {
             foreach (var child in newModules)
                 child.user.Add(user);
             _moduleRepository.SaveChanges();
+            _logger.Debug("User (" + userId + ") asked for module explanation: " + moduleId);
 
             // Przekazanie listy modułów wyjaśniających moduł nadrzędny
             return newModules.GetSimpleDTOList();
@@ -325,9 +318,6 @@ namespace EduApi.Services {
                 // aktualnie użytkownik ogląda ostatni z pobranych =>
                 // dostosowanie trudności do stanu emocjonalnego i dotychczasowych wyników użytkownika
                 else {
-                    //var lastModuleId = prevModules[prevModules.Count() - 1].id;
-                    //var nextDifficulty = difficultyAndDistractor.Item1;
-                    //newModule = PickNextModule(lastModuleId, nextDifficulty);
                     var nextDifficulty = difficultyAndDistractor.Item1;
                     newModule = PickNextModule(currentModuleId, nextDifficulty);
                 }
@@ -335,9 +325,6 @@ namespace EduApi.Services {
                 // pobranie następnego dystraktora (distractorService sprawdzi czy już można)
                 var nextDistractorType = difficultyAndDistractor.Item2;
                 newDistractor = _distractorService.NextDistractor(userId, nextDistractorType);
-
-
-                // TODO: zaktualizowanie stanu gry, itd
             }
 
             // zapisanie kolejnego modułu na liście wysłanych użytkownikowi
@@ -347,12 +334,6 @@ namespace EduApi.Services {
                 user.last_module = newModule.id;
                 _userService.SaveChanges();
             }
-
-            //// Dopisanie kolejnego dystraktora na liście wysłanych użytkownikowi
-            //// lub zaktualizowanie timestamp z chwili jego wysłania, jesli jest wysyłany
-            //// po raz kolejny.
-            //if (newDistractor != null)
-            //    _distractorService.UpsertUserDistractor(user, newDistractor);
 
 
             return new ModuleAndDistractorDTO() {

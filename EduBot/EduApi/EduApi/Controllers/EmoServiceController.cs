@@ -1,6 +1,9 @@
 ﻿using EduApi.Dto;
+using EduApi.Dto.Mappers;
 using EduApi.Security;
+using EduApi.Services;
 using EduApi.Services.Interfaces;
+using System.Linq;
 using System.Web.Http;
 
 namespace EduApi.Controllers {
@@ -10,6 +13,7 @@ namespace EduApi.Controllers {
         public static EmoState _emoState = EmoState.UNDEFINED;
         private readonly IUserService _userService;
         private readonly IModuleService _moduleService;
+        private readonly IDistractorService _distractorService;
 
 
         // CONSTRUCTOR
@@ -17,11 +21,12 @@ namespace EduApi.Controllers {
         #region Constructor
         public EmoServiceController(
             IUserService userService,
-            IModuleService moduleService
-            //ITestQuestionService questionService
+            IModuleService moduleService,
+            IDistractorService distractorService
             ) {
             _userService = userService;
             _moduleService = moduleService;
+            _distractorService = distractorService;
         }
         #endregion
 
@@ -30,6 +35,8 @@ namespace EduApi.Controllers {
         // =============================================================================================
         [HttpPost]
         public IHttpActionResult SetEmoState([FromBody]int emoState) {
+
+            int userId = TokenHelper.GetUserId(User.Identity);
 
             if (emoState == -1)
                 _emoState = EmoState.BORED;
@@ -41,10 +48,14 @@ namespace EduApi.Controllers {
                 _emoState = EmoState.FRUSTRATED;
 
             else if (emoState == 2) {
-                int userId = TokenHelper.GetUserId(User.Identity);
                 _userService.ClearModuleHistory(userId);
                 return Ok("Wyczyszczono historię modułów, pytań i dystraktorów");
             }
+            else if (emoState == 3)
+                return Ok(_distractorService.MockDistractor(userId, DistractorType.REWARD));
+
+            else if (emoState == 4)
+                return Ok(_distractorService.MockDistractor(userId, DistractorType.KICK));
 
             return Ok("Ustawiono emostan: " + _emoState.ToString());
         }

@@ -4,6 +4,15 @@ namespace EduApi.Services {
 
     public interface IDistractorService {
 
+        // MOCK
+        // =============================================================================================
+        /* 1. Backs last_time_sent of all user_distractors by 10 min (necessary if next distractor
+         *    is to be sent regardless of how much time has passed since the previous one)
+         * 2. Returns next distractor for the user.
+         */
+        DistractorDTO MockDistractor(int userId, DistractorType distrType);
+        // =============================================================================================
+
         // ---------------------------------------------------------------------------------------------
         /* 1. Sprawdza, czy od ostatniego dystraktora upłynęło wystarczająco dużo czasu.
          *    (interwał określa parametr: Web.config/appSettings/timeBetweenDistractors)

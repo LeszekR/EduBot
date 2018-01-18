@@ -231,7 +231,9 @@ namespace EduApi.Services {
             lastEmoStates.ForEach(delegate (Pad pad) {
                 states += pad.state + ",";
             });
+
             _logger.Info("Providing a \"" + distrType + "\" distractor for user (" + userId + ") with last emotional states: " + states);
+
 
             return DistractorMapper.GetDTO(distractor);
         }

@@ -17,7 +17,9 @@ import { MessageService } from '../../shared/components/message/message.service'
 
 //Components
 import { AppComponent } from '../../app.component'
-import { DistractorService, DistractorType } from '../../services/distractor.service';
+import { DistractorService } from '../../services/distractor.service';
+import { Images } from '../../models/distractor';
+// import { DistractorService, DistractorType } from '../../services/distractor.service';
 
 
 // ==================================================================================================================
@@ -154,25 +156,32 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
     this.testTaskService.verifyCodeTest(this.context.currentCodeTask)
       .subscribe(codeAttempt => {
 
+        let pic: string;
+
+        // showing the result of code execution
         switch(codeAttempt){
           case CodeAttempt.ATTEMPT_1:
-            this.distractorService.show(DistractorType.SmallExplosion);
+            pic = Images.list.codeFirstError;
             break;
           case CodeAttempt.ATTEMPT_2:
-            this.distractorService.show(DistractorType.MediumExplosion);
+            pic = Images.list.codeSecondError;
             break;
           case CodeAttempt.INCORRECT:
-            this.distractorService.show(DistractorType.BigExplosion);
+            pic = Images.list.codeThirdError;
             break;
           case CodeAttempt.CORRECT:
-            this.distractorService.show(DistractorType.DisarmedMine);
+            pic = Images.list.codeSuccess;
             break;
         }
 
-        // show the result
+        // show the picture
+        // TODO: wyświetlić obrazek w TYLKO W OKNIE CODE-TASK - reszta ekranu bez zmian
+
+
+        // mark the tab containing the code as 'correct' or 'incorrect'
         // TODO - zazanaczyć zakładkę tabpane -rozwiązanie prawidłowe lub nieprawidłowe
 
-        // showing the updated game score
+        // update the game score
         this.context.appComponent.showGameScore();
       });
   }

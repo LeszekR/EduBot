@@ -6,6 +6,7 @@ using System;
 using System.Configuration;
 using NLog;
 using EduApi.Dto;
+using EduApi.Dto.Mappers;
 
 namespace EduApi.Services {
 
@@ -30,6 +31,21 @@ namespace EduApi.Services {
             _logger = LogManager.GetCurrentClassLogger();
         }
         #endregion
+
+
+        // MOCK
+        // =============================================================================================
+        public DistractorDTO MockDistractor(int userId, DistractorType distrType) {
+
+            // backing time of last use for all distractors of the user
+            var userDistractors = _userService.GetUserEntity(userId).user_distractor.ToList();
+            foreach (var ud in userDistractors)
+                ud.time_last_used = ud.time_last_used.AddMinutes(-10);
+
+            // picking next distractor of required type
+            var distractor = NextDistractor(userId, distrType);
+            return DistractorMapper.GetDTO(distractor);
+        }
 
 
         // PUBLIC
@@ -66,8 +82,7 @@ namespace EduApi.Services {
 
 
             // ostatni dystraktor był wysłany zbyt niedawno, trzeba jeszcze poczekać z następnym
-            if (!TimeForDistractor(ref userToDistracts))
-            {
+            if (!TimeForDistractor(ref userToDistracts)) {
                 _logger.Debug("Not providing a distractor as user (" + userId + ") had one quiet recently.");
 
                 return null;

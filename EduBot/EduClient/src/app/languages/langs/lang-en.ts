@@ -89,5 +89,8 @@ export const LANG_EN_TRANS = {
     'camera.share-error': 'In order to be able to adjust difficulty level please unblock camera access',
 
     'fortune-wheel.spin': 'Spin',
-    'fortune-wheel.explanation': 'You can hold the button as long as You want. After release wheel will start slowing down.'
+    'fortune-wheel.explanation': 'You can hold the button as long as You want. After release wheel will start slowing down.',
+
+    'edu.want-a-distractor': 'Do you want to open your surprise?',
+    'edu.sth-for-you': 'SURPRISE GIFT'
 };

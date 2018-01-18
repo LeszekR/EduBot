@@ -11,6 +11,7 @@ import { EduService } from './services/edu.service';
 import { HttpService } from './services/http.service';
 import { LoginService } from './services/login.service';
 import { GameScore } from './models/game-score';
+import { DistractorService } from './services/distractor.service';
 
 // ==================================================================================================================
 @Component({
@@ -38,7 +39,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private emoService: EmoService,
     private messageService: MessageService,
     private eduService: EduService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private distractorService: DistractorService
   ) {
 
     this.initializeTimer();
@@ -70,9 +72,8 @@ export class AppComponent implements OnInit, OnDestroy {
         this.context.gameScore = score;
 
         // TODO: wyświetlić otrzymany dystraktor użytkownikowi
-        // if (score.distractor != null)
-        //   var n = 0;
-        //this.distractorService.show(moduleDistr.distractor);          
+        if (score.distractor != null)
+          this.distractorService.show(score.distractor);
       });
   }
 
@@ -84,8 +85,9 @@ export class AppComponent implements OnInit, OnDestroy {
   // --------------------------------------------------------------------------------------------------------------
   setEmoState(state: number) {
     if (state != undefined)
-      this.http.post<GameScore>('http://localhost:64365/api/emoservice/setemostate', state)
-        .subscribe(gameScore => {
+      this.http.post<any>('http://localhost:64365/api/emoservice/setemostate', state)
+        .subscribe(res => {
+
           if (state == 2) {
             this.moduleListComponent.clearModules();
             let newGameScore = new GameScore();
@@ -94,7 +96,10 @@ export class AppComponent implements OnInit, OnDestroy {
             newGameScore.rank = 0;
             newGameScore.progress = 0;
           }
-          console.log(gameScore);
+          if (state == 3 || state == 4)
+            this.distractorService.show(res);
+
+          console.log(res);
         });
   }
 

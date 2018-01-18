@@ -1,6 +1,6 @@
 export class FortuneWheelConfig {
 
-    public static readonly config = [
+    public static readonly prizes = [
         {
             from: 345,
             to: 360,

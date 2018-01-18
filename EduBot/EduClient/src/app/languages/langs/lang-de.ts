@@ -89,5 +89,8 @@ export const LANG_DE_TRANS = {
     'camera.share-error': '<brak tłumaczenia>',
 
     'fortune-wheel.spin': 'Dreh',
-    'fortune-wheel.explanation': '<brak tłumaczenia>'
+    'fortune-wheel.explanation': '<brak tłumaczenia>',
+
+    'edu.want-a-distractor': '<brak tłumaczenia>',
+    'edu.sth-for-you': '<brak tłumaczenia>'
 };

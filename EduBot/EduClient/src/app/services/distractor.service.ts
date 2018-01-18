@@ -2,26 +2,20 @@ import { Injectable, Output, EventEmitter } from '@angular/core';
 
 // Model
 import { Distractor } from '../models/distractor';
+// import { DistractorType } from '../models/enums';
 
-export enum DistractorType{
-    SmallExplosion,
-    MediumExplosion,
-    BigExplosion,
-    DisarmedMine,
-    HiddenMine,
-    Promotion,
-    WheelOfFortune,
-    CardsDraw
-}
-// ==================================================================================================================
 
+// ==================================================================================================
 @Injectable()
 export class DistractorService {
 
-  @Output() onShowDistrctor = new EventEmitter<DistractorType>();
+    // @Output() onShowDistractor = new EventEmitter<DistractorType>();
+    @Output() onShowDistractor = new EventEmitter<Distractor>();
 
-  public show(type: DistractorType): void {
-      this.onShowDistrctor.emit(type);
-  }
 
+    // PUBLIC
+    // ==============================================================================================
+    public show(distractor: Distractor): void {
+        this.onShowDistractor.emit(distractor);
+    }
 }

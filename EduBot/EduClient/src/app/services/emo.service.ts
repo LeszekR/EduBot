@@ -9,6 +9,15 @@ import { CameraService } from './camera.service';
 import { EduService } from './edu.service';
 
 
+/** 
+ * This class runs the emotion monitoring loop where it:
+ * 1. takes the user's face pic
+ * 2. sends the pic to the server
+ * 3. if the server reacts with distractor - proceeds to show or suggest it
+ * 
+ * The server does not have to send a distractor.
+ * The server stores the emo-state for its decisions concerning difficulty level.
+ */
 // ==================================================================================================================
 @Injectable()
 export class EmoService {
@@ -39,15 +48,13 @@ export class EmoService {
         );
     }
 
-
-    // ==============================================================================================================
+    // --------------------------------------------------------------------------------------------------------------
     stop() {
         this.alive = false;
         clearInterval(this.pixTimer);
     }
 
-
-    // ==============================================================================================================
+    // --------------------------------------------------------------------------------------------------------------
     sendPic() {
         this.takeSendPicture();
     }

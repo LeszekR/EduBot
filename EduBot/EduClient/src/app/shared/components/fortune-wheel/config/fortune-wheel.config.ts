@@ -26,14 +26,14 @@ export class FortuneWheelConfig {
             msg: 'lottery.cassino'
         },
         {
-            name: Lottery.GRANADE,
+            name: Lottery.GRENADE,
             // name: 'granat',
             from: 188,
             to: 206,
             msg: 'lottery.granade'
         },
         {
-            name: Lottery.SHIELD,
+            name: Lottery.HELMET,
             // name: 'helm',
             from: 206,
             to: 277,

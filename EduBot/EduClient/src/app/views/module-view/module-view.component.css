@@ -39,6 +39,6 @@
 
 .distractor-close{
     position: absolute;
-    top: 100px;
-    right: 100px;
+    top: 50px;
+    left: 70%;
 }

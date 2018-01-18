@@ -38,6 +38,8 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
   private readonly CONTENT_VIEW = 'content';
   private readonly QUIZ_VIEW = 'quiz';
   private readonly CODE_VIEW = 'code';
+  private imgSrc: string;
+  private imgClass: string;
 
 
   // CONSTRUCTOR
@@ -56,6 +58,7 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
     this.route.data.subscribe(data => {
       this.init(data.module);
       this.viewType = this.CONTENT_VIEW;
+      this.imgSrc = null;
     });
 
     this.sub = this.moduleService.refreshModule.subscribe(m => {
@@ -156,21 +159,24 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
     this.testTaskService.verifyCodeTest(this.context.currentCodeTask)
       .subscribe(codeAttempt => {
 
-        let pic: string;
-
         // showing the result of code execution
         switch(codeAttempt){
           case CodeAttempt.ATTEMPT_1:
-            pic = Images.list.codeFirstError;
+            this.imgSrc = Images.list.codeFirstError;
+            this.imgClass = 'img-pos-small';
             break;
           case CodeAttempt.ATTEMPT_2:
-            pic = Images.list.codeSecondError;
+            this.imgSrc = Images.list.codeSecondError;
+            this.imgClass = 'img-pos-mid';
             break;
           case CodeAttempt.INCORRECT:
-            pic = Images.list.codeThirdError;
+            this.imgSrc = Images.list.codeThirdError;
+            this.imgClass = 'img-pos-large';
             break;
           case CodeAttempt.CORRECT:
-            pic = Images.list.codeSuccess;
+            this.imgSrc = Images.list.codeSuccess;
+            this.context.currentCodeTask.last_result = true;
+            this.imgClass = 'img-pos-large';
             break;
         }
 
@@ -184,6 +190,10 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
         // update the game score
         this.context.appComponent.showGameScore();
       });
+  }
+
+  private hideImage(){
+    this.imgSrc = null;
   }
 
   // --------------------------------------------------------------------------------------------------------------

@@ -2,28 +2,33 @@ export class FortuneWheelConfig {
 
     public static readonly prizes = [
         {
-            from: 0,
-            to: 70,
+            from: 350,
+            to: 360,
             name: 'szpital'
         },
         {
-            from: 70,
-            to: 88,
-            name: 'granat'
+            from: 0,
+            to: 118,
+            name: 'szpital'
         },
         {
-            from: 88,
-            to: 159,
-            name: 'tarcza'
-        },
-        {
-            from: 159,
-            to: 232,
+            from: 118,
+            to: 188,
             name: 'kasyno'
         },
         {
-            from: 232,
-            to: 360,
+            from: 188,
+            to: 206,
+            name: 'granat'
+        },
+        {
+            from: 206,
+            to: 277,
+            name: 'tarcza'
+        },
+        {
+            from: 277,
+            to: 350,
             name: 'kanary'
         },
     ];

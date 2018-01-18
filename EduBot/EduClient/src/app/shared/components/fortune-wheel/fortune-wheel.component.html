@@ -1,22 +1,30 @@
-<div class="col-6 m-0 p-0 b-0" style="color: black; height: 500px;">
 
-    <button 
-        #spinButton 
-        class="col-4 btn btn-primary mr-1 font-machine"
-        (mousedown)="spinTheWheel();" 
-        (mouseup)="letItRoll();" 
-        >
-        {{ 'fortune-wheel.spin' | translate }}
-    </button>
+<div class="container wheel-position" style="color: black; height: 500px;">
+    <div class="row">
+        <div class="col">
+            <i class="fa fa-arrow-down fa-4x fortune-pointer" aria-hidden="true"></i>
+    
+            <!-- <div class="fortune-pointer">
+                <img (src)="bckgrAddress">
+            </div> -->
+            <div #fortuneWheel>
+                <img src="/assets/img/fortune-wheel.png"/>
+                <!-- <img (src)="wheelAddress"> -->
+            </div>
 
-    * {{ 'fortune-wheel.explanation' | translate }}
-
-    <div class="fortune-pointer">
-        <!-- <img (src)="bckgrAddress"> -->
-    </div>
-
-    <div #fortuneWheel>
-        <!-- <img src="/assets/img/fortune-wheel.png"/> -->
-        <img (src)="wheelAddress">
+        </div>
+        <div class="col">
+            <button 
+                #spinButton 
+                (mousedown)="spinTheWheel();" 
+                (mouseup)="letItRoll();" 
+                class="col-4 btn btn-primary mr-1 font-machine"
+                >
+                {{ 'fortune-wheel.spin' | translate }}
+            </button>
+            <span class="text-white">
+                * {{ 'fortune-wheel.explanation' | translate }}
+            </span>
+        </div>
     </div>
 </div>

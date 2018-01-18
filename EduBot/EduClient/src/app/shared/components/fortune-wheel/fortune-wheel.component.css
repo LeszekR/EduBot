@@ -17,7 +17,13 @@
 }
 
 .fortune-pointer {
-    width: 400px;
-    text-align: center;
-    color:red;
+    position: relative;
+    margin-left: 43%;
+    margin-bottom: 10px;
+}
+
+.wheel-position{
+    position: absolute;
+    left: 30%;
+    top: 20%;
 }

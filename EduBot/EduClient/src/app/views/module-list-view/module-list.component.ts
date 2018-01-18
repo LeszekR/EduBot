@@ -177,7 +177,7 @@ export class ModuleListComponent implements OnInit {
     // PRIVATE
     // ==============================================================================================================
     private showGameScore() {
-        this.context.appComponent.showGameScore();
+        this.context.appComponent.refreshGameScore();
     }
 
     // --------------------------------------------------------------------------------------------------------------

@@ -9,13 +9,21 @@ import 'rxjs/add/operator/toPromise';
 import { HttpService } from '../services/http.service';
 import { TestData } from '../mock/test-data'
 
+
+// ==================================================================================================================
 @Injectable()
 export class TestService {
 
-    private testUrl = 'http://localhost:64365/api/test';
+    private readonly testUrl = 'http://localhost:64365/api/test';
 
+
+    // CONSTRUCTOR
+    // ==============================================================================================================
     constructor(private http: HttpService){}
-    
+
+
+    // PUBLIC
+    // ==============================================================================================================
     getGet(): Observable<any>{
         return this.http.get(this.testUrl)
             .map((res: Response) => res.json())

@@ -1,30 +1,52 @@
+import { Lottery } from "../../../../models/enums";
+
+
+// ==================================================================================================================
 export class FortuneWheelConfig {
 
     public static readonly prizes = [
         {
+            name: Lottery.HOSPITAL,
+            // name: "szpital",
             from: 0,
             to: 70,
-            name: 'szpital'
+            msg: "W skrzyce wroga była podejrzana fiolka z jakmś płynem."
+                + "<br>Skierowano cię do szpitala na 5 dni."
+                + "<br>Odzyskujesz 10% życia."
         },
         {
+            name: Lottery.GRANADE,
+            // name: 'granat',
             from: 70,
             to: 88,
-            name: 'granat'
+            msg: "GRANAT!!"
+                + "<br>Tracisz 3% życia."
         },
         {
+            name: Lottery.SHIELD,
+            // name: 'helm',
             from: 88,
             to: 159,
-            name: 'tarcza'
+            msg: "Znajdujesz saperski hełm wroga."
+                + "<br>Zyskujesz 5% mocy swojej ochrony."
         },
         {
+            name: Lottery.CASSINO,
+            // name: 'kasyno',
             from: 159,
             to: 232,
-            name: 'kasyno'
+            msg: "Odkryłeś mapę pola minowego. W nagroę dostałeś urlop."
+                + "<br>Niestety, postanowiłeś spędzić go w obozowym kasynie."
+                + "<br>Przegrywasz 15% mocy swojego kombinezonu."
         },
         {
+            name: Lottery.CANARIES,
+            // name: 'kanary',
             from: 232,
             to: 360,
-            name: 'kanary'
+            msg: "Materiały znalezione w skrzynce wroga są tak cenne,"
+                + "że otrzymujesz 2-tygodniowy urlop na Kanarach."
+                + "Odzyskujesz 20% życia."
         },
     ];
 }

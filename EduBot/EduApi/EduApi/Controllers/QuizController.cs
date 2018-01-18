@@ -8,19 +8,32 @@ namespace EduApi.Controllers {
     public class QuizController : ApiController {
 
         private readonly IQuizService _quizService;
+        private readonly IEduAlgorithmService _eduAlgorithmService;
 
 
         // CONSTRUCTOR
         // =============================================================================================
         #region Constructor
-        public QuizController(IQuizService quizService) {
+        public QuizController(
+            IQuizService quizService,
+            IEduAlgorithmService eduAlgorithmService
+            ) {
             _quizService = quizService;
+            _eduAlgorithmService = eduAlgorithmService;
         }
         #endregion
 
 
         // PUBLIC
         // =============================================================================================
+        [HttpPost]
+        public IHttpActionResult Lottery([FromBody] Lottery drawnPrize) {
+            int userId = TokenHelper.GetUserId(User.Identity);
+            _quizService.RecordLottery(userId, drawnPrize);
+            return Ok(_eduAlgorithmService.GetScore(userId));
+        }
+
+        // ---------------------------------------------------------------------------------------------
         [HttpPost]
         public IHttpActionResult VerifyCodeTest([FromBody]TestCodeAnswDTO code) {
             int userId = TokenHelper.GetUserId(User.Identity);

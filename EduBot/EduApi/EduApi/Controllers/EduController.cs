@@ -1,4 +1,5 @@
-﻿using EduApi.Security;
+﻿using EduApi.Dto;
+using EduApi.Security;
 using EduApi.Services.Interfaces;
 using System.Web.Http;
 

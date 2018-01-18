@@ -1,14 +1,7 @@
 // ==================================================================================================================
-// export enum DistractorType {
-//     SmallExplosion,
-//     MediumExplosion,
-//     BigExplosion,
-//     DisarmedMine,
-//     HiddenMine,
-//     Promotion,
-//     WheelOfFortune,
-//     CardsDraw
-// }
+export enum Lottery {
+    CANARIES, CASSINO, GRANADE, HOSPITAL, SHIELD
+}
 // ==================================================================================================================
 export enum CodeAttempt {
     ATTEMPT_1 = 1,

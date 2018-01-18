@@ -53,6 +53,7 @@ namespace EduApi.Services {
 
         // PUBLIC
         // =============================================================================================
+        //public DistractorDTO KickTheStudent(int userId, List<Pad> lastEmoStates) {
         public GameScoreDTO GetScore(int userId) {
 
             var user = _userService.GetUserEntity(userId);

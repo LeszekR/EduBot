@@ -65,16 +65,16 @@ export class AppComponent implements OnInit, OnDestroy {
 
   // PUBLIC
   // ==============================================================================================================
-  showGameScore() {
+  showGameScore(score: GameScore) {
+    this.context.gameScore = score;
+    if (score.distractor != null)
+      this.distractorService.show(score.distractor);
+  }
+
+  // --------------------------------------------------------------------------------------------------------------
+  refreshGameScore() {
     this.eduService.getScore()
-      .subscribe(score => {
-
-        this.context.gameScore = score;
-
-        // TODO: wyświetlić otrzymany dystraktor użytkownikowi
-        if (score.distractor != null)
-          this.distractorService.show(score.distractor);
-      });
+      .subscribe(score => this.showGameScore);
   }
 
   // --------------------------------------------------------------------------------------------------------------

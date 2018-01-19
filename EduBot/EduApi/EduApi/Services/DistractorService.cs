@@ -87,7 +87,7 @@ namespace EduApi.Services {
 
             // ostatni dystraktor był wysłany zbyt niedawno, trzeba jeszcze poczekać z następnym
             if (!TimeForDistractor(ref userDistractsAll)) {
-                _logger.Debug("Not providing a distractor as user (" + userId + ") had one quiet recently.");
+                _logger.Debug("User: " + userId + "|" + "Not providing a distractor as user had one quiet recently.");
                 return null;
             }
 
@@ -140,7 +140,7 @@ namespace EduApi.Services {
             UpsertUserDistractor(user, newDistractor);
 
 
-            _logger.Info("Distractor of type \"" + newDistractor.type + "\" was drawn for a user (" + userId + ") with content: " + newDistractor.distr_content);
+            _logger.Info("User: " + userId + "|" + "Distractor of type \"" + newDistractor.type + "\" was drawn with content: " + newDistractor.distr_content);
             return newDistractor;
         }
 

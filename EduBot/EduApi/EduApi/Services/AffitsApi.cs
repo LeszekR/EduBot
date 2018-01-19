@@ -30,7 +30,7 @@ namespace EduApi.Services {
 
         // PUBLIC
         // =============================================================================================
-        public string sendImage(string image, string sessionId, string milisecondsTimestamp) {
+        public string sendImage(string image, string sessionId, string milisecondsTimestamp, int userId) {
             dynamic payload = new JObject();
             payload.image = image;
             StringContent content = new StringContent(payload.ToString());
@@ -41,27 +41,27 @@ namespace EduApi.Services {
 
             HttpContent responseContent = response.Content;
             string responseString = responseContent.ReadAsStringAsync().Result;
-            log(url, responseString);
+            log(userId, url, responseString);
 
             return responseString;
         }
 
 
         // ---------------------------------------------------------------------------------------------
-        public string initSession() {
+        public string initSession(int userId) {
             HttpResponseMessage response = _httpClient.GetAsync(apiHost + initEndpoint).Result;
             response.EnsureSuccessStatusCode();
 
             HttpContent responseContent = response.Content;
             string responseString = responseContent.ReadAsStringAsync().Result;
-            log(apiHost + initEndpoint, responseString);
+            log(userId, apiHost + initEndpoint, responseString);
 
             return responseString;
         }
 
 
         // ---------------------------------------------------------------------------------------------
-        public string getResults(string sessionId, string milisecondsTimestamp) {
+        public string getResults(string sessionId, string milisecondsTimestamp, int userId) {
             string url = parseUrl(resultsEndpoint, sessionId, milisecondsTimestamp);
 
             HttpResponseMessage response = _httpClient.GetAsync(url).Result;
@@ -69,7 +69,7 @@ namespace EduApi.Services {
 
             HttpContent responseContent = response.Content;
             string responseString = responseContent.ReadAsStringAsync().Result;
-            log(url, responseString);
+            log(userId, url, responseString);
 
             return responseString;
         }
@@ -86,8 +86,8 @@ namespace EduApi.Services {
 
 
         // ---------------------------------------------------------------------------------------------
-        private void log(string url, string response) {
-            _logger.Debug(url + " request with response: \"" + response + "\"");
+        private void log(int userId, string url, string response) {
+            _logger.Debug("User: " + userId + "|" + url + " request with response: \"" + response + "\"");
         }
     }
 }

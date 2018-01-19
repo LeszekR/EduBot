@@ -1,3 +1,5 @@
+import { DistractorComponent } from "../shared/components/distractor/distractor.component";
+
 
 // ==================================================================================================================
 export class Distractor {
@@ -6,7 +8,7 @@ export class Distractor {
 
 // ==================================================================================================================
 export class Images {
-    
+
     public static list = {
 
         fortuneWheel: "fortune-wheel.png",
@@ -23,23 +25,26 @@ export class Images {
 
         promotion_01: "promotion-01.png",
         degradation_01: "degradation-01.png",
-        end_game: "end-game.png"
+
+        hiddenMine: "hidden-mine-01.png",
+        
+        end_game: "end-game.png",
     }
 }
 
 // ==================================================================================================================
 export class Distractors {
 
-    public static rewardPrograms = {
-        fortuneWheel: 'fortuneWheel',
-        drawCards: 'drawCards',
-    }
+    static readonly fortuneWheel = 'fortuneWheel';
+    static readonly drawCards = 'drawCards';
+    static readonly hiddenMine = 'hiddenMine';
 
-    public static mixed = {
-        
-        // rewards
+    static obligatory(distractor: Distractor){
 
-        // kicks
-        kick_01: "hidden-mine-01.png",
-    }
+        let mustDo = [
+            this.hiddenMine
+        ];        
+
+        return mustDo.indexOf(distractor.distr_content) > -1;
+    } 
 }

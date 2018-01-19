@@ -2,7 +2,7 @@ import { Lottery } from '../../../../models/enums';
 
 export class PrizeInterface {
 
-    name: Lottery;
+    lottery: Lottery;
     textName: string;
     msg: string;
 }

@@ -95,6 +95,7 @@ export const LANG_EN_TRANS = {
     'lottery.shield': 'You find the sapper helmet of the enemy. You gain 5% of the power of your protection.',
     'lottery.cassino': 'You have found a minefield map. As a reward, you got a holiday. Unfortunately, you decided to spend it in the camp casino. You are losing 15% of the power of your suit.',
     'lottery.canaries': 'The materials found in the enemy box are so valuable that you get a 2-week holiday in the Canaries. You recover 20% of your life.',
+    'lottery.decoy': 'You just stamped on hidden mine!! You loose 3% życia.',
 
     'fortune-wheel.spin': 'Spin',
     'fortune-wheel.explanation': 'You can hold the button as long as You want. After release wheel will start slowing down.',

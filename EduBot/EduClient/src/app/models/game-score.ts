@@ -7,5 +7,6 @@ export class GameScore {
     shield: number;
     rank: MilitaryRank;
     progress: number;
-    distractor: Distractor;
+    // image: string;
+    // distractor: Distractor;
 }

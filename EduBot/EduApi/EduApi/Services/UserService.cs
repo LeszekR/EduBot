@@ -46,7 +46,7 @@ namespace EduApi.Services {
             game.life = 1000;
             game.shield = 0;
             game.rank = 0;
-            game.promotion = 0;
+            //game.promotion = 0;
 
             _userRepository.SaveChanges();
         }

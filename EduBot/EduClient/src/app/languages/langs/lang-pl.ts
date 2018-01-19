@@ -95,6 +95,7 @@ export const LANG_PL_TRANS = {
     'lottery.shield': 'Znajdujesz saperski hełm wroga. Zyskujesz 5% mocy swojej ochrony.',
     'lottery.cassino': 'Odkryłeś mapę pola minowego. W nagrodę dostałeś urlop. Niestety, postanowiłeś spędzić go w obozowym kasynie. Przegrywasz 15% mocy swojego kombinezonu.',
     'lottery.canaries': 'Materiały znalezione w skrzynce wroga są tak cenne, że otrzymujesz 2-tygodniowy urlop na Kanarach. Odzyskujesz 20% życia.',
+    'lottery.decoy': 'Nadepnąłeś na minę!! Tracisz 3% życia.',
 
     'fortune-wheel.spin': 'Kręć',
     'fortune-wheel.explanation': 'Przytrzymaj jak długo chcesz. Gdy puścisz koło zacznie zwalniać.',

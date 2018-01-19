@@ -3,7 +3,9 @@ import { FortuneWheelConfig } from './config/fortune-wheel.config';
 import { ViewChild } from '@angular/core';
 import { MessageService } from '../message/message.service';
 import { Images } from '../../../models/distractor';
-import { TestTaskService } from '../../../services/test.service';
+// import { TestTaskService } from '../../../services/test.service';
+import { DistractorService } from '../../../services/distractor.service';
+import { DistractorComponent } from '../distractor/distractor.component';
 
 
 // ==================================================================================================================
@@ -25,6 +27,8 @@ export class FortuneWheelComponent {
     // @Input() private readonly bckgrAddress = '/assets/img/fortune-wheel-backgr.png';
     @Input() private readonly wheelAddress = this.IMG_PATH + Images.list.fortuneWheel;
 
+    @Input() private distractorComp: DistractorComponent;
+
     private add: number;
     private speed: number;
     private time: number;
@@ -33,8 +37,7 @@ export class FortuneWheelComponent {
     // CONSTRUCTOR
     // ==============================================================================================================
     constructor(
-        private messageService: MessageService,
-        private testTaskService: TestTaskService
+        private messageService: MessageService
     ) { }
 
 
@@ -70,22 +73,22 @@ export class FortuneWheelComponent {
 
             this.slowDownTheWheel(this.speed, delay);
             if (this.speed > FortuneWheelComponent.minimalSpeed) {
-                const result = 360 - ((secondsPassed + delay) / this.speed * 100 % 100 * 3.6);
-                const drawn = FortuneWheelConfig.prizes
-                    .filter(obj => obj.from < result && obj.to >= result)
+
+                const angle = 360 - ((secondsPassed + delay) / this.speed * 100 % 100 * 3.6);
+                const result = FortuneWheelConfig.prizes
+                    .filter(obj => obj.from < angle && obj.to >= angle)
                     .shift();
 
                 clearInterval(wheelSpinning);
                 this.fortuneWheel.nativeElement.style.webkitAnimationPlayState = 'paused';
                 // this.spinButton.nativeElement.disabled = false;
 
-
                 // recording the result and recalculating the game score
-                this.testTaskService.recordLotteryResult(drawn.name);
+                this.distractorComp.lottery = result.lottery;
 
-                // info for the player
+                // the player gets informed what they've just drawn to their doom..
                 setTimeout(() => {
-                    this.messageService.info(drawn.msg, 'common.result');
+                    this.messageService.info(result.msg, 'common.result')
                 }, 200);
             }
         }, FortuneWheelComponent.interval);

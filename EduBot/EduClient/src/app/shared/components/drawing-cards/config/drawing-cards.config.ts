@@ -5,27 +5,27 @@ export class DrawingCardsConfig {
 
     public static readonly prizes: Array<PrizeInterface> = [
         {
-            name: Lottery.HOSPITAL,
+            lottery: Lottery.HOSPITAL,
             textName: 'szpital',
             msg: 'lottery.hospital'
         },
         {
-            name: Lottery.CASINO,
+            lottery: Lottery.CASINO,
             textName: 'kasyno',
             msg: 'lottery.cassino'
         },
         {
-            name: Lottery.GRENADE,
+            lottery: Lottery.GRENADE,
             textName: 'granat',
             msg: 'lottery.granade'
         },
         {
-            name: Lottery.HELMET,
+            lottery: Lottery.HELMET,
             textName: 'tarcza',
             msg: 'lottery.shield'
         },
         {
-            name: Lottery.CANARIES,
+            lottery: Lottery.CANARIES,
             textName: 'Kanary',
             msg: 'lottery.canaries'
         },

@@ -1,9 +1,10 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component, Input, ElementRef } from '@angular/core';
 import { DrawingCardsConfig } from './config/drawing-cards.config';
 import { ViewChild } from '@angular/core';
 import { TestTaskService } from '../../../services/test.service';
 import { PrizeInterface } from './config/prize.interface';
 import { MessageService } from '../message/message.service';
+import { DistractorComponent } from '../distractor/distractor.component';
 
 
 // ==================================================================================================================
@@ -16,6 +17,9 @@ export class DrawingCardsComponent {
 
     @ViewChild('cardTemplate') cardTemplate: ElementRef;
 
+    @Input() distractorComp: DistractorComponent;
+
+
     public readonly prizes: Array<PrizeInterface> = DrawingCardsConfig.prizes;
     public picked = false;
 
@@ -23,8 +27,8 @@ export class DrawingCardsComponent {
     // CONSTRUCTOR
     // ==============================================================================================================
     constructor(
-        private messageService: MessageService,
-        private testTaskService: TestTaskService
+        private messageService: MessageService
+        // private testTaskService: TestTaskService
     ) { }
 
 
@@ -41,8 +45,10 @@ export class DrawingCardsComponent {
 
         // getting the result
         const result = this.shuffle(DrawingCardsConfig.prizes)[id];
-        parentN.getElementsByClassName('back')[0].innerHTML = result.textName;
-        // console.log(event, JSON.stringify(card));
+        parentN.getElementsByClassName('back')[0].innerHTML = result.textName
+
+        // recording the result and recalculating the game score
+        this.distractorComp.lottery = result.lottery;
 
         // msg for the user - the prize
         setTimeout(() => {

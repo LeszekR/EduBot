@@ -42,8 +42,7 @@ export class EduService {
     serverWantsToDistract(distractor: Distractor) {
 
         // if it's 'reward' distractor - let the user decide wheteher to show the distractor now
-        let unobligatory = Object.keys(Distractors.rewardPrograms);
-        if (unobligatory.indexOf(distractor.distr_content) > -1)
+        if (!Distractors.obligatory(distractor))
             this.msgService.confirm('edu.want-a-distractor', 'edu.sth-for-you')
                 .then(decision => {
                     if (decision == false)

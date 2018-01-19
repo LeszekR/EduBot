@@ -12,6 +12,7 @@ import { HttpService } from './services/http.service';
 import { LoginService } from './services/login.service';
 import { GameScore } from './models/game-score';
 import { DistractorService } from './services/distractor.service';
+import { Images, Distractor } from './models/distractor';
 
 // ==================================================================================================================
 @Component({
@@ -66,9 +67,21 @@ export class AppComponent implements OnInit, OnDestroy {
   // PUBLIC
   // ==============================================================================================================
   showGameScore(score: GameScore) {
+
+    let rankOld = this.context.gameScore.rank;
+    
+    if (rankOld > score.rank) {
+      let distractor = new Distractor();
+      distractor.distr_content = "promotion_01";
+      this.distractorService.show(distractor);
+    }
+    else if (rankOld < score.rank) {
+      let distractor = new Distractor();
+      distractor.distr_content = "degradation_01";
+      this.distractorService.show(distractor);
+    }
+    
     this.context.gameScore = score;
-    if (score.distractor != null)
-      this.distractorService.show(score.distractor);
   }
 
   // --------------------------------------------------------------------------------------------------------------

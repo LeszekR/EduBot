@@ -295,6 +295,9 @@ namespace EduApi.Services {
                     case Lottery.HOSPITAL:
                         change = ConfigurationManager.AppSettings["szpital"];
                         break;
+                    case Lottery.DECOY:
+                        change = ConfigurationManager.AppSettings["pulapka"];
+                        break;
                 }
 
 
@@ -380,13 +383,13 @@ namespace EduApi.Services {
             var oldRank = user.user_game.rank;
             user.user_game.rank = newRank;
 
-            // reord in the database that the user is to receive 'promotion' distractor
-            if (newRank > oldRank)
-                user.user_game.promotion = 1;
-            else if (newRank == oldRank)
-                user.user_game.promotion = 0;
-            else
-                user.user_game.promotion = -1;
+            //// reord in the database that the user is to receive 'promotion' distractor
+            //if (newRank > oldRank)
+            //    user.user_game.promotion = 1;
+            //else if (newRank == oldRank)
+            //    user.user_game.promotion = 0;
+            //else
+            //    user.user_game.promotion = -1;
         }
 
 

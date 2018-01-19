@@ -79,14 +79,14 @@ namespace EduApi.Services {
             var progress = nTotal == 0 ? 0 : 100 * nDone / nTotal;
 
 
-            DistractorDTO distractorDto = GamePromotionDistractor(userId, ref user);
+            //DistractorDTO distractorDto = GamePromotionDistractor(userId, ref user);
 
             return new GameScoreDTO() {
                 progress = progress,
                 life = (int)(user.user_game.life / 10),
                 shield = (int)(user.user_game.shield / 50 * 100),
                 rank = (MilitaryRank)user.user_game.rank,
-                distractor = distractorDto
+                //distractor = distractorDto
             };
         }
 
@@ -344,24 +344,24 @@ namespace EduApi.Services {
 
         // PRIVATE
         // =============================================================================================
-        /* specjalny dystraktor jeśli saper dostaje awans */
-        private DistractorDTO GamePromotionDistractor(int userId, ref user user) {
+        ///* specjalny dystraktor jeśli saper dostaje awans */
+        //private DistractorDTO GamePromotionDistractor(int userId, ref user user) {
 
-            DistractorDTO newDistractor = null;
+        //    DistractorDTO newDistractor = null;
 
-            if (user.user_game.promotion > 0)
-                newDistractor = new DistractorDTO() { distr_content = "promotion_01" };
+        //    if (user.user_game.promotion > 0)
+        //        newDistractor = new DistractorDTO() { distr_content = "promotion_01" };
 
-            else if (user.user_game.promotion < 0)
-                newDistractor = new DistractorDTO() { distr_content = "degradation_01" };
+        //    else if (user.user_game.promotion < 0)
+        //        newDistractor = new DistractorDTO() { distr_content = "degradation_01" };
 
-            if (user.user_game.promotion != 0) {
-                _userService.GetUserEntity(userId).user_game.promotion = 0;
-                _userService.SaveChanges();
-            }
+        //    if (user.user_game.promotion != 0) {
+        //        _userService.GetUserEntity(userId).user_game.promotion = 0;
+        //        _userService.SaveChanges();
+        //    }
 
-            return newDistractor;
-        }
+        //    return newDistractor;
+        //}
 
 
         // ---------------------------------------------------------------------------------------------

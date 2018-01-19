@@ -66,9 +66,8 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
     });
 
     document.onkeydown = (e: any) => {
-      if (e.which == '27') {
+      if (e.which == '27') 
           this.hideImage();
-      }
     }
   }
 
@@ -192,13 +191,6 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
             this.imgClass = 'img-pos-large';
             break;
         }
-
-        // show the picture
-        // TODO: wyświetlić obrazek w TYLKO W OKNIE CODE-TASK - reszta ekranu bez zmian
-
-
-        // mark the tab containing the code as 'correct' or 'incorrect'
-        // TODO - zazanaczyć zakładkę tabpane -rozwiązanie prawidłowe lub nieprawidłowe
 
         // update the game score
         this.context.appComponent.refreshGameScore();

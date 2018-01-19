@@ -6,45 +6,46 @@ export class FortuneWheelConfig {
 
     public static readonly prizes = [
         {
-            name: Lottery.HOSPITAL,
+            lottery: Lottery.HOSPITAL,
             from: 350,
             to: 360,
             msg: 'lottery.hospital'
         },
         {
-            name: Lottery.HOSPITAL,
-            // name: "szpital",
+            lottery: Lottery.HOSPITAL,
             from: 0,
             to: 118,
             msg: 'lottery.hospital'
         },
         {
-            name: Lottery.CASINO,
-            // name: 'kasyno',
+            lottery: Lottery.CASINO,
             from: 118,
             to: 188,
             msg: 'lottery.cassino'
         },
         {
-            name: Lottery.GRENADE,
-            // name: 'granat',
+            lottery: Lottery.GRENADE,
             from: 188,
             to: 206,
             msg: 'lottery.granade'
         },
         {
-            name: Lottery.HELMET,
-            // name: 'helm',
+            lottery: Lottery.HELMET,
             from: 206,
             to: 277,
             msg: 'lottery.shield'
         },
         {
-            name: Lottery.CANARIES,
-            // name: 'kanary',
+            lottery: Lottery.CANARIES,
             from: 277,
             to: 350,
             msg: 'lottery.canaries'
+        },
+        {
+            lottery: Lottery.DECOY,
+            from: -1,
+            to: -1,
+            msg: 'lottery.decoy'
         },
     ];
 }

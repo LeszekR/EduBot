@@ -83,12 +83,12 @@ export class DistractorComponent implements OnDestroy {
             this.showDistractor = true;
         }
 
-        // document.onkeydown = (e: any) => {
-        //     if (e.which == this.KEY_ESC) {
-        //         this.hide();
-        //         // document.onkeydown = null;
-        //     }
-        // }
+        document.onkeydown = (e: any) => {
+            if (e.which == this.KEY_ESC) {
+                this.hide();
+                // document.onkeydown = null;
+            }
+        }
     }
 
     // --------------------------------------------------------------------------------------------------------------

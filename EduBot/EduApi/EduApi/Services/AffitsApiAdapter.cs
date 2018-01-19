@@ -37,13 +37,13 @@ namespace EduApi.Services {
 
         // PUBLIC
         // =============================================================================================
-        public bool processImage(string image) {
+        public bool processImage(string image, int userId) {
             if (_session[affitsSession] == null) {
-                if (!initSession()) {
+                if (!initSession(userId)) {
                     return false;
                 }
             }
-            if (!sendImage(image)) {
+            if (!sendImage(image, userId)) {
                 return false;
             }
 
@@ -52,7 +52,7 @@ namespace EduApi.Services {
 
 
         // ---------------------------------------------------------------------------------------------
-        public List<Pad> getResults() {
+        public List<Pad> getResults(int userId) {
 
             List<Pad> pads;
             if (_session[lastTimestamp] == null || _session[affitsSession] == null) {
@@ -68,8 +68,8 @@ namespace EduApi.Services {
             try {
                 if (!pads.Exists(p => p.timestamp == _session[lastTimestamp] as string)) {
 
-                    string pad = _affitsApi.getResults(_session[affitsSession] as string, _session[lastTimestamp] as string);
-                    EmoState? emoState = processPad(pad);
+                    string pad = _affitsApi.getResults(_session[affitsSession] as string, _session[lastTimestamp] as string, userId);
+                    EmoState? emoState = processPad(pad, userId);
 
                     if (emoState != null) {
                         pads.Add(new Pad(_session[lastTimestamp] as string, (EmoState)emoState));
@@ -82,7 +82,7 @@ namespace EduApi.Services {
                 }
             }
             catch (HttpRequestException e) {
-                _logger.Error(e.ToString());
+                _logger.Error("User: " + userId + "|" + e.ToString());
             }
 
             return pads;
@@ -92,20 +92,20 @@ namespace EduApi.Services {
         // PRIVATE
         // =============================================================================================
         // TODO process actual answear when it works
-        private EmoState? processPad(string pad) {
-            return _emotionalStateInterpreter.interpret(pad);
+        private EmoState? processPad(string pad, int userId) {
+            return _emotionalStateInterpreter.interpret(pad, userId);
         }
 
 
         // ---------------------------------------------------------------------------------------------
-        private bool sendImage(string image) {
+        private bool sendImage(string image, int userId) {
             string timestamp = getMilisecondsTimestamp();
             try {
-                var pad = _affitsApi.sendImage(image, _session[affitsSession] as string, timestamp);
+                var pad = _affitsApi.sendImage(image, _session[affitsSession] as string, timestamp, userId);
                 _session[lastTimestamp] = timestamp;
             }
             catch (HttpRequestException e) {
-                _logger.Error(e.ToString());
+                _logger.Error("User: " + userId + "|" + e.ToString());
 
                 return false;
             }
@@ -115,14 +115,14 @@ namespace EduApi.Services {
 
 
         // ---------------------------------------------------------------------------------------------
-        private bool initSession() {
+        private bool initSession(int userId) {
             try {
-                _session[affitsSession] = _affitsApi.initSession().Trim('"');
+                _session[affitsSession] = _affitsApi.initSession(userId).Trim('"');
 
                 return true;
             }
             catch (HttpRequestException e) {
-                _logger.Error(e.ToString());
+                _logger.Error("User: " + userId + "|" + e.ToString());
 
                 return false;
             }

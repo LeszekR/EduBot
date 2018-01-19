@@ -66,28 +66,36 @@ export class AppComponent implements OnInit, OnDestroy {
 
   // PUBLIC
   // ==============================================================================================================
-  showGameScore(score: GameScore) {
+  showGameScore(score: GameScore, showPromotion = true) {
 
-    let rankOld = this.context.gameScore.rank;
-    
-    if (rankOld > score.rank) {
-      let distractor = new Distractor();
-      distractor.distr_content = "promotion_01";
-      this.distractorService.show(distractor);
+    if (showPromotion) {
+      let rankOld = this.context.gameScore.rank;
+      let lifeOld = this.context.gameScore.life;
+  
+      if (score.life == 0 && lifeOld != 0) {
+        let distractor = new Distractor();
+        distractor.distr_content = "death";
+        this.distractorService.show(distractor);
+      }
+      else if (rankOld < score.rank) {
+        let distractor = new Distractor();
+        distractor.distr_content = "promotion_01";
+        this.distractorService.show(distractor);
+      }
+      else if (rankOld > score.rank) {
+        let distractor = new Distractor();
+        distractor.distr_content = "degradation_01";
+        this.distractorService.show(distractor);
+      }
     }
-    else if (rankOld < score.rank) {
-      let distractor = new Distractor();
-      distractor.distr_content = "degradation_01";
-      this.distractorService.show(distractor);
-    }
-    
+
     this.context.gameScore = score;
   }
 
   // --------------------------------------------------------------------------------------------------------------
-  refreshGameScore() {
+  refreshGameScore(showPromotion =  true) {
     this.eduService.getScore()
-      .subscribe(score => this.showGameScore(score));
+      .subscribe(score => this.showGameScore(score, showPromotion));
   }
 
   // --------------------------------------------------------------------------------------------------------------
@@ -110,7 +118,8 @@ export class AppComponent implements OnInit, OnDestroy {
             newGameScore.progress = 0;
           }
           if (state == 3 || state == 4)
-            this.distractorService.show(res);
+            this.eduService.serverWantsToDistract(res);
+          // this.distractorService.show(res);
 
           console.log(res);
         });

@@ -142,7 +142,7 @@ namespace EduApi.Services {
             _userService.SaveChanges();
 
             if (code.lastResult == true) {
-                _logger.Debug("User (" + userId + ") coded succesfully on " + solvedCode.attempts + " attempt");
+                _logger.Debug("User: " + userId + "|" + "User coded succesfully on " + solvedCode.attempts + " attempt");
                 return CodeAttempt.CORRECT;
             }
             else
@@ -397,16 +397,16 @@ namespace EduApi.Services {
         private static void SetLife(ref user_game score, string change) {
 
             var maxLife = Int32.Parse(ConfigurationManager.AppSettings["maxLife"]);
-            var lifeChange = (int)(Int32.Parse(change));
+            var lifeChange = Double.Parse(change);
 
             // shield reduces loss of life
             if (lifeChange < 0) {
                 double shieldFactor = (double)(1 - Math.Floor(score.shield / 10) / 10);
-                lifeChange = (int)(lifeChange * shieldFactor / 100 * maxLife);
+                lifeChange = lifeChange * shieldFactor;
             }
 
             // life in database counts from 0 to "maxLife" as set in Web.config (now: 1000)
-            score.life += lifeChange;
+            score.life += (int)(lifeChange / 100 * maxLife);
 
             // death
             if (score.life < 0) {
@@ -414,6 +414,8 @@ namespace EduApi.Services {
                 score.shield = 0;
                 score.rank = 0;
             }
+            else if (score.life > maxLife)
+                score.life = maxLife;
         }
 
 

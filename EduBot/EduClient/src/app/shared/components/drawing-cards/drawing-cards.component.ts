@@ -1,7 +1,6 @@
 import { Component, Input, ElementRef } from '@angular/core';
 import { DrawingCardsConfig } from './config/drawing-cards.config';
 import { ViewChild } from '@angular/core';
-import { TestTaskService } from '../../../services/test.service';
 import { PrizeInterface } from './config/prize.interface';
 import { MessageService } from '../message/message.service';
 import { DistractorComponent } from '../distractor/distractor.component';
@@ -28,7 +27,6 @@ export class DrawingCardsComponent {
     // ==============================================================================================================
     constructor(
         private messageService: MessageService
-        // private testTaskService: TestTaskService
     ) { }
 
 
@@ -38,14 +36,11 @@ export class DrawingCardsComponent {
         const card = event.target;
 
         // flipping the card
-        let parentN = card.parentNode;
-        for (var i = 0; i < 10 && !parentN.classList.contains("card"); i++)
-            parentN = parentN.parentNode;
-        parentN.classList.add('flipped');
+        card.parentNode.classList.add('flipped');
 
         // getting the result
         const result = this.shuffle(DrawingCardsConfig.prizes)[id];
-        parentN.getElementsByClassName('back')[0].innerHTML = result.textName
+        card.parentNode.getElementsByClassName('back')[0].innerHTML = result.textName;
 
         // recording the result and recalculating the game score
         this.distractorComp.lottery = result.lottery;

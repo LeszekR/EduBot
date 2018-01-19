@@ -22,6 +22,7 @@
     -o-transform-style: preserve-3d;
     transform-style: preserve-3d;
     -webkit-transform-origin: 50% 50%;
+    background-image: url("/assets/img/draw-card.png")
 }
 
 .card div {
@@ -38,10 +39,6 @@
     -moz-backface-visibility: hidden;
     -o-backface-visibility: hidden;
     backface-visibility: hidden;
-}
-
-.card .front {
-    background: rgb(39, 49, 39);;
 }
 
 .card .back {

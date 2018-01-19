@@ -27,6 +27,7 @@ export class Images {
         degradation_01: "degradation-01.png",
 
         hiddenMine: "hidden-mine-01.png",
+        death: "you-die.png",
         
         end_game: "end-game.png",
     }

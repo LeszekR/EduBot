@@ -73,10 +73,6 @@ namespace EduApi.Services {
             if (_userRepository.All().Where(x => x.login == entity.login).FirstOrDefault() != null) {
                 return -1;
             }
-//<<<<<<< HEAD
-//            //return _userRepository.All().Select(x => x.login == user.Login).SingleOrDefault();
-//=======
-//>>>>>>> b04bca4ea1395d13dfb77ef858442f46b17faabf
 
             var maxLife = Int32.Parse(ConfigurationManager.AppSettings["maxLife"]);
             entity.user_game = new user_game() { life = maxLife };

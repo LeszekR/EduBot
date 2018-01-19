@@ -17,8 +17,7 @@
             <!-- test - pytanie z kodu -->
             <div  [@fadeInAnimation] *ngIf="viewType==CODE_VIEW" class="w-100 h-100 m-0 p-0 of-auto">
                 
-                <code-task-view 
-                    [moduleViewComp]="this"
+                <code-task-view
                     [moduleId]="module.id"
                     [codeTasks]="module.codeTasks" 
                     [difficulty]="module.difficulty" 

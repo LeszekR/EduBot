@@ -23,9 +23,9 @@ export class CodeTaskViewComponent implements OnInit {
   @Input() difficulty: string;
   @Input() codeTasks: CodeTaskFront[];
   @Input() moduleId: number;
-
-  @Input() moduleViewComp: ModuleViewComponent;
-
+  
+  private imgSrc: string;
+  private imgCss: string;
   activeTab: number = 0;
 
   
@@ -46,6 +46,11 @@ export class CodeTaskViewComponent implements OnInit {
       if(editor)
         editor.getElementsByTagName('textarea')[0].focus();
     },500 );
+
+    document.onkeydown = (e: any) => {
+      if (e.which == '27') 
+          this.hideImage();
+    }
   }
 
   // PRIVATE
@@ -93,4 +98,14 @@ export class CodeTaskViewComponent implements OnInit {
       default: return "";
     }
   }
+
+  public showImage(imgSrc: string, imgCss: string){
+    this.imgSrc = imgSrc;
+    this.imgCss = imgCss;
+  }
+
+  private hideImage(){
+    this.imgSrc = null;
+  }
+  
 }

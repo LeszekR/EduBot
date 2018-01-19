@@ -20,6 +20,7 @@ import { AppComponent } from '../../app.component'
 import { DistractorService } from '../../services/distractor.service';
 import { Images } from '../../models/distractor';
 import { fadeInAnimation } from '../../shared/animation/fade-in.animation';
+import { CodeTaskViewComponent } from './code-task-view/code-task-view.component';
 // import { DistractorService, DistractorType } from '../../services/distractor.service';
 
 
@@ -31,6 +32,9 @@ import { fadeInAnimation } from '../../shared/animation/fade-in.animation';
   animations: [fadeInAnimation]
 })
 export class ModuleViewComponent implements OnInit, OnDestroy {
+
+  @ViewChild(CodeTaskViewComponent)
+  codeTaskView: CodeTaskViewComponent;
 
   module: Module;
   viewType: string;
@@ -67,10 +71,6 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
       this.init(m);
     });
 
-    document.onkeydown = (e: any) => {
-      if (e.which == '27') 
-          this.hideImage();
-    }
   }
 
   // --------------------------------------------------------------------------------------------------------------
@@ -88,11 +88,6 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
   }
 
   
-  // PUBLIC
-  // ==============================================================================================================
-  hideImage(){
-    this.imgSrc = null;
-  }
 
   // --------------------------------------------------------------------------------------------------------------
   save() {
@@ -175,24 +170,20 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
         // showing the result of code execution
         switch(codeAttempt){
           case CodeAttempt.ATTEMPT_1:
-            this.imgSrc = Images.list.codeFirstError;
-            this.imgClass = 'img-pos-small';
+            this.codeTaskView.showImage(Images.list.codeFirstError, 'img-pos-small');
             break;
           case CodeAttempt.ATTEMPT_2:
-            this.imgSrc = Images.list.codeSecondError;
-            this.imgClass = 'img-pos-mid';
+            this.codeTaskView.showImage(Images.list.codeSecondError, 'img-pos-mid');
             break;
           case CodeAttempt.INCORRECT:
-            this.imgSrc = Images.list.codeThirdError;
-            this.imgClass = 'img-pos-large';
+            this.codeTaskView.showImage(Images.list.codeThirdError, 'img-pos-large');
             break;
           case CodeAttempt.CORRECT:
-            this.imgSrc = Images.list.codeSuccess;
+            this.codeTaskView.showImage(Images.list.codeSuccess, 'img-pos-large');
             let idx = this.module.codeTasks.findIndex(ct => ct.id == this.context.currentCodeTask.id);
             this.module.codeTasks[idx].last_result = true;
             if(this.module.codeTasks.every( ct => ct.last_result == true))
               this.moduleService.codeTasksSolved.emit(this.module.id);
-            this.imgClass = 'img-pos-large';
             break;
         }
 

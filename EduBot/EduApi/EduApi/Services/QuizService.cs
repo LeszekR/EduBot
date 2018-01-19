@@ -355,7 +355,8 @@ namespace EduApi.Services {
                     continue;
 
                 // the user answered incorrectly
-                if (userQuestions.Exists(uq => uq.last_result == false))
+                //if (userQuestions.Exists(uq => uq.last_result == false && moduleQuestions.Contains(uq.test_question)))
+                if (moduleQuestions.Exists(q => userQuestions.Exists(uq => uq.question_id == q.id && uq.last_result == false)))
                     continue;
 
 
@@ -367,7 +368,9 @@ namespace EduApi.Services {
                     continue;
 
                 // the user answered incorrectly
-                if (userCodes.Exists(uc => uc.last_result == false))
+                //if (userCodes.Exists(uc => uc.last_result == false && moduleCodes.Contains(uc.test_code)))
+                //if (moduleCodes.Exists(c => userCodes.Exists(uc => uc.code_id == c.id && uc.last_result == false)))
+                if (moduleCodes.Exists(c => userCodes.Exists(uc => uc.test_code == c && uc.last_result == false)))
                     continue;
 
                 // if number of incorrect answers+codes == 0 - increment nPassed 'hard' modules
@@ -382,14 +385,6 @@ namespace EduApi.Services {
             // assign the rank to the user
             var oldRank = user.user_game.rank;
             user.user_game.rank = newRank;
-
-            //// reord in the database that the user is to receive 'promotion' distractor
-            //if (newRank > oldRank)
-            //    user.user_game.promotion = 1;
-            //else if (newRank == oldRank)
-            //    user.user_game.promotion = 0;
-            //else
-            //    user.user_game.promotion = -1;
         }
 
 

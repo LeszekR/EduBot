@@ -84,7 +84,7 @@ namespace EduApi.Services {
             return new GameScoreDTO() {
                 progress = progress,
                 life = (int)(user.user_game.life / 10),
-                shield = (int)(user.user_game.shield / 50 * 100),
+                shield = (int)(user.user_game.shield),
                 rank = (MilitaryRank)user.user_game.rank,
                 //distractor = distractorDto
             };

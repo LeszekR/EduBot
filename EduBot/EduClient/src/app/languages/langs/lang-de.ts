@@ -96,6 +96,7 @@ export const LANG_DE_TRANS = {
     'lottery.cassino': '<brak tłumaczenia>',
     'lottery.canaries': '<brak tłumaczenia>',
     'lottery.decoy': '<brak tłumaczenia>',
+    'lottery.death': '<brak tłumaczenia>',
 
     'fortune-wheel.spin': 'Dreh',
     'fortune-wheel.explanation': '<brak tłumaczenia>',

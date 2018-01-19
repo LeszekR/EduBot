@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy } from '@angular/core';
 import { DistractorService } from '../../../services/distractor.service';
 import { Distractors, Distractor, Images } from '../../../models/distractor';
 import { Lottery } from '../../../models/enums';
@@ -26,7 +26,7 @@ export class DistractorComponent implements OnDestroy {
     private imgSrc;
 
     lottery: Lottery;
-    private showMsg;
+    private message: string;
 
 
     // CONSTRUCTOR
@@ -40,6 +40,14 @@ export class DistractorComponent implements OnDestroy {
     }
 
     // --------------------------------------------------------------------------------------------------------------
+    ngAfterViewInit() {
+        document.onkeydown = (e: any) => {
+            if (e.which == this.KEY_ESC)
+                this.hide();
+        }
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
     ngOnDestroy() {
         this.distractorSubsciption.unsubscribe();
     }
@@ -50,7 +58,7 @@ export class DistractorComponent implements OnDestroy {
     private show(distractor: Distractor) {
 
         this.lottery = null;
-        this.showMsg = false;
+        this.message = "";
 
         let type = distractor.distr_content;
 
@@ -63,7 +71,11 @@ export class DistractorComponent implements OnDestroy {
         else if (type == Distractors.hiddenMine) {
             this.imgSrc = this.IMG_PATH + Images.list[type];
             this.lottery = Lottery.DECOY;
-            this.showMsg = true;
+            this.showDistractor = true;
+        }
+        else if (type == 'death') {
+            this.imgSrc = this.IMG_PATH + Images.list[type];
+            this.message = 'lottery.death';
             this.showDistractor = true;
         }
         else {
@@ -71,10 +83,12 @@ export class DistractorComponent implements OnDestroy {
             this.showDistractor = true;
         }
 
-        document.onkeydown = (e: any) => {
-            if (e.which == this.KEY_ESC)
-                this.hide();
-        }
+        // document.onkeydown = (e: any) => {
+        //     if (e.which == this.KEY_ESC) {
+        //         this.hide();
+        //         // document.onkeydown = null;
+        //     }
+        // }
     }
 
     // --------------------------------------------------------------------------------------------------------------
@@ -86,10 +100,14 @@ export class DistractorComponent implements OnDestroy {
         this.showCardsDraw = false;
 
         // record lottery prize in the database and get recent GameScore
-        if (this.showMsg) {
+        if (this.lottery) {
             let result = FortuneWheelConfig.prizes.filter(p => p.lottery == this.lottery).shift();
-            this.messageService.info(result.msg, 'common.result');
             this.testTaskService.recordLotteryResult(this.lottery);
+            this.message = result.msg;
         }
+
+        // show user what happened in case other component has not done it yet
+        if (this.message)
+            this.messageService.info(this.message, 'common.result');
     }
 }

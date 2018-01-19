@@ -151,7 +151,7 @@ export class ModuleListComponent implements OnInit {
                 .subscribe(newModules => {
                     this.setNewModules(newModules);
                 });
-            this.showGameScore();
+            this.showGameScore(false);
         }
     }
 
@@ -176,8 +176,8 @@ export class ModuleListComponent implements OnInit {
 
     // PRIVATE
     // ==============================================================================================================
-    private showGameScore() {
-        this.context.appComponent.refreshGameScore();
+    private showGameScore(showPromotion = true) {
+        this.context.appComponent.refreshGameScore(showPromotion);
     }
 
     // --------------------------------------------------------------------------------------------------------------

@@ -96,7 +96,8 @@ export const LANG_PL_TRANS = {
     'lottery.cassino': 'Odkryłeś mapę pola minowego. W nagrodę dostałeś urlop. Niestety, postanowiłeś spędzić go w obozowym kasynie. Przegrywasz 15% mocy swojego kombinezonu.',
     'lottery.canaries': 'Materiały znalezione w skrzynce wroga są tak cenne, że otrzymujesz 2-tygodniowy urlop na Kanarach. Odzyskujesz 20% życia.',
     'lottery.decoy': 'Nadepnąłeś na minę!! Tracisz 3% życia.',
-
+    'lottery.death': 'Niestety, właśnie straciłeś resztkę swojego życia. Zostajesz zdegradowany do szeregowca i twój kombinezon zabierają koledzy.\nAle dobra wiadomość - miny, które rozbroiłeś wcześniej są już rozbrojone.',
+    
     'fortune-wheel.spin': 'Kręć',
     'fortune-wheel.explanation': 'Przytrzymaj jak długo chcesz. Gdy puścisz koło zacznie zwalniać.',
 

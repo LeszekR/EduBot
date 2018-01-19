@@ -19,6 +19,7 @@
                 
                 <code-task-view 
                     [moduleViewComp]="this"
+                    [moduleId]="module.id"
                     [codeTasks]="module.codeTasks" 
                     [difficulty]="module.difficulty" 
                     [readonly]="!context.isEditMode || !module.difficulty=='easy'">

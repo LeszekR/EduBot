@@ -22,6 +22,7 @@ export class CodeTaskViewComponent implements OnInit {
   @Input() readonly: boolean;
   @Input() difficulty: string;
   @Input() codeTasks: CodeTaskFront[];
+  @Input() moduleId: number;
 
   @Input() moduleViewComp: ModuleViewComponent;
 
@@ -36,6 +37,10 @@ export class CodeTaskViewComponent implements OnInit {
 
   
   ngOnInit(){
+    let tab = this.context.activeTabs.get(this.moduleId);
+    if(tab)
+      this.activeTab = tab;
+
     setTimeout(() => {
       let editor = document.getElementById('code-editor');
       if(editor)
@@ -47,6 +52,7 @@ export class CodeTaskViewComponent implements OnInit {
   // ==============================================================================================================
   private setActiveTab(i: number) {
     this.activeTab = i;
+    this.context.activeTabs.set(this.moduleId, this.activeTab)
     this.context.currentCodeTask = this.codeTasks[i];
     this.context.codeOutputDiv = this.codeOutputDiv;
   }

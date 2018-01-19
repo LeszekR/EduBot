@@ -31,6 +31,9 @@ export class ContextService {
     currentCodeTask: CodeTaskFront;
     codeOutputDiv: HTMLDivElement;
 
+    //zapamiętywanie stanu tabów code task
+    activeTabs: Map<number,number>;
+
     
     // CONSTRUCTOR
     // ==============================================================================================================
@@ -39,6 +42,7 @@ export class ContextService {
         if (role != undefined)
             this.userRole = Role[<string>role];
 
+        this.activeTabs = new Map();
         this.gameScore = new GameScore();
         this.gameScore.life = 0;
         this.gameScore.shield = 0;

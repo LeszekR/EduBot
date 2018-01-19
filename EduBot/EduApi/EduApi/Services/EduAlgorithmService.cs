@@ -115,7 +115,7 @@ namespace EduApi.Services {
 
 
             if (lastEmoStates.Count() < 5) {
-                _logger.Debug("Not providing a distractor as not enough (" + lastEmoStates.Count() + ") emotional states gathered yet for user: " + userId);
+                _logger.Debug("User: " + userId + "|" + "Not providing a distractor as not enough (" + lastEmoStates.Count() + ") emotional states gathered yet");
                 return null;
             }
 
@@ -224,7 +224,7 @@ namespace EduApi.Services {
             // logging current emo-states
             string states = "";
             lastEmoStates.ForEach(delegate (Pad pad) { states += pad.state + ",";});
-            _logger.Info("Providing a \"" + distrType + "\" distractor for user (" + userId + ") with last emotional states: " + states);
+            _logger.Info("User: " + userId + "|" + "Providing a \"" + distrType + "\" distractor for user with last emotional states: " + states);
 
 
             return DistractorMapper.GetDTO(distractor);
@@ -318,7 +318,7 @@ namespace EduApi.Services {
                 // dostosowanie trudności do stanu emocjonalnego i dotychczasowych wyników użytkownika
                 else {
                     var nextDifficulty = difficultyAndDistractor.Item1;
-                    newModule = PickNextModule(currentModuleId, nextDifficulty);
+                    newModule = PickNextModule(currentModuleId, nextDifficulty, userId);
                 }
 
                 // pobranie następnego dystraktora (distractorService sprawdzi czy już można)
@@ -426,7 +426,7 @@ namespace EduApi.Services {
 
                 distractorType = DistractorType.REWARD;
             }
-            _logger.Info("Difficulty " + changeDifficulty + " based on " + recentTestScore + " score and emotional state " + emoState);
+            _logger.Info("User: " + userId + "|" + "Difficulty " + changeDifficulty + " based on " + recentTestScore + " score and emotional state " + emoState);
 
             // decyzja
             return Tuple.Create(changeDifficulty, distractorType);
@@ -438,7 +438,7 @@ namespace EduApi.Services {
          * Jeżeli nie da się zmienić poziomu w żądanym kierunku - na tym samym poziomie.
          * Jeżeli to ostatni moduł materiału - zwraca null.
          */
-        private edumodule PickNextModule(int lastModuleId, ChangeDifficulty change) {
+        private edumodule PickNextModule(int lastModuleId, ChangeDifficulty change, int userId) {
 
             edumodule newModule = null;
             edumodule lastModule = _moduleRepository.Get(lastModuleId);
@@ -486,7 +486,7 @@ namespace EduApi.Services {
 
                 // to ostatnie dziecko - podanie pierwszego kuzyna
                 else
-                    newModule = PickNextModule(parentId ?? 0, ChangeDifficulty.DOWN);
+                    newModule = PickNextModule(parentId ?? 0, ChangeDifficulty.DOWN, userId);
             }
 
 
@@ -506,7 +506,7 @@ namespace EduApi.Services {
 
                 // pobranie dziecka najbliższego kuzyna
                 else {
-                    var cousin = PickNextModule(parentId ?? 0, ChangeDifficulty.DOWN);
+                    var cousin = PickNextModule(parentId ?? 0, ChangeDifficulty.DOWN, userId);
                     newModule = (cousin == null) ? null : _moduleService.SelectChildren(cousin.id)[0];
                 }
             }
@@ -525,13 +525,13 @@ namespace EduApi.Services {
 
                 // to jest ostatnie dziecko - podanie następnego trudniejszego
                 else
-                    newModule = PickNextModule(parentId ?? 0, ChangeDifficulty.NO_CHANGE);
+                    newModule = PickNextModule(parentId ?? 0, ChangeDifficulty.NO_CHANGE, userId);
             }
             if (newModule != null) {
-                _logger.Info("Picked " + newModule.title + " as next module");
+                _logger.Info("User: " + userId + "|" + "Picked " + newModule.title + " as next module");
             }
             else {
-                _logger.Info("No new module picked");
+                _logger.Info("User: " + userId + "|" + "No new module picked");
             }
 
             return newModule;

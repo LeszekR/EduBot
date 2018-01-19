@@ -41,8 +41,8 @@ namespace EduApi.Controllers {
         public IHttpActionResult sendImage([FromBody]string image) {
             int userId = TokenHelper.GetUserId(User.Identity);
             try {
-                if (_affitsApiAdapter.processImage(image)) {
-                    List<Pad> lastEmoStates = _affitsApiAdapter.getResults();
+                if (_affitsApiAdapter.processImage(image, userId)) {
+                    List<Pad> lastEmoStates = _affitsApiAdapter.getResults(userId);
                     DistractorDTO distractor = _eduService.KickTheStudent(userId, lastEmoStates);
                     return Ok(distractor);
                 }
@@ -59,9 +59,9 @@ namespace EduApi.Controllers {
         [Route("api/results-affit")]
         [HttpGet]
         public IHttpActionResult GetResults() {
-
+            int userId = TokenHelper.GetUserId(User.Identity);
             try {
-                List<Pad> pads = _affitsApiAdapter.getResults();
+                List<Pad> pads = _affitsApiAdapter.getResults(userId);
 
                 string result = "Session stores: ";
 

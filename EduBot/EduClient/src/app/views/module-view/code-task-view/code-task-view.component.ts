@@ -15,7 +15,7 @@ import { MessageService } from '../../../shared/components/message/message.servi
   templateUrl: './code-task-view.component.html',
   styleUrls: ['./code-task-view.component.css']
 })
-export class CodeTaskViewComponent {
+export class CodeTaskViewComponent implements OnInit {
 
   @ViewChild("codeOutputDiv") codeOutputDiv: HTMLDivElement;
 
@@ -34,6 +34,10 @@ export class CodeTaskViewComponent {
     private messageService: MessageService,
     private context: ContextService) { }
 
+  
+  ngOnInit(){
+    setTimeout(() => document.getElementById('code-editor').getElementsByTagName('textarea')[0].focus(), 500 );
+  }
 
   // PRIVATE
   // ==============================================================================================================
@@ -42,6 +46,7 @@ export class CodeTaskViewComponent {
     this.context.currentCodeTask = this.codeTasks[i];
     this.context.codeOutputDiv = this.codeOutputDiv;
   }
+  
 
   // --------------------------------------------------------------------------------------------------------------
   private deleteCodeTask() {

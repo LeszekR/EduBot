@@ -8,8 +8,10 @@
 
 <div *ngIf="showWheelOfFortune" class="darker-background d-flex justify-content-center align-items-center" >
     <app-fortune-wheel [distractorComp]="this"></app-fortune-wheel>
+    <div class="fa fa-close fa-3x text-white distractor-close" (click)="hide()" ></div>
 </div>
 
 <div *ngIf="showCardsDraw" class="darker-background d-flex justify-content-center align-items-center" >
     <app-drawing-cards [distractorComp]="this"></app-drawing-cards>
+    <div class="fa fa-close fa-3x text-white distractor-close" (click)="hide()" ></div>
 </div>

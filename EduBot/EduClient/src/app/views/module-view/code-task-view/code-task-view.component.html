@@ -12,6 +12,11 @@
       [ngClass]="task.last_result ? 'fa fa-check text-success' : 'fa fa-edit text-warning'" ></i>
 
     </a>
+
+    <div 
+      class="fa fa-plus fa-2x ml-2" style="align-self: center;font-size: 2rem"
+      (click)="addCodeTask()" >
+    </div>
 </div>
 
 
@@ -58,6 +63,7 @@
 
     <!-- edytor dla studenta -->
     <ace-editor
+      id="code-editor"
       class="w-50 h-100 p-1 mt-0 ml-0 mb-0 mr-1"
       style="min-height: 100%;"
       [(text)]="codeTasks[activeTab].studentCode"
@@ -150,13 +156,6 @@
   class="d-flex flex-row w-100 pt-1 m-0" 
   style="height:5%;"
   >
-  
-  <div 
-    class="fa fa-plus fa-2x ml-2 h-100 w-25" 
-    style="width: 5%;"  
-    (click)="addCodeTask()" 
-    >
-  </div>
   
   <div 
     class="fa fa-minus fa-2x ml-2 h-100 w-25" 

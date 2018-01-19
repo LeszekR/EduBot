@@ -227,6 +227,9 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
           setTimeout(() => { question.status = result.answer_id == 0 ? TestResult.Incorrect : TestResult.Correct; }, 100 * multiplier++);
         })
 
+        if(res.every( res => res.answer_id == 1))
+          this.moduleService.questionsSolved.emit(this.module.id);
+
         // showing the updated game score
         this.context.appComponent.refreshGameScore();
       });

@@ -2,6 +2,7 @@
 using System;
 using Newtonsoft.Json.Linq;
 using EduApi.Dto;
+using EduApi.Security;
 
 namespace EduApi.Services {
 
@@ -36,7 +37,7 @@ namespace EduApi.Services {
         // CONSTRUCTOR
         // =============================================================================================
         #region Constructor
-        public EmotionalStateInterpreter(AffitsApi affitsApi) {
+        public EmotionalStateInterpreter() {
             _logger = LogManager.GetCurrentClassLogger();
         }
         #endregion
@@ -44,18 +45,18 @@ namespace EduApi.Services {
 
         // PUBLIC
         // =============================================================================================
-        public EmoState? interpret(string pad) {
+        public EmoState? interpret(string pad, int userId) {
 
             if (pad == "{\"PAD\":null}") {
-                _logger.Debug("Ignored null response");
+                _logger.Debug("User: " + userId + "|" + "Marking user state as undefined for null response");
 
-                return null;
+                return EmoState.UNDEFINED;
             }
             AffitsPad affitsPad;
             try {
                 affitsPad = new AffitsPad(pad);
             } catch (Exception e) {
-                _logger.Error("Mapping pad: \"" + pad + "\" failed." + e.ToString());
+                _logger.Error("User: " + userId + "|" + "Mapping pad: \"" + pad + "\" failed." + e.ToString());
 
                 return null;
             }
@@ -71,7 +72,7 @@ namespace EduApi.Services {
                 }
                 interpreted = classifyState((State)stateName);
             }
-            log(pad, interpreted, stateName);
+            log(pad, interpreted, stateName, userId);
 
             return interpreted;
         }
@@ -120,10 +121,10 @@ namespace EduApi.Services {
 
 
         // ---------------------------------------------------------------------------------------------
-        private void log(string pad, EmoState interpreted, State? state) {
+        private void log(string pad, EmoState interpreted, State? state, int userId) {
             string stateString = (state != null ? " for interpreted emotion: " + state : "");
 
-            _logger.Info("Classified pad data \"" + pad + "\" as: " + interpreted + stateString);
+            _logger.Info("User: " + userId + "|" + "Classified pad data \"" + pad + "\" as: " + interpreted + stateString);
         }
     }
 

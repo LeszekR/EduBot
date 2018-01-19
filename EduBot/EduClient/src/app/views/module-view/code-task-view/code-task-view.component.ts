@@ -36,7 +36,11 @@ export class CodeTaskViewComponent implements OnInit {
 
   
   ngOnInit(){
-    setTimeout(() => document.getElementById('code-editor').getElementsByTagName('textarea')[0].focus(), 500 );
+    setTimeout(() => {
+      let editor = document.getElementById('code-editor');
+      if(editor)
+        editor.getElementsByTagName('textarea')[0].focus();
+    },500 );
   }
 
   // PRIVATE

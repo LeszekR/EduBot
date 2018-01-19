@@ -18,6 +18,8 @@ export class ModuleService {
 
     moduleAdded = new EventEmitter<Module>();
     refreshModule = new EventEmitter<Module>();
+    questionsSolved = new EventEmitter<number>();
+    codeTasksSolved = new EventEmitter<number>();
     editedModuleId: number;
 
 

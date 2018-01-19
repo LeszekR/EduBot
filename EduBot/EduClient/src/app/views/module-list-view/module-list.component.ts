@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 // Commmon
@@ -23,11 +23,14 @@ import { ContextService } from '../../services/context.service';
     templateUrl: './module-list.component.html',
     styleUrls: ['module-list.component.css']
 })
-export class ModuleListComponent implements OnInit {
+export class ModuleListComponent implements OnInit, OnDestroy {
 
     modules: Module[] = [];
     selectedModuleId: number;
     anyModulesSelected: boolean;
+
+    tasksSolvedSub: any;
+    quizSolvedSub:any;
 
 
     // CONSTRUCTOR
@@ -52,7 +55,20 @@ export class ModuleListComponent implements OnInit {
                 let index = this.modules.findIndex(x => x.id == m.id);
                 this.modules[index] = m;
             });
+
+        this.tasksSolvedSub = this.moduleService.codeTasksSolved.subscribe( id => {
+            this.modules.find( m => m.id == id).solvedCodes = true;
+        });
+        
+        this.quizSolvedSub = this.moduleService.questionsSolved.subscribe( id => {
+            this.modules.find( m => m.id == id).solvedQuestions = true;
+        })
         // this.router.navigate(['module/' + this.modules[this.modules.length - 1].id]);
+    }
+
+    ngOnDestroy(){
+        this.quizSolvedSub.unsubscribe();
+        this.tasksSolvedSub.unsubscribe();
     }
 
 

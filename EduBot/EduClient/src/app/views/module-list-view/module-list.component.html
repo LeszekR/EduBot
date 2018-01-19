@@ -1,9 +1,9 @@
-<div class="list-group h-100 mt-1 mr-1 mt-md-0 pb-md-1 pl-md-1" style="width: inherit;">
+<div class="h-100 mt-1 mr-1 mt-md-0 pb-md-1 pl-md-1 of-auto" style="width: inherit;">
 
 
     <!-- kontrolki w trybie: EDYCJA -->
     <!-- ........................................................................................... -->
-    <div *ngIf="context.isEditMode" class="pb-2 mb-2 pl-0 d-flex" role="group">
+    <div *ngIf="context.isEditMode" class="pb-2 pl-0 d-flex" role="group">
         <div class="col-3 mr-1 p-0">
             <button 
                 *ngIf="!anyModulesSelected" type="button"  class="col-12 btn btn-primary" (click)="addModule()" 
@@ -26,7 +26,7 @@
 
     <!-- lista modułów w trybie: EDYCJA -->
     <!-- ........................................................................................... -->
-    <div *ngIf="context.isEditMode" class="of-auto">
+    <div *ngIf="context.isEditMode" class="list-group">
         <ng-template ngFor let-module [ngForOf]="modules">
 
             <div class="d-flex" 
@@ -63,7 +63,7 @@
 
     <!-- lista modułów w trybie: NAUKA -->
     <!-- ........................................................................................... -->
-    <div *ngIf="!context.isEditMode" class="of-auto">
+    <div *ngIf="!context.isEditMode" class="list-group">
         <ng-template ngFor let-module [ngForOf]="modules">
 
             <div class="d-flex" 

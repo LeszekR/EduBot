@@ -13,9 +13,9 @@
 
     </a>
 
-    <div 
-      class="fa fa-plus fa-2x ml-2" style="align-self: center;font-size: 2rem"
-      (click)="addCodeTask()" >
+    <div *ngIf="!readonly && difficulty=='easy'" 
+         class="fa fa-plus fa-2x ml-2" style="align-self: center;font-size: 2rem"
+         (click)="addCodeTask()" >
     </div>
 </div>
 

@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AlertModule, TooltipModule, ProgressbarModule } from 'ngx-bootstrap';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //Components
 import { FormFieldComponent } from './components/form-field/form-field.component';
@@ -84,6 +85,7 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
   imports: [
     SharedModule,
     BrowserModule,
+    BrowserAnimationsModule,
     HttpModule,
     HttpClientModule,
     FormsModule,

@@ -5,17 +5,17 @@
         <fieldset class="row col-12 h-100 d-flex m-0 p-1">
             
             <!-- content i example -->
-            <div *ngIf="viewType==CONTENT_VIEW" class="w-100 h-100 m-0 p-0">
+            <div [@fadeInAnimation] *ngIf="viewType==CONTENT_VIEW" class="w-100 h-100 m-0 p-0">
                 <content-view [module]="module" [readonly]="!context.isEditMode"></content-view>
             </div>
 
             <!-- test - pytania zamknięte  -->
-            <div *ngIf="viewType==QUIZ_VIEW" class="w-100 h-100 m-0 p-0 of-auto">
+            <div [@fadeInAnimation] *ngIf="viewType==QUIZ_VIEW" class="w-100 h-100 m-0 p-0 of-auto">
                 <quiz-view [module]="module" [readonly]="!context.isEditMode || !module.difficulty=='easy'"></quiz-view>
             </div>
 
             <!-- test - pytanie z kodu -->
-            <div *ngIf="viewType==CODE_VIEW" class="w-100 h-100 m-0 p-0 of-auto">
+            <div  [@fadeInAnimation] *ngIf="viewType==CODE_VIEW" class="w-100 h-100 m-0 p-0 of-auto">
                 
                 <code-task-view 
                     [moduleViewComp]="this"

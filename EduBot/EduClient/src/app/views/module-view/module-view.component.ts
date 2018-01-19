@@ -19,6 +19,7 @@ import { MessageService } from '../../shared/components/message/message.service'
 import { AppComponent } from '../../app.component'
 import { DistractorService } from '../../services/distractor.service';
 import { Images } from '../../models/distractor';
+import { fadeInAnimation } from '../../shared/animation/fade-in.animation';
 // import { DistractorService, DistractorType } from '../../services/distractor.service';
 
 
@@ -26,7 +27,8 @@ import { Images } from '../../models/distractor';
 @Component({
   selector: 'module-view',
   templateUrl: './module-view.component.html',
-  styleUrls: ['./module-view.component.css']
+  styleUrls: ['./module-view.component.css'],
+  animations: [fadeInAnimation]
 })
 export class ModuleViewComponent implements OnInit, OnDestroy {
 

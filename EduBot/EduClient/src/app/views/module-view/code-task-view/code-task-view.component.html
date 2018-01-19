@@ -8,25 +8,27 @@
       (click)="setActiveTab(i)">
 
       <strong>Zadanie {{i+1}}</strong>
-      <i class="ml-1" [ngClass]="task.last_result ? 'fa fa-check text-success' : 'fa fa-edit text-warning'" ></i>
+      <i class="ml-1" 
+      [ngClass]="task.last_result ? 'fa fa-check text-success' : 'fa fa-edit text-warning'" ></i>
 
     </a>
 </div>
 
 
-<!-- picture with the code execution result -->
+<!--CODE EXECUTION RESUL - image -->
 <!-- ======================================================================================= -->
 <div 
   *ngIf="moduleViewComp.imgSrc" 
-  class="img-background d-flex justify-content-center align-items-center h-100"
-  style="background-color: white; overflow: hidden;"
+  class="img-background d-flex justify-content-center align-items-center"
+  style="height: 95%; background-color: white; overflow: hidden;"
   >
   <div 
     class="fa fa-close fa-3x text-white distractor-close" 
     (click)="moduleViewComp.hideImage()" ></div>
     <img 
       [class]="moduleViewComp.imgClass" 
-      [src]="'/assets/img/' + moduleViewComp.imgSrc" />  
+      [src]="'/assets/img/' + moduleViewComp.imgSrc" 
+      style="height:inherit; object-fit: scale-down;"/>  
 </div>
 
 

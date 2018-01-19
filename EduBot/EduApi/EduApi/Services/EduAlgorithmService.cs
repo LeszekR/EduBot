@@ -116,7 +116,6 @@ namespace EduApi.Services {
 
             if (lastEmoStates.Count() < 5) {
                 _logger.Debug("Not providing a distractor as not enough (" + lastEmoStates.Count() + ") emotional states gathered yet for user: " + userId);
-
                 return null;
             }
 
@@ -220,11 +219,11 @@ namespace EduApi.Services {
                 distrType = DistractorType.REWARD;
 
             var distractor = _distractorService.NextDistractor(userId, distrType);
-            string states = "";
-            lastEmoStates.ForEach(delegate (Pad pad) {
-                states += pad.state + ",";
-            });
 
+            
+            // logging current emo-states
+            string states = "";
+            lastEmoStates.ForEach(delegate (Pad pad) { states += pad.state + ",";});
             _logger.Info("Providing a \"" + distrType + "\" distractor for user (" + userId + ") with last emotional states: " + states);
 
 
@@ -350,14 +349,11 @@ namespace EduApi.Services {
 
             DistractorDTO newDistractor = null;
 
-            //if (user.user_game == null)
-            //    user.user_game = _userService.CreateUserGame(user);
-
             if (user.user_game.promotion > 0)
-                newDistractor = new DistractorDTO() { distr_content = "promotion" };
+                newDistractor = new DistractorDTO() { distr_content = "promotion_01" };
 
             else if (user.user_game.promotion < 0)
-                newDistractor = new DistractorDTO() { distr_content = "downgrade" };
+                newDistractor = new DistractorDTO() { distr_content = "degradation_01" };
 
             if (user.user_game.promotion != 0) {
                 _userService.GetUserEntity(userId).user_game.promotion = 0;

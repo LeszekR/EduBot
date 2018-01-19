@@ -6,10 +6,5 @@
         public MilitaryRank rank  { get; set; }
         public int progress  { get; set; }
         public DistractorDTO distractor { get; set; }
-        //public string distractor;
-
-        //public int progress;
-        //public int correctQuestions;
-        //public int correctCodes;
     }
 }

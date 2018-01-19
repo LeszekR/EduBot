@@ -22,6 +22,7 @@ export class FortuneWheelComponent {
 
     private IMG_PATH = '/assets/img/';
     @Input() private readonly bckgrAddress = this.IMG_PATH + Images.list.fortuneWheelBckgr;
+    // @Input() private readonly bckgrAddress = '/assets/img/fortune-wheel-backgr.png';
     @Input() private readonly wheelAddress = this.IMG_PATH + Images.list.fortuneWheel;
 
     private add: number;

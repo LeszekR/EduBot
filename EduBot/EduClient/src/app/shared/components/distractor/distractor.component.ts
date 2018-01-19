@@ -106,7 +106,7 @@ export class DistractorComponent implements OnDestroy {
             this.message = result.msg;
         }
 
-        // show user what happened in case other component has not done it yet
+        // show to the user what happened (in case other component has not done it yet)
         if (this.message)
             this.messageService.info(this.message, 'common.result');
     }

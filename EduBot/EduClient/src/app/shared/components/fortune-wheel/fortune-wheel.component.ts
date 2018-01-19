@@ -3,8 +3,6 @@ import { FortuneWheelConfig } from './config/fortune-wheel.config';
 import { ViewChild } from '@angular/core';
 import { MessageService } from '../message/message.service';
 import { Images } from '../../../models/distractor';
-// import { TestTaskService } from '../../../services/test.service';
-import { DistractorService } from '../../../services/distractor.service';
 import { DistractorComponent } from '../distractor/distractor.component';
 
 
@@ -17,19 +15,18 @@ import { DistractorComponent } from '../distractor/distractor.component';
 export class FortuneWheelComponent {
 
     private static readonly interval = 1000;
-    private static readonly minimalSpeed = 60;
+    private static readonly minimalSpeed = 50;
 
     @ViewChild('fortuneWheel') fortuneWheel: ElementRef;
     @ViewChild('spinButton') spinButton: ElementRef;
 
     private IMG_PATH = '/assets/img/';
     @Input() private readonly bckgrAddress = this.IMG_PATH + Images.list.fortuneWheelBckgr;
-    // @Input() private readonly bckgrAddress = '/assets/img/fortune-wheel-backgr.png';
     @Input() private readonly wheelAddress = this.IMG_PATH + Images.list.fortuneWheel;
 
     @Input() private distractorComp: DistractorComponent;
 
-    private add: number;
+    private add = 0.5;
     private speed: number;
     private time: number;
 
@@ -47,7 +44,6 @@ export class FortuneWheelComponent {
         this.speed = (Math.random() * 3);
         this.time = (new Date()).getTime();
         const fortuneWheelStyles = this.fortuneWheel.nativeElement.style;
-        // fortuneWheelStyles.position = 'absolute';
         fortuneWheelStyles.webkitAnimationDuration = this.speed + 's';
         fortuneWheelStyles.webkitAnimationTimingFunction = 'linear';
         fortuneWheelStyles.webkitAnimationIterationCount = 'infinite';
@@ -58,7 +54,6 @@ export class FortuneWheelComponent {
     public letItRoll(): void {
 
         this.spinButton.nativeElement.disabled = true;
-        this.add = 1;
         let secondsPassed = (new Date().getTime() - this.time) / 1000;
         let delay = 0;
 
@@ -81,14 +76,13 @@ export class FortuneWheelComponent {
 
                 clearInterval(wheelSpinning);
                 this.fortuneWheel.nativeElement.style.webkitAnimationPlayState = 'paused';
-                // this.spinButton.nativeElement.disabled = false;
 
                 // recording the result and recalculating the game score
                 this.distractorComp.lottery = result.lottery;
 
                 // the player gets informed what they've just drawn to their doom..
                 setTimeout(() => {
-                    this.messageService.info(result.msg, 'common.result')
+                    this.messageService.info(result.msg, 'common.result');
                 }, 200);
             }
         }, FortuneWheelComponent.interval);
@@ -106,7 +100,7 @@ export class FortuneWheelComponent {
     // --------------------------------------------------------------------------------------------------------------
     private adjustSpeed(speed) {
         speed += this.add;
-        this.add++;
+        this.add *= 2;
         return speed;
     }
 }

@@ -1,12 +1,12 @@
 
-<div class="container wheel-position" style="color: black; height: 500px;">
+<div 
+    class="container h-100 fortune-wheel-all" 
+    >
+    
     <div class="row">
         <div class="col">
             <i class="fa fa-arrow-down fa-4x fortune-pointer" aria-hidden="true"></i>
     
-            <!-- <div class="fortune-pointer">
-                <img (src)="bckgrAddress">
-            </div> -->
             <div #fortuneWheel>
                 <img src="/assets/img/fortune-wheel.png"/>
                 <!-- <img (src)="wheelAddress"> -->
@@ -22,7 +22,7 @@
                 >
                 {{ 'fortune-wheel.spin' | translate }}
             </button>
-            <span class="text-white">
+            <span >
                 * {{ 'fortune-wheel.explanation' | translate }}
             </span>
         </div>

@@ -43,7 +43,7 @@ export class FortuneWheelComponent {
         this.speed = (Math.random() * 3);
         this.time = (new Date()).getTime();
         const fortuneWheelStyles = this.fortuneWheel.nativeElement.style;
-        fortuneWheelStyles.position = 'absolute';
+        // fortuneWheelStyles.position = 'absolute';
         fortuneWheelStyles.webkitAnimationDuration = this.speed + 's';
         fortuneWheelStyles.webkitAnimationTimingFunction = 'linear';
         fortuneWheelStyles.webkitAnimationIterationCount = 'infinite';

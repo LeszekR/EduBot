@@ -23,6 +23,8 @@ export class CodeTaskViewComponent {
   @Input() difficulty: string;
   @Input() codeTasks: CodeTaskFront[];
 
+  @Input() moduleViewComp: ModuleViewComponent;
+
   activeTab: number = 0;
 
   

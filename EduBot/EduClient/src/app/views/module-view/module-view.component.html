@@ -17,11 +17,12 @@
             <!-- test - pytanie z kodu -->
             <div *ngIf="viewType==CODE_VIEW" class="w-100 h-100 m-0 p-0 of-auto">
                 
-                <div *ngIf="imgSrc" class="img-background d-flex justify-content-center align-items-center">
-                    <div class="fa fa-close fa-3x text-white distractor-close" (click)="hideImage()" ></div>
-                    <img [class]="imgClass" [src]="'/assets/img/' + imgSrc" />  
-                </div>
-                <code-task-view [codeTasks]="module.codeTasks" [difficulty]="module.difficulty" [readonly]="!context.isEditMode || !module.difficulty=='easy'"></code-task-view>
+                <code-task-view 
+                    [moduleViewComp]="this"
+                    [codeTasks]="module.codeTasks" 
+                    [difficulty]="module.difficulty" 
+                    [readonly]="!context.isEditMode || !module.difficulty=='easy'">
+                </code-task-view>
             </div>
 
         </fieldset>

@@ -32,9 +32,18 @@ export class DrawingCardsComponent {
     // ==============================================================================================================
     private pickCard(event, id): void {
         const card = event.target;
-        card.parentNode.classList.add('flipped');
+
+        let parentN = card.parentNode;
+        while (!parentN.classList.contains("card"))
+            parentN = parentN.parentNode;
+
+        parentN.classList.add('flipped');
         const result = this.shuffle(DrawingCardsConfig.prizes)[id];
-        card.parentNode.getElementsByClassName('back')[0].innerHTML = result.textName;
+        console.log(event, JSON.stringify(card));
+        // TODO - obsużyć to porządnie:
+        
+        parentN.getElementsByClassName('back')[0].innerHTML = result.textName;
+
         setTimeout(() => {
             this.messageService.info(result.msg, 'common.result');
         }, 1000);

@@ -27,3 +27,11 @@
     left: 30%;
     top: 20%;
 }
+
+.fortune-wheel-all {
+    padding: 8rem;
+    color: black; 
+    background-color: white;
+    /* background-image: url('/assets/img/fortune-wheel-backgr.png');
+    background-repeat: no-repeat; */
+}

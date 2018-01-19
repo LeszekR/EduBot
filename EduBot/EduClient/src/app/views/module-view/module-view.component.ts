@@ -86,8 +86,14 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
     this.context.currentModule = mod;
   }
 
+  
   // PUBLIC
   // ==============================================================================================================
+  hideImage(){
+    this.imgSrc = null;
+  }
+
+  // --------------------------------------------------------------------------------------------------------------
   save() {
 
     // check if every question has been assigned the correct answer
@@ -197,10 +203,6 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
         // update the game score
         this.context.appComponent.refreshGameScore();
       });
-  }
-
-  private hideImage(){
-    this.imgSrc = null;
   }
 
   // --------------------------------------------------------------------------------------------------------------

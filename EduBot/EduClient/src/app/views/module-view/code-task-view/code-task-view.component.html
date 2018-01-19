@@ -1,5 +1,5 @@
-<!-- ======================================================================================= -->
 <!-- tab -->
+<!-- ======================================================================================= -->
 <div class="tabview">
     <a 
       *ngFor="let task of codeTasks;let i = index" 
@@ -14,10 +14,26 @@
 </div>
 
 
-
+<!-- picture with the code execution result -->
 <!-- ======================================================================================= -->
+<div 
+  *ngIf="moduleViewComp.imgSrc" 
+  class="img-background d-flex justify-content-center align-items-center h-100"
+  style="background-color: white; overflow: hidden;"
+  >
+  <div 
+    class="fa fa-close fa-3x text-white distractor-close" 
+    (click)="moduleViewComp.hideImage()" ></div>
+    <img 
+      [class]="moduleViewComp.imgClass" 
+      [src]="'/assets/img/' + moduleViewComp.imgSrc" />  
+</div>
+
+
+
 <!-- tab content -->
-<div *ngIf="codeTasks" class="p-0 m-0" style="height: 85%;">
+<!-- ======================================================================================= -->
+<div *ngIf="codeTasks && !moduleViewComp.imgSrc" class="p-0 m-0" style="height: 85%;">
 
 
   <!-- QUESTION -->

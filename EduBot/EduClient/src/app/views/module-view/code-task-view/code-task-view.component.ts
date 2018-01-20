@@ -81,6 +81,7 @@ export class CodeTaskViewComponent implements OnInit {
     this.activeTab = i;
     this.context.activeTabs.set(this.moduleId, this.activeTab)
     this.context.currentCodeTask = this.codeTasks[i];
+    this.hideImage();
     (document.getElementById("codeOutput") as HTMLIFrameElement).contentDocument.getElementsByTagName("body")[0].innerHTML = "";
     this.focusEditor();
   }

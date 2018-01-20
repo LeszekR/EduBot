@@ -298,6 +298,9 @@ namespace EduApi.Services {
                     case Lottery.DECOY:
                         change = ConfigurationManager.AppSettings["pulapka"];
                         break;
+                    case Lottery.DEATH:
+                        change = ConfigurationManager.AppSettings["smierc"];
+                        break;
                 }
 
 
@@ -355,7 +358,6 @@ namespace EduApi.Services {
                     continue;
 
                 // the user answered incorrectly
-                //if (userQuestions.Exists(uq => uq.last_result == false && moduleQuestions.Contains(uq.test_question)))
                 if (moduleQuestions.Exists(q => userQuestions.Exists(uq => uq.question_id == q.id && uq.last_result == false)))
                     continue;
 
@@ -368,8 +370,6 @@ namespace EduApi.Services {
                     continue;
 
                 // the user answered incorrectly
-                //if (userCodes.Exists(uc => uc.last_result == false && moduleCodes.Contains(uc.test_code)))
-                //if (moduleCodes.Exists(c => userCodes.Exists(uc => uc.code_id == c.id && uc.last_result == false)))
                 if (moduleCodes.Exists(c => userCodes.Exists(uc => uc.test_code == c && uc.last_result == false)))
                     continue;
 

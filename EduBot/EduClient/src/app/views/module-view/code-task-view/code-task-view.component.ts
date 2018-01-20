@@ -24,36 +24,61 @@ export class CodeTaskViewComponent implements OnInit {
   @Input() difficulty: string;
   @Input() codeTasks: CodeTaskFront[];
   @Input() moduleId: number;
-  
+
   private imgSrc: string;
   private imgCss: string;
   activeTab: number = 0;
 
-  
+
   // CONSTRUCTOR
   // ==============================================================================================================
   constructor(
     private messageService: MessageService,
     private context: ContextService) { }
 
-  
-  ngOnInit(){
+  // --------------------------------------------------------------------------------------------------------------
+  ngOnInit() {
     let tab = this.context.activeTabs.get(this.moduleId);
-    if(tab)
+    if (tab)
       this.activeTab = tab;
 
     this.focusEditor();
 
     document.onkeydown = (e: any) => {
-      if (e.which == '27') 
-          this.hideImage();
+      if (e.which == '27')
+        this.hideImage();
     }
   }
 
-  
+
+  // PUBLIC
+  // ==============================================================================================================
+  public showImage(imgSrc: string, imgCss: string) {
+    this.imgSrc = imgSrc;
+    this.imgCss = imgCss;
+  }
+
 
   // PRIVATE
   // ==============================================================================================================
+  private hideImage() {
+    this.imgSrc = null;
+    this.focusEditor();
+
+    // update the game score
+    this.context.appComponent.refreshGameScore();
+  }
+
+  // --------------------------------------------------------------------------------------------------------------
+  private focusEditor() {
+    setTimeout(() => {
+      let editor = document.getElementById('code-editor');
+      if (editor)
+        editor.getElementsByTagName('textarea')[0].focus();
+    }, 500);
+  }
+
+  // --------------------------------------------------------------------------------------------------------------
   private setActiveTab(i: number) {
     this.activeTab = i;
     this.context.activeTabs.set(this.moduleId, this.activeTab)
@@ -61,7 +86,7 @@ export class CodeTaskViewComponent implements OnInit {
     this.context.codeOutputDiv = this.codeOutputDiv;
     this.focusEditor();
   }
-  
+
 
   // --------------------------------------------------------------------------------------------------------------
   private deleteCodeTask() {
@@ -98,23 +123,4 @@ export class CodeTaskViewComponent implements OnInit {
       default: return "";
     }
   }
-
-  public showImage(imgSrc: string, imgCss: string){
-    this.imgSrc = imgSrc;
-    this.imgCss = imgCss;
-  }
-
-  private hideImage(){
-    this.imgSrc = null;
-    this.focusEditor();
-  }
-
-  private focusEditor(){
-    setTimeout(() => {
-      let editor = document.getElementById('code-editor');
-      if(editor)
-        editor.getElementsByTagName('textarea')[0].focus();
-    },500 );
-  }
-  
 }

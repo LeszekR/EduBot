@@ -1,6 +1,6 @@
 // ==================================================================================================================
 export enum Lottery { 
-    GRENADE, CASINO, HOSPITAL, CANARIES, HELMET, DECOY, NO_LOTTERY 
+    GRENADE, CASINO, HOSPITAL, CANARIES, HELMET, DECOY, DEATH, NO_LOTTERY 
 }
 // ==================================================================================================================
 export enum CodeAttempt {

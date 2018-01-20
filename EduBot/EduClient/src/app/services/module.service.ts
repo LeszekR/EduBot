@@ -20,6 +20,9 @@ export class ModuleService {
     refreshModule = new EventEmitter<Module>();
     questionsSolved = new EventEmitter<number>();
     codeTasksSolved = new EventEmitter<number>();
+    // TODO - ZDARZENIA na poprawienie pytania lub kodu na błedne rozwiązanie
+    // questionsSolved = new EventEmitter<number>();
+    // codeTasksSolved = new EventEmitter<number>();
     editedModuleId: number;
 
 
@@ -33,7 +36,7 @@ export class ModuleService {
     // ==============================================================================================================
     fillMetaModules(): Observable<string> {
         return this.http.get<string>(this.moduleUrl + '/fillmetamodules');
-    } 
+    }
 
     // --------------------------------------------------------------------------------------------------------------
     getSimpleModulesOfUser(): Observable<Module[]> {

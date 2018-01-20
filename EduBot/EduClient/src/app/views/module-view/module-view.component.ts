@@ -87,7 +87,7 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
     this.context.currentModule = mod;
   }
 
-  
+
 
   // --------------------------------------------------------------------------------------------------------------
   save() {
@@ -167,28 +167,50 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
     this.testTaskService.verifyCodeTest(this.context.currentCodeTask)
       .subscribe(codeAttempt => {
 
-        // showing the result of code execution
-        switch(codeAttempt){
-          case CodeAttempt.ATTEMPT_1:
-            this.codeTaskView.showImage(Images.list.codeFirstError, 'img-pos-small');
-            break;
-          case CodeAttempt.ATTEMPT_2:
-            this.codeTaskView.showImage(Images.list.codeSecondError, 'img-pos-mid');
-            break;
-          case CodeAttempt.INCORRECT:
-            this.codeTaskView.showImage(Images.list.codeThirdError, 'img-pos-large');
-            break;
-          case CodeAttempt.CORRECT:
-            this.codeTaskView.showImage(Images.list.codeSuccess, 'img-pos-large');
-            let idx = this.module.codeTasks.findIndex(ct => ct.id == this.context.currentCodeTask.id);
-            this.module.codeTasks[idx].last_result = true;
-            if(this.module.codeTasks.every( ct => ct.last_result == true))
-              this.moduleService.codeTasksSolved.emit(this.module.id);
-            break;
+        let mineImage: string;
+        let mineSize: string;
+        let idx = -1;
+        let codeResult: boolean;
+
+        if (codeAttempt == CodeAttempt.ATTEMPT_1) {
+          mineImage = Images.list.codeFirstError;
+          mineSize = 'img-pos-small';
+        }
+        else if (codeAttempt == CodeAttempt.ATTEMPT_2) {
+          mineImage = Images.list.codeSecondError;
+          mineSize = 'img-pos-mid';
+        }
+        else if (codeAttempt == CodeAttempt.INCORRECT) {
+          mineImage = Images.list.codeThirdError;
+          mineSize = 'img-pos-large';
+          idx = this.module.codeTasks.findIndex(ct => ct.id == this.context.currentCodeTask.id);
+          codeResult = false;
+        }
+        else if (codeAttempt == CodeAttempt.CORRECT) {
+          mineImage = Images.list.codeSuccess;
+          mineSize = 'img-pos-large';
+          idx = this.module.codeTasks.findIndex(ct => ct.id == this.context.currentCodeTask.id);
+          codeResult = true;
         }
 
-        // update the game score
-        this.context.appComponent.refreshGameScore();
+        // update status of the module in moduleList
+        if (idx > -1) {
+          this.module.codeTasks[idx].last_result = codeResult;
+          if (this.module.codeTasks.every(ct => ct.last_result == true))
+            this.moduleService.codeTasksSolved.emit(this.module.id);
+
+          // TODO - obsłużyć zmianę modułu z prawidłowo rozwiązanego na nierozwiązany
+          // TODO - tak samo obsłużyć tę zmianę przy niezaliczeniu pytania quizu
+          // else
+          //   this.moduleService.codeTasksUnsolved.emit(this.module.id);
+        }
+
+        // 1. show the image
+        // 2. on hiding the image refresh the gameScore
+        this.codeTaskView.showImage(mineImage, mineSize);
+
+        // // update the game score
+        // this.context.appComponent.refreshGameScore();
       });
   }
 
@@ -220,7 +242,7 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
           setTimeout(() => { question.status = result.answer_id == 0 ? TestResult.Incorrect : TestResult.Correct; }, 100 * multiplier++);
         })
 
-        if(res.every( res => res.answer_id == 1))
+        if (res.every(res => res.answer_id == 1))
           this.moduleService.questionsSolved.emit(this.module.id);
 
         // showing the updated game score

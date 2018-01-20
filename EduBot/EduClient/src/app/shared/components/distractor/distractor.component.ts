@@ -27,7 +27,7 @@ export class DistractorComponent implements OnDestroy {
 
     lottery: Lottery;
     private message: string;
-
+    private showLotteryMsg: boolean;
 
     // CONSTRUCTOR
     // ==============================================================================================================
@@ -59,20 +59,27 @@ export class DistractorComponent implements OnDestroy {
 
         this.lottery = null;
         this.message = "";
+        this.showLotteryMsg = false;
 
         let type = distractor.distr_content;
 
+        // distractor programs set the distractorComponent to show and record what is needed
         if (type == Distractors.fortuneWheel)
             this.showWheelOfFortune = true;
 
         else if (type == Distractors.drawCards)
             this.showCardsDraw = true;
 
+
+        // other distractors need distractorCompoent to be set for them
         else if (type == Distractors.hiddenMine) {
             this.imgSrc = this.IMG_PATH + Images.list[type];
             this.lottery = Lottery.DECOY;
+            this.showLotteryMsg = true;
             this.showDistractor = true;
         }
+
+        // info for the user
         else if (type == 'death') {
             this.imgSrc = this.IMG_PATH + Images.list[type];
             this.message = 'lottery.death';
@@ -84,10 +91,8 @@ export class DistractorComponent implements OnDestroy {
         }
 
         document.onkeydown = (e: any) => {
-            if (e.which == this.KEY_ESC) {
+            if (e.which == this.KEY_ESC) 
                 this.hide();
-                // document.onkeydown = null;
-            }
         }
     }
 
@@ -103,11 +108,17 @@ export class DistractorComponent implements OnDestroy {
         if (this.lottery) {
             let result = FortuneWheelConfig.prizes.filter(p => p.lottery == this.lottery).shift();
             this.testTaskService.recordLotteryResult(this.lottery);
-            this.message = result.msg;
+            if (this.showLotteryMsg) this.message = result.msg;
         }
 
         // show to the user what happened (in case other component has not done it yet)
-        if (this.message)
+        if (this.message != "")
             this.messageService.info(this.message, 'common.result');
+
+
+        // clean up everthing
+        this.lottery = null;
+        this.message = "";
+        this.showLotteryMsg = false;
     }
 }

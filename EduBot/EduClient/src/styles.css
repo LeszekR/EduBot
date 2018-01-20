@@ -73,8 +73,8 @@ a.disabled {
 
 ::-webkit-scrollbar
 {
-  width: 16px;  /* for vertical scrollbars */
-  height: 16px; /* for horizontal scrollbars */
+  width: 20px;  /* for vertical scrollbars */
+  height: 20px; /* for horizontal scrollbars */
 }
 
 ::-webkit-scrollbar-track

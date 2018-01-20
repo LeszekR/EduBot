@@ -196,8 +196,8 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
         // update status of the module in moduleList
         if (idx > -1) {
           this.module.codeTasks[idx].last_result = codeResult;
-          if (this.module.codeTasks.every(ct => ct.last_result == true))
-            this.moduleService.codeTasksSolved.emit(this.module.id);
+
+          this.moduleService.updateModuleOnList.emit(this.module.id);
 
           // TODO - obsłużyć zmianę modułu z prawidłowo rozwiązanego na nierozwiązany
           // TODO - tak samo obsłużyć tę zmianę przy niezaliczeniu pytania quizu
@@ -242,8 +242,7 @@ export class ModuleViewComponent implements OnInit, OnDestroy {
           setTimeout(() => { question.status = result.answer_id == 0 ? TestResult.Incorrect : TestResult.Correct; }, 100 * multiplier++);
         })
 
-        if (res.every(res => res.answer_id == 1))
-          this.moduleService.questionsSolved.emit(this.module.id);
+        this.moduleService.updateModuleOnList.emit(this.module.id);
 
         // showing the updated game score
         this.context.appComponent.refreshGameScore();

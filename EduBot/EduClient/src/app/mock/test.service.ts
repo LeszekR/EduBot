@@ -14,7 +14,7 @@ import { TestData } from '../mock/test-data'
 @Injectable()
 export class TestService {
 
-    private readonly testUrl = 'http://localhost:64365/api/test';
+    private readonly testPath = '/api/test';
 
 
     // CONSTRUCTOR
@@ -25,7 +25,7 @@ export class TestService {
     // PUBLIC
     // ==============================================================================================================
     getGet(): Observable<any>{
-        return this.http.get(this.testUrl)
+        return this.http.get(this.testPath)
             .map((res: Response) => res.json())
             .catch(error => {
                 console.log(error);
@@ -35,7 +35,7 @@ export class TestService {
 
     testPost(data: TestData): Observable<any>{
         let body = JSON.stringify(data);
-        return this.http.post(this.testUrl, body)
+        return this.http.post(this.testPath, body)
             .map((res: Response) => res.json())
             .catch(error => {
                 console.log(error);

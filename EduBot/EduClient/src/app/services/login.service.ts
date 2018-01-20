@@ -3,12 +3,13 @@ import {Http, Headers} from '@angular/http';
 import { ContextService } from './context.service';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
+import {HttpService} from "./http.service";
 
 // ==================================================================================================================
 @Injectable()
 export class LoginService {
 
-    private authUrl = 'http://localhost:64365/oauth2/token';
+    private authUrl = HttpService.API_HOST + '/oauth2/token';
 
     constructor(private http: Http, private context: ContextService, private router: Router) { }
 

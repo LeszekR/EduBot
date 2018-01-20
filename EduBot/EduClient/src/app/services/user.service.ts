@@ -10,7 +10,7 @@ import { User } from '../models/user';
 @Injectable()
 export class UserService {
 
-    private userUrl = 'http://localhost:64365/api/user';
+    private userPath = '/api/user';
 
 
     // CONSTRUCTOR
@@ -21,16 +21,16 @@ export class UserService {
     // PUBLIC
     // ==============================================================================================================
     getSimpleUsers(): Observable<User[]> {
-        return this.http.get<User[]>(this.userUrl);
+        return this.http.get<User[]>(this.userPath);
     }
 
     // --------------------------------------------------------------------------------------------------------------
     addUser(user: User): Observable<User> {
-        return this.http.post<User>(this.userUrl, user);
+        return this.http.post<User>(this.userPath, user);
     }
 
     // --------------------------------------------------------------------------------------------------------------
     updateUserRole(user: User): any {
-        return this.http.put(this.userUrl + '/role', user);
+        return this.http.put(this.userPath + '/role', user);
     }    
 }

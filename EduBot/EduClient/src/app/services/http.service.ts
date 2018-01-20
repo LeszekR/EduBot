@@ -16,6 +16,7 @@ import 'rxjs/add/observable/throw';
 @Injectable()
 export class HttpService extends Http {
 
+    public static readonly API_HOST = 'http://localhost:64365';
     private router: Router;
 
     // CONSTRUCTOR
@@ -27,28 +28,29 @@ export class HttpService extends Http {
 
     // PUBLIC
     // ==============================================================================================================
-    post<T>(url: string, data: any, withCredentials: boolean = false): Observable<T> {
+    post<T>(path: string, data: any, withCredentials: boolean = false): Observable<T> {
         const options: RequestOptionsArgs = this.setHeaders({ 'Content-Type': 'application/json' });
         options.withCredentials = withCredentials;
         const body = JSON.stringify(data);
-        return super.post(url, body, options)
+        console.log('url => ', HttpService.API_HOST + path);
+        return super.post(HttpService.API_HOST + path, body, options)
             .map((res: Response) => res.json())
             .catch(error => this.catchError(error));
     }
 
     // --------------------------------------------------------------------------------------------------------------
-    get<T>(url: string): Observable<T> {
+    get<T>(path: string): Observable<T> {
         const options: RequestOptionsArgs = this.setHeaders({});
-        return super.get(url, options)
+        return super.get(HttpService.API_HOST + path, options)
             .map((res: Response) => res.json())
             .catch(error => this.catchError(error));
     }
 
     // --------------------------------------------------------------------------------------------------------------
     // delete<T>(url: string, data: any): Observable<T> {
-    delete<T>(url: string): Observable<T> {
+    delete<T>(path: string): Observable<T> {
         const options: RequestOptionsArgs = this.setHeaders({});
-        return super.delete(url, options)
+        return super.delete(HttpService.API_HOST + path, options)
             .map((res: Response) => res.json())
             .catch(error => this.catchError(error));
     }

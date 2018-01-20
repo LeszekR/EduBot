@@ -8,7 +8,6 @@ import { HttpService } from './http.service';
 import { CameraService } from './camera.service';
 import { EduService } from './edu.service';
 
-
 /** 
  * This class runs the emotion monitoring loop where it:
  * 1. takes the user's face pic
@@ -22,7 +21,7 @@ import { EduService } from './edu.service';
 @Injectable()
 export class EmoService {
 
-    private emoUrl = 'http://localhost:64365/api/image/send';
+    private emoPath = '/api/image/send';
     private pixTimer: any;
 
     private readonly timeBetweenPix = 30000;
@@ -65,7 +64,7 @@ export class EmoService {
     private takeSendPicture(): void {
         const pic = this.camera.makePicture();
         if (pic !== null) {
-            this.http.post<Distractor>(this.emoUrl, pic, true)
+            this.http.post<Distractor>(this.emoPath, pic, true)
                 .subscribe(distractor => {
                     if (distractor != null) {
                         this.edu.serverWantsToDistract(distractor);

@@ -18,8 +18,6 @@ import { OnChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 })
 export class CodeTaskViewComponent implements OnInit {
 
-  @ViewChild("codeOutputDiv") codeOutputDiv: HTMLDivElement;
-
   @Input() readonly: boolean;
   @Input() difficulty: string;
   @Input() codeTasks: CodeTaskFront[];
@@ -83,7 +81,7 @@ export class CodeTaskViewComponent implements OnInit {
     this.activeTab = i;
     this.context.activeTabs.set(this.moduleId, this.activeTab)
     this.context.currentCodeTask = this.codeTasks[i];
-    this.context.codeOutputDiv = this.codeOutputDiv;
+    (document.getElementById("codeOutput") as HTMLIFrameElement).contentDocument.getElementsByTagName("body")[0].innerHTML = "";
     this.focusEditor();
   }
 

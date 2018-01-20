@@ -97,11 +97,6 @@ export class DistractorComponent implements OnDestroy {
     // --------------------------------------------------------------------------------------------------------------
     private hide() {
 
-        this.imgSrc = null;
-        this.showDistractor = false;
-        this.showWheelOfFortune = false;
-        this.showCardsDraw = false;
-
         // record lottery prize in the database and get recent GameScore
         if (this.lottery) {
             let result = LotteryItems.list.filter(p => p.lottery == this.lottery).shift();
@@ -111,8 +106,14 @@ export class DistractorComponent implements OnDestroy {
 
         // show to the user what happened (in case other component has not done it yet)
         if (this.showMsg)
-            this.messageService.info(this.message, 'common.result');
-
+            this.messageService.info(this.message, 'common.result').then(
+                res => {
+                    this.imgSrc = null;
+                    this.showDistractor = false;
+                    this.showWheelOfFortune = false;
+                    this.showCardsDraw = false;
+                }
+            );
 
         // clean up everthing
         this.lottery = null;

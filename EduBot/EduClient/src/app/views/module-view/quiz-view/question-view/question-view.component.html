@@ -18,7 +18,7 @@
   <div *ngFor="let answer of questionData.answers; let i=index" [attr.data-index]="i" class="w-100">
     <div class="form-check card-text w-100" (click)="questionData.correct_idx=i">
       <label class="form-check-label">
-        <div [ngClass]="questionData.correct_idx==i ? 'fa fa-check-square-o' : 'fa fa-square-o'" ></div>
+        <div class="fa-lighter" [ngClass]="questionData.correct_idx==i ? 'fa fa-check-square-o' : 'fa fa-square-o'" ></div>
         {{ answer }}
       </label>
     </div>

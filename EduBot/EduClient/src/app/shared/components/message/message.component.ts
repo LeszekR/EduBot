@@ -26,6 +26,8 @@ import { TranslateService } from '../../../languages';
 export class MessageComponent implements OnInit {
     @ViewChild('lgModal') lgModal: ModalDirective;
 
+    public KEY_ENTER = 13;
+    public KEY_ESC = 27;
     config: MessageWindowConfiguration;
 
     private _confirmElement: any;
@@ -107,6 +109,17 @@ export class MessageComponent implements OnInit {
             e.preventDefault();
             if (!positiveOnClick(e)) this._hideDialog()
         });
+
+        document.onkeyup = (e:any) => {
+            if (e.which == this.KEY_ESC) {
+                this._hideDialog();
+                return negativeOnClick(null);
+            }
+            if (e.which == this.KEY_ENTER) {
+                this._hideDialog();
+                return positiveOnClick(null);
+            }
+        };
 
         this.lgModal.config.backdrop = 'static';
         this.lgModal.show();

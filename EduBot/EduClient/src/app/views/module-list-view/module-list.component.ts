@@ -29,8 +29,7 @@ export class ModuleListComponent implements OnInit, OnDestroy {
     selectedModuleId: number;
     anyModulesSelected: boolean;
 
-    tasksSolvedSub: any;
-    quizSolvedSub:any;
+    updateModuleSub: any;
 
 
     // CONSTRUCTOR
@@ -56,19 +55,18 @@ export class ModuleListComponent implements OnInit, OnDestroy {
                 this.modules[index] = m;
             });
 
-        this.tasksSolvedSub = this.moduleService.codeTasksSolved.subscribe( id => {
-            this.modules.find( m => m.id == id).solvedCodes = true;
+        this.updateModuleSub = this.moduleService.updateModuleOnList.subscribe( id => {
+            this.moduleService.getModuleState(id).subscribe( res => {
+                let module = this.modules.find( m => m.id == res.id);
+                module = res;
+            });
         });
         
-        this.quizSolvedSub = this.moduleService.questionsSolved.subscribe( id => {
-            this.modules.find( m => m.id == id).solvedQuestions = true;
-        })
         // this.router.navigate(['module/' + this.modules[this.modules.length - 1].id]);
     }
 
     ngOnDestroy(){
-        this.quizSolvedSub.unsubscribe();
-        this.tasksSolvedSub.unsubscribe();
+        this.updateModuleSub.unsubscribe();
     }
 
 

@@ -18,8 +18,7 @@ export class ModuleService {
 
     moduleAdded = new EventEmitter<Module>();
     refreshModule = new EventEmitter<Module>();
-    questionsSolved = new EventEmitter<number>();
-    codeTasksSolved = new EventEmitter<number>();
+    updateModuleOnList = new EventEmitter<number>();
     // TODO - ZDARZENIA na poprawienie pytania lub kodu na błedne rozwiązanie
     // questionsSolved = new EventEmitter<number>();
     // codeTasksSolved = new EventEmitter<number>();
@@ -79,5 +78,9 @@ export class ModuleService {
     // --------------------------------------------------------------------------------------------------------------
     deleteModule(id: number): Observable<Module[]> {
         return this.http.delete<Module[]>(this.moduleUrl + '/deletemodule/' + id);
+    }
+
+    getModuleState(id: number): Observable<Module> {
+        return this.http.get<Module>(this.moduleUrl + '/moduleResults/' + id);
     }
 }

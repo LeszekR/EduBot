@@ -13,7 +13,7 @@
 
     </a>
 
-    <div *ngIf="!readonly && difficulty=='easy'" 
+    <div *ngIf="context.isEditMode" 
          class="fa fa-plus fa-2x ml-2" style="align-self: center;font-size: 2rem"
          (click)="addCodeTask()" >
     </div>

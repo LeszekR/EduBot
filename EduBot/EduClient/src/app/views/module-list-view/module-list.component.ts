@@ -57,8 +57,8 @@ export class ModuleListComponent implements OnInit, OnDestroy {
 
         this.updateModuleSub = this.moduleService.updateModuleOnList.subscribe( id => {
             this.moduleService.getModuleState(id).subscribe( res => {
-                let module = this.modules.find( m => m.id == res.id);
-                module = res;
+                let idx = this.modules.findIndex( m => m.id == res.id);
+                this.modules[idx] = res;
             });
         });
         

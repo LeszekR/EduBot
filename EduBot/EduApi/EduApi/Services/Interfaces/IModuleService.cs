@@ -8,6 +8,10 @@ namespace EduApi.Services.Interfaces {
     public interface IModuleService {
 
         // ---------------------------------------------------------------------------------------------
+        /* Sprawdza, czy dany moduł został zaliczony przez tego użytiownika */
+        ModuleDTO GetDTOWithResults(int moduleId, int userId);
+
+        // ---------------------------------------------------------------------------------------------
         /* Pobiera z bazy wszystkie zadania z kodu  dla danego modułu. 
          * Jeżeli to nie jest moduł 'easy' - pobiera w tym celu wszystkie zadania
          * swoich dzieci (rekurencyjnie). 

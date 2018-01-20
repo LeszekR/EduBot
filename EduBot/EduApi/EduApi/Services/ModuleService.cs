@@ -40,6 +40,33 @@ namespace EduApi.Services {
 
         // PUBLIC
         // =============================================================================================
+        public ModuleDTO GetDTOWithResults(int moduleId, int userId) {
+
+            var user = _userService.GetUserEntity(userId);
+
+            var userQuestions = user.user_question;
+            var passedQuests = userQuestions
+                .Where(uq => uq.last_result == true)
+                .Select(uq => uq.test_question)
+                .ToList();
+
+            var userCodes = user.user_code;
+            var passedCodes = userCodes
+                .Where(uc => uc.last_result == true)
+                .Select(uc => uc.test_code)
+                .ToList();
+
+            var mod = _moduleRepository.Get(moduleId);
+
+            return GetDTOWitResults(
+                userQuestions, 
+                passedQuests, 
+                userCodes, 
+                passedCodes, mod);
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
         public string FillMetaModules() {
 
             string[] stopnie = { "medium", "hard" };
@@ -99,60 +126,26 @@ namespace EduApi.Services {
 
 
             // Zapisanie dla których modułów użytkownik zaliczył wszystkie pytania testu.
-            var passedQuests = user.user_question
+            var userQuestions = user.user_question;
+            var passedQuests = userQuestions
                 .Where(uq => uq.last_result == true)
                 .Select(uq => uq.test_question)
                 .ToList();
 
             // Ustalenie dla których modułów użytkownik zaliczył test z kodu.
-            var passedCodes = user.user_code
+            var userCodes = user.user_code;
+            var passedCodes = userCodes
                 .Where(uc => uc.last_result == true)
                 .Select(uc => uc.test_code)
                 .ToList();
 
             List<ModuleDTO> moduleListDTO = new List<ModuleDTO>();
             ModuleDTO dto;
-            IEnumerable<test_question> moduleQuests;
-            IEnumerable<test_code> moduleCodes;
 
             foreach (var mod in modules) {
-
-                dto = ModuleMapper.GetDTO(mod);
-
-                moduleQuests = QuestionsForModule(mod);
-
-                // this module has no questions
-                if (moduleQuests.Count() == 0)
-                    dto.solvedQuestions = true;
-
-                // the user has not answered this module's questions yet
-                else if (user.user_question.FirstOrDefault(q => moduleQuests.Contains(q.test_question)) == null)
-                    dto.solvedQuestions = false;
-
-                // check the latest user's results with this module question test
-                else
-                    dto.solvedQuestions = moduleQuests.FirstOrDefault(q => !passedQuests.Contains(q)) == null;
-
-
-
-                // codeTasks for the module
-                moduleCodes = CodesForModule(mod);
-
-                // this module has no code test
-                if (moduleCodes.Count() == 0)
-                    dto.solvedCodes = true;
-
-                // the user has not taken this module's code test yet
-                else if (user.user_code.FirstOrDefault(c => moduleCodes.Contains(c.test_code)) == null)
-                    dto.solvedCodes = false;
-
-                // check the latest user's results with this module code test
-                else
-                    dto.solvedCodes = moduleCodes.FirstOrDefault(c => !passedCodes.Contains(c)) == null;
-
+                dto = GetDTOWitResults(userQuestions, passedQuests, userCodes, passedCodes, mod);
                 moduleListDTO.Add(dto);
             }
-
 
             return moduleListDTO;
         }
@@ -212,6 +205,47 @@ namespace EduApi.Services {
 
             // moduł gotowy do wysłania studentowi
             return moduleDTO;
+        }
+
+
+        // PRIVATE
+        // =============================================================================================
+        private ModuleDTO GetDTOWitResults(ICollection<user_question> userQuestions, List<test_question> passedQuests, ICollection<user_code> userCodes, List<test_code> passedCodes, edumodule mod) {
+
+            ModuleDTO dto = ModuleMapper.GetDTO(mod);
+            IEnumerable<test_question> moduleQuests;
+            IEnumerable<test_code> moduleCodes;
+            moduleQuests = QuestionsForModule(mod);
+
+            // this module has no questions
+            if (moduleQuests.Count() == 0)
+                dto.solvedQuestions = true;
+
+            // the user has not answered this module's questions yet
+            else if (userQuestions.FirstOrDefault(q => moduleQuests.Contains(q.test_question)) == null)
+                dto.solvedQuestions = false;
+
+            // check the latest user's results with this module question test
+            else
+                dto.solvedQuestions = moduleQuests.FirstOrDefault(q => !passedQuests.Contains(q)) == null;
+
+
+            // codeTasks for the module
+            moduleCodes = CodesForModule(mod);
+
+            // this module has no code test
+            if (moduleCodes.Count() == 0)
+                dto.solvedCodes = true;
+
+            // the user has not taken this module's code test yet
+            else if (userCodes.FirstOrDefault(c => moduleCodes.Contains(c.test_code)) == null)
+                dto.solvedCodes = false;
+
+            // check the latest user's results with this module code test
+            else
+                dto.solvedCodes = moduleCodes.FirstOrDefault(c => !passedCodes.Contains(c)) == null;
+
+            return dto;
         }
 
 

@@ -22,6 +22,14 @@ namespace EduApi.Controllers {
         // PUBLIC
         // =============================================================================================
         [HttpGet]
+        public IHttpActionResult ModuleResults(int id) {
+            int userId = TokenHelper.GetUserId(User.Identity);
+            return Ok(_moduleService.GetDTOWithResults(id, userId));
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
+        [HttpGet]
         public IHttpActionResult FillMetaModules() {
             return Ok(_moduleService.FillMetaModules());
         }
@@ -46,7 +54,7 @@ namespace EduApi.Controllers {
 
         // ---------------------------------------------------------------------------------------------
         public IHttpActionResult GetModuleLearn(int id) {
-            var userId = 1;
+            int userId = TokenHelper.GetUserId(User.Identity);
             return Ok(_moduleService.GetModuleLearn(id, userId));
         }
 

@@ -22,12 +22,12 @@
 
 <!-- tab content -->
 <!-- ======================================================================================= -->
-<div *ngIf="codeTasks" class="p-0 m-0" style="height: 85%;">
+<div *ngIf="codeTasks" class="p-0 m-0 h-100 of-auto">
 
   <!--CODE EXECUTION RESUL - image -->
   <!-- ======================================================================================= -->
   <div *ngIf="imgSrc" 
-    class="img-background d-flex justify-content-center align-items-center w-100">
+    class="img-background d-flex justify-content-center align-items-center">
     <img [src]="'/assets/img/' + imgSrc" style="max-width: 100%; max-height: 100%" />  
   </div>
 
@@ -35,7 +35,7 @@
   <!-- ..................................................................................... -->
   <textarea 
     class="w-100 p-2 m-0"
-    style="height:50%;" 
+    style="height:30%;" 
     [readonly]="readonly || difficulty!='easy'"
     [(ngModel)]="codeTasks[activeTab].question" 
   ></textarea>

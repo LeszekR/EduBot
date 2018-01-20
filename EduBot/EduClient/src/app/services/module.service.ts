@@ -8,13 +8,14 @@ import { HttpService } from './http.service';
 import { Module } from '../models/module'
 import { Distractor } from '../models/distractor'
 import { ContextService } from './context.service';
+import {AppModule} from "../app.module";
 
 
 // ==================================================================================================================
 @Injectable()
 export class ModuleService {
 
-    private moduleUrl = 'http://localhost:64365/api/module';
+    private modulePath = '/api/module';
 
     moduleAdded = new EventEmitter<Module>();
     refreshModule = new EventEmitter<Module>();
@@ -34,17 +35,17 @@ export class ModuleService {
     // PUBLIC
     // ==============================================================================================================
     fillMetaModules(): Observable<string> {
-        return this.http.get<string>(this.moduleUrl + '/fillmetamodules');
+        return this.http.get<string>(this.modulePath + '/fillmetamodules');
     }
 
     // --------------------------------------------------------------------------------------------------------------
     getSimpleModulesOfUser(): Observable<Module[]> {
-        return this.http.get<Module[]>(this.moduleUrl + '/getsimplemodulesofuser');
+        return this.http.get<Module[]>(this.modulePath + '/getsimplemodulesofuser');
     }
 
     // --------------------------------------------------------------------------------------------------------------
     getSimpleModules(): Observable<Module[]> {
-        return this.http.get<Module[]>(this.moduleUrl + '/getsimplemodules');
+        return this.http.get<Module[]>(this.modulePath + '/getsimplemodules');
     }
 
     // --------------------------------------------------------------------------------------------------------------
@@ -57,30 +58,30 @@ export class ModuleService {
 
     // --------------------------------------------------------------------------------------------------------------
     getModuleByIdEdit(id: number): Observable<Module> {
-        return this.http.get<Module>(this.moduleUrl + '/getmoduleedit/' + id);
+        return this.http.get<Module>(this.modulePath + '/getmoduleedit/' + id);
     }
 
     // --------------------------------------------------------------------------------------------------------------
     getModuleByIdLearn(id: number): Observable<Module> {
-        return this.http.get<Module>(this.moduleUrl + '/getmodulelearn/' + id);
+        return this.http.get<Module>(this.modulePath + '/getmodulelearn/' + id);
     }
 
     // --------------------------------------------------------------------------------------------------------------
     saveModule(module: Module): Observable<Module> {
-        return this.http.post<Module>(this.moduleUrl + '/upsertmodule', module);
+        return this.http.post<Module>(this.modulePath + '/upsertmodule', module);
     }
 
     // --------------------------------------------------------------------------------------------------------------
     saveMetaModule(moduleGroup: Module[]): Observable<Module[]> {
-        return this.http.post<Module[]>(this.moduleUrl + '/newmetamodule', moduleGroup);
+        return this.http.post<Module[]>(this.modulePath + '/newmetamodule', moduleGroup);
     }
 
     // --------------------------------------------------------------------------------------------------------------
     deleteModule(id: number): Observable<Module[]> {
-        return this.http.delete<Module[]>(this.moduleUrl + '/deletemodule/' + id);
+        return this.http.delete<Module[]>(this.modulePath + '/deletemodule/' + id);
     }
 
     getModuleState(id: number): Observable<Module> {
-        return this.http.get<Module>(this.moduleUrl + '/moduleResults/' + id);
+        return this.http.get<Module>(this.modulePath + '/moduleResults/' + id);
     }
 }

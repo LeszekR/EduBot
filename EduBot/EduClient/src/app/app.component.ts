@@ -106,7 +106,7 @@ export class AppComponent implements OnInit, OnDestroy {
   // --------------------------------------------------------------------------------------------------------------
   setEmoState(state: number) {
     if (state != undefined)
-      this.http.post<any>('http://localhost:64365/api/emoservice/setemostate', state)
+      this.http.post<any>('/api/emoservice/setemostate', state)
         .subscribe(res => {
 
           if (state == 2) {

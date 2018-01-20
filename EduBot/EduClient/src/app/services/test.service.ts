@@ -21,7 +21,7 @@ import { ContextService } from './context.service';
 @Injectable()
 export class TestTaskService {
 
-    private quizUrl = 'http://localhost:64365/api/quiz';
+    private quizPath = '/api/quiz';
 
 
     // CONSTRUCTOR
@@ -36,7 +36,7 @@ export class TestTaskService {
     // PUBLIC
     // ==============================================================================================================
     recordLotteryResult(drawnPrize: Lottery) {
-        this.http.post<GameScore>(this.quizUrl + '/lottery', drawnPrize)
+        this.http.post<GameScore>(this.quizPath + '/lottery', drawnPrize)
             .subscribe(gameScore => this.context.appComponent.showGameScore(gameScore));
     }
 
@@ -45,13 +45,13 @@ export class TestTaskService {
         let result = this.testCodeService.executeCode(codeTask);
 
         let codeTaskAnswDTO = new CodeTaskAnswDTO(codeTask, result);
-        return this.http.post<CodeAttempt>(this.quizUrl + '/verifycodetest', codeTaskAnswDTO);
+        return this.http.post<CodeAttempt>(this.quizPath + '/verifycodetest', codeTaskAnswDTO);
     }
 
     // --------------------------------------------------------------------------------------------------------------
     verifyClosedTest(answers: ClosedQuestionAnswDTO[]): Observable<ClosedQuestionAnswDTO[]> {
         return this.http.post<ClosedQuestionAnswDTO[]>(
-            this.quizUrl + '/verifyclosedtest', answers);
+            this.quizPath + '/verifyclosedtest', answers);
     }
 
     // --------------------------------------------------------------------------------------------------------------

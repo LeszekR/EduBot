@@ -20,7 +20,7 @@ import { ContextService } from './context.service';
 @Injectable()
 export class EduService {
 
-    private eduUrl = 'http://localhost:64365/api/edu';
+    private eduPath = '/api/edu';
 
 
     // CONSTRUCTOR
@@ -58,22 +58,22 @@ export class EduService {
 
     // --------------------------------------------------------------------------------------------------------------
     getScore(): Observable<GameScore> {
-        return this.http.get<GameScore>(this.eduUrl + '/getscore');
+        return this.http.get<GameScore>(this.eduPath + '/getscore');
     }
 
     // --------------------------------------------------------------------------------------------------------------
     explainModule(moduleId: number): Observable<Module[]> {
-        return this.http.get<Module[]>(this.eduUrl + '/explainmodule/' + moduleId);
+        return this.http.get<Module[]>(this.eduPath + '/explainmodule/' + moduleId);
     }
 
     // --------------------------------------------------------------------------------------------------------------
     prevModule(currentModuleId: number): Observable<ModulDistracDTO> {
-        return this.http.get<ModulDistracDTO>(this.eduUrl + '/prevmodule/' + currentModuleId);
+        return this.http.get<ModulDistracDTO>(this.eduPath + '/prevmodule/' + currentModuleId);
     }
 
     // --------------------------------------------------------------------------------------------------------------
     nextModule(currentModuleId: number): Observable<ModulDistracDTO> {
         let moduleId = currentModuleId == undefined ? 0 : currentModuleId;
-        return this.http.get<ModulDistracDTO>(this.eduUrl + '/nextmodule/' + moduleId);
+        return this.http.get<ModulDistracDTO>(this.eduPath + '/nextmodule/' + moduleId);
     }
 }

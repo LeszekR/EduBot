@@ -69,8 +69,7 @@ textarea {
 }
 
 .img-background{
-  display: block;
-  position: fixed;
+  position: absolute;
   width: inherit;
   height: inherit;
   z-index: 9999;

@@ -99,11 +99,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   // --------------------------------------------------------------------------------------------------------------
-  private sendPic() {
-    this.emoService.sendPic();
-  }
-
-  // --------------------------------------------------------------------------------------------------------------
   setEmoState(state: number) {
     if (state != undefined)
       this.http.post<any>('http://localhost:64365/api/emoservice/setemostate', state)
@@ -133,6 +128,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
   // PRIVATE
   // ==============================================================================================================
+  private sendPic() {
+    this.emoService.sendPic();
+  }
+
+  // --------------------------------------------------------------------------------------------------------------
   private initializeTimer() {
     this.sessionTimeout = 300 * 1000; //300sec
     if (this.sessionTimeout > 0)

@@ -9,6 +9,10 @@ namespace EduApi.Services.Interfaces {
 
         // ---------------------------------------------------------------------------------------------
         /* Sprawdza, czy dany moduł został zaliczony przez tego użytiownika */
+        int CountEasyModules();
+
+        // ---------------------------------------------------------------------------------------------
+        /* Sprawdza, czy dany moduł został zaliczony przez tego użytiownika */
         ModuleDTO GetDTOWithResults(int moduleId, int userId);
 
         // ---------------------------------------------------------------------------------------------

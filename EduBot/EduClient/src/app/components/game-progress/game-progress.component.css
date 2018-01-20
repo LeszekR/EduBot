@@ -1,15 +1,13 @@
 
-/* .progress{
-    height: 0.6rem;
-    min-width: 100px;
-} */
-
 .no-wrap{
     white-space: nowrap;
 }
 
+.progres {
+    border: 1px solid lightgray;
+}
 
-
+/* LIFE REMAINING */
 .life {
     border: 1px solid lightgray;
     height: 100%;    
@@ -19,13 +17,17 @@
     background-color: lightgray;
     border-left: 1px solid black;
 }
+
+/* ARMOUR STRENGTH */
 .shield-empty {
     border-left: 1px solid lightgray;
+    padding:0;
 }
-.shield {
+.shield-full {
     background-color: lightgray;
-    border-left: 1px solid black;
+    border-right: 1px solid black;
 }
-.progres {
-    border: 1px solid lightgray;
+.shield-part {
+    background-color: lightgray;
 }
+

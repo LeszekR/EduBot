@@ -33,6 +33,11 @@ export class ModuleService {
 
     // PUBLIC
     // ==============================================================================================================
+    countEasyModules(): Observable<number> {
+        return this.http.get<number>(this.moduleUrl + '/counteasymodules');
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
     fillMetaModules(): Observable<string> {
         return this.http.get<string>(this.moduleUrl + '/fillmetamodules');
     }

@@ -39,13 +39,13 @@ export class DistractorComponent implements OnDestroy {
         this.distractorSubsciption = this.service.onShowDistractor.subscribe(d => this.show(d));
     }
 
-    // --------------------------------------------------------------------------------------------------------------
-    ngAfterViewInit() {
-        document.onkeydown = (e: any) => {
-            if (e.which == this.KEY_ESC)
-                this.hide();
-        }
-    }
+    // // --------------------------------------------------------------------------------------------------------------
+    // ngAfterViewInit() {
+    //     document.onkeydown = (e: any) => {
+    //         if (e.which == this.KEY_ESC)
+    //             this.showMsgAndHide();
+    //     }
+    // }
 
     // --------------------------------------------------------------------------------------------------------------
     ngOnDestroy() {
@@ -90,12 +90,12 @@ export class DistractorComponent implements OnDestroy {
         // ESC listener
         document.onkeydown = (e: any) => {
             if (e.which == this.KEY_ESC)
-                this.hide();
+                this.showMsgAndHide();
         }
     }
 
     // --------------------------------------------------------------------------------------------------------------
-    private hide() {
+    private showMsgAndHide() {
 
         // record lottery prize in the database and get recent GameScore
         if (this.lottery) {
@@ -106,18 +106,23 @@ export class DistractorComponent implements OnDestroy {
 
         // show to the user what happened (in case other component has not done it yet)
         if (this.showMsg)
-            this.messageService.info(this.message, 'common.result').then(
-                res => {
-                    this.imgSrc = null;
-                    this.showDistractor = false;
-                    this.showWheelOfFortune = false;
-                    this.showCardsDraw = false;
-                }
-            );
+            this.messageService.info(this.message, 'common.result')
+                .then(res => this.hide());
+        else
+            this.hide();
 
         // clean up everthing
         this.lottery = null;
         this.message = "";
         this.showMsg = false;
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
+    private hide() {
+        this.imgSrc = null;
+        this.showDistractor = false;
+        this.showWheelOfFortune = false;
+        this.showCardsDraw = false;
+
     }
 }

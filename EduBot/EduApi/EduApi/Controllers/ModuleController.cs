@@ -22,11 +22,16 @@ namespace EduApi.Controllers {
         // PUBLIC
         // =============================================================================================
         [HttpGet]
+        public IHttpActionResult CountEasyModules() {
+            return Ok(_moduleService.CountEasyModules());
+        }
+
+        // ---------------------------------------------------------------------------------------------
+        [HttpGet]
         public IHttpActionResult ModuleResults(int id) {
             int userId = TokenHelper.GetUserId(User.Identity);
             return Ok(_moduleService.GetDTOWithResults(id, userId));
         }
-
 
         // ---------------------------------------------------------------------------------------------
         [HttpGet]
@@ -34,13 +39,11 @@ namespace EduApi.Controllers {
             return Ok(_moduleService.FillMetaModules());
         }
 
-
         // ---------------------------------------------------------------------------------------------
         public IHttpActionResult GetSimpleModulesOfUser() {
             int userId = TokenHelper.GetUserId(User.Identity);
             return Ok(_moduleService.GetSimpleModules(userId));
         }
-
 
         // ---------------------------------------------------------------------------------------------
         public IHttpActionResult GetSimpleModules() {

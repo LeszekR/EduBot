@@ -1,12 +1,12 @@
 <div class="w-100 h-100 ml-auto mr-6 d-flex align-items-center pull-right">
 
-    <div class="row w-100 m-0 p-0">
+    <div class="row h-100 w-100 m-0 p-0">
     
         <!-- LIFE -->
         <div class="col mr-3">
             <div 
                 class="row no-wrap justify-content-right p-0" 
-                style="height: 30%;">
+                style="height: 25%;">
                 <div 
                     *ngFor="let segment of lifeSegments; let i=index"
                     class="life h-100 p-0 col" 
@@ -14,7 +14,7 @@
                     >
                 </div>
             </div>
-            <div class="row no-wrap justify-content-left pt-2">
+            <div class="row no-wrap justify-content-left pt-3">
                 <h3>{{ 'learn.progress.rank.' + context.gameScore.rank | translate }}</h3>
             </div>
         </div>
@@ -22,16 +22,18 @@
 
         <!-- SHIELD -->
         <div class="col mr-3">
-            <div class="row no-wrap m-0 p-0 justify-content-left" style="height: 30%;">
+            <div class="row no-wrap m-0 p-0 justify-content-left" style="height: 35%;">
                 <span class="p-0">Kombinezon sapera</span>
             </div>
-            <div class="row no-wrap m-0 pt-2 justify-content-left" style="height: 70%;">
+            <div class="row no-wrap m-0 pt-2 justify-content-left" style="height: 65%;">
                 <div 
                     *ngFor="let segment of shieldSegments;"
                     class="life h-100 p-0 col container"
-                    [ngClass]="segment > context.gameScore.shield ? shield-empty : ''" 
+                    [ngClass]="segmentClass(segment)" 
                 >
-                    <div class="h-100 p-0 m-0 shield col"
+                    <div
+                        *ngIf="segment > context.gameScore.shield && segment < context.gameScore.shield + 10"
+                        class="h-100 p-0 m-0 shield-part col"
                         [ngStyle]="{'width.%': segmentWidth(shieldMax, nShield, context.gameScore.shield, segment)}">
                     </div>
                 </div>
@@ -40,9 +42,27 @@
     
 
         <!-- MINEFIELD PROGRESS -->
-        <div class="col h-100 m-0 p-0 progres">
-            <br><br>
-        </div>
-    </div>
+        <div 
+        class="col h-100 d-flex flex-column m-0 p-0 progres">
+            <div 
+                *ngFor="let r of mapZones;"
+                class="h-100 p-0 d-flex flex-row progres"
+            >
+                <div 
+                    *ngFor="let c of getRow(r);"
+                    class="col h-100 p-0 progres"
+                    style="width: 10px;"
+                >
+                r
+                </div>
+            </div>
 
+    </div>
+    
 </div>
+
+                <!-- *ngFor="let r of [1,2];"
+                class="row d-flex flex-row" -->
+
+<!-- *ngFor="let zone of mapZones[r];"
+class="col progres" -->

@@ -103,6 +103,6 @@ export const LANG_EN_TRANS = {
 
     'drawing-cards.explanation': 'Pick one of the cards.',
 
-    'edu.want-a-distractor': 'Do you want to open your surprise?',
+    'edu.want-a-distractor': 'You found a secret box og the enemy. Do you want to open it now?',
     'edu.sth-for-you': 'SURPRISE GIFT'
 };

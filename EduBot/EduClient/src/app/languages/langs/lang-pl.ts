@@ -103,6 +103,6 @@ export const LANG_PL_TRANS = {
 
     'drawing-cards.explanation': 'Wybierz jedną z kart.',
 
-    'edu.want-a-distractor': 'Czy chcesz otworzyć niespodziankę?',
+    'edu.want-a-distractor': 'Znalazłeś skrzynkę wroga. Czy chcesz ją teraz otworzyć?',
     'edu.sth-for-you': 'NIESPODZANKA'
 };

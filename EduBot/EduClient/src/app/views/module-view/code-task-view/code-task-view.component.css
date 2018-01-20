@@ -74,6 +74,7 @@ textarea {
   height: calc(100% - 40px);
   z-index: 9999;
   background-color: white;
+  margin-top: 1px;
 }
 
 .img-pos-small{
@@ -95,6 +96,12 @@ textarea {
 
 .distractor-close{
   position: absolute;
-  top: 50px;
-  left: 70%;
+  top: 20px;
+  right: 20px;
+  color: #636c72;
+  font-size: 30px;
+}
+
+.fa-div:hover, .fa:hover {
+  color: #636c72c7 !important;
 }

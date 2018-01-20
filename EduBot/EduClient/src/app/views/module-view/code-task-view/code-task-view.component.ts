@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, SimpleChanges } from '@angular/core';
 
 import { CodeTaskFront } from '../../../models/code-task';
 import { ModuleViewComponent } from '../module-view.component';
@@ -7,6 +7,7 @@ import { TestResult } from '../../../models/enums';
 
 import { ContextService } from '../../../services/context.service';
 import { MessageService } from '../../../shared/components/message/message.service';
+import { OnChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 
 
 // ==================================================================================================================
@@ -41,17 +42,15 @@ export class CodeTaskViewComponent implements OnInit {
     if(tab)
       this.activeTab = tab;
 
-    setTimeout(() => {
-      let editor = document.getElementById('code-editor');
-      if(editor)
-        editor.getElementsByTagName('textarea')[0].focus();
-    },500 );
+    this.focusEditor();
 
     document.onkeydown = (e: any) => {
       if (e.which == '27') 
           this.hideImage();
     }
   }
+
+  
 
   // PRIVATE
   // ==============================================================================================================
@@ -60,6 +59,7 @@ export class CodeTaskViewComponent implements OnInit {
     this.context.activeTabs.set(this.moduleId, this.activeTab)
     this.context.currentCodeTask = this.codeTasks[i];
     this.context.codeOutputDiv = this.codeOutputDiv;
+    this.focusEditor();
   }
   
 
@@ -106,6 +106,15 @@ export class CodeTaskViewComponent implements OnInit {
 
   private hideImage(){
     this.imgSrc = null;
+    this.focusEditor();
+  }
+
+  private focusEditor(){
+    setTimeout(() => {
+      let editor = document.getElementById('code-editor');
+      if(editor)
+        editor.getElementsByTagName('textarea')[0].focus();
+    },500 );
   }
   
 }

@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input } from '@angular/core';
-import { FortuneWheelConfig } from './config/fortune-wheel.config';
+import { LotteryItems } from './config/fortune-wheel.config';
 import { ViewChild } from '@angular/core';
 import { MessageService } from '../message/message.service';
 import { Images } from '../../../models/distractor';
@@ -70,7 +70,7 @@ export class FortuneWheelComponent {
             if (this.speed > FortuneWheelComponent.minimalSpeed) {
 
                 const angle = 360 - ((secondsPassed + delay) / this.speed * 100 % 100 * 3.6);
-                const result = FortuneWheelConfig.prizes
+                const result = LotteryItems.list
                     .filter(obj => obj.from < angle && obj.to >= angle)
                     .shift();
 

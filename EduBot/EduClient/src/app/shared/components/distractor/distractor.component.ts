@@ -3,7 +3,7 @@ import { DistractorService } from '../../../services/distractor.service';
 import { Distractors, Distractor, Images } from '../../../models/distractor';
 import { Lottery } from '../../../models/enums';
 import { TestTaskService } from '../../../services/test.service';
-import { FortuneWheelConfig } from '../fortune-wheel/config/fortune-wheel.config';
+import { LotteryItems } from '../fortune-wheel/config/fortune-wheel.config';
 import { MessageService } from '../message/message.service';
 
 
@@ -27,7 +27,7 @@ export class DistractorComponent implements OnDestroy {
 
     lottery: Lottery;
     private message: string;
-    private showLotteryMsg: boolean;
+    private showMsg: boolean;
 
     // CONSTRUCTOR
     // ==============================================================================================================
@@ -59,7 +59,7 @@ export class DistractorComponent implements OnDestroy {
 
         this.lottery = null;
         this.message = "";
-        this.showLotteryMsg = false;
+        this.showMsg = false;
 
         let type = distractor.distr_content;
 
@@ -72,26 +72,24 @@ export class DistractorComponent implements OnDestroy {
 
 
         // other distractors need distractorCompoent to be set for them
-        else if (type == Distractors.hiddenMine) {
-            this.imgSrc = this.IMG_PATH + Images.list[type];
-            this.lottery = Lottery.DECOY;
-            this.showLotteryMsg = true;
-            this.showDistractor = true;
-        }
-
-        // info for the user
-        else if (type == 'death') {
-            this.imgSrc = this.IMG_PATH + Images.list[type];
-            this.message = 'lottery.death';
-            this.showDistractor = true;
-        }
         else {
             this.imgSrc = this.IMG_PATH + Images.list[type];
             this.showDistractor = true;
+
+            if (type == Distractors.hiddenMine) {
+                this.lottery = Lottery.DECOY;
+                this.showMsg = true;
+            }
+
+            else if (type == 'death') {
+                this.lottery = Lottery.DEATH;
+                this.showMsg = true;
+            }
         }
 
+        // ESC listener
         document.onkeydown = (e: any) => {
-            if (e.which == this.KEY_ESC) 
+            if (e.which == this.KEY_ESC)
                 this.hide();
         }
     }
@@ -106,19 +104,19 @@ export class DistractorComponent implements OnDestroy {
 
         // record lottery prize in the database and get recent GameScore
         if (this.lottery) {
-            let result = FortuneWheelConfig.prizes.filter(p => p.lottery == this.lottery).shift();
+            let result = LotteryItems.list.filter(p => p.lottery == this.lottery).shift();
             this.testTaskService.recordLotteryResult(this.lottery);
-            if (this.showLotteryMsg) this.message = result.msg;
+            if (this.showMsg) this.message = result.msg;
         }
 
         // show to the user what happened (in case other component has not done it yet)
-        if (this.message != "")
+        if (this.showMsg)
             this.messageService.info(this.message, 'common.result');
 
 
         // clean up everthing
         this.lottery = null;
         this.message = "";
-        this.showLotteryMsg = false;
+        this.showMsg = false;
     }
 }

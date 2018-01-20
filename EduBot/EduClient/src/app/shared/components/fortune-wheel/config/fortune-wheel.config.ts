@@ -2,9 +2,9 @@ import { Lottery } from '../../../../models/enums';
 
 
 // ==================================================================================================================
-export class FortuneWheelConfig {
+export class LotteryItems {
 
-    public static readonly prizes = [
+    public static readonly list = [
         {
             lottery: Lottery.HOSPITAL,
             from: 350,
@@ -46,6 +46,12 @@ export class FortuneWheelConfig {
             from: -1,
             to: -1,
             msg: 'lottery.decoy'
+        },
+        {
+            lottery: Lottery.DEATH,
+            from: -1,
+            to: -1,
+            msg: 'lottery.death'
         },
     ];
 }

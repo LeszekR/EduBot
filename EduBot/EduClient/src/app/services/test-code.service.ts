@@ -73,7 +73,7 @@ export class TestCodeService {
             }
             script.innerHTML += 'codeToExecuteFunction = () => {' + codeToExecute + '\n}';
         } else if (codeTask.codeMode === CodeMode.HTML) { // The code is HTML + CSS + JavaScript
-            scopedDocument.body.innerHTML = codeToExecute;
+            scopedDocument.write(codeToExecute);
             script.innerHTML += 'codeToExecuteFunction = () => {' + codeTask.executorCode + '\n}';
         } else {
             console.log('Nie rozpoznany codeMode w codeTaskFront');
@@ -103,6 +103,7 @@ export class TestCodeService {
         } else {
             message = e.message;
         }
+        scopedDocument.body = document.createElement('body');
         scopedDocument.body.innerHTML = '<span style="color:red;">' + message + '</span>';
     }
 };

@@ -11,9 +11,10 @@
 //
 //Pamiętaj aby zamykać każdy element tagiem kończącym w odpowiednim miejscu stringu.
 
+// TU JEST RESULT DO WKLEJENIA DO APP
+//var correctJsResult =  "<div id="divTab"><table><tr><td><input id="0" value="0"></td><td><input id="1" value="1"></td></row></table></div>";
 
-var correctJsResult = "<div id=\"divTab\"><table><tr><td><input id=\"0\" value=\"0\"></td><td><input id=\"1\" value=\"1\"></td></row></table></div><style>#codeOutput * {padding: 2px;margin: 4px;} #codeOutput table {width: 100%;height: 5rem;border: 2px solid green;} #codeOutput tr {width: 90%;height: 1.4rem;} #codeOutput td {width: 1.3rem;height: 1rem;border: 2px solid blue;}</style>";
-
+var correctJsResult = "<div id=\"divTab\"><table><tr><td><input id=\"0\" value=\"0\"></td><td><input id=\"1\" value=\"1\"></td></row></table></div>";
 function studentJsCode() {
 
     // STUDENT_CODE_HERE
@@ -49,10 +50,12 @@ inp = document.getElementById("1");
 if (!inp) return "Brak komórki 1";
 if (inp.value != 1) return "Nieprawidłowa wartość w \"input\" 1";
 
-tabHtml += "<style>* {padding: 2px;margin: 4px;} "
+var styl = document.createElement("style");
+styl.innerHTML = "* {padding: 2px;margin: 4px;} "
 + "table {width: 100%;height: 5rem;border: 2px solid green;} "
 + "tr {width: 90%;height: 1.4rem;} "
-+ "td {width: 1.3rem;height: 1rem;border: 2px solid blue;}</style>";
++ "td {width: 1.3rem;height: 1rem;border: 2px solid blue;}";
+document.head.appendChild(styl);
 
 return tabHtml.replace(/(     )(   )(  )/g, " ");
 }

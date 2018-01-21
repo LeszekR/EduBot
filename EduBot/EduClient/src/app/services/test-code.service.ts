@@ -85,7 +85,13 @@ export class TestCodeService {
             return result == codeTask.correctResult;
 
         } catch (e) {
-            scopedDocument.body.innerHTML = '<span style="color:red;">' + e.message + '</span>';
+            let message = '';
+            if (e.message.includes('iframe.contentWindow.codeToExecuteFunction')) {
+                message = 'Twój kod jest błędny!';
+            } else {
+                message = e.message;
+            }
+            scopedDocument.body.innerHTML = '<span style="color:red;">' + message + '</span>';
             return false;
         }
     }

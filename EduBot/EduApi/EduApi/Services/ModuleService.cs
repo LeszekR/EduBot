@@ -40,7 +40,7 @@ namespace EduApi.Services {
 
         // PUBLIC
         // =============================================================================================
-        public int CountEasyModules() {
+        public int AllUserEasyModules() {
             return _moduleRepository.All().Where(m => m.difficulty == "easy").Count();
         }
 

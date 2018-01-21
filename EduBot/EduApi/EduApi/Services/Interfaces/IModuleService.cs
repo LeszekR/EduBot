@@ -9,7 +9,7 @@ namespace EduApi.Services.Interfaces {
 
         // ---------------------------------------------------------------------------------------------
         /* Sprawdza, czy dany moduł został zaliczony przez tego użytiownika */
-        int CountEasyModules();
+        int AllUserEasyModules();
 
         // ---------------------------------------------------------------------------------------------
         /* Sprawdza, czy dany moduł został zaliczony przez tego użytiownika */

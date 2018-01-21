@@ -34,8 +34,8 @@ export class ModuleService {
 
     // PUBLIC
     // ==============================================================================================================
-    countEasyModules(): Observable<number> {
-        return this.http.get<number>(this.moduleUrl + '/counteasymodules');
+    allUserEasyModules(): Observable<number> {
+        return this.http.get<number>(this.modulePath + '/allusereasymodules');
     }
 
     // --------------------------------------------------------------------------------------------------------------

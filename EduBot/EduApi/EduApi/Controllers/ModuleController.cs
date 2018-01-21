@@ -22,8 +22,8 @@ namespace EduApi.Controllers {
         // PUBLIC
         // =============================================================================================
         [HttpGet]
-        public IHttpActionResult CountEasyModules() {
-            return Ok(_moduleService.CountEasyModules());
+        public IHttpActionResult AllUserEasyModules() {
+            return Ok(_moduleService.AllUserEasyModules());
         }
 
         // ---------------------------------------------------------------------------------------------

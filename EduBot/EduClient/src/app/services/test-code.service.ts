@@ -62,13 +62,19 @@ export class TestCodeService {
             codeToExecute = codeTask.studentCode;
         }
 
-
         // The code is pure JavaScript
+        ((iframe as HTMLIFrameElement).contentWindow as any).studentCode = codeTask.studentCode;
         if (codeTask.codeMode === CodeMode.JAVASCRIPT) {
-            script.innerHTML = 'codeToExecuteFunction = () => {' + codeToExecute + '}';
+            try {
+                new Function(codeTask.studentCode);
+            } catch(e) {
+                this.handleException(scopedDocument, e);
+                return false;
+            }
+            script.innerHTML += 'codeToExecuteFunction = () => {' + codeToExecute + '\n}';
         } else if (codeTask.codeMode === CodeMode.HTML) { // The code is HTML + CSS + JavaScript
             scopedDocument.body.innerHTML = codeToExecute;
-            script.innerHTML = 'codeToExecuteFunction = () => {' + codeTask.executorCode + '}';
+            script.innerHTML += 'codeToExecuteFunction = () => {' + codeTask.executorCode + '\n}';
         } else {
             console.log('Nie rozpoznany codeMode w codeTaskFront');
             return false;
@@ -85,14 +91,18 @@ export class TestCodeService {
             return result == codeTask.correctResult;
 
         } catch (e) {
-            let message = '';
-            if (e.message.includes('iframe.contentWindow.codeToExecuteFunction')) {
-                message = 'Twój kod jest błędny!';
-            } else {
-                message = e.message;
-            }
-            scopedDocument.body.innerHTML = '<span style="color:red;">' + message + '</span>';
+            this.handleException(scopedDocument, e);
             return false;
         }
+    }
+
+    private handleException(scopedDocument, e): void {
+        let message = '';
+        if (e.message.includes('iframe.contentWindow.codeToExecuteFunction')) {
+            message = 'Twój kod jest błędny!';
+        } else {
+            message = e.message;
+        }
+        scopedDocument.body.innerHTML = '<span style="color:red;">' + message + '</span>';
     }
 };

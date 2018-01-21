@@ -37,16 +37,18 @@
     border-left: 1px solid lightgray;
 }
 .field-empty {
-    border: 0;
+    flex-grow: 1;
+    border-right: 1px solid black;
+    border-top: 1px solid black;
 }
 .field-mined {
+    flex-grow: 1;
+    border-right: 1px solid lightgray;
+    border-top: 1px solid lightgray;
+}
+.field-safe {
     flex-grow: 1;
     background-color: lightgray;
     border-right: 1px solid black;
     border-top: 1px solid black;
-}
-.field-safe {
-    flex-grow: 1;
-    border-right: 1px solid lightgray;
-    border-top: 1px solid lightgray;
 }

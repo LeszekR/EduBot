@@ -4,7 +4,19 @@ import { ClosedQuestionDTO, ClosedQuestion } from './closed-question';
 import { CodeTaskDTO, CodeTaskFront } from './code-task';
 
 
-// ==================================================================================================================
+// ===================================================================================================
+export class ModuleResultDTO {
+    id: number;
+    difficulty: string;
+    title: string;
+    group_position: number;
+    solvedQuestions: boolean;
+    solvedCodes: boolean;
+    noQuizCode: boolean;
+}
+
+
+// ===================================================================================================
 export class Module {
 
     id: number;
@@ -22,7 +34,7 @@ export class Module {
 
     solvedQuestions: boolean;
     solvedCodes: boolean;
-    
+
     isSelected: boolean;
 
 

@@ -3,6 +3,7 @@ import { GameScore } from '../../models/game-score';
 // import { MilitaryRank } from '../../models/enums';
 import { ContextService } from '../../services/context.service';
 import { ModuleService } from '../../services/module.service';
+import { ModuleResultDTO } from '../../models/module';
 
 
 // ====================================================================================================
@@ -24,9 +25,11 @@ export class GameProgressComponent implements OnInit {
   private readonly nShield = 5;
   private shieldSegments: number[] = [this.nShield];
 
-  private mapRows: number = 5;
-  private mapCols: number = 30;
-  private mapZones: number[][];
+  private mapRows: number;
+  private mapCols: number;
+  // private mapZones: number[][];
+  private mapZones: string[][];
+  moduleResultDtos: ModuleResultDTO[];
 
 
   // CONSTRUCTOR
@@ -57,14 +60,38 @@ export class GameProgressComponent implements OnInit {
 
   // PRIVATE
   // ==================================================================================================
-  private getRow(i: number) {
-    return this.mapZones[i];
+  private getModuleId(columnN: number, rowN: number) {
+    let index = columnN * this.mapRows + rowN;
+
+    if (index >= this.moduleResultDtos.length)
+      return -1;
+
+    return this.moduleResultDtos[index].id;
   }
 
-  private fillMap() {
+  // --------------------------------------------------------------------------------------------------
+  private fieldClass(index: number) {
+    if (index >= this.moduleResultDtos.length)
+      return 'field-empty';
+
+    let moduleResultDto = this.moduleResultDtos[index];
+
+    if (moduleResultDto.noQuizCode)
+      return 'field-safe';
+
+    let solvedCodes = moduleResultDto.solvedCodes;
+    let solvedQuestions = moduleResultDto.solvedQuestions;
+    return solvedCodes && solvedQuestions ? 'field-safe' : 'field-mined';
+  }
+
+  // --------------------------------------------------------------------------------------------------
+  public fillMap() {
 
     this.moduleService.allUserEasyModules()
-      .subscribe(n => {
+      .subscribe(moduleResultDtos => {
+
+        this.moduleResultDtos = moduleResultDtos;
+        let n = moduleResultDtos.length;
 
         let mapHeight = 1;
         let mapWidth = 6;
@@ -72,7 +99,7 @@ export class GameProgressComponent implements OnInit {
         // single column length
         let nModulesInZone = n / mapWidth * mapHeight;
         let zoneSqrRoot = Math.ceil(Math.sqrt(nModulesInZone));
-        
+
         // number of rows
         this.mapRows = mapHeight * zoneSqrRoot;
 
@@ -82,12 +109,20 @@ export class GameProgressComponent implements OnInit {
         let trimmedN = totalN / this.mapRows - tail;
         this.mapCols = trimmedN;
 
-        // map fields array
+        // map-fields array
         this.mapZones = new Array();
-        for (var row = 0; row < this.mapCols; row++) {
-          let rowArr: number[] = new Array();
-          for (var col = 1; col <= this.mapRows; col++)
-            rowArr.push(row * this.mapCols + col);
+        for (var col = 0; col < this.mapCols; col++) {
+          // let rowArr: number[] = new Array();
+          let rowArr: string[] = new Array();
+
+          // assigning each map-field its data-module-id = its 'easy' module's id
+          let index;
+          for (var row = 0; row < this.mapRows; row++) {
+            index = col * this.mapRows + row;
+            // rowArr.push(index < n ? index : -1);
+            rowArr.push(this.fieldClass(index));
+          }
+
           this.mapZones.push(rowArr);
         }
       })

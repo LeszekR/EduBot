@@ -11,6 +11,19 @@ namespace EduApi.Dto.Mappers {
 
         // PUBLIC
         // =============================================================================================
+        public static ModuleResultDTO GetModuleResultDTO(edumodule module, bool codes, bool questions, bool unseen) {
+            return new ModuleResultDTO() {
+                id = module.id,
+                difficulty = module.difficulty,
+                title = module.title,
+                group_position = module.group_position,
+                solvedCodes = codes,
+                solvedQuestions = questions,
+                noQuizCode = unseen
+            };
+        }
+
+        // ---------------------------------------------------------------------------------------------
         public static ModuleDTO GetSimpleDTO(edumodule entity) {
             return new ModuleDTO {
                 id = entity.id,

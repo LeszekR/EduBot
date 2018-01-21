@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { HttpService } from './http.service';
 
 // Model
-import { Module } from '../models/module'
+import { Module, ModuleResultDTO } from '../models/module'
 import { Distractor } from '../models/distractor'
 import { ContextService } from './context.service';
 import {AppModule} from "../app.module";
@@ -34,8 +34,8 @@ export class ModuleService {
 
     // PUBLIC
     // ==============================================================================================================
-    allUserEasyModules(): Observable<number> {
-        return this.http.get<number>(this.modulePath + '/allusereasymodules');
+    allUserEasyModules(): Observable<ModuleResultDTO[]> {
+        return this.http.get<ModuleResultDTO[]>(this.modulePath + '/allusereasymodules');
     }
 
     // --------------------------------------------------------------------------------------------------------------

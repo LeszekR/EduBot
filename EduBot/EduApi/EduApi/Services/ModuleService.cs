@@ -40,8 +40,48 @@ namespace EduApi.Services {
 
         // PUBLIC
         // =============================================================================================
-        public int AllUserEasyModules() {
-            return _moduleRepository.All().Where(m => m.difficulty == "easy").Count();
+        public List<ModuleResultDTO> AllUserEasyModules(int userId) {
+
+            var modules = _moduleRepository.All().Where(m => m.difficulty == "easy").ToList();
+            var user = _userService.GetUserEntity(userId);
+            var userModules = user.edumodule.ToList();
+
+            // TODO uporządkować to!!!
+
+            var moduleResultDtos = new List<ModuleResultDTO>();
+            for (int i = 0; i < modules.Count(); i++)
+                if (modules[i].test_code.Count() > 0 || modules[i].test_code.Count()> 0)
+                    moduleResultDtos.Add(GetModuleResultDTO(modules[i], user));
+                else
+                    moduleResultDtos.Add(new ModuleResultDTO() { id = modules[i].id, noQuizCode = true });
+
+            return moduleResultDtos;
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
+        // TODO zrzobić porządek z tymi metodami do ModuleResult!
+        private ModuleResultDTO GetModuleResultDTO(edumodule module, user user) {
+
+            var userQuestions = user.user_question;
+            var passedQuests = userQuestions
+                .Where(uq => uq.last_result == true)
+                .Select(uq => uq.test_question)
+                .ToList();
+
+            var userCodes = user.user_code;
+            var passedCodes = userCodes
+                .Where(uc => uc.last_result == true)
+                .Select(uc => uc.test_code)
+                .ToList();
+
+            var dto = GetDTOWitResults(
+                userQuestions,
+                passedQuests,
+                userCodes,
+                passedCodes, module);
+
+            return ModuleMapper.GetModuleResultDTO(module, dto.solvedCodes, dto.solvedQuestions, false);
         }
 
 

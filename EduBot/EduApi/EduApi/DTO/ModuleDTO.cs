@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace EduApi.DTO {
 
+    // =================================================================================================
     public class ModuleDTO {
 
         public int id { get; set; }
@@ -17,5 +18,17 @@ namespace EduApi.DTO {
 
         public bool solvedQuestions { get; set; }
         public bool solvedCodes { get; set; }
+    }
+
+
+    // =================================================================================================
+    public class ModuleResultDTO {
+        public int id { get; set; }
+        public string difficulty { get; set; }
+        public string title { get; set; }
+        public int group_position { get; set; }
+        public bool solvedQuestions { get; set; }
+        public bool solvedCodes { get; set; }
+        public bool noQuizCode { get; set; }
     }
 }

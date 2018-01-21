@@ -13,6 +13,7 @@ import { LoginService } from './services/login.service';
 import { GameScore } from './models/game-score';
 import { DistractorService } from './services/distractor.service';
 import { Images, Distractor } from './models/distractor';
+import { GameProgressComponent } from './components/game-progress/game-progress.component';
 
 // ==================================================================================================================
 @Component({
@@ -27,6 +28,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
   @ViewChild(ModuleListComponent)
   moduleListComponent: ModuleListComponent;
+
+  @ViewChild(GameProgressComponent)
+  progresComponent: GameProgressComponent;
 
   sessionTimeout: number;
   sessionTimeoutId: any;
@@ -71,7 +75,7 @@ export class AppComponent implements OnInit, OnDestroy {
     if (showPromotion) {
       let rankOld = this.context.gameScore.rank;
       let lifeOld = this.context.gameScore.life;
-  
+
       if (score.life == 0 && lifeOld != 0) {
         let distractor = new Distractor();
         distractor.distr_content = "death";
@@ -90,10 +94,11 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     this.context.gameScore = score;
+    this.progresComponent.fillMap();
   }
 
   // --------------------------------------------------------------------------------------------------------------
-  refreshGameScore(showPromotion =  true) {
+  refreshGameScore(showPromotion = true) {
     this.eduService.getScore()
       .subscribe(score => this.showGameScore(score, showPromotion));
   }
@@ -114,7 +119,6 @@ export class AppComponent implements OnInit, OnDestroy {
           }
           if (state == 3 || state == 4)
             this.eduService.serverWantsToDistract(res);
-          // this.distractorService.show(res);
 
           console.log(res);
         });

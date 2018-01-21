@@ -23,7 +23,8 @@ namespace EduApi.Controllers {
         // =============================================================================================
         [HttpGet]
         public IHttpActionResult AllUserEasyModules() {
-            return Ok(_moduleService.AllUserEasyModules());
+            int userId = TokenHelper.GetUserId(User.Identity);
+            return Ok(_moduleService.AllUserEasyModules(userId));
         }
 
         // ---------------------------------------------------------------------------------------------

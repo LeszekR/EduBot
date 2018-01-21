@@ -9,7 +9,7 @@ namespace EduApi.Services.Interfaces {
 
         // ---------------------------------------------------------------------------------------------
         /* Sprawdza, czy dany moduł został zaliczony przez tego użytiownika */
-        int AllUserEasyModules();
+        List<ModuleResultDTO> AllUserEasyModules(int userId);
 
         // ---------------------------------------------------------------------------------------------
         /* Sprawdza, czy dany moduł został zaliczony przez tego użytiownika */

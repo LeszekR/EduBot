@@ -14,7 +14,8 @@ function executorCode() {
 if (!divWesolaMusztra)
     return "Błąd - zmienna \"divWesolaMusztra\" nie została utworzona.";
 
-document.getElementById("divWesolaMusztra").innerHTML = "Tu jest \"divWesolaMusztra\"";
+//document.getElementById("divWesolaMusztra").innerHTML = "Tu jest \"divWesolaMusztra\"";
+divWesolaMusztra.innerHTML = "Tu jest \"divWesolaMusztra\"";
 
 var studentHtml = document.getElementById("studentHtml").innerHTML;
 return studentHtml.replace(/\r\n|\r|\n|\t| /g, "");

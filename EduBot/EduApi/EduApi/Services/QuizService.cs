@@ -142,7 +142,7 @@ namespace EduApi.Services {
             _userService.SaveChanges();
 
             if (code.lastResult == true) {
-                _logger.Debug("User: " + userId + "|" + "User coded succesfully on " + solvedCode.attempts + " attempt");
+                _logger.Debug("User: " + userId + "|" + "User coded succesfully on " + solvedCode.attempts + " attempt for task:" + solvedCode.code_id);
                 return CodeAttempt.CORRECT;
             }
             else

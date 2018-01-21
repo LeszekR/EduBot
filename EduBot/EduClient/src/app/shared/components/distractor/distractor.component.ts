@@ -16,8 +16,8 @@ import { MessageService } from '../message/message.service';
 })
 export class DistractorComponent implements OnDestroy {
 
-    private KEY_ESC = 27;
-    private IMG_PATH = '/assets/img/';
+    private readonly KEY_ESC = 27;
+    private readonly IMG_PATH = '/assets/img/';
 
     private showDistractor: boolean;
     private showWheelOfFortune: boolean;
@@ -38,14 +38,6 @@ export class DistractorComponent implements OnDestroy {
 
         this.distractorSubsciption = this.service.onShowDistractor.subscribe(d => this.show(d));
     }
-
-    // // --------------------------------------------------------------------------------------------------------------
-    // ngAfterViewInit() {
-    //     document.onkeydown = (e: any) => {
-    //         if (e.which == this.KEY_ESC)
-    //             this.showMsgAndHide();
-    //     }
-    // }
 
     // --------------------------------------------------------------------------------------------------------------
     ngOnDestroy() {

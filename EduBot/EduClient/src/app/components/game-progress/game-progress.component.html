@@ -50,7 +50,7 @@
                 <div 
                     *ngFor="let field of colum; let r=index;"
                     class="row m-0 p-0"
-                    data-module-id="getModuleId(c,r)"
+                    [id]="getModuleId(c,r)"
                     [ngClass]="field"
                 > 
                 </div>

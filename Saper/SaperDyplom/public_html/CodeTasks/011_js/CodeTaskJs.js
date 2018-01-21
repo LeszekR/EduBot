@@ -20,7 +20,7 @@ function studentJsCode() {
             "cross bow"
     ];
 
-    // -------------------------------------------------------------------------    
+// -------------------------------------------------------------------------    
 // STUDENT_CODE_HERE
 if (weapons == undefined)
     return "brak tablicy";
@@ -28,8 +28,8 @@ if (weapons.length != 3)
     return "zły rozmiar tablicy";
 
 var nCorrectElements = 0;
-if (weapons.indexOf("lightsaber") > -1) nCorrectElements++;
+if (weapons.indexOf("light saber") > -1) nCorrectElements++;
 if (weapons.indexOf("laser gun") > -1) nCorrectElements++;
-if (weapons.indexOf("cross bow") > -1) nCorrectElements++;
+if (weapons.indexOf("crossbow") > -1) nCorrectElements++;
 return nCorrectElements;
 }

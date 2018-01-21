@@ -30,7 +30,8 @@ function studentJsCode() {
 
     // -------------------------------------------------------------------------    
 // STUDENT_CODE_HERE
-var codeOutput = document.getElementById("codeOutput");
+var codeOutput = document.body;
+
 codeOutput.innerHTML = plansza;
 
 tab = codeOutput.children[0];
@@ -44,10 +45,10 @@ var cells = rows[0].children;
 if (!cells) return "Brak komórek";
 if (cells.length !== 8) return "Nieprawidłowa liczba komórek";
 
-plansza += "<style>#codeOutput * {padding: 2px;margin: 4px;} "
-+ "#codeOutput table {width: 100%;height: 20rem;border: 2px solid green;} "
-+ "#codeOutput tr {width: 90%;height: 1.4rem;} "
-+ "#codeOutput td {width: 1.3rem;height: 1rem;border: 2px solid blue;}</style>";
+plansza += "<style>* {padding: 2px;margin: 4px;} "
++ "table {width: 100%;height: 20rem;border: 2px solid green;} "
++ "tr {width: 90%;height: 1.4rem;} "
++ "td {width: 1.3rem;height: 1rem;border: 2px solid blue;}</style>";
 
 return plansza;
 }

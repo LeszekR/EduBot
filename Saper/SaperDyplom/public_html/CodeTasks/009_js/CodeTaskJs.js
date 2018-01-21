@@ -26,23 +26,27 @@ function studentJsCode() {
 
     // STUDENT_CODE_HERE
     // -------------------------------------------------------------------------
-    var boardHtml = "<table>";
+var boardHtml = "<table>";
 
-    boardHtml += "<tr>";
-    boardHtml += "<td></td>";
-    boardHtml += "<td></td>";
-    boardHtml += "</tr>";
+boardHtml += "<tr>";
+boardHtml += "<td></td>";
+boardHtml += "<td></td>";
+boardHtml += "</tr>";
 
-    boardHtml += "<tr>";
-    boardHtml += "<td></td>";
-    boardHtml += "<td></td>";
-    boardHtml += "</tr>";
+boardHtml += "<tr>";
+boardHtml += "<td></td>";
+boardHtml += "<td></td>";
+boardHtml += "</tr>";
 
-    boardHtml += "</table>";
+boardHtml += "</table>";
 
-    // -------------------------------------------------------------------------    
+// -------------------------------------------------------------------------    
+//var docBody = document.getElementById("codeOutput");
 // STUDENT_CODE_HERE
-var css = document.createElement('style');
+
+document.body.innerHTML = boardHtml;
+
+var css = document.createElement("style");
 css.innerHTML += "table, table * {"
 css.innerHTML += "width: 12rem;";
 css.innerHTML += "height: 3rem;";
@@ -53,10 +57,7 @@ css.innerHTML += "padding: 2px;";
 css.innerHTML += "padding-top: 0;"
 css.innerHTML += "}"
 
-
-var divOutput = document.getElementById('codeOutput');
-divOutput.innerHTML = boardHtml;
-divOutput.appendChild(css);
+document.head.appendChild(css);
 
 return boardHtml;
 }

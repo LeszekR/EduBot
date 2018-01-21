@@ -50,10 +50,16 @@ namespace EduApi.Services {
 
             var moduleResultDtos = new List<ModuleResultDTO>();
             for (int i = 0; i < modules.Count(); i++)
-                if (modules[i].test_code.Count() > 0 || modules[i].test_code.Count()> 0)
+                if (modules[i].test_code.Count() > 0 || modules[i].test_code.Count() > 0)
                     moduleResultDtos.Add(GetModuleResultDTO(modules[i], user));
                 else
                     moduleResultDtos.Add(new ModuleResultDTO() { id = modules[i].id, noQuizCode = true });
+
+            moduleResultDtos.Sort((a, b) => {
+                if (a.group_position == b.group_position)
+                    return 0;
+                return a.group_position > b.group_position ? 1 : -1;
+            });
 
             return moduleResultDtos;
         }
@@ -105,9 +111,9 @@ namespace EduApi.Services {
             var mod = _moduleRepository.Get(moduleId);
 
             return GetDTOWitResults(
-                userQuestions, 
-                passedQuests, 
-                userCodes, 
+                userQuestions,
+                passedQuests,
+                userCodes,
                 passedCodes, mod);
         }
 
@@ -502,14 +508,20 @@ namespace EduApi.Services {
          * każdym zakończeniu edycji modułów.
          */
         public static void SortGroupPosition(ref List<edumodule> modules) {
-            modules.Sort((a, b) => a.group_position > b.group_position ? 1 : -1);
+            //modules.Sort((a, b) => a.group_position > b.group_position ? 1 : -1);
+            modules.Sort((a, b) => SortModules(a, b));
         }
 
 
         // ---------------------------------------------------------------------------------------------
         public static int SortModules(edumodule a, edumodule b) {
+            int nic;
+            if ((a.group_position == 130 || a.group_position == 131) && (b.group_position == 130 || b.group_position == 131))
+                nic = 9;
             if (a.group_position != b.group_position)
                 return a.group_position > b.group_position ? 1 : -1;
+            if (a.id == b.id)
+                return 0;
             return a.id > b.id ? 1 : -1;
         }
 

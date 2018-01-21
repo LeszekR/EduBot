@@ -6,9 +6,18 @@
 
 var correctHtmlResult = "<div><div></div></div>";
 
+var studentCode = 
+`            <div>
+                <div>
+
+                </div>
+            </div
+`
+;
+
 function executorCode() {
 
-var studentHtml = document.getElementById("studentHtml").innerHTML;
-return studentHtml.replace(/\r\n|\r|\n|\t| /g, "");
+//var studentHtml = document.getElementById("studentHtml").innerHTML;
+return studentCode.replace(/\r\n|\r|\n|\t| /g, "");
 
 }

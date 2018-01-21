@@ -15,7 +15,7 @@
 }
 .life-full{
     background-color: lightgray;
-    border-left: 1px solid black;
+    border-left: 1px solid #273126;
 }
 
 /* ARMOUR STRENGTH */
@@ -25,7 +25,7 @@
 }
 .shield-full {
     background-color: lightgray;
-    border-right: 1px solid black;
+    border-right: 1px solid #273126;
 }
 .shield-part {
     background-color: lightgray;
@@ -38,8 +38,9 @@
 }
 .field-empty {
     flex-grow: 1;
-    border-right: 1px solid black;
-    border-top: 1px solid black;
+    /* border-left: 1px solid lightgray; */
+    border-right: 1px solid #273126;
+    border-top: 1px solid #273126;
 }
 .field-mined {
     flex-grow: 1;
@@ -49,6 +50,6 @@
 .field-safe {
     flex-grow: 1;
     background-color: lightgray;
-    border-right: 1px solid black;
-    border-top: 1px solid black;
+    border-right: 1px solid #273126;
+    border-top: 1px solid #273126;
 }

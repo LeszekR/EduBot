@@ -18,6 +18,8 @@ import { OnChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 })
 export class CodeTaskViewComponent implements OnInit {
 
+  private readonly KEY_ESC = 27;
+
   @Input() readonly: boolean;
   @Input() difficulty: string;
   @Input() codeTasks: CodeTaskFront[];
@@ -41,11 +43,6 @@ export class CodeTaskViewComponent implements OnInit {
       this.activeTab = tab;
 
     this.focusEditor();
-
-    document.onkeydown = (e: any) => {
-      if (e.which == '27')
-        this.hideImage();
-    }
   }
 
 
@@ -54,6 +51,12 @@ export class CodeTaskViewComponent implements OnInit {
   public showImage(imgSrc: string, imgCss: string) {
     this.imgSrc = imgSrc;
     this.imgCss = imgCss;
+
+    // ESC listener
+    document.onkeydown = (e: any) => {
+      if (e.which == this.KEY_ESC)
+        this.hideImage();
+    }
   }
 
 

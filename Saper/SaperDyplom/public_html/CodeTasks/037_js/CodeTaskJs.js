@@ -27,7 +27,8 @@ function studentJsCode() {
     
     // -------------------------------------------------------------------------    
 // STUDENT_CODE_HERE
-var codeOutput = document.getElementById("codeOutput");
+//var codeOutput = document.getElementById("codeOutput");
+var codeOutput = document.body;
 codeOutput.innerHTML = tabHtml;
 
 tab = codeOutput.children[0].children[0];
@@ -50,10 +51,14 @@ if (!inp) return "Brak komórki 1";
 if (inp.value != 1) return "Nieprawidłowa wartość w \"input\" 1";
 
 
-tabHtml += "<style>#codeOutput * {padding: 2px;margin: 4px;} "
-+ "#codeOutput table {width: 100%;height: 5rem;border: 2px solid green;} "
-+ "#codeOutput tr {width: 90%;height: 1.4rem;} "
-+ "#codeOutput td {width: 1.3rem;height: 1rem;border: 2px solid blue;}</style>";
+//tabHtml += "<style>#codeOutput * {padding: 2px;margin: 4px;} "
+//+ "#codeOutput table {width: 100%;height: 5rem;border: 2px solid green;} "
+//+ "#codeOutput tr {width: 90%;height: 1.4rem;} "
+//+ "#codeOutput td {width: 1.3rem;height: 1rem;border: 2px solid blue;}</style>";
+tabHtml += "<style>* {padding: 2px;margin: 4px;} "
++ "table {width: 100%;height: 5rem;border: 2px solid green;} "
++ "tr {width: 90%;height: 1.4rem;} "
++ "td {width: 1.3rem;height: 1rem;border: 2px solid blue;}</style>";
 
 return tabHtml.replace(/(     )(   )(  )/g, " ");
 }

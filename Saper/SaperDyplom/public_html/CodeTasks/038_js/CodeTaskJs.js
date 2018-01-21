@@ -12,7 +12,8 @@ var correctJsResult = "<style>#badGuy{width:6rem; height 5rem;border: 4px solid 
 
 function studentJsCode() {
 
-var codeOutput = document.getElementById("codeOutput");
+//var codeOutput = document.getElementById("codeOutput");
+var codeOutput = document.body;
 var badGuy = document.createElement("div");
 badGuy.id = "badGuy";
 badGuy.innerHTML = "BAD GUY";

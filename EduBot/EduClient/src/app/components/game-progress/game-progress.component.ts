@@ -46,13 +46,14 @@ export class GameProgressComponent implements OnInit {
     for (let i = 1; i <= this.nShield; i++)
       this.shieldSegments.push(i * 50 / this.nShield);
 
-    this.mapZones = [
-      [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,],
-      [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,],
-      [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,],
-      [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,],
-      [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,]
-    ];
+  
+    // this.mapZones = [
+    //   [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,],
+    //   [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,],
+    //   [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,],
+    //   [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,],
+    //   [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,]
+    // ];
 
     this.fillMap();
   }
@@ -83,9 +84,9 @@ export class GameProgressComponent implements OnInit {
         this.mapCols = mapWidth * zoneSqrRoot;
 
         this.mapZones = new Array();
-        for (var row = 0; row < this.mapRows; row++) {
+        for (var row = 0; row < this.mapCols; row++) {
           let rowArr: number[] = new Array();
-          for (var col = 1; col <= this.mapCols; col++)
+          for (var col = 1; col <= this.mapRows; col++)
             rowArr.push(row * this.mapCols + col);
           this.mapZones.push(rowArr);
         }

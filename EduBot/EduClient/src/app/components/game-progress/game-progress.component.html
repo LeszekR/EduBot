@@ -42,27 +42,19 @@
     
 
         <!-- MINEFIELD PROGRESS -->
-        <div 
-        class="col h-100 d-flex flex-column m-0 p-0 progres">
+        <div class="col h-100 d-flex flex-row m-0 p-0 map-frame">
             <div 
-                *ngFor="let r of mapZones;"
-                class="h-100 p-0 d-flex flex-row progres"
+                *ngFor="let colum of mapZones;"
+                class="col h-100 m-0 p-0 d-flex flex-column-reverse"
             >
                 <div 
-                    *ngFor="let c of getRow(r);"
-                    class="col h-100 p-0 progres"
-                    style="width: 10px;"
-                >
-                r
+                    *ngFor="let r of colum;"
+                    class="row m-0 p-0 field-mined"
+                > 
                 </div>
             </div>
+        </div>
 
+        
     </div>
-    
 </div>
-
-                <!-- *ngFor="let r of [1,2];"
-                class="row d-flex flex-row" -->
-
-<!-- *ngFor="let zone of mapZones[r];"
-class="col progres" -->

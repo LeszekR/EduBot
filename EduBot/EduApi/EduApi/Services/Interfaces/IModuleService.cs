@@ -7,13 +7,18 @@ namespace EduApi.Services.Interfaces {
     // =================================================================================================
     public interface IModuleService {
 
-        // ---------------------------------------------------------------------------------------------
-        /* Sprawdza, czy dany moduł został zaliczony przez tego użytiownika */
-        int CountEasyModules();
+        //// ---------------------------------------------------------------------------------------------
+        ///* Sprawdza, czy dany moduł został zaliczony przez tego użytiownika */
+        //int CountEasyModules();
 
         // ---------------------------------------------------------------------------------------------
         /* Sprawdza, czy dany moduł został zaliczony przez tego użytiownika */
-        ModuleDTO GetDTOWithResults(int moduleId, int userId);
+        List<ModuleResultDTO> GetAllEasyModulesResults(int userId);
+
+        // ---------------------------------------------------------------------------------------------
+        /* Sprawdza, czy dany moduł został zaliczony przez tego użytiownika */
+        //ModuleDTO GetDTOWithResults(int moduleId, int userId);
+        ModuleResultDTO GetModuleResultDTO(edumodule module, int userId);
 
         // ---------------------------------------------------------------------------------------------
         /* Pobiera z bazy wszystkie zadania z kodu  dla danego modułu. 
@@ -49,8 +54,9 @@ namespace EduApi.Services.Interfaces {
          * - kod
          * do każdego modułu (to pozwala je pokolorować na liście we froncie).
          */
-        List<ModuleDTO> GetSimpleModules(int userId);
-
+        //List<ModuleDTO> GetSimpleModules(int userId);
+        List<ModuleResultDTO> GetSimpleModules(int userId);
+        
         // ---------------------------------------------------------------------------------------------
         /* Pobiera z bazy wszystkie moduły i zwraca ich uproszczoną postać - tylko te elementy,
          * które pobierane są w metodzie ModuleMapper.GetSimpleDTO(). */
@@ -70,13 +76,13 @@ namespace EduApi.Services.Interfaces {
         ModuleDTO GetModuleEdit(int id);
 
         // ---------------------------------------------------------------------------------------------
-         /* Zamienia moduł w ModuleDTO oraz dodaje do niego jego wszystkie pytania.
-          * Wersje:
-          * 1. @userId < 0 : Pytania będą zawierać indeks prawidłowej odpowiedzi
-          *    (wersja do edycji modułów).
-          * 2. @userId > 0 : pytania będą zawierały indeks ostatniej odpowiedzi
-          *    udzielonej przez użytkownika (wersja wyświetlana studentowi). 
-          */ 
+        /* Zamienia moduł w ModuleDTO oraz dodaje do niego jego wszystkie pytania.
+         * Wersje:
+         * 1. @userId < 0 : Pytania będą zawierać indeks prawidłowej odpowiedzi
+         *    (wersja do edycji modułów).
+         * 2. @userId > 0 : pytania będą zawierały indeks ostatniej odpowiedzi
+         *    udzielonej przez użytkownika (wersja wyświetlana studentowi). 
+         */
         ModuleDTO GetDTOWithQuestions(edumodule module, int userId);
 
         // ---------------------------------------------------------------------------------------------

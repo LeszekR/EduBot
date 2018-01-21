@@ -40,35 +40,52 @@ namespace EduApi.Services {
 
         // PUBLIC
         // =============================================================================================
-        public int CountEasyModules() {
-            return _moduleRepository.All().Where(m => m.difficulty == "easy").Count();
+        public List<ModuleResultDTO> GetAllEasyModulesResults(int userId) {
+
+            ICollection<user_question> userQuestions;
+            List<test_question> passedQuests;
+            ICollection<user_code> userCodes;
+            List<test_code> passedCodes;
+            SetUserQuestionsCodes(userId, out userQuestions, out passedQuests, out userCodes, out passedCodes);
+
+            var userModules = _userService.GetUserEntity(userId)
+                                    .edumodule.ToList().
+                                    Where(m => m.difficulty == "easy");
+
+            var list = new List<ModuleResultDTO>();
+            foreach (var m in userModules)
+                list.Add(GetModuleResultDTO(m, userId));
+
+            return list;
         }
 
 
         // ---------------------------------------------------------------------------------------------
-        public ModuleDTO GetDTOWithResults(int moduleId, int userId) {
+        public ModuleResultDTO GetModuleResultDTO(edumodule module, int userId) {
 
+            ICollection<user_question> userQuestions;
+            List<test_question> passedQuests;
+            ICollection<user_code> userCodes;
+            List<test_code> passedCodes;
+            SetUserQuestionsCodes(userId, out userQuestions, out passedQuests, out userCodes, out passedCodes);
+
+            return GetDTOWitResults(userQuestions, passedQuests, userCodes, passedCodes, module);
+        }
+
+        private void SetUserQuestionsCodes(int userId, out ICollection<user_question> userQuestions, out List<test_question> passedQuests, out ICollection<user_code> userCodes, out List<test_code> passedCodes) {
             var user = _userService.GetUserEntity(userId);
 
-            var userQuestions = user.user_question;
-            var passedQuests = userQuestions
+            userQuestions = user.user_question;
+            passedQuests = userQuestions
                 .Where(uq => uq.last_result == true)
                 .Select(uq => uq.test_question)
                 .ToList();
 
-            var userCodes = user.user_code;
-            var passedCodes = userCodes
+            userCodes = user.user_code;
+            passedCodes = userCodes
                 .Where(uc => uc.last_result == true)
                 .Select(uc => uc.test_code)
                 .ToList();
-
-            var mod = _moduleRepository.Get(moduleId);
-
-            return GetDTOWitResults(
-                userQuestions, 
-                passedQuests, 
-                userCodes, 
-                passedCodes, mod);
         }
 
 
@@ -108,7 +125,7 @@ namespace EduApi.Services {
 
 
         // ---------------------------------------------------------------------------------------------
-        public List<ModuleDTO> GetSimpleModules(int userId) {
+        public List<ModuleResultDTO> GetSimpleModules(int userId) {
 
             //List<edumodule> modules = _moduleRepository.ModulesOfUser(userId);
             var user = _userService.GetUserEntity(userId);
@@ -145,8 +162,10 @@ namespace EduApi.Services {
                 .Select(uc => uc.test_code)
                 .ToList();
 
-            List<ModuleDTO> moduleListDTO = new List<ModuleDTO>();
-            ModuleDTO dto;
+            //List<ModuleDTO> moduleListDTO = new List<ModuleDTO>();
+            //ModuleDTO dto;
+            var moduleListDTO = new List<ModuleResultDTO>();
+            ModuleResultDTO dto;
 
             foreach (var mod in modules) {
                 dto = GetDTOWitResults(userQuestions, passedQuests, userCodes, passedCodes, mod);
@@ -216,42 +235,63 @@ namespace EduApi.Services {
 
         // PRIVATE
         // =============================================================================================
-        private ModuleDTO GetDTOWitResults(ICollection<user_question> userQuestions, List<test_question> passedQuests, ICollection<user_code> userCodes, List<test_code> passedCodes, edumodule mod) {
+        private ModuleResultDTO GetDTOWitResults(
+            ICollection<user_question> userQuestions,
+            List<test_question> passedQuests,
+            ICollection<user_code> userCodes,
+            List<test_code>
+            passedCodes,
+            edumodule module) {
 
-            ModuleDTO dto = ModuleMapper.GetDTO(mod);
+            var results = GetModuleResults(userQuestions, passedQuests, userCodes, passedCodes, module);
+            return ModuleMapper.GetModuleResultDTO(module, results.Item2, results.Item1);
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
+        private Tuple<bool, bool> GetModuleResults(
+            ICollection<user_question> userQuestions,
+            List<test_question> passedQuests,
+            ICollection<user_code> userCodes,
+            List<test_code> passedCodes,
+            edumodule module
+            ) {
+
+            bool questionsResult, codesResult;
+
             IEnumerable<test_question> moduleQuests;
             IEnumerable<test_code> moduleCodes;
-            moduleQuests = QuestionsForModule(mod);
+            moduleQuests = QuestionsForModule(module);
 
             // this module has no questions
             if (moduleQuests.Count() == 0)
-                dto.solvedQuestions = true;
+                questionsResult = true;
 
             // the user has not answered this module's questions yet
             else if (userQuestions.FirstOrDefault(q => moduleQuests.Contains(q.test_question)) == null)
-                dto.solvedQuestions = false;
+                questionsResult = false;
 
             // check the latest user's results with this module question test
             else
-                dto.solvedQuestions = moduleQuests.FirstOrDefault(q => !passedQuests.Contains(q)) == null;
+                questionsResult = moduleQuests.FirstOrDefault(q => !passedQuests.Contains(q)) == null;
 
 
             // codeTasks for the module
-            moduleCodes = CodesForModule(mod);
+            moduleCodes = CodesForModule(module);
 
             // this module has no code test
             if (moduleCodes.Count() == 0)
-                dto.solvedCodes = true;
+                codesResult = true;
 
             // the user has not taken this module's code test yet
             else if (userCodes.FirstOrDefault(c => moduleCodes.Contains(c.test_code)) == null)
-                dto.solvedCodes = false;
+                codesResult = false;
 
             // check the latest user's results with this module code test
             else
-                dto.solvedCodes = moduleCodes.FirstOrDefault(c => !passedCodes.Contains(c)) == null;
+                codesResult = moduleCodes.FirstOrDefault(c => !passedCodes.Contains(c)) == null;
 
-            return dto;
+            return Tuple.Create(questionsResult, codesResult);
         }
 
 

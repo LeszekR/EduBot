@@ -14,7 +14,7 @@
    width="1122.24"
    height="816"
    viewBox="0 0 1122.24 816.00001"
-   sodipodi:docname="mina_pulapka.svg"
+   sodipodi:docname="hidden-mine-01.svg"
    inkscape:version="0.92.1 r15371">
   <metadata
      id="metadata8">
@@ -56,7 +56,7 @@
      id="namedview4"
      showgrid="false"
      inkscape:zoom="0.8411748"
-     inkscape:cx="551.39614"
+     inkscape:cx="248.24868"
      inkscape:cy="360.21983"
      inkscape:window-x="-10"
      inkscape:window-y="-10"
@@ -68,5 +68,5 @@
      id="path12"
      inkscape:connector-curvature="0"
      clip-path="url(#clipPath16)"
-     transform="translate(-167.02832,50.287613)" />
+     transform="matrix(1.18,0,0,1.18,-298.09502,-14.100617)" />
 </svg>

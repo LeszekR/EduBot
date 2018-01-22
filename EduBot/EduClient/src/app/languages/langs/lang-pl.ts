@@ -52,6 +52,7 @@ export const LANG_PL_TRANS = {
     'login.success': 'Jesteś zalogowany',
     'login.success_register': 'Nowy użytkownik zarejestrowany pomyślnie',
     'login.success_failure': 'Użytkownik z podanym loginem już istnieje',
+    'login.age': 'Wiek',
 
     'module.diff-level.Easy': 'Łatwy',
     'module.diff-level.Medium': 'Średni',

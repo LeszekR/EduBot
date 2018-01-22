@@ -10,7 +10,8 @@ namespace EduApi.Dto.Mappers {
                 Role = entity.role,
                 Score = entity.score,
                 Id = entity.id,
-                Last_module = entity.last_module
+                Last_module = entity.last_module,
+                Age = entity.age
             };
         }
 
@@ -23,6 +24,7 @@ namespace EduApi.Dto.Mappers {
             entity.login = dto.Login;
             if (dto.Password != null)
                 entity.password = dto.Password;
+            entity.age = dto.Age;
         }
     }
 }

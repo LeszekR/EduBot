@@ -52,6 +52,7 @@ export const LANG_DE_TRANS = {
     'login.success': '<brak tłumaczenia>',
     'login.success_register': '<brak tłumaczenia>',
     'login.success_failure': '<brak tłumaczenia>',
+    'login.age': 'Alter',
 
     'module.diff-level.Easy': 'Einfach',
     'module.diff-level.Medium': 'Mittel',

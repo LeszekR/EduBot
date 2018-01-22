@@ -114,7 +114,12 @@
 <!-- ........................................................................................... -->
 <div class="container-fluid main-container d-flex pt-1 pl-1 pr-2 m-0">
     <div id="module-list-view" class="col-3 h-100  m-0 p-0 pt-1">
-        <module-list-view *ngIf="context.userRole"></module-list-view>
+        <ng-template #start >
+            <div class="h-100 w-100 d-flex align-items-center justify-content-center">
+                <img src="/assets/img/scenario.png" >
+            </div>
+        </ng-template>
+        <module-list-view *ngIf="context.userRole;else start"></module-list-view>
     </div>
 
     <div id="module-content-example" class="col-9 m-0 p-0 pt-1">

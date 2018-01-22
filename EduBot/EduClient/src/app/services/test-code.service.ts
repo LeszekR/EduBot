@@ -63,7 +63,6 @@ export class TestCodeService {
         }
 
         // The code is pure JavaScript
-        ((iframe as HTMLIFrameElement).contentWindow as any).studentCode = codeTask.studentCode;
         if (codeTask.codeMode === CodeMode.JAVASCRIPT) {
             try {
                 new Function(codeTask.studentCode);
@@ -79,6 +78,7 @@ export class TestCodeService {
             console.log('Nie rozpoznany codeMode w codeTaskFront');
             return false;
         }
+        ((iframe as HTMLIFrameElement).contentWindow as any).studentCode = codeTask.studentCode;
         scopedDocument.head.appendChild(script);
 
         try {

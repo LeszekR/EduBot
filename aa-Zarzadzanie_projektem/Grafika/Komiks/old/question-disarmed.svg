@@ -11,9 +11,9 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    version="1.1"
    id="svg2"
-   width="50mm"
-   height="50mm"
-   viewBox="0 0 188.97637 188.97637"
+   width="90mm"
+   height="90mm"
+   viewBox="0 0 340.15747 340.15747"
    sodipodi:docname="question-disarmed.svg"
    inkscape:version="0.92.1 r15371">
   <metadata
@@ -24,7 +24,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -55,9 +55,9 @@
      inkscape:window-height="1047"
      id="namedview4"
      showgrid="false"
-     inkscape:zoom="2"
-     inkscape:cx="76.274955"
-     inkscape:cy="101.36994"
+     inkscape:zoom="1"
+     inkscape:cx="394.77941"
+     inkscape:cy="313.09077"
      inkscape:window-x="-10"
      inkscape:window-y="-10"
      inkscape:window-maximized="1"
@@ -69,15 +69,5 @@
      id="path12"
      inkscape:connector-curvature="0"
      clip-path="url(#clipPath20)"
-     transform="matrix(0.5225,0,0,0.5225,-304.56628,-181.94327)" />
-  <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:29.33333397px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
-     x="12.833239"
-     y="182.57684"
-     id="text11"><tspan
-       sodipodi:role="line"
-       id="tspan11"
-       x="12.833239"
-       y="182.57684">Rozbrojona</tspan></text>
+     transform="translate(-596.70599,-332.96607)" />
 </svg>

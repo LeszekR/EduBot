@@ -14,7 +14,7 @@
    width="50mm"
    height="50mm"
    viewBox="0 0 188.97637 188.97637"
-   sodipodi:docname="question-disarmed.svg"
+   sodipodi:docname="question-disarmed-experyment.svg"
    inkscape:version="0.92.1 r15371">
   <metadata
      id="metadata8">
@@ -24,7 +24,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -55,8 +55,8 @@
      inkscape:window-height="1047"
      id="namedview4"
      showgrid="false"
-     inkscape:zoom="2"
-     inkscape:cx="76.274955"
+     inkscape:zoom="2.8284271"
+     inkscape:cx="71.447917"
      inkscape:cy="101.36994"
      inkscape:window-x="-10"
      inkscape:window-y="-10"
@@ -80,4 +80,9 @@
        id="tspan11"
        x="12.833239"
        y="182.57684">Rozbrojona</tspan></text>
+  <path
+     style="fill:#000000;fill-opacity:0;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
+     d="m 72.756064,27.703965 c -6.542622,-0.963731 -6.187184,-0.823737 -6.187184,-2.4369 0,-1.368978 0.964228,-6.616175 1.746197,-9.502564 0.268902,-0.992565 1.045737,-2.195079 2.238272,-3.464771 1.879163,-2.000743 2.477721,-2.4235673 5.207919,-3.6788979 0.875045,-0.4023409 2.068288,-0.9532779 2.651651,-1.2243041 2.695598,-1.2523556 9.08408,-3.0577238 11.997083,-3.390344 3.523076,-0.4022814 13.428348,-0.46907 15.396868,-0.103817 2.12441,0.3941779 4.05021,1.3951951 5.19707,2.7014013 1.70608,1.9431071 3.13628,6.3220617 3.84337,11.7674887 l 0.23291,1.793695 -2.35338,1.124145 c -2.9005,1.385491 -12.05522,4.481538 -14.691708,4.96861 -10.5737,1.953412 -18.685453,2.417499 -25.279068,1.446258 z"
+     id="path11"
+     inkscape:connector-curvature="0" />
 </svg>

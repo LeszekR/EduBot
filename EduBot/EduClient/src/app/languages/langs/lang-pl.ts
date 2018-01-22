@@ -92,8 +92,8 @@ export const LANG_PL_TRANS = {
 
     'lottery.hospital': 'W skrzyce wroga była podejrzana fiolka z jakimś płynem. Skierowano cię do szpitala na 5 dni. Odzyskujesz 10% życia.',
     'lottery.granade': 'GRANAT!! Tracisz 3% życia.',
-    'lottery.shield': 'Znajdujesz saperski hełm wroga. Zyskujesz 5% mocy swojej ochrony.',
-    'lottery.cassino': 'Odkryłeś mapę pola minowego. W nagrodę dostałeś urlop. Niestety, postanowiłeś spędzić go w obozowym kasynie. Przegrywasz 15% mocy swojego kombinezonu.',
+    'lottery.helmet': 'Znajdujesz saperski hełm wroga. Zyskujesz 5% mocy swojej ochrony.',
+    'lottery.casino': 'Odkryłeś mapę pola minowego. W nagrodę dostałeś urlop. Niestety, postanowiłeś spędzić go w obozowym kasynie. Przegrywasz 15% mocy swojego kombinezonu.',
     'lottery.canaries': 'Materiały znalezione w skrzynce wroga są tak cenne, że otrzymujesz 2-tygodniowy urlop na Kanarach. Odzyskujesz 20% życia.',
     'lottery.decoy': 'Nadepnąłeś na minę!! Tracisz 3% życia.',
     'lottery.death': 'Niestety, właśnie straciłeś resztkę swojego życia. Zostajesz zdegradowany do szeregowca i twój kombinezon zabierają koledzy.\nAle dobra wiadomość - miny, które rozbroiłeś wcześniej są już rozbrojone.',

@@ -92,8 +92,8 @@ export const LANG_DE_TRANS = {
 
     'lottery.hospital': '<brak tłumaczenia>',
     'lottery.granade': '<brak tłumaczenia>',
-    'lottery.shield': '<brak tłumaczenia>',
-    'lottery.cassino': '<brak tłumaczenia>',
+    'lottery.helmet': '<brak tłumaczenia>',
+    'lottery.casino': '<brak tłumaczenia>',
     'lottery.canaries': '<brak tłumaczenia>',
     'lottery.decoy': '<brak tłumaczenia>',
     'lottery.death': '<brak tłumaczenia>',

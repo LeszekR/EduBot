@@ -12,7 +12,7 @@ export class DrawingCardsConfig {
         {
             lottery: Lottery.CASINO,
             textName: 'kasyno',
-            msg: 'lottery.cassino'
+            msg: 'lottery.casino'
         },
         {
             lottery: Lottery.GRENADE,
@@ -22,7 +22,7 @@ export class DrawingCardsConfig {
         {
             lottery: Lottery.HELMET,
             textName: 'tarcza',
-            msg: 'lottery.shield'
+            msg: 'lottery.helmet'
         },
         {
             lottery: Lottery.CANARIES,

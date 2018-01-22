@@ -78,6 +78,7 @@ export class TestCodeService {
             console.log('Nie rozpoznany codeMode w codeTaskFront');
             return false;
         }
+        this.defaultStyling(scopedDocument);
         ((iframe as HTMLIFrameElement).contentWindow as any).studentCode = codeTask.studentCode;
         scopedDocument.head.appendChild(script);
 
@@ -105,5 +106,17 @@ export class TestCodeService {
         }
         scopedDocument.body = document.createElement('body');
         scopedDocument.body.innerHTML = '<span style="color:red;">' + message + '</span>';
+    }
+
+    private defaultStyling(scopedDocument): void {
+        let style = scopedDocument.createElement('style');
+        style.innerHTML = 'html {' +
+            'margin-top: -10px;' +
+            '}' +
+            'body {' +
+            'font: 12px/normal "Monaco", "Menlo", "Ubuntu Mono", "Consolas", "source-code-pro", monospace;' +
+            'font-size: 1.1rem;' +
+            '}'
+        scopedDocument.head.appendChild(style);
     }
 };

@@ -234,21 +234,22 @@ export class ModuleListComponent implements OnInit, OnDestroy {
         let newMod = this.modules;
 
         // znalezienie ostatniego dziecka, które już zostało wyświetlone
-        do {
+        /*do {
             if (index == newMod.length - 1)
                 break;
             index++;
         }
-        while (newMod[index].difficulty == findDifficulty)
+        while (newMod[index].difficulty == findDifficulty)*/ 
 
+        newMod.splice(index+1, 0, ...newModules);
 
-        let tail = null;
-        if (index < newMod.length - 1)
+        /*let tail = null;
+        if (index <= newMod.length - 1)
             tail = newMod.splice(index);
 
         newMod = newMod.concat(newModules);
         if (tail != null)
-            newMod = newMod.concat(tail);
+            newMod = newMod.concat(tail);*/
 
         this.modules = newMod;
         return newModules[0].id;

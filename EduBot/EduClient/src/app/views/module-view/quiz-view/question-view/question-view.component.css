@@ -45,9 +45,12 @@
 }
 
 .q-status{
-    position: absolute;
-    left: 80%;
-    top: 40%;
+    height: 100%;
+}
+
+.img-style{
+    max-width: inherit; 
+    max-height: 100px !important;
 }
 
 .fa-check{

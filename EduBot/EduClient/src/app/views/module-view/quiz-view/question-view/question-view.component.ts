@@ -4,6 +4,7 @@ import { ClosedQuestion } from '../../../../models/closed-question'
 import { TestResult } from '../../../../models/enums'
 import { MessageService } from '../../../../shared/components/message/message.service';
 import { ContextService } from '../../../../services/context.service'
+import { Images } from '../../../../models/distractor';
 
 
 // ==================================================================================================================
@@ -77,9 +78,9 @@ export class QuestionViewComponent implements OnInit {
   // --------------------------------------------------------------------------------------------------------------
   private markCorrectResult(): string {
     if (this.questionData.status == TestResult.Correct)
-      return "fa fa-check fa-3x";
+      return '/assets/img/' + Images.list.questionSuccess;
     else if (this.questionData.status == TestResult.Incorrect)
-      return "fa fa-times fa-3x";
+      return '/assets/img/' + Images.list.questionError;
     return "";
   }
 }

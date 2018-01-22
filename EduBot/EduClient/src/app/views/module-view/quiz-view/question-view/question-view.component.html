@@ -25,7 +25,16 @@
     </div>
     <!-- result mark -->
     <div *ngIf="questionData.status!=0" class="h-100 ml-auto pr-3 d-flex align-items-center" > 
-      <img [src]="markCorrectResult()" class="img-style" >
+      <img *ngIf="questionData.status==1" 
+            src="/assets/img/question-disarmed.png" 
+            class="img-style" 
+            tooltip="Poprawna odpowiedź"
+            placement="bottom" >
+      <img *ngIf="questionData.status==2" 
+            src="/assets/img/question-explosion.png" 
+            class="img-style" 
+            tooltip="Błędna odpowiedź"
+            placement="bottom" >
     </div>
 
   </div>

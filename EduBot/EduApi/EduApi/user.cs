@@ -29,6 +29,7 @@ namespace EduApi
         public string role { get; set; }
         public Nullable<int> score { get; set; }
         public Nullable<int> last_module { get; set; }
+        public int age { get; set; }
     
         public virtual enum_user_role enum_user_role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

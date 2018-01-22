@@ -65,6 +65,7 @@
           <Property Name="role" Type="varchar" MaxLength="8000" Nullable="false" />
           <Property Name="score" Type="int4" />
           <Property Name="last_module" Type="int4" />
+          <Property Name="age" Type="int4" Nullable="false" />
         </EntityType>
         <EntityType Name="user_code">
           <Key>
@@ -432,6 +433,7 @@
           <Property Name="role" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="score" Type="Int32" />
           <Property Name="last_module" Type="Int32" />
+          <Property Name="age" Type="Int32" Nullable="false" />
           <NavigationProperty Name="enum_user_role" Relationship="Self.user_role_fkey" FromRole="user" ToRole="enum_user_role" />
           <NavigationProperty Name="user_code" Relationship="Self.user_code_user_id_fkey" FromRole="user" ToRole="user_code" />
           <NavigationProperty Name="user_distractor" Relationship="Self.user_distractor_user_id_fkey" FromRole="user" ToRole="user_distractor" />
@@ -772,6 +774,7 @@
                 <ScalarProperty Name="role" ColumnName="role" />
                 <ScalarProperty Name="score" ColumnName="score" />
                 <ScalarProperty Name="last_module" ColumnName="last_module" />
+                <ScalarProperty Name="age" ColumnName="age" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

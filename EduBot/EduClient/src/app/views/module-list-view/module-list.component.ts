@@ -89,8 +89,10 @@ export class ModuleListComponent implements OnInit, OnDestroy {
         this.eduService.explainModule(currentModuleId)
             .subscribe(newModules => {
                 if (newModules != null) {
-                    let newId = this.insertNewModules(newModules, currentModule);
-                    this.router.navigate(['module/' + newId]);
+                    let index = this.modules.findIndex(mod => mod.id == currentModule.id);
+                    this.modules.splice(index+1, 0, ...newModules);
+
+                    this.router.navigate(['module/' + newModules[0].id]);
                 }
                 else {
                     let index = this.modules.findIndex(m => m.id == currentModuleId);
@@ -234,22 +236,20 @@ export class ModuleListComponent implements OnInit, OnDestroy {
         let newMod = this.modules;
 
         // znalezienie ostatniego dziecka, które już zostało wyświetlone
-        /*do {
+        do {
             if (index == newMod.length - 1)
                 break;
             index++;
         }
-        while (newMod[index].difficulty == findDifficulty)*/ 
+        while (newMod[index].difficulty == findDifficulty)
 
-        newMod.splice(index+1, 0, ...newModules);
-
-        /*let tail = null;
+        let tail = null;
         if (index <= newMod.length - 1)
             tail = newMod.splice(index);
 
         newMod = newMod.concat(newModules);
         if (tail != null)
-            newMod = newMod.concat(tail);*/
+            newMod = newMod.concat(tail);
 
         this.modules = newMod;
         return newModules[0].id;

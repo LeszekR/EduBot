@@ -13,6 +13,8 @@ namespace EduApi.DTO {
         [DataMember]
         public string Password { get; set; }
         [DataMember]
+        public int Age { get; set; }
+        [DataMember]
         public string Role { get; set; }
         [DataMember]
         public Nullable<int> Score { get; set; }

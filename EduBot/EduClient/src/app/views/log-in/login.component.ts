@@ -43,6 +43,7 @@ export class LoginComponent {
     private fieldPassw = new FormField('login.password', '', true);
 
     private fieldNewLogin;
+    private fieldAge;
     private fieldNewPassw;
     private fieldRepPassw;
 
@@ -153,6 +154,7 @@ export class LoginComponent {
         let user = new User();
         user.login = this.fieldNewLogin.text;
         user.password = this.fieldNewPassw.text;
+        user.age = parseInt(this.fieldAge.text);
 
         return this.userService.addUser(user);
     }
@@ -197,6 +199,7 @@ export class LoginComponent {
 
     private initializeRegisterForm(): void {
         this.fieldNewLogin = new FormField('login.new_login', '', false);
+        this.fieldAge = new FormField('login.age', '', false);
         this.fieldNewPassw = new FormField('login.new_password', '', false);
         this.fieldRepPassw = new FormField('login.repeat_password', '', false);
     }

@@ -3,6 +3,7 @@
 }
 
 .card-block{
+    min-height: 190px;
     background-color: #f7f7f7 !important;
 }
 
@@ -50,7 +51,7 @@
 
 .img-style{
     max-width: inherit; 
-    max-height: 100px !important;
+    max-height: 150px !important;
 }
 
 .fa-check{

@@ -127,10 +127,9 @@ export class GameProgressComponent implements OnInit {
         // map-fields array
         this.mapZones = new Array();
         for (var col = 0; col < this.mapCols; col++) {
-          // let rowArr: number[] = new Array();
           let rowArr: string[] = new Array();
 
-          // assigning each map-field its data-module-id = its 'easy' module's id
+          // assigning each map-field its class
           let index;
           for (var row = 0; row < this.mapRows; row++) {
             index = col * this.mapRows + row;

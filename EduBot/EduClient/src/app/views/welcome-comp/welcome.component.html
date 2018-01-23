@@ -14,44 +14,41 @@
             <a class="nav-link" [class.active]="activeTab==3" (click)="activeTab=3">
                 <h2>Punktacja</h2>
             </a>
+            <span class="v-hr"></span>
+            <a class="nav-link" [class.active]="activeTab==4" (click)="activeTab=4">
+                <h2>Tajny cel misji</h2>
+            </a>
         </div>
 
-        <!-- FABUŁA -->
         <div [ngSwitch]="activeTab" class="p-4" style="height: calc(100% - 4rem); overflow-y: auto;">
+
+
+            <!-- FABUŁA -->
             <ng-template [ngSwitchCase]="1">
-                <p>Jesteś saperem w stopniu szeregowego. Prowadzisz misję rozminowania pola minowego. Pole rozminowujesz oczyszczając
+                <p>
+                    <h4>Misja</h4>Jesteś saperem w stopniu szeregowego. Prowadzisz misję rozminowania pola minowego. Pole rozminowujesz oczyszczając
                     kolejne strefy.
-                    <br>
                     <br>Twoim celem jest rozminowanie całego pola oraz uzyskanie w trakcie tego zadania jak najwyższego stopnia
                     wojskowego.
-                    <br>
                     <br>Celem kursu jest nauczyć cię podstaw programowania i poprowadzić przez napisanie
-                    odpowiedniego kodu.</p>
+                    odpowiedniego kodu.
                 <p>
-                    <br>
                     <br>Oczyszczaniu z min kolejnych stref pola minowego polega na rozwiązywaniu krótkich testów (pytań zamkniętych)
                     oraz rozwiązywaniu małych zadań z pisania kodu.
-                    <br>
                     <br>W każdej strefie znajduje się wiele min. Miny dzielą się na przeciwpiechotne (1 pytanie zamknięte) i
                     przeciwpancerne (1 zadanie z kodu).
-                    <br>
                     <br>Źle wykonane zadanie to eksplozja miny. Powoduje ona utratę części życia.
-                    <br>
-                    <br>Bezpieczne rozbrojenie miny powoduje wzrost mocy twojego kombinezonu sapera - im lepszy kombinezon tym
+                    <br>Dobrze wykonane zadanie to rozbrojenie miny. Daje ci ono wzrost mocy twojego kombinezonu sapera - im lepszy kombinezon tym
                     mniej życia tracisz przy każdej eksplozji.</p>
                 <p>
-                    <br>
                     <br>Każde w pełni rozminowane pole daje ci awans na wyższy stopień wojskowy oraz przywrócenie części utraconego
                     życia.
-                    <br>
                     <br>Można utracić całe życie w wyniku wielu eksplozji. Wówczas otrzymujesz nowe życie ale tracisz całą zdobytą
                     ochronę i wszystkie stopnie wojskowe. Wszystkie rozbrojone miny pozostają jednak rozbrojone i ruszasz
                     dalej.
                 </p>
                 <p>
-                    <br>
                     <br>Każda strefa pola minowego dzieli się na pewną liczbę kwadratów gdzie zakopano miny różnych typów.
-                    <br>
                     <br>Przed wejściem na każdy kwadrat otrzymujesz szkolenie minowe. Każde szkolenie zawiera materiał z 
                     przykładami. Jeśli zrozumiesz i zapamiętasz szkolenie - uda ci się rozbroić wszystkie miny na tym kwadracie
                     pola.
@@ -59,18 +56,16 @@
                 <p>
                     <br>
                     <br>
-                    <br>
-                    <br>Uwaga - jeśli praca cię znudzi i ulegniesz dekoncentracji możesz niechcący nadepnąć na niewidoczną minę.
+                    <br><h4>Uwaga</h4> - jeśli praca cię znudzi i ulegniesz dekoncentracji możesz niechcący nadepnąć na niewidoczną minę.
                     Niestety jej eksplozja pozbawi cię pewnej cześci życia.</p>
                 <p>
-                    <br>
-                    <br>Uwaga - czasem zamiast miny znajdziesz w piasku skrzynkę sprzętu wroga. Możesz z niej wylosować coś co
-                    wzmocni twoją ochronę, a nawet tajne materiały, które przyniosą ci dodatkowy awans.
-                    <br>
-                    <br>Losowanie nie jest jednak całłkiem bezpieczne, niektóre skrzynki to pułapki choć ryzyko jest małe.
+                    <br><h4>Uwaga</h4> - czasem zamiast miny znajdziesz w piasku skrzynkę sprzętu wroga. Możesz z niej wylosować coś co
+                    wzmocni twoją ochronę, a nawet tajne materiały, które pozwolą ci odzyskać pewną liczbę punktów życia.
+                    <br>Losowanie nie jest jednak całkiem bezpieczne, niektóre skrzynki to pułapki choć ryzyko jest małe.
                     <br>
                     <br>
             </ng-template>
+
 
             <!-- NAWIGACJA   -->
             <ng-template [ngSwitchCase]="2">
@@ -79,33 +74,33 @@
                     <br>    - swój pasek życia, a pod nim Twój aktualny stopień wojskowy
                     <br>    - siłę ochrony jaką daje Ci aktualnie twój kombinezon
                     <br>    - mapkę pola minowego z zaznaczonymi kwadratami oczyszczonymi z min
-                    <p>
-                        <br>
-                        <h4>Treść, Pytania, Kody</h4>Te przyciski przełączają między widokiem treści z przykładem oraz pytaniami
-                        i zadaniami.
-                        <br>Edytor kodu to lewe dolne okienko, gdy klikniesz 'Kody'.
-                        <br>Wynik działani Twojego kodu pojawi się w prawym dolnym oknie.
-                        <p>
-                            <br>
-                            <h4>Dalej</h4>Aby wejść na kolejny sektor pola minowego - kliknij 'Dalej'.
-                            <p>
-                                <br>
-                                <h4>Wstecz</h4>Aby się cofnąć do poprzedniego sektora - kliknij 'Wstecz'.
-                                <p>
-                                    <br>
-                                    <h4>Wyjaśnij dokładniej</h4>Aby rozłożyć sektor na mniejsze - kliknij 'Wyjaśnij dokładniej'.
-                                    <p>
-                                        <br>
-                                        <h4>Powrót do wczesniejszego modułu</h4>Aby wrócić do kwadratu, na którym już byłeś -
-                                        kliknij go na liście po lewej stronie. Ta lista będzie coraz dłuższa w miarę, jak
-                                        bedziesz rozminowywać kolejne kwadraty pola minowego.
-                                        <p>
-                                            <br>
-                                            <h4>Powrót do 'Nawigacji' i 'Punktacji'</h4>Aby ponownie przeczytać 'Sytuację', "Punktację'
-                                            lub 'Nawigację' - kliknij logo 'Patrol saperski'. Możesz potem wrócić do ostatniego
-                                            sektora klikając go na liście po prawej stronie.
-                                            <p>
-                                                <br>
+                <p>
+                    <br>
+                    <h4>Treść, Pytania, Kody</h4>Te przyciski przełączają między widokiem treści z przykładem oraz pytaniami
+                    i zadaniami.
+                    <br>Edytor kodu to lewe dolne okienko, gdy klikniesz 'Kody'.
+                    <br>Wynik działani Twojego kodu pojawi się w prawym dolnym oknie.
+                <p>
+                    <br>
+                    <h4>Dalej</h4>Aby wejść na kolejny sektor pola minowego - kliknij 'Dalej'.
+                <p>
+                    <br>
+                    <h4>Wstecz</h4>Aby się cofnąć do poprzedniego sektora - kliknij 'Wstecz'.
+                <p>
+                    <br>
+                    <h4>Wyjaśnij dokładniej</h4>Aby rozłożyć sektor na mniejsze - kliknij 'Wyjaśnij dokładniej'.
+                <p>
+                    <br>
+                    <h4>Powrót do wczesniejszego modułu</h4>Aby wrócić do kwadratu, na którym już byłeś -
+                    kliknij go na liście po lewej stronie. Ta lista będzie coraz dłuższa w miarę, jak
+                    bedziesz rozminowywać kolejne kwadraty pola minowego.
+                <p>
+                    <br>
+                    <h4>Powrót do 'Nawigacji' i 'Punktacji'</h4>Aby ponownie przeczytać 'Sytuację', "Punktację'
+                    lub 'Nawigację' - kliknij logo 'Patrol saperski'. Aby wrócić do wybranego
+                    sektora kliknij go na liście odwiedzonych sektorów, którą będziesz widzieć po lewej stronie ekranu.
+                <p>
+                    <br>
             </ng-template>
 
 
@@ -152,6 +147,40 @@
                                         wybuch : minus 3% życia
                 
             </ng-template>
-        </div>
+
+
+            <!-- PRZEDMIOT I ZAKRES KURSU -->
+            <ng-template [ngSwitchCase]="4">
+                <p>
+                    <h4>Przedmiot tego kursu</h4>
+                    Tajnym celem tego kursu jest nauczenie Cię niektórych podstawowych elementów programowania.
+                     Tylu ile trzeba aby napisać:
+                    <br>- prostą stronę internetową w HTML,
+                    <br>- działający na tej stronie program w JavaScript.
+                    <br>
+                    <br>Opanowanie tych elementów otwiera drogę do programowania w innych językach, 
+                    ponieważ sposób myślenia programistycznego i pojęcia są tam takie same lub bardzo podobne.
+ 
+                <p>
+                    <br>
+                    <br>
+                    <h4>Upraszczamy na początek</h4>
+                    <br>Dla uproszczenia podajemy tu podstawowe zasady i narzędzia języka 
+                    programowania nie zaznaczajac które są właściwe tylko dla JavaScript. 
+                    Większość z nich jest jednak uniwersalna dla wszystkich języków. Tam gdzie 
+                    nie jest - oszczędzamy tu użytkownikowi wchodzenia w szczegóły, zakładając, 
+                    że jeśli zainteresuje się programowaniem to pozna szczegóły innych języków 
+                    w swoim dalszym rozwoju.
+ 
+                <p>
+                    <br>
+                    <br>
+                    <h4>Elementy, których tu nie uczymy</h4>
+                    Zakres tego kursu jest mały po to, żeby umożliwić wejście w świat programowania w możliwie łatwy sposób.
+                    <br>Nie uczymy tu w szczególności CSS, który jest potrzebny do tworzenia stron internetowych. 
+                    Aby opanować go w podstawowym zakresie wystarczy jednak kurs znacznie krótszy niż ten.
+                    Na dodatek zrozumienie czym jest strona internetowa ułatwia zrozumienie CSS.                            <br>
+                </ng-template>
+            </div>
     </div>
 </div>

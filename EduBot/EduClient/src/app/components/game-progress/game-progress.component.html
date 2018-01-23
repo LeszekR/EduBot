@@ -10,7 +10,7 @@
                 <div 
                     *ngFor="let segment of lifeSegments; let i=index"
                     class="life h-100 p-0 col" 
-                    [ngClass]="segment <= context.gameScore.life ? 'life-full' : ''" 
+                    [ngClass]="lifeClass(segment)" 
                     >
                 </div>
             </div>
@@ -60,3 +60,5 @@
         
     </div>
 </div>
+
+                    <!-- [ngClass]="segment <= context.gameScore.life ? 'life-full' : ''"  -->

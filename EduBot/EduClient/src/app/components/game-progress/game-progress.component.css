@@ -1,55 +1,79 @@
-
 .no-wrap{
     white-space: nowrap;
 }
-
 .progres {
-    border: 1px solid lightgray;
+    border: 1px solid gray;
 }
 
+
+
 /* LIFE REMAINING */
+/* ......................................................... */
 .life {
-    border: 1px solid lightgray;
+    border: 1px solid gray;
     height: 100%;    
     width: 15px;
 }
 .life-full{
-    background-color: lightgray;
+    background-color: gray;
     border-left: 1px solid #273126;
 }
+.life-segm {border-left: 1px solid #273126;}
+.life-4 {background-color: darkgreen;}
+.life-3 {background-color: yellowgreen;}
+.life-2 {background-color: yellow;}
+.life-1 {background-color: orangered;}
+
+
 
 /* ARMOUR STRENGTH */
+/* ......................................................... */
 .shield-empty {
-    border-left: 1px solid lightgray;
+    border-left: 1px solid gray;
     padding:0;
 }
 .shield-full {
-    background-color: lightgray;
+    background-color: gray;    
     border-right: 1px solid #273126;
+    background-image:
+        linear-gradient(0deg, transparent 50%, #aaa 50%),
+        linear-gradient(90deg, #aaa 50%, #ccc 50%);
+    background-size:5px 5px,5px 5px;
+    background-position:0 0, 0 0px;
 }
 .shield-part {
-    background-color: lightgray;
+    background-color: gray;
+    background-image:
+        linear-gradient(0deg, transparent 50%, #aaa 50%),
+        linear-gradient(90deg, #aaa 50%, #ccc 50%);
+    background-size:5px 5px,5px 5px;
+    background-position:0 0, 0 0px;
 }
 
+
 /* MINEFIELD MAP */
+/* ......................................................... */
 .map-frame {
-    border-bottom: 1px solid lightgray; 
-    border-left: 1px solid lightgray;
+    border-bottom: 1px solid gray; 
+    border-left: 1px solid gray;
 }
 .field-empty {
     flex-grow: 1;
-    /* border-left: 1px solid lightgray; */
     border-right: 1px solid #273126;
     border-top: 1px solid #273126;
 }
 .field-mined {
     flex-grow: 1;
-    border-right: 1px solid lightgray;
-    border-top: 1px solid lightgray;
+    border-right: 1px solid gray;
+    border-top: 1px solid gray;
+    /* border-right: 1px solid #273126;
+    border-top: 1px solid #273126; */
 }
 .field-safe {
     flex-grow: 1;
-    background-color: lightgray;
-    border-right: 1px solid #273126;
-    border-top: 1px solid #273126;
+    background-color: green;
+    /* border-right: 1px solid #273126;
+    border-top: 1px solid #273126; */
+    border-right: 1px solid gray;
+    border-top: 1px solid gray;
 }

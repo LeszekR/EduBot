@@ -60,6 +60,19 @@ export class GameProgressComponent implements OnInit {
 
   // PRIVATE
   // ==================================================================================================
+  private lifeClass(segment: number) {
+    if (segment > this.context.gameScore.life)
+      return '';
+    if (this.context.gameScore.life >= 75)
+      return 'life-segm life-4';
+    if (this.context.gameScore.life >= 50)
+      return 'life-segm life-3';
+    if (this.context.gameScore.life >= 25)
+      return 'life-segm life-2';
+    return 'life-segm life-1';
+  }
+
+  // --------------------------------------------------------------------------------------------------
   private getModuleId(columnN: number, rowN: number) {
     let index = columnN * this.mapRows + rowN;
 

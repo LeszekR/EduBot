@@ -50,11 +50,17 @@ namespace EduApi.Services {
 
             var moduleResultDtos = new List<ModuleResultDTO>();
             for (int i = 0; i < modules.Count(); i++)
-                if (modules[i].test_code.Count() > 0 || modules[i].test_code.Count() > 0)
+                if (modules[i].test_question.Count() > 0 || modules[i].test_code.Count() > 0)
                     moduleResultDtos.Add(GetModuleResultDTO(modules[i], user));
                 else
-                    moduleResultDtos.Add(new ModuleResultDTO() { id = modules[i].id, noQuizCode = true });
+                    moduleResultDtos.Add(new ModuleResultDTO() {
+                        id = modules[i].id,
+                        group_position = modules[i].group_position,
+                        noQuizCode = true
+                    });
 
+
+            // sorting the modules
             moduleResultDtos.Sort((a, b) => {
                 if (a.group_position == b.group_position)
                     return 0;

@@ -14,12 +14,12 @@
     height: 100%;    
     width: 15px;
 }
-.life-full{
+/* .life-full{
     background-color: gray;
     border-left: 1px solid #273126;
-}
+} */
 .life-segm {border-left: 1px solid #273126;}
-.life-4 {background-color: darkgreen;}
+.life-4 {background-color: green;}
 .life-3 {background-color: yellowgreen;}
 .life-2 {background-color: yellow;}
 .life-1 {background-color: orangered;}
@@ -72,8 +72,8 @@
 .field-safe {
     flex-grow: 1;
     background-color: green;
-    /* border-right: 1px solid #273126;
-    border-top: 1px solid #273126; */
-    border-right: 1px solid gray;
-    border-top: 1px solid gray;
+    border-right: 1px solid #273126;
+    border-top: 1px solid #273126;
+    /* border-right: 1px solid gray;
+    border-top: 1px solid gray; */
 }

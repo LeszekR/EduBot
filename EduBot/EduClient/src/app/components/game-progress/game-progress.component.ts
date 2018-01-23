@@ -94,7 +94,9 @@ export class GameProgressComponent implements OnInit {
 
     let solvedCodes = moduleResultDto.solvedCodes;
     let solvedQuestions = moduleResultDto.solvedQuestions;
-    return solvedCodes && solvedQuestions ? 'field-safe' : 'field-mined';
+    // return (solvedCodes && solvedQuestions) ? 'field-safe' : 'field-mined';
+    let classResult = (solvedCodes && solvedQuestions) ? 'field-safe' : 'field-mined'; 
+    return classResult;
   }
 
   // --------------------------------------------------------------------------------------------------
@@ -132,7 +134,6 @@ export class GameProgressComponent implements OnInit {
           let index;
           for (var row = 0; row < this.mapRows; row++) {
             index = col * this.mapRows + row;
-            // rowArr.push(index < n ? index : -1);
             rowArr.push(this.fieldClass(index));
           }
 

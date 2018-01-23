@@ -26,7 +26,7 @@
 
     <!-- lista modułów w trybie: EDYCJA -->
     <!-- ........................................................................................... -->
-    <div *ngIf="context.isEditMode" class="list-group pb-2">
+    <div *ngIf="context.isEditMode" class="list-group pb-2 pr-1">
         <ng-template ngFor let-module [ngForOf]="modules">
 
             <div class="d-flex" 
@@ -63,7 +63,7 @@
 
     <!-- lista modułów w trybie: NAUKA -->
     <!-- ........................................................................................... -->
-    <div *ngIf="!context.isEditMode" class="list-group pb-2">
+    <div *ngIf="!context.isEditMode" class="list-group pb-2 pr-1">
         <ng-template ngFor let-module [ngForOf]="modules">
 
             <div class="d-flex" 

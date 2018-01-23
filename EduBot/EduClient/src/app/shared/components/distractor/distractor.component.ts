@@ -102,7 +102,13 @@ export class DistractorComponent implements OnDestroy {
 
         // show to the user what happened (in case other component has not done it yet)
         if (this.showMsg)
-            this.messageService.info(this.message, 'common.result');
+            this.messageService.info(this.message, 'common.result')
+                .then( res =>
+                    setTimeout( () => { document.onkeyup = (e: any) => {
+                        if (e.which == this.KEY_ESC)
+                            this.hide();}
+                        },100)
+                );
                 //.then(res => this.hide());
         else
             this.hide();

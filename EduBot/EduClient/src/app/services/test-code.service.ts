@@ -111,7 +111,7 @@ export class TestCodeService {
     private defaultStyling(scopedDocument): void {
         let style = scopedDocument.createElement('style');
         style.innerHTML = 'html {' +
-            'margin-top: -10px;' +
+            'margin-top: -8px;' +
             '}' +
             'body {' +
             'font: 12px/normal "Monaco", "Menlo", "Ubuntu Mono", "Consolas", "source-code-pro", monospace;' +

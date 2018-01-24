@@ -36,7 +36,7 @@ namespace EduApi.Services {
 
         // CONSTRUCTOR
         // =============================================================================================
-        #region Constructor
+                #region Constructor
         public EmotionalStateInterpreter() {
             _logger = LogManager.GetCurrentClassLogger();
         }

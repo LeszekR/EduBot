@@ -9,14 +9,17 @@
 //
 //(Jeśli masz mocne nerwy - możesz kliknąć badGuy'a.)
 
-var correctHtmlResult = true;
+var correctHtmlResult = "Skrypt prawidłowy";
 
 function executorCode() {
+//var codeOutput = document.getElementById("codeOutput");
+var codeOutput = document.body;
 setAction();
-var studentScript = document.getElementById("codeOutput").children[4];
+var studentScript = codeOutput.getElementsByTagName("script")[1];
 if(!studentScript) return "Brak elementu \"skrypt\"";
 var studentFunction = studentScript.innerHTML.replace(/\n\r|\n|\r| |\t/g,"");
+console.log(studentFunction);
 if (studentFunction.indexOf(".addEventListener(\"click\",badGuyStrikes)") === -1)
     return "Brak przypisania eventu z funkcją badGuyStrikes";
-return true;
+return "Skrypt prawidłowy";
 }

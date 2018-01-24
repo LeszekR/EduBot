@@ -29,7 +29,7 @@ function studentJsCode() {
     // -------------------------------------------------------------------------    
 // STUDENT_CODE_HERE
 var codeOutput = document.body;
-codeOutput.innerHTML = tabHtml;
+codeOutput.innerHTML = tabHtml.trim();
 
 tab = codeOutput.children[0].children[0];
 if (!tab) return "Brak tabelki";

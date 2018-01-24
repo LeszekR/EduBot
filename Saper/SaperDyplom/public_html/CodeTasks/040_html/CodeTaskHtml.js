@@ -10,16 +10,17 @@
 //(Na razie nic nie rób z pobranym eventem, to za chwilę.)
 
 
-var correctHtmlResult = true;
+var correctHtmlResult = "Skrypt prawidłowy";
 
 function executorCode() {
-
+var codeOutput = document.getElementById("codeOutput");
+var codeOutput = document.body;
 setAction();
-var studentScript = document.getElementById("codeOutput").children[4];
+var studentScript = codeOutput.getElementsByTagName("script")[1];
 if(!studentScript) return "Brak elementu \"skrypt\"";
 var studentFunction = studentScript.innerHTML.replace(/\n\r|\n|\r| |\t/g,"");
 if (studentFunction.indexOf("badGuyHolliday(e){") < 0)
     return "Brak pobrania eventu jako argument funkcji \"holliday\"";
-return true;
+return "Skrypt prawidłowy";
 
 }

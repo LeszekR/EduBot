@@ -1,4 +1,4 @@
-
+w
 // CODE TASK dla JAVA SCRIPT   030
 // 
 //Utworz zmienne : "babcia" i "wnuczek".

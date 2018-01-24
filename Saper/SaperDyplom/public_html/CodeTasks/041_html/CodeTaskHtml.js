@@ -12,7 +12,7 @@
 //
 //(Możesz kliknąć przyciski.)
 
-var correctHtmlResult = true;
+var correctHtmlResult = "Skrypt prawidłowy";
 
 function executorCode() {
 
@@ -21,5 +21,5 @@ var divId = document.getElementById("callerId");
 document.getElementById("Good_guy").click();
 if(divId.innerHTML !== "Good_guy") return "Kliknięcie nie działa";
 divId.innerHTML = "";
-return true;
+return "Skrypt prawidłowy";
 }

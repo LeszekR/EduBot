@@ -66,21 +66,32 @@ export class TestCodeService {
         if (codeTask.codeMode === CodeMode.JAVASCRIPT) {
             try {
                 new Function(codeTask.studentCode);
-            } catch(e) {
+            } catch (e) {
                 this.handleException(scopedDocument, e);
                 return false;
             }
             script.innerHTML += 'codeToExecuteFunction = () => {' + codeToExecute + '\n}';
-        } else if (codeTask.codeMode === CodeMode.HTML) { // The code is HTML + CSS + JavaScript
+        } 
+        
+        // The code is html + javascript
+        else if (codeTask.codeMode === CodeMode.HTML) { // The code is HTML + CSS + JavaScript
             scopedDocument.write(codeToExecute);
             script.innerHTML += 'codeToExecuteFunction = () => {' + codeTask.executorCode + '\n}';
-        } else {
+        } 
+        
+        // unrecoginsed code
+        else {
             console.log('Nie rozpoznany codeMode w codeTaskFront');
             return false;
         }
+
+
+        // putting student code inside iframe
         this.defaultStyling(scopedDocument);
         ((iframe as HTMLIFrameElement).contentWindow as any).studentCode = codeTask.studentCode;
         scopedDocument.head.appendChild(script);
+
+
 
         try {
             result = ((iframe as HTMLIFrameElement).contentWindow as any).codeToExecuteFunction();

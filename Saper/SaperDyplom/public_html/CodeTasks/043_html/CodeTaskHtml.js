@@ -13,16 +13,18 @@
 //
 //Kliknij przycisk prawym przyciskiem - czy menu kontekstowe przestało się pojawiać?
 
-var correctHtmlResult = true;
+var correctHtmlResult = "Skrypt prawidłowy";
 
 function executorCode() {
 
+var codeOutput = document.getElementById("codeOutput");
+//var codeOutput = document.body;
 setAction();
-var studentScript = document.getElementById("codeOutput").children[4];
+var studentScript = codeOutput.getElementsByTagName("script")[0];
 if(!studentScript) return "Brak elementu \"skrypt\"";
 var studentFunction = studentScript.innerHTML.replace(/\n\r|\n|\r| |\t/g,"");
-if (studentFunction.indexOf("e.preventDefault();") < 0)
+if (studentFunction.indexOf(".preventDefault();") < 0)
     return "Nie wyłączono menu kontekstowego";
-return true;
+return "Skrypt prawidłowy";
 
 }

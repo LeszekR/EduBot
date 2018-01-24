@@ -122,7 +122,7 @@ export class ModuleListComponent implements OnInit, OnDestroy {
     // --------------------------------------------------------------------------------------------------------------
     nextModule() {
 
-        this.spinner.start();
+        
 
         let currModule = this.context.currentModule;
 
@@ -137,7 +137,7 @@ export class ModuleListComponent implements OnInit, OnDestroy {
                 return;
 
 
-
+        this.spinner.start();
         // jeśli jeszcze nie zaznaczono żadnego modułu to serwer otrzymawszy currModuleId = -1
         // zareaguje tak samo jak na żądanie nowego modułu - kolejnego, który jeszcze nie był oglądany
         let currModuleId = currModule == undefined ? -1 : currModule.id;

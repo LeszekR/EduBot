@@ -671,11 +671,11 @@ namespace EduApi.Services {
 
                 if (code) {
                     separator = "//" + (index + 1).ToString() + ") ";
-                    for (var i = separator.Length; i < 56; i++)
+                    for (var i = separator.Length; i < 54; i++)
                         separator += '-';
                 }
                 else {
-                    separator = "________________________________________________________\n";
+                    separator = "______________________________________________________\n";
                     separator += (index + 1).ToString() + ")";
                 }
                 if (nthElem > 0)
@@ -687,7 +687,7 @@ namespace EduApi.Services {
                 string comment = code ? "// " : "";
 
                 separator = comment + module.title.ToUpper() + "\n";
-                separator += comment + "=====================================================";
+                separator += comment + "===================================================";
 
                 if (nthElem > 0)
                     separator = "\n\n\n\n\n" + separator;

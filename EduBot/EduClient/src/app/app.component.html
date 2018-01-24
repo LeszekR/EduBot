@@ -12,16 +12,12 @@
 
         <!-- LOGO -->
         <div class="m-0 mr-5 p-0 " style="height: 100%; width: 4rem;"  routerLink="/">
-            <img src="../assets/img/patrol-logo1.jpg" style="height:inherit; object-fit: scale-down;">
-        </div>
+            <img
+                src="../assets/img/patrol-logo1.jpg" 
+                style="height:inherit; object-fit: scale-down;">
+            </div>
 
-        <!-- POLITECHNIKA GDAŃSKA -->
-        <!-- <a class="navbar-brand text-white pl-0 ml-0" routerLink="/">
-            <span style="margin-left: 20px;float: left;">
-                <strong>Patrol saperski</strong>
-            </span>
-        </a> -->
-
+            
         <!-- MOCK -->
         <div 
             *ngIf="context.userRole == 1 || context.userRole == 2" 
@@ -114,13 +110,16 @@
 <!-- ........................................................................................... -->
 <div class="container-fluid main-container d-flex pt-1 pl-1 pr-2 m-0">
     <div id="module-list-view" class="col-3 h-100  m-0 p-0 pt-1">
+
+        
         <ng-template #start >
             <div class="h-100 w-100 d-flex align-items-center justify-content-center">
-                <img src="/assets/img/scenario.png" >
+                <img src="/assets/img/scenario.png" class="front-page-soldier">
             </div>
         </ng-template>
+        
         <module-list-view *ngIf="context.userRole;else start"></module-list-view>
-    </div>
+    </div>  
 
     <div id="module-content-example" class="col-9 m-0 p-0 pt-1">
         <router-outlet></router-outlet>
@@ -134,3 +133,5 @@
 <!-- LOGIN WINDOW -->
 <!-- ........................................................................................... -->
 <login-window></login-window>
+
+

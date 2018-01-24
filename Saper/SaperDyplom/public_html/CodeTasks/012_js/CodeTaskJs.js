@@ -17,7 +17,7 @@ function studentJsCode() {
 
     // -------------------------------------------------------------------------    
 // STUDENT_CODE_HERE
-if (wymiary == undefined)
+if (typeof wymiary == undefined)
     return "brak tablicy";
 if (wymiary.length != 3)
     return "zły rozmiar tablicy";

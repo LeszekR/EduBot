@@ -5,20 +5,20 @@ import { Lottery } from '../../../../models/enums';
 export class LotteryItems {
 
     public static readonly list = [
-        // // mixed lotteries
-        // {
-        //     lottery: Lottery.DECOY,
-        //     from: -1,
-        //     to: -1,
-        //     msg: 'lottery.decoy'
-        // },
-        // {
-        //     lottery: Lottery.DEATH,
-        //     from: -1,
-        //     to: -1,
-        //     msg: 'lottery.death'
-        // },
-        //
+        // mixed lotteries
+        {
+            lottery: Lottery.DECOY,
+            from: -1,
+            to: -1,
+            msg: 'lottery.decoy'
+        },
+        {
+            lottery: Lottery.DEATH,
+            from: -1,
+            to: -1,
+            msg: 'lottery.death'
+        },
+        
         // // fortune wheel
         // {
         //     lottery: Lottery.HELMET,

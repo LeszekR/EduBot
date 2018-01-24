@@ -32,7 +32,7 @@ function studentJsCode() {
     
     // -------------------------------------------------------------------------    
 // STUDENT_CODE_HERE
-if (iceCream == undefined)
+if (typeof iceCream == undefined)
     return "brak tablicy";
 if (iceCream.length != 2 || iceCream[0].length != 4)
     return "zły rozmiar tablicy";

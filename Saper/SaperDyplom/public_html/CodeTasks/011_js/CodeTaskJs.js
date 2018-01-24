@@ -15,14 +15,13 @@ function studentJsCode() {
     // STUDENT_CODE_HERE
     // -------------------------------------------------------------------------
     var weapons = [
-            "lightsaber",
+            "light saber",
             "laser gun",
-            "cross bow"
+            "crossbow"
     ];
-
 // -------------------------------------------------------------------------    
 // STUDENT_CODE_HERE
-if (weapons == undefined)
+if (typeof weapons == undefined)
     return "brak tablicy";
 if (weapons.length != 3)
     return "zły rozmiar tablicy";

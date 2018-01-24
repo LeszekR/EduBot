@@ -26,19 +26,19 @@ function studentJsCode() {
 
     // STUDENT_CODE_HERE
     // -------------------------------------------------------------------------
-var boardHtml = "<table>";
+    var boardHtml = "<table>";
 
-boardHtml += "<tr>";
-boardHtml += "<td></td>";
-boardHtml += "<td></td>";
-boardHtml += "</tr>";
+    boardHtml += "<tr>";
+    boardHtml += "<td></td>";
+    boardHtml += "<td></td>";
+    boardHtml += "</tr>";
 
-boardHtml += "<tr>";
-boardHtml += "<td></td>";
-boardHtml += "<td></td>";
-boardHtml += "</tr>";
+    boardHtml += "<tr>";
+    boardHtml += "<td></td>";
+    boardHtml += "<td></td>";
+    boardHtml += "</tr>";
 
-boardHtml += "</table>";
+    boardHtml += "</table>";
 
 // -------------------------------------------------------------------------    
 //var docBody = document.getElementById("codeOutput");

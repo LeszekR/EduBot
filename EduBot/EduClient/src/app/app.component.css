@@ -1,4 +1,10 @@
 
+.front-page-soldier {
+    object-fit: scale-down;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+
 .list-group a {
     margin-top: 4px;
     border-radius: 0px;

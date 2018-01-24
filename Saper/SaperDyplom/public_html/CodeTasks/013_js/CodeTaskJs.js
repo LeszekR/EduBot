@@ -23,7 +23,7 @@ function studentJsCode() {
 
     // -------------------------------------------------------------------------    
 // STUDENT_CODE_HERE
-if (planets == undefined)
+if (typeof planets == undefined)
     return "brak tablicy";
 if (planets.length != 4)
     return "zły rozmiar tablicy";

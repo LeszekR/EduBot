@@ -109,7 +109,7 @@ export class GameProgressComponent implements OnInit {
         let n = moduleResultDtos.length;
 
         let mapHeight = 1;
-        let mapWidth = 6;
+        let mapWidth = 5;
 
         // single column length
         let nModulesInZone = n / mapWidth * mapHeight;

@@ -15,6 +15,7 @@ import { ModuleService } from '../../services/module.service';
 import { DistractorService } from '../../services/distractor.service';
 import { EduService } from '../../services/edu.service';
 import { ContextService } from '../../services/context.service';
+import { SpinnerService } from '../../shared/components/spinner/spinner.service';
 
 
 // ==================================================================================================================
@@ -40,6 +41,7 @@ export class ModuleListComponent implements OnInit, OnDestroy {
         private eduService: EduService,
         private context: ContextService,
         private messageService: MessageService,
+        private spinner: SpinnerService,
         private router: Router,
         private route: ActivatedRoute
     ) {
@@ -120,6 +122,8 @@ export class ModuleListComponent implements OnInit, OnDestroy {
     // --------------------------------------------------------------------------------------------------------------
     nextModule() {
 
+        this.spinner.start();
+
         let currModule = this.context.currentModule;
 
         if (currModule != undefined)
@@ -151,6 +155,7 @@ export class ModuleListComponent implements OnInit, OnDestroy {
 
                     this.showDistractorAndModule(moduleDistr);
                     this.showGameScore();
+                    this.spinner.stop();
                 }
             });
     }

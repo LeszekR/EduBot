@@ -5,6 +5,7 @@ import { Lottery } from '../../../models/enums';
 import { TestTaskService } from '../../../services/test.service';
 import { LotteryItems } from '../fortune-wheel/config/fortune-wheel.config';
 import { MessageService } from '../message/message.service';
+import { LotteryItemsCopy } from './lottery-copy.config';
 
 
 // ==================================================================================================================
@@ -71,6 +72,8 @@ export class DistractorComponent implements OnDestroy {
             if (type == Distractors.hiddenMine) {
                 this.lottery = Lottery.DECOY;
                 this.showMsg = true;
+
+                setTimeout(()=> { this.showMsgAndHide(); }, 1000);
             }
 
             else if (type == 'death') {
@@ -80,7 +83,7 @@ export class DistractorComponent implements OnDestroy {
         }
 
         // ESC listener
-        document.onkeydown = (e: any) => {
+        document.onkeyup = (e: any) => {
             if (e.which == this.KEY_ESC)
                 this.showMsgAndHide();
         }
@@ -91,7 +94,8 @@ export class DistractorComponent implements OnDestroy {
 
         // record lottery prize in the database and get recent GameScore
         if (this.lottery) {
-            let result = LotteryItems.list.filter(p => p.lottery == this.lottery).shift();
+            let result = LotteryItemsCopy.list.find(p => p.lottery == this.lottery);
+            console.log("Result: " + result);
             this.testTaskService.recordLotteryResult(this.lottery);
             if (this.showMsg) this.message = result.msg;
         }
@@ -99,7 +103,13 @@ export class DistractorComponent implements OnDestroy {
         // show to the user what happened (in case other component has not done it yet)
         if (this.showMsg)
             this.messageService.info(this.message, 'common.result')
-                .then(res => this.hide());
+                .then( res =>
+                    setTimeout( () => { document.onkeyup = (e: any) => {
+                        if (e.which == this.KEY_ESC)
+                            this.hide();}
+                        },100)
+                );
+                //.then(res => this.hide());
         else
             this.hide();
 

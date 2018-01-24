@@ -109,10 +109,11 @@ export class MessageComponent implements OnInit {
             e.preventDefault();
             if (!positiveOnClick(e)) this._hideDialog()
         });
-
+        
         document.onkeyup = (e:any) => {
             if (e.which == this.KEY_ESC) {
                 this._hideDialog();
+                e.stopPropagation();
                 return negativeOnClick(null);
             }
             if (e.which == this.KEY_ENTER) {

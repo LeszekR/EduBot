@@ -1,9 +1,10 @@
-import { Component, ElementRef, Input } from '@angular/core';
+import { Component, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import { LotteryItems } from './config/fortune-wheel.config';
 import { ViewChild } from '@angular/core';
 import { MessageService } from '../message/message.service';
 import { Images } from '../../../models/distractor';
 import { DistractorComponent } from '../distractor/distractor.component';
+import { Lottery } from '../../../models/enums';
 
 
 // ==================================================================================================================
@@ -24,7 +25,7 @@ export class FortuneWheelComponent {
     @Input() private readonly bckgrAddress = this.IMG_PATH + Images.list.fortuneWheelBckgr;
     @Input() private readonly wheelAddress = this.IMG_PATH + Images.list.fortuneWheel;
 
-    @Input() private distractorComp: DistractorComponent;
+    @Output() onLotteryChange = new EventEmitter<Lottery>();
 
     private add = 0.5;
     private speed: number;
@@ -78,12 +79,12 @@ export class FortuneWheelComponent {
                 this.fortuneWheel.nativeElement.style.webkitAnimationPlayState = 'paused';
 
                 // recording the result and recalculating the game score
-                this.distractorComp.lottery = result.lottery;
+                this.onLotteryChange.emit(result.lottery);
 
                 // the player gets informed what they've just drawn to their doom..
-                setTimeout(() => {
+                /*setTimeout(() => {
                     this.messageService.info(result.msg, 'common.result');
-                }, 200);
+                }, 200);*/
             }
         }, FortuneWheelComponent.interval);
     }

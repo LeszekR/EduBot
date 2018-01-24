@@ -5,8 +5,6 @@ import { Lottery } from '../../../models/enums';
 import { TestTaskService } from '../../../services/test.service';
 import { LotteryItems } from '../fortune-wheel/config/fortune-wheel.config';
 import { MessageService } from '../message/message.service';
-import { LotteryItemsCopy } from './lottery-copy.config';
-
 
 // ==================================================================================================================
 @Component({
@@ -40,9 +38,17 @@ export class DistractorComponent implements OnDestroy {
         this.distractorSubsciption = this.service.onShowDistractor.subscribe(d => this.show(d));
     }
 
+    
+
     // --------------------------------------------------------------------------------------------------------------
     ngOnDestroy() {
         this.distractorSubsciption.unsubscribe();
+    }
+
+    private lotteryChange(lottery: Lottery){
+        this.lottery = lottery;
+        this.showMsg = true;
+        this.showMsgAndHide();
     }
 
 
@@ -91,10 +97,10 @@ export class DistractorComponent implements OnDestroy {
 
     // --------------------------------------------------------------------------------------------------------------
     private showMsgAndHide() {
-
+        console.log(this.lottery);
         // record lottery prize in the database and get recent GameScore
         if (this.lottery) {
-            let result = LotteryItemsCopy.list.find(p => p.lottery == this.lottery);
+            let result = LotteryItems.list.find(p => p.lottery == this.lottery);
             console.log("Result: " + result);
             this.testTaskService.recordLotteryResult(this.lottery);
             if (this.showMsg) this.message = result.msg;

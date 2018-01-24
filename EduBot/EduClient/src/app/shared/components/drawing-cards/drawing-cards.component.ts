@@ -1,9 +1,10 @@
-import { Component, Input, ElementRef } from '@angular/core';
+import { Component, Input, ElementRef, Output, EventEmitter } from '@angular/core';
 import { DrawingCardsConfig } from './config/drawing-cards.config';
 import { ViewChild } from '@angular/core';
 import { PrizeInterface } from './config/prize.interface';
 import { MessageService } from '../message/message.service';
 import { DistractorComponent } from '../distractor/distractor.component';
+import { Lottery } from '../../../models/enums';
 
 
 // ==================================================================================================================
@@ -16,8 +17,7 @@ export class DrawingCardsComponent {
 
     @ViewChild('cardTemplate') cardTemplate: ElementRef;
 
-    @Input() distractorComp: DistractorComponent;
-
+    @Output() onLotteryChange = new EventEmitter<Lottery>();
 
     public readonly prizes: Array<PrizeInterface> = DrawingCardsConfig.prizes;
     public picked = false;
@@ -43,12 +43,12 @@ export class DrawingCardsComponent {
         card.parentNode.getElementsByClassName('back')[0].innerHTML = result.textName;
 
         // recording the result and recalculating the game score
-        this.distractorComp.lottery = result.lottery;
+        this.onLotteryChange.emit(result.lottery);
 
-        // msg for the user - the prize
+        /*// msg for the user - the prize
         setTimeout(() => {
             this.messageService.info(result.msg, 'common.result');
-        }, 1000);
+        }, 1000);*/
         this.picked = true;
     }
 

@@ -14,7 +14,7 @@
    width="297mm"
    height="210mm"
    viewBox="0 0 1122.5197 793.7008"
-   sodipodi:docname="fortune-wheel-backgr.svg"
+   sodipodi:docname="fortune-wheel-backgr_new.svg"
    inkscape:version="0.92.1 r15371">
   <metadata
      id="metadata8">
@@ -24,7 +24,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -100,9 +100,9 @@
      id="namedview4"
      showgrid="false"
      units="mm"
-     inkscape:zoom="0.53835186"
-     inkscape:cx="473.7792"
-     inkscape:cy="346.5896"
+     inkscape:zoom="1.0767037"
+     inkscape:cx="604.07106"
+     inkscape:cy="415.16742"
      inkscape:window-x="-10"
      inkscape:window-y="-10"
      inkscape:window-maximized="1"
@@ -113,5 +113,5 @@
      id="path12-5-7"
      inkscape:connector-curvature="0"
      clip-path="url(#clipPath57)"
-     transform="rotate(43,380.30157,320.05411)" />
+     transform="rotate(43,441.08218,296.11199)" />
 </svg>

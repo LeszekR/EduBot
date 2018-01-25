@@ -92,7 +92,7 @@ export const LANG_DE_TRANS = {
     'camera.share-error': '<brak tłumaczenia>',
 
     'lottery.hospital': '<brak tłumaczenia>',
-    'lottery.granade': '<brak tłumaczenia>',
+    'lottery.grenade': '<brak tłumaczenia>',
     'lottery.helmet': '<brak tłumaczenia>',
     'lottery.casino': '<brak tłumaczenia>',
     'lottery.canaries': '<brak tłumaczenia>',

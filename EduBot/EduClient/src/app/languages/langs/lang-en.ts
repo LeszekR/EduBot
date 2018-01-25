@@ -92,7 +92,7 @@ export const LANG_EN_TRANS = {
     'camera.share-error': 'In order to be able to adjust difficulty level please unblock camera access',
 
     'lottery.hospital': 'There was a suspicious vial with some liquid in the enemy\'s case. You were sent to the hospital for 5 days. You recover 10% of your life.',
-    'lottery.granade': 'GRENADE!! You lose 3% of your life.',
+    'lottery.grenade': 'GRENADE!! You lose 3% of your life.',
     'lottery.helmet': 'You find the sapper helmet of the enemy. You gain 5% of the power of your protection.',
     'lottery.casino': 'You have found a minefield map. As a reward, you got a holiday. Unfortunately, you decided to spend it in the camp casino. You are losing 15% of the power of your suit.',
     'lottery.canaries': 'The materials found in the enemy box are so valuable that you get a 2-week holiday in the Canaries. You recover 20% of your life.',

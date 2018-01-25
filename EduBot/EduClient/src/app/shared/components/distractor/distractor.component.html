@@ -2,16 +2,16 @@
     *ngIf="showDistractor" 
     class="spinner-background d-flex justify-content-center align-items-center" 
     >
-    <div class="fa fa-close fa-3x text-white distractor-close" (click)="showMsgAndHide()" ></div>
+    <div class="fa fa-close fa-3x distractor-close" (click)="showMsgAndHide()" ></div>
     <img [src]="imgSrc" >
 </div>
 
 <div *ngIf="showWheelOfFortune" class="darker-background d-flex justify-content-center align-items-center" >
     <app-fortune-wheel (onLotteryChange)="lotteryChange($event)" ></app-fortune-wheel>
-    <div class="fa fa-close fa-3x text-white distractor-close" (click)="showMsgAndHide()" ></div>
+    <div class="fa fa-close fa-3x distractor-close" (click)="showMsgAndHide()" ></div>
 </div>
 
 <div *ngIf="showCardsDraw" class="darker-background d-flex justify-content-center align-items-center" >
     <app-drawing-cards (onLotteryChange)="lotteryChange($event)" ></app-drawing-cards>
-    <div class="fa fa-close fa-3x text-white distractor-close" (click)="showMsgAndHide()" ></div>
+    <div class="fa fa-close fa-3x distractor-close" (click)="showMsgAndHide()" ></div>
 </div>

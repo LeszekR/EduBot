@@ -4,10 +4,12 @@
     right: 100px;
     z-index: 100000;
     color: #feed00;
+    /* border: 2px  solid black; */
 }
 
 .distractor-close:hover{
     color: #feed00cc !important;
+    /* border: 2px  solid black; */
 }
 
 .darker-background{

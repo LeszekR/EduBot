@@ -105,8 +105,14 @@ export class AppComponent implements OnInit, OnDestroy {
 
   // --------------------------------------------------------------------------------------------------------------
   setEmoState(state: number) {
-    if (state != undefined)
-      this.http.post<any>('/api/emoservice/setemostate', state)
+    if (state != undefined) {
+
+      // TODO zamienić numerowanie na enum, żeby było widac co wywołujemy
+      // emoState 3 wywołuje reward z komunikatem 'skrzynka wroga'
+      // emoState 5 wywołuje reward z komunikatem 'awans'
+      let stateForServer = state == 5 ? 3 : state;
+
+      this.http.post<any>('/api/emoservice/setemostate', stateForServer)
         .subscribe(res => {
 
           if (state == 2) {
@@ -118,11 +124,14 @@ export class AppComponent implements OnInit, OnDestroy {
             newGameScore.progress = 0;
           }
           if (state == 3 || state == 4)
-            this.eduService.serverWantsToDistract(res);
+            this.eduService.serverWantsToDistract(res, '');
+          else if (state == 5)
+            this.eduService.serverWantsToDistract(res, 'edu.promotion-reward');
 
           console.log(res);
         });
-  }
+      }
+    }
 
   // --------------------------------------------------------------------------------------------------------------
   openLoginWindow() {

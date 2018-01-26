@@ -105,5 +105,6 @@ export const LANG_PL_TRANS = {
     'drawing-cards.explanation': 'Wybierz jedną z kart.',
 
     'edu.want-a-distractor': 'Znalazłeś skrzynkę wroga. Czy chcesz ją teraz otworzyć?',
-    'edu.sth-for-you': 'NIESPODZANKA'
+    'edu.sth-for-you': 'NIESPODZANKA',
+    'edu.promotion-reward': 'Z okazji awansu dostałeś przepustkę do miasta na wieczór. Masz ochotę się rozerwać?'
 };

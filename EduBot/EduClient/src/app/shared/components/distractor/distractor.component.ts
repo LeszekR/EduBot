@@ -5,6 +5,7 @@ import { Lottery } from '../../../models/enums';
 import { TestTaskService } from '../../../services/test.service';
 import { LotteryItems } from '../fortune-wheel/config/fortune-wheel.config';
 import { MessageService } from '../message/message.service';
+import { ContextService } from '../../../services/context.service';
 
 // ==================================================================================================================
 @Component({
@@ -27,25 +28,28 @@ export class DistractorComponent implements OnDestroy {
     lottery: Lottery;
     private message: string;
     private showMsg: boolean;
+    private promotion: boolean;
+
 
     // CONSTRUCTOR
     // ==============================================================================================================
     constructor(
         private service: DistractorService,
         private testTaskService: TestTaskService,
-        private messageService: MessageService) {
+        private messageService: MessageService,
+        private context: ContextService) {
 
         this.distractorSubsciption = this.service.onShowDistractor.subscribe(d => this.show(d));
     }
 
-    
+
 
     // --------------------------------------------------------------------------------------------------------------
     ngOnDestroy() {
         this.distractorSubsciption.unsubscribe();
     }
 
-    private lotteryChange(lottery: Lottery){
+    private lotteryChange(lottery: Lottery) {
         this.lottery = lottery;
         this.showMsg = true;
         this.showMsgAndHide();
@@ -59,6 +63,7 @@ export class DistractorComponent implements OnDestroy {
         this.lottery = null;
         this.message = "";
         this.showMsg = false;
+        this.promotion = false;
 
         let type = distractor.distr_content;
 
@@ -70,7 +75,7 @@ export class DistractorComponent implements OnDestroy {
             this.showCardsDraw = true;
 
 
-        // other distractors need distractorCompoent to be set for them
+        // other distractors need distractorComponent to be set for them
         else {
             this.imgSrc = this.IMG_PATH + Images.list[type];
             this.showDistractor = true;
@@ -79,13 +84,16 @@ export class DistractorComponent implements OnDestroy {
                 this.lottery = Lottery.DECOY;
                 this.showMsg = true;
 
-                setTimeout(()=> { this.showMsgAndHide(); }, 1000);
+                setTimeout(() => { this.showMsgAndHide(); }, 1000);
             }
 
             else if (type == 'death') {
                 this.lottery = Lottery.DEATH;
                 this.showMsg = true;
             }
+
+            else if (distractor.distr_content == "promotion_01")
+                this.promotion = true;
         }
 
         // ESC listener
@@ -97,7 +105,9 @@ export class DistractorComponent implements OnDestroy {
 
     // --------------------------------------------------------------------------------------------------------------
     private showMsgAndHide() {
+
         console.log(this.lottery);
+
         // record lottery prize in the database and get recent GameScore
         if (this.lottery) {
             let result = LotteryItems.list.find(p => p.lottery == this.lottery);
@@ -109,28 +119,42 @@ export class DistractorComponent implements OnDestroy {
         // show to the user what happened (in case other component has not done it yet)
         if (this.showMsg)
             this.messageService.info(this.message, 'common.result')
-                .then( res =>
-                    setTimeout( () => { document.onkeyup = (e: any) => {
-                        if (e.which == this.KEY_ESC)
-                            this.hide();}
-                        },100)
+                .then(res =>
+                    setTimeout(() => {
+                        document.onkeyup = (e: any) => {
+                            if (e.which == this.KEY_ESC)
+                                this.hide();
+                        }
+                    }, 100)
                 );
-                //.then(res => this.hide());
+        //.then(res => this.hide());
         else
             this.hide();
 
-        // clean up everthing
-        this.lottery = null;
-        this.message = "";
-        this.showMsg = false;
+        // // clean up everthing
+        // this.lottery = null;
+        // this.message = "";
+        // this.showMsg = false;
     }
 
     // --------------------------------------------------------------------------------------------------------------
     private hide() {
+
+        // hide everything from screen
         this.imgSrc = null;
         this.showDistractor = false;
         this.showWheelOfFortune = false;
         this.showCardsDraw = false;
 
+        // clean up everything
+        this.lottery = null;
+        this.message = "";
+        this.showMsg = false;
+
+        // show reward distractor on every promotion
+        if (this.promotion)
+            this.context.appComponent.setEmoState(5);
+
+        this.promotion = false;
     }
 }

@@ -105,5 +105,6 @@ export const LANG_DE_TRANS = {
     'drawing-cards.explanation': '<brak tłumaczenia>',
 
     'edu.want-a-distractor': '<brak tłumaczenia>',
-    'edu.sth-for-you': '<brak tłumaczenia>'
+    'edu.sth-for-you': '<brak tłumaczenia>',
+    'edu.promotion-reward': '<brak tłumaczenia>'
 };

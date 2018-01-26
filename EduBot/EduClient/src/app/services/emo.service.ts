@@ -67,7 +67,7 @@ export class EmoService {
             this.http.post<Distractor>(this.emoPath, pic, true)
                 .subscribe(distractor => {
                     if (distractor != null) {
-                        this.edu.serverWantsToDistract(distractor);
+                        this.edu.serverWantsToDistract(distractor, "");
                     }
                 });
         }

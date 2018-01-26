@@ -39,12 +39,12 @@ export class EduService {
      * Before doing so picks appropriate moment, so as not to get in the way of whatever the 
      * student is actually dealing with.
      */
-    serverWantsToDistract(distractor: Distractor) {
+    serverWantsToDistract(distractor: Distractor, msg: string) {
 
         // if it's 'reward' distractor - let the user decide wheteher to show the distractor now
         let showDistractor = true;
-        if (!Distractors.obligatory(distractor))
-            this.msgService.confirm('edu.want-a-distractor', 'edu.sth-for-you')
+        if (!Distractors.obligatory(distractor) || msg != "")
+            this.msgService.confirm(msg != "" ? msg : 'edu.want-a-distractor', 'edu.sth-for-you')
                 .then(decision => {
                     if (decision) this.distractorService.show(distractor);
                 });

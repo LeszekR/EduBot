@@ -521,9 +521,6 @@ namespace EduApi.Services {
 
         // ---------------------------------------------------------------------------------------------
         public static int SortModules(edumodule a, edumodule b) {
-            int nic;
-            if ((a.group_position == 130 || a.group_position == 131) && (b.group_position == 130 || b.group_position == 131))
-                nic = 9;
             if (a.group_position != b.group_position)
                 return a.group_position > b.group_position ? 1 : -1;
             if (a.id == b.id)

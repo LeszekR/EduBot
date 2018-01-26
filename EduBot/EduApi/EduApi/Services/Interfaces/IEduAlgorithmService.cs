@@ -39,7 +39,7 @@ namespace EduApi.Services.Interfaces {
          *    po aktualnie wyświetlanym
          * 4. Wysyła wybrany moduł do frontu
          */
-        ModuleAndDistractorDTO NextModule(int userId, int currentModuleId);
+        ModuleAndDistractorDTO NextModule(int userId, int currentModuleId, List<Pad> lastEmoStates);
 
         // ---------------------------------------------------------------------------------------------
         /* Wysyła do frontu moduł znajdujący się w kolejności przed

@@ -119,12 +119,158 @@ namespace EduApi.Services {
                 return null;
             }
 
+            EmoState emoStateNow = GetCurrentEmoState(lastEmoStates);
 
+
+
+            // wybór DYSTRAKTORA ......................................................
+            if (emoStateNow == EmoState.UNDEFINED || emoStateNow == EmoState.OK)
+                return null;
+
+            DistractorType distrType;
+            if (emoStateNow == EmoState.BORED)
+                distrType = DistractorType.KICK;
+            else
+                distrType = DistractorType.REWARD;
+
+            var distractor = _distractorService.NextDistractor(userId, distrType);
+
+
+            // logging current emo-states
+            string states = "";
+            lastEmoStates.ForEach(delegate (Pad pad) { states += pad.state + ","; });
+            _logger.Info("User: " + userId + "|" + "Providing a \"" + distrType + "\" distractor for user with last emotional states: " + states);
+
+
+            return DistractorMapper.GetDTO(distractor);
+        }
+
+        // ---------------------------------------------------------------------------------------------
+        public List<ModuleDTO> ExplainModule(int userId, int moduleId) {
+
+            var user = _userService.GetUserEntity(userId);
+            var children = _moduleService.SelectChildren(moduleId);
+            List<edumodule> newModules = children.Where(child => !user.edumodule.Contains(child)).ToList();
+
+            if (newModules.Count() == 0)
+                return null;
+
+            // Zapamiętanie nowych modułów na liście odwiedzonych przez użytkownika
+            foreach (var child in newModules)
+                child.user.Add(user);
+            _moduleRepository.SaveChanges();
+            _logger.Debug("User (" + userId + ") asked for module explanation: " + moduleId);
+
+            // Przekazanie listy modułów wyjaśniających moduł nadrzędny
+            return newModules.GetSimpleDTOList();
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
+        public ModuleAndDistractorDTO PrevModule(int userId, int currentModuleId) {
+
+            user user = _userService.GetUserEntity(userId);
+            distractor newDistractor = null;
+
+            // pobranie listy modułów dotychczas wysłanych do tego użytkownika
+            List<edumodule> prevModules = user.edumodule.ToList();
+            ModuleService.SortGroupPosition(ref prevModules);
+
+            // ustalenie pozycji aktualnego modułu na liście obejrzanych modułów
+            int idx = prevModules.FindIndex(mod => mod.id == currentModuleId);
+
+            if (idx > 0)
+                return new ModuleAndDistractorDTO() {
+                    module = _moduleService.GetDTOWithQuestions(prevModules[idx - 1], userId),
+                    distractor = newDistractor == null ? null : DistractorMapper.GetDTO(newDistractor)
+                };
+
+            return null;
+        }
+
+
+        // ---------------------------------------------------------------------------------------------
+        public ModuleAndDistractorDTO NextModule(int userId, int currentModuleId, List<Pad> lastEmoStates) {
+
+            edumodule newModule;
+            distractor newDistractor = null;
+            user user = _userService.GetUserEntity(userId);
+
+
+            // pobranie listy modułów dotychczas wysłanych do tego użytkownika
+            List<edumodule> prevModules = user.edumodule.ToList();
+            ModuleService.SortGroupPosition(ref prevModules);
+
+
+            // jeśli kolejny moduł będzie wysłany po raz pierwszy - zostanie 
+            // dopisany do modułów tego użytkownika
+            var addToUserModules = true;
+
+
+            // To jest PIERWSZY moduł pobierany przez tego użytkownika
+            if (prevModules.Count() == 0)
+                newModule = _moduleRepository.Get(1);
+
+
+            // To już nie pierwszy lecz KOLEJNY moduł
+            else {
+
+                var difficultyAndDistractor = PickNextDiffAndDistract(userId, lastEmoStates);
+
+                // ustalenie pozycji aktualnego modułu na liście obejrzanych modułów
+                int idx = prevModules.FindIndex(mod => mod.id == currentModuleId);
+
+
+                // aktualnie użytkownik ogląda któryś z wczesniej pobranych 
+                // => pobranie następnego, który oglądał po aktualnym
+                if (idx < prevModules.Count() - 1 && idx > -1) {
+                    newModule = prevModules[idx + 1];
+                    addToUserModules = false;
+                }
+
+                // aktualnie użytkownik ogląda ostatni z pobranych =>
+                // dostosowanie trudności do stanu emocjonalnego i dotychczasowych wyników użytkownika
+                else {
+                    var nextDifficulty = difficultyAndDistractor.Item1;
+                    newModule = PickNextModule(currentModuleId, nextDifficulty, userId);
+                }
+
+                // pobranie następnego dystraktora (distractorService sprawdzi czy już można)
+                var nextDistractorType = difficultyAndDistractor.Item2;
+                newDistractor = _distractorService.NextDistractor(userId, nextDistractorType);
+            }
+
+            // zapisanie kolejnego modułu na liście wysłanych użytkownikowi
+            // oraz zapamiętanie nowego ostatniego modułu użytkownika
+            if (addToUserModules && newModule != null) {
+                user.edumodule.Add(newModule);
+                user.last_module = newModule.id;
+                _userService.SaveChanges();
+            }
+
+
+            return new ModuleAndDistractorDTO() {
+                module = newModule == null ? null : _moduleService.GetDTOWithQuestions(newModule, userId),
+                distractor = newDistractor == null ? null : DistractorMapper.GetDTO(newDistractor)
+            };
+        }
+
+
+        // PRIVATE
+        // =============================================================================================
+        private static EmoState GetCurrentEmoState(List<Pad> lastEmoStates) {
 
             // ustalenie STANU EMOCJONALNEGO ..........................................
             // na podstawie zapamiętanych ostanich pięciu
             // (stan 4 - ostatni, stan 0 - najstarszy)
             EmoState emoStateNow = EmoState.UNDEFINED;
+
+
+            // jeszcze nie ma wystarczającej liczby zdjęć
+            if (lastEmoStates.Count() < 5)
+                return emoStateNow;
+
+
             var keepLooking = true;
 
 
@@ -207,161 +353,8 @@ namespace EduApi.Services {
                 emoStateNow = EmoState.UNDEFINED;
 
 
-
-            // wybór DYSTRAKTORA ......................................................
-            if (emoStateNow == EmoState.UNDEFINED || emoStateNow == EmoState.OK)
-                return null;
-
-            DistractorType distrType;
-            if (emoStateNow == EmoState.BORED)
-                distrType = DistractorType.KICK;
-            else
-                distrType = DistractorType.REWARD;
-
-            var distractor = _distractorService.NextDistractor(userId, distrType);
-
-            
-            // logging current emo-states
-            string states = "";
-            lastEmoStates.ForEach(delegate (Pad pad) { states += pad.state + ",";});
-            _logger.Info("User: " + userId + "|" + "Providing a \"" + distrType + "\" distractor for user with last emotional states: " + states);
-
-
-            return DistractorMapper.GetDTO(distractor);
+            return emoStateNow;
         }
-
-
-        // ---------------------------------------------------------------------------------------------
-        public List<ModuleDTO> ExplainModule(int userId, int moduleId) {
-
-            var user = _userService.GetUserEntity(userId);
-            var children = _moduleService.SelectChildren(moduleId);
-            List<edumodule> newModules = children.Where(child => !user.edumodule.Contains(child)).ToList();
-
-            if (newModules.Count() == 0)
-                return null;
-
-            // Zapamiętanie nowych modułów na liście odwiedzonych przez użytkownika
-            foreach (var child in newModules)
-                child.user.Add(user);
-            _moduleRepository.SaveChanges();
-            _logger.Debug("User (" + userId + ") asked for module explanation: " + moduleId);
-
-            // Przekazanie listy modułów wyjaśniających moduł nadrzędny
-            return newModules.GetSimpleDTOList();
-        }
-
-
-        // ---------------------------------------------------------------------------------------------
-        public ModuleAndDistractorDTO PrevModule(int userId, int currentModuleId) {
-
-            user user = _userService.GetUserEntity(userId);
-            distractor newDistractor = null;
-
-            // pobranie listy modułów dotychczas wysłanych do tego użytkownika
-            List<edumodule> prevModules = user.edumodule.ToList();
-            ModuleService.SortGroupPosition(ref prevModules);
-
-            // ustalenie pozycji aktualnego modułu na liście obejrzanych modułów
-            int idx = prevModules.FindIndex(mod => mod.id == currentModuleId);
-
-            if (idx > 0)
-                return new ModuleAndDistractorDTO() {
-                    module = _moduleService.GetDTOWithQuestions(prevModules[idx - 1], userId),
-                    distractor = newDistractor == null ? null : DistractorMapper.GetDTO(newDistractor)
-                };
-
-            return null;
-        }
-
-
-        // ---------------------------------------------------------------------------------------------
-        public ModuleAndDistractorDTO NextModule(int userId, int currentModuleId) {
-
-            edumodule newModule;
-            distractor newDistractor = null;
-            user user = _userService.GetUserEntity(userId);
-
-
-            // pobranie listy modułów dotychczas wysłanych do tego użytkownika
-            List<edumodule> prevModules = user.edumodule.ToList();
-            ModuleService.SortGroupPosition(ref prevModules);
-
-
-            // jeśli kolejny moduł będzie wysłany po raz pierwszy - zostanie 
-            // dopisany do modułów tego użytkownika
-            var addToUserModules = true;
-
-
-            // To jest PIERWSZY moduł pobierany przez tego użytkownika
-            if (prevModules.Count() == 0)
-                newModule = _moduleRepository.Get(1);
-
-
-            // To już nie pierwszy lecz KOLEJNY moduł
-            else {
-
-                var difficultyAndDistractor = PickNextDiffAndDistract(userId);
-
-                // ustalenie pozycji aktualnego modułu na liście obejrzanych modułów
-                int idx = prevModules.FindIndex(mod => mod.id == currentModuleId);
-
-
-                // aktualnie użytkownik ogląda któryś z wczesniej pobranych 
-                // => pobranie następnego, który oglądał po aktualnym
-                if (idx < prevModules.Count() - 1 && idx > -1) {
-                    newModule = prevModules[idx + 1];
-                    addToUserModules = false;
-                }
-
-                // aktualnie użytkownik ogląda ostatni z pobranych =>
-                // dostosowanie trudności do stanu emocjonalnego i dotychczasowych wyników użytkownika
-                else {
-                    var nextDifficulty = difficultyAndDistractor.Item1;
-                    newModule = PickNextModule(currentModuleId, nextDifficulty, userId);
-                }
-
-                // pobranie następnego dystraktora (distractorService sprawdzi czy już można)
-                var nextDistractorType = difficultyAndDistractor.Item2;
-                newDistractor = _distractorService.NextDistractor(userId, nextDistractorType);
-            }
-
-            // zapisanie kolejnego modułu na liście wysłanych użytkownikowi
-            // oraz zapamiętanie nowego ostatniego modułu użytkownika
-            if (addToUserModules && newModule != null) {
-                user.edumodule.Add(newModule);
-                user.last_module = newModule.id;
-                _userService.SaveChanges();
-            }
-
-
-            return new ModuleAndDistractorDTO() {
-                module = newModule == null ? null : _moduleService.GetDTOWithQuestions(newModule, userId),
-                distractor = newDistractor == null ? null : DistractorMapper.GetDTO(newDistractor)
-            };
-        }
-
-
-        // PRIVATE
-        // =============================================================================================
-        ///* specjalny dystraktor jeśli saper dostaje awans */
-        //private DistractorDTO GamePromotionDistractor(int userId, ref user user) {
-
-        //    DistractorDTO newDistractor = null;
-
-        //    if (user.user_game.promotion > 0)
-        //        newDistractor = new DistractorDTO() { distr_content = "promotion_01" };
-
-        //    else if (user.user_game.promotion < 0)
-        //        newDistractor = new DistractorDTO() { distr_content = "degradation_01" };
-
-        //    if (user.user_game.promotion != 0) {
-        //        _userService.GetUserEntity(userId).user_game.promotion = 0;
-        //        _userService.SaveChanges();
-        //    }
-
-        //    return newDistractor;
-        //}
 
 
         // ---------------------------------------------------------------------------------------------
@@ -370,10 +363,11 @@ namespace EduApi.Services {
           * 3. decyzja czy następny moduł ma być łatwiejszy, trudniejszy, czy taki sam
           *    plus typ dystraktora do wysłania, jeżeli ma być wysłany
           */
-        private Tuple<ChangeDifficulty, DistractorType> PickNextDiffAndDistract(int userId) {
+        private Tuple<ChangeDifficulty, DistractorType> PickNextDiffAndDistract(int userId, List<Pad> lastEmoStates) {
 
-            // TODO: sprawdzenie stanu emocjonalnego
-            var emoState = EmoServiceController._emoState;
+            // sprawdzenie stanu emocjonalnego
+            //var emoState = EmoServiceController._emoState;
+            var emoState = GetCurrentEmoState(lastEmoStates);
 
             // próg wyników, powyżej którego można utrudnić materiał
             var resultsTresholdStr = ConfigurationManager.AppSettings["resultsDiffTreshold"];

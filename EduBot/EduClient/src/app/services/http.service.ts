@@ -39,8 +39,9 @@ export class HttpService extends Http {
     }
 
     // --------------------------------------------------------------------------------------------------------------
-    get<T>(path: string): Observable<T> {
+    get<T>(path: string, withCredentials: boolean = false): Observable<T> {
         const options: RequestOptionsArgs = this.setHeaders({});
+        options.withCredentials = withCredentials;
         return super.get(HttpService.API_HOST + path, options)
             .map((res: Response) => res.json())
             .catch(error => this.catchError(error));

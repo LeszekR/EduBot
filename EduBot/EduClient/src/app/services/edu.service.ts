@@ -74,6 +74,6 @@ export class EduService {
     // --------------------------------------------------------------------------------------------------------------
     nextModule(currentModuleId: number): Observable<ModulDistracDTO> {
         let moduleId = currentModuleId == undefined ? 0 : currentModuleId;
-        return this.http.get<ModulDistracDTO>(this.eduPath + '/nextmodule/' + moduleId);
+        return this.http.get<ModulDistracDTO>(this.eduPath + '/nextmodule/' + moduleId, true);
     }
 }

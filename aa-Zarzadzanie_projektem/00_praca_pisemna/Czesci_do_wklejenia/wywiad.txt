@@ -1,0 +1,33 @@
+
+		
+		
+		Patrycja - 26
+		
+czy użytkownik chce dalej używać -     tak, użytkownik jest ciekawy
+czy pojawiło się koło fortuny - nie
+czy interfejs jest intuicyjny - ok, ale brakuje przy pierwszej interakcji podpowiedzi 
+czy łatwo znaleść wszyskie opcje - raczej tak
+czy instrukcja była jasna - tak (ale nie była przeczytana do końca)
+czy interfejs był zrozumiały - przy starcie aplikacji słabo oznakowany login, przy pierwszym logowaniu powinny być informacje co robią przyciski, krótko dać znać czym jest pole minowe w prawym górnym rogu, po sończonym module podpowiedź żeby kliknąć dalej
+najlepsza najgorsza cecha aplikacji	- najgorsza - niejasne pytania, najlepsza - grafika
+czy wiedziałaś jak otworzyć poprzedni moduł - bez problemu
+czy chciałby się uczyc przy pomocy tej aplikacji - tak
+czy wszystko jest zrozumiałea 	- jest ok
+czy program się zawieszał - nie
+co sugerujesz poprawić - może troche kolory, podpowiedzi przy kodowaniu, czesem niejasne pytania zamknięte
+
+
+		Albert - 26
+
+czy użytkownik chce dalej używać -   raczej takk
+czy interfejs jest intuicyjny - tak
+czy łatwo znaleść wszyskie opcje - tak, jedyny problem pojawił się przy oknie kodowania. Po pierwszej interakcji z tym oknem powinna być podpowiedź
+czy instrukcja była jasna - tak
+czy wiedziałaś jak otworzyć poprzedni moduł - bez problemu
+czy chciałby się uczyc przy pomocy tej aplikacji - tak
+czy wszystko jest zrozumiałea 	- tak
+czy program się zawieszał - nie
+co się podobało - fajnie że jest fabuła, klimatyczne obrazki
+co sugerujesz poprawić - trochę grafikę ewentualnie (nie wliczając w to obrazków) (moja uwaga - Albert gra sporo w gry więc jest wyczulony na płynny wygląd)
+
+chciałby widzieć jaki ma stan emocjonalny (moim zdaniem nie powinniśmy pokazywać, bo użytkownicy bardziej byliby skupieni na mimice twarzy niż programi, ewentualnie moglibyśmy im na koniec pokazać na wykresie)
